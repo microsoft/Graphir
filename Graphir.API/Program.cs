@@ -9,8 +9,6 @@ builder.Services
 
 var app = builder.Build();
 
-//app.MapGet("/", () => "Hello World!");
-
 app
     .UseRouting()
     .UseEndpoints(endpoints =>
