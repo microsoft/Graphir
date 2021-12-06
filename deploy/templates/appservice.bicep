@@ -3,7 +3,7 @@ param appservice_name string = '${uniqueString(resourceGroup().id)}-api'
 param location string = resourceGroup().location
 param sku string = 'F1'
 
-resource serverFarms 'Microsoft.Web/serverfarms@2021-02-01' = {
+resource serverFarms 'Microsoft.Web/serverfarms@2021-01-15' = {
   name: serverfarm_name
   location: resourceGroup().location
   sku: {
@@ -12,11 +12,16 @@ resource serverFarms 'Microsoft.Web/serverfarms@2021-02-01' = {
   kind: 'app'
 }
 
-resource GRAPHIR_API 'Microsoft.Web/sites@2021-02-01' = {
+resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
   kind: 'app'
   name: appservice_name
   location: location
   properties: {
     serverFarmId: serverFarms.id
+    siteConfig: {
+      netFrameworkVersion: 'v6.0'
+    }
   }
 }
+
+output appServiceAppName string = graphirApi.name

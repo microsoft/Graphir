@@ -12,3 +12,5 @@ module appService 'appservice.bicep' = {
     sku: sku
   }
 }
+
+output appServiceAppName string = appService.outputs.appServiceAppName
