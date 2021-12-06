@@ -1,4 +1,4 @@
-using Graphir.API.Demo;
+using Graphir.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
