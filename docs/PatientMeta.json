@@ -1,0 +1,419 @@
+{
+    "type": "Patient",
+    "profile": "http://hl7.org/fhir/StructureDefinition/Patient",
+    "interaction": [
+        {
+            "code": "create"
+        },
+        {
+            "code": "read"
+        },
+        {
+            "code": "vread"
+        },
+        {
+            "code": "history-type"
+        },
+        {
+            "code": "history-instance"
+        },
+        {
+            "code": "update"
+        },
+        {
+            "code": "patch"
+        },
+        {
+            "code": "delete"
+        },
+        {
+            "code": "search-type"
+        }
+    ],
+    "versioning": "versioned",
+    "readHistory": true,
+    "updateCreate": true,
+    "conditionalCreate": true,
+    "conditionalUpdate": true,
+    "conditionalDelete": "single",
+    "searchInclude": [
+        "Patient:organization",
+        "Patient:link",
+        "Patient:general-practitioner",
+        "*"
+    ],
+    "searchRevInclude": [
+        "Account:subject",
+        "Account:patient",
+        "AdverseEvent:recorder",
+        "AdverseEvent:subject",
+        "AllergyIntolerance:asserter",
+        "AllergyIntolerance:recorder",
+        "AllergyIntolerance:patient",
+        "Appointment:actor",
+        "Appointment:supporting-info",
+        "Appointment:patient",
+        "AppointmentResponse:actor",
+        "AppointmentResponse:patient",
+        "AuditEvent:source",
+        "AuditEvent:agent",
+        "AuditEvent:patient",
+        "AuditEvent:entity",
+        "Basic:author",
+        "Basic:subject",
+        "Basic:patient",
+        "BodyStructure:patient",
+        "CarePlan:subject",
+        "CarePlan:performer",
+        "CarePlan:patient",
+        "CareTeam:participant",
+        "CareTeam:subject",
+        "CareTeam:patient",
+        "ChargeItem:performer-actor",
+        "ChargeItem:subject",
+        "ChargeItem:patient",
+        "ChargeItem:enterer",
+        "Claim:payee",
+        "Claim:patient",
+        "ClaimResponse:patient",
+        "ClinicalImpression:supporting-info",
+        "ClinicalImpression:subject",
+        "ClinicalImpression:patient",
+        "Communication:sender",
+        "Communication:part-of",
+        "Communication:subject",
+        "Communication:recipient",
+        "Communication:patient",
+        "Communication:based-on",
+        "CommunicationRequest:sender",
+        "CommunicationRequest:subject",
+        "CommunicationRequest:recipient",
+        "CommunicationRequest:requester",
+        "CommunicationRequest:patient",
+        "CommunicationRequest:based-on",
+        "Composition:author",
+        "Composition:subject",
+        "Composition:entry",
+        "Composition:attester",
+        "Composition:patient",
+        "Condition:asserter",
+        "Condition:subject",
+        "Condition:patient",
+        "Condition:evidence-detail",
+        "Consent:actor",
+        "Consent:patient",
+        "Consent:data",
+        "Consent:consentor",
+        "Contract:signer",
+        "Contract:subject",
+        "Contract:patient",
+        "Coverage:policy-holder",
+        "Coverage:subscriber",
+        "Coverage:beneficiary",
+        "Coverage:payor",
+        "Coverage:patient",
+        "CoverageEligibilityRequest:patient",
+        "CoverageEligibilityResponse:patient",
+        "DetectedIssue:implicated",
+        "DetectedIssue:patient",
+        "Device:patient",
+        "DeviceRequest:prior-request",
+        "DeviceRequest:subject",
+        "DeviceRequest:performer",
+        "DeviceRequest:patient",
+        "DeviceRequest:based-on",
+        "DeviceUseStatement:subject",
+        "DeviceUseStatement:patient",
+        "DiagnosticReport:subject",
+        "DiagnosticReport:patient",
+        "DocumentManifest:author",
+        "DocumentManifest:subject",
+        "DocumentManifest:related-ref",
+        "DocumentManifest:recipient",
+        "DocumentManifest:patient",
+        "DocumentManifest:item",
+        "DocumentReference:related",
+        "DocumentReference:author",
+        "DocumentReference:subject",
+        "DocumentReference:patient",
+        "Encounter:patient",
+        "Encounter:subject",
+        "EnrollmentRequest:subject",
+        "EnrollmentRequest:patient",
+        "EpisodeOfCare:patient",
+        "ExplanationOfBenefit:payee",
+        "ExplanationOfBenefit:patient",
+        "FamilyMemberHistory:patient",
+        "Flag:author",
+        "Flag:subject",
+        "Flag:patient",
+        "Goal:subject",
+        "Goal:patient",
+        "Group:member",
+        "GuidanceResponse:subject",
+        "GuidanceResponse:patient",
+        "ImagingStudy:subject",
+        "ImagingStudy:performer",
+        "ImagingStudy:patient",
+        "Immunization:patient",
+        "ImmunizationEvaluation:patient",
+        "ImmunizationRecommendation:patient",
+        "ImmunizationRecommendation:information",
+        "ImplementationGuide:resource",
+        "Invoice:participant",
+        "Invoice:subject",
+        "Invoice:recipient",
+        "Invoice:patient",
+        "Linkage:source",
+        "Linkage:item",
+        "List:source",
+        "List:subject",
+        "List:patient",
+        "List:item",
+        "MeasureReport:evaluated-resource",
+        "MeasureReport:subject",
+        "MeasureReport:patient",
+        "Media:operator",
+        "Media:subject",
+        "Media:patient",
+        "MedicationAdministration:subject",
+        "MedicationAdministration:performer",
+        "MedicationAdministration:patient",
+        "MedicationDispense:receiver",
+        "MedicationDispense:subject",
+        "MedicationDispense:performer",
+        "MedicationDispense:patient",
+        "MedicationRequest:subject",
+        "MedicationRequest:intended-performer",
+        "MedicationRequest:requester",
+        "MedicationRequest:patient",
+        "MedicationStatement:source",
+        "MedicationStatement:subject",
+        "MedicationStatement:patient",
+        "MessageHeader:focus",
+        "MolecularSequence:patient",
+        "NutritionOrder:patient",
+        "Observation:focus",
+        "Observation:patient",
+        "Observation:performer",
+        "Observation:subject",
+        "Patient:link",
+        "PaymentNotice:request",
+        "PaymentNotice:response",
+        "Person:link",
+        "Person:patient",
+        "Procedure:subject",
+        "Procedure:performer",
+        "Procedure:patient",
+        "Provenance:target",
+        "Provenance:agent",
+        "Provenance:entity",
+        "Provenance:patient",
+        "QuestionnaireResponse:source",
+        "QuestionnaireResponse:author",
+        "QuestionnaireResponse:subject",
+        "QuestionnaireResponse:patient",
+        "RelatedPerson:patient",
+        "RequestGroup:participant",
+        "RequestGroup:subject",
+        "RequestGroup:patient",
+        "ResearchSubject:individual",
+        "ResearchSubject:patient",
+        "RiskAssessment:subject",
+        "RiskAssessment:patient",
+        "Schedule:actor",
+        "ServiceRequest:subject",
+        "ServiceRequest:performer",
+        "ServiceRequest:requester",
+        "ServiceRequest:patient",
+        "Specimen:subject",
+        "Specimen:patient",
+        "SupplyDelivery:patient",
+        "SupplyRequest:subject",
+        "SupplyRequest:requester",
+        "Task:focus",
+        "Task:owner",
+        "Task:subject",
+        "Task:requester",
+        "Task:patient",
+        "Task:based-on",
+        "VerificationResult:target",
+        "VisionPrescription:patient"
+    ],
+    "searchParam": [
+        {
+            "name": "address",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-address",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A server defined search that may match any of the string fields in the Address, including line, city, district, state, country, postalCode, and/or text\r\n* [Person](person.html): A server defined search that may match any of the string fields in the Address, including line, city, district, state, country, postalCode, and/or text\r\n* [Practitioner](practitioner.html): A server defined search that may match any of the string fields in the Address, including line, city, district, state, country, postalCode, and/or text\r\n* [RelatedPerson](relatedperson.html): A server defined search that may match any of the string fields in the Address, including line, city, district, state, country, postalCode, and/or text"
+        },
+        {
+            "name": "identifier",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-identifier",
+            "type": "token",
+            "documentation": "A patient identifier"
+        },
+        {
+            "name": "_source",
+            "definition": "http://hl7.org/fhir/SearchParameter/Resource-source",
+            "type": "uri",
+            "documentation": "Identifies where the resource comes from"
+        },
+        {
+            "name": "organization",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-organization",
+            "type": "reference",
+            "documentation": "The organization that is the custodian of the patient record"
+        },
+        {
+            "name": "phone",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-phone",
+            "type": "token",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in a phone contact\r\n* [Person](person.html): A value in a phone contact\r\n* [Practitioner](practitioner.html): A value in a phone contact\r\n* [PractitionerRole](practitionerrole.html): A value in a phone contact\r\n* [RelatedPerson](relatedperson.html): A value in a phone contact"
+        },
+        {
+            "name": "_lastUpdated",
+            "definition": "http://hl7.org/fhir/SearchParameter/Resource-lastUpdated",
+            "type": "date",
+            "documentation": "When the resource version last changed"
+        },
+        {
+            "name": "telecom",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-telecom",
+            "type": "token",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): The value in any kind of telecom details of the patient\r\n* [Person](person.html): The value in any kind of contact\r\n* [Practitioner](practitioner.html): The value in any kind of contact\r\n* [PractitionerRole](practitionerrole.html): The value in any kind of contact\r\n* [RelatedPerson](relatedperson.html): The value in any kind of contact"
+        },
+        {
+            "name": "address-city",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-address-city",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A city specified in an address\r\n* [Person](person.html): A city specified in an address\r\n* [Practitioner](practitioner.html): A city specified in an address\r\n* [RelatedPerson](relatedperson.html): A city specified in an address"
+        },
+        {
+            "name": "birthdate",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-birthdate",
+            "type": "date",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): The patient's date of birth\r\n* [Person](person.html): The person's date of birth\r\n* [RelatedPerson](relatedperson.html): The Related Person's date of birth"
+        },
+        {
+            "name": "address-postalcode",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-address-postalcode",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A postalCode specified in an address\r\n* [Person](person.html): A postal code specified in an address\r\n* [Practitioner](practitioner.html): A postalCode specified in an address\r\n* [RelatedPerson](relatedperson.html): A postal code specified in an address"
+        },
+        {
+            "name": "_id",
+            "definition": "http://hl7.org/fhir/SearchParameter/Resource-id",
+            "type": "token",
+            "documentation": "Logical id of this artifact"
+        },
+        {
+            "name": "family",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-family",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A portion of the family name of the patient\r\n* [Practitioner](practitioner.html): A portion of the family name"
+        },
+        {
+            "name": "_security",
+            "definition": "http://hl7.org/fhir/SearchParameter/Resource-security",
+            "type": "token",
+            "documentation": "Security Labels applied to this resource"
+        },
+        {
+            "name": "phonetic",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-phonetic",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A portion of either family or given name using some kind of phonetic matching algorithm\r\n* [Person](person.html): A portion of name using some kind of phonetic matching algorithm\r\n* [Practitioner](practitioner.html): A portion of either family or given name using some kind of phonetic matching algorithm\r\n* [RelatedPerson](relatedperson.html): A portion of name using some kind of phonetic matching algorithm"
+        },
+        {
+            "name": "name",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-name",
+            "type": "string",
+            "documentation": "A server defined search that may match any of the string fields in the HumanName, including family, give, prefix, suffix, suffix, and/or text"
+        },
+        {
+            "name": "death-date",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-death-date",
+            "type": "date",
+            "documentation": "The date of death has been provided and satisfies this search value"
+        },
+        {
+            "name": "gender",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-gender",
+            "type": "token",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): Gender of the patient\r\n* [Person](person.html): The gender of the person\r\n* [Practitioner](practitioner.html): Gender of the practitioner\r\n* [RelatedPerson](relatedperson.html): Gender of the related person"
+        },
+        {
+            "name": "deceased",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-deceased",
+            "type": "token",
+            "documentation": "This patient has been marked as deceased, or as a death date entered"
+        },
+        {
+            "name": "language",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-language",
+            "type": "token",
+            "documentation": "Language code (irrespective of use value)"
+        },
+        {
+            "name": "active",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-active",
+            "type": "token",
+            "documentation": "Whether the patient record is active"
+        },
+        {
+            "name": "link",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-link",
+            "type": "reference",
+            "documentation": "All patients linked to the given patient"
+        },
+        {
+            "name": "given",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-given",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A portion of the given name of the patient\r\n* [Practitioner](practitioner.html): A portion of the given name"
+        },
+        {
+            "name": "address-use",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-address-use",
+            "type": "token",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A use code specified in an address\r\n* [Person](person.html): A use code specified in an address\r\n* [Practitioner](practitioner.html): A use code specified in an address\r\n* [RelatedPerson](relatedperson.html): A use code specified in an address"
+        },
+        {
+            "name": "_tag",
+            "definition": "http://hl7.org/fhir/SearchParameter/Resource-tag",
+            "type": "token",
+            "documentation": "Tags applied to this resource"
+        },
+        {
+            "name": "_profile",
+            "definition": "http://hl7.org/fhir/SearchParameter/Resource-profile",
+            "type": "uri",
+            "documentation": "Profiles this resource claims to conform to"
+        },
+        {
+            "name": "address-state",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-address-state",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A state specified in an address\r\n* [Person](person.html): A state specified in an address\r\n* [Practitioner](practitioner.html): A state specified in an address\r\n* [RelatedPerson](relatedperson.html): A state specified in an address"
+        },
+        {
+            "name": "email",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-email",
+            "type": "token",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A value in an email contact\r\n* [Person](person.html): A value in an email contact\r\n* [Practitioner](practitioner.html): A value in an email contact\r\n* [PractitionerRole](practitionerrole.html): A value in an email contact\r\n* [RelatedPerson](relatedperson.html): A value in an email contact"
+        },
+        {
+            "name": "general-practitioner",
+            "definition": "http://hl7.org/fhir/SearchParameter/Patient-general-practitioner",
+            "type": "reference",
+            "documentation": "Patient's nominated general practitioner, not the organization that manages the record"
+        },
+        {
+            "name": "address-country",
+            "definition": "http://hl7.org/fhir/SearchParameter/individual-address-country",
+            "type": "string",
+            "documentation": "Multiple Resources: \r\n\r\n* [Patient](patient.html): A country specified in an address\r\n* [Person](person.html): A country specified in an address\r\n* [Practitioner](practitioner.html): A country specified in an address\r\n* [RelatedPerson](relatedperson.html): A country specified in an address"
+        }
+    ]
+}
