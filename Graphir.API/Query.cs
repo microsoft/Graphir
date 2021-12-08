@@ -17,15 +17,11 @@ namespace Graphir.API
 {
     public class Query
     {
-        private readonly ITokenAcquisition _token;
         private readonly FhirClient _fhirService;
-        private readonly FhirDataConnection _options;
 
-        public Query(ITokenAcquisition token, FhirClient fhirService, IOptions<FhirDataConnection> options)
+        public Query(FhirClient fhirService)
         {
-            _token = token;
             _fhirService = fhirService;
-            _options = options.Value;
         }
 
         public async Task<string> Meta()
@@ -40,15 +36,8 @@ namespace Graphir.API
             return principal.Identity.Name;
         }
 
-        public async Task<string> GetFhirToken()
-        {
-            var token = await GetToken();
-            return token;
-        }
-
         public async Task<IList<Patient>> GetPatients()
         {
-            var token = await GetToken();
             var bundle = await _fhirService.SearchAsync<Patient>(pageSize: 50);
             var result = new List<Patient>();
             while (bundle != null)
@@ -57,14 +46,7 @@ namespace Graphir.API
                 bundle = await _fhirService.ContinueAsync(bundle);
             }
             return result;
-        }
-
-        private async Task<string> GetToken()
-        {
-            var tokenResult = await _token.GetAccessTokenForUserAsync(new[] { _options.Scopes });
-            _fhirService.RequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult);
-            return tokenResult;
-        }
+        }        
 
     }    
 }

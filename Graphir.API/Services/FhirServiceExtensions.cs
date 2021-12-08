@@ -4,6 +4,8 @@ using Hl7.Fhir.Rest;
 using Graphir.API.Services;
 using Microsoft.AspNetCore.Authentication;
 using System;
+using Microsoft.Identity.Web;
+using System.Net.Http.Headers;
 
 internal static class FhirServiceExtensions
 {
@@ -11,15 +13,19 @@ internal static class FhirServiceExtensions
         this IServiceCollection services, Func<FhirDataConnection> connection)
     {
         var fhirData = connection.Invoke();
+        
         services.AddScoped(o =>
         {
             var settings = new FhirClientSettings
             {
                 PreferredFormat = ResourceFormat.Json,
                 PreferredReturn = Prefer.ReturnMinimal
-            };                        
-            
-            return new FhirClient(fhirData.BaseUrl, settings);
+            };
+            var fhirToken = o.GetRequiredService<ITokenAcquisition>().GetAccessTokenForUserAsync(new[] { fhirData.Scopes }).Result;
+
+            var client = new FhirClient(fhirData.BaseUrl, settings);
+            client.RequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fhirToken);
+            return client;
         });
 
         return services;
