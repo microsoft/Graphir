@@ -64,6 +64,7 @@ jobs:
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: ${{ env.AZURE_RESOURCE_GROUP }}
         template: ./deploy/templates/main.bicep  # Set this to the location of your template file
+        parameters: 'graphirAPIClientSecret=${{ secrets.GRAPHIR_CLIENTSECRET }}'
 
   deploy_webapp:
     name: Deploy HackAPI

@@ -2,6 +2,8 @@ param serverfarm_name string = '${uniqueString(resourceGroup().id)}-appsvc'
 param appservice_name string = '${uniqueString(resourceGroup().id)}-api'
 param location string = resourceGroup().location
 param sku string = 'F1'
+@secure()
+param clientsecret string
 
 resource serverFarms 'Microsoft.Web/serverfarms@2021-01-15' = {
   name: serverfarm_name
@@ -20,6 +22,12 @@ resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
     serverFarmId: serverFarms.id
     siteConfig: {
       netFrameworkVersion: 'v5.0'
+      appSettings: [
+        {
+          name: 'AzureAd:ClientSecret'
+          value: clientsecret
+        }
+      ]
     }
   }
 }
