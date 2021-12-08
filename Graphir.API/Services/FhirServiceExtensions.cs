@@ -21,10 +21,12 @@ internal static class FhirServiceExtensions
                 PreferredFormat = ResourceFormat.Json,
                 PreferredReturn = Prefer.ReturnMinimal
             };
-            var fhirToken = o.GetRequiredService<ITokenAcquisition>().GetAccessTokenForUserAsync(new[] { fhirData.Scopes }).Result;
 
-            var client = new FhirClient(fhirData.BaseUrl, settings);
-            client.RequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", fhirToken);
+            var handler = new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData);
+            handler.InnerHandler = new HttpClientHandler();
+
+            var client = new FhirClient(fhirData.BaseUrl, settings, handler);
+                        
             return client;
         });
 
