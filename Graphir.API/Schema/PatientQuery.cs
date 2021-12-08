@@ -16,22 +16,18 @@ namespace Graphir.API.Schema
 
     public class PatientQuery 
     {
-        private readonly ITokenAcquisition _token;
-        private readonly FhirClient _fhirService;
-        private readonly FhirDataConnection _options;
+       private readonly FhirClient _fhirService;
 
-        public PatientQuery(ITokenAcquisition token, FhirClient fhirService, IOptions<FhirDataConnection> options)
+        public PatientQuery(FhirClient fhirService)
         {
-            _token = token;
             _fhirService = fhirService;
-            _options = options.Value;
         }
 
         
-        public async Task<string> GetAllPatients()
+        public async Task<IList<Patient>> GetAllPatients()
         {
-            var ret = "patient";
-            return JsonConvert.SerializeObject(ret);
+            var patients = await GetPatientsAsync();
+            return patients;
         }
 
         public async Task<Patient> GetPatientByID(string id)
@@ -44,10 +40,10 @@ namespace Graphir.API.Schema
 
         
 
-        public async Task<string> GetPatientByName(string id)
+        public async Task<IList<Patient>> GetPatientByName(string firstname, string lastname)
         {
-            var ret = "patient";
-            return JsonConvert.SerializeObject(ret);
+            var ret = await GetAllPatients();
+            return ret;
         }
 
        

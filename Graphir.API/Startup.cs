@@ -44,7 +44,7 @@ namespace Graphir.API
                 return fhir;
             });
             services.AddScoped<Query>();
-
+            services.AddScoped<PatientQuery>();
             services
                 .AddGraphQLServer()
                 .AddAuthorization()
