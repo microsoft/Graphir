@@ -34,19 +34,7 @@ namespace Graphir.API
         public string GetMe(ClaimsPrincipal principal)
         {
             return principal.Identity.Name;
-        }
-
-        public async Task<IList<Patient>> GetPatients()
-        {
-            var bundle = await _fhirService.SearchAsync<Patient>(pageSize: 50);
-            var result = new List<Patient>();
-            while (bundle != null)
-            {
-                result.AddRange(bundle.Entry.Select(p => (Patient)p.Resource).ToList());
-                bundle = await _fhirService.ContinueAsync(bundle);
-            }
-            return result;
-        }        
+        }               
 
     }    
 }
