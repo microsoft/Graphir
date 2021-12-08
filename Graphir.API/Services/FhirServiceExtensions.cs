@@ -2,10 +2,8 @@
 using System.Net.Http;
 using Hl7.Fhir.Rest;
 using Graphir.API.Services;
-using Microsoft.AspNetCore.Authentication;
 using System;
 using Microsoft.Identity.Web;
-using System.Net.Http.Headers;
 
 internal static class FhirServiceExtensions
 {

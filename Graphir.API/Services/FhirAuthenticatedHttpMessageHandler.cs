@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
+﻿using Microsoft.Identity.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
