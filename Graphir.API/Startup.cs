@@ -49,6 +49,7 @@ namespace Graphir.API
                 .AddGraphQLServer()
                 .AddAuthorization()
                 .AddQueryType<Query>()
+                .AddTypeExtension<PatientQuery>()
                     .AddType<AttachmentType>()
                     .AddType<AddressType>()
                     .AddType<ContactPointType>()
