@@ -66,4 +66,54 @@ namespace Graphir.API.Schema
         }
     }
 
+    public class ContactPointType : ObjectType<ContactPoint>
+    {
+        protected override void Configure(IObjectTypeDescriptor<ContactPoint> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(c => c.System);
+            descriptor.Field(c => c.Value);
+            descriptor.Field(c => c.Use);
+            descriptor.Field(c => c.Rank);
+            descriptor.Field(c => c.Period);
+        }
+    }
+
+    public class AddressType : ObjectType<Address>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Address> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(a => a.Use);
+            descriptor.Field(a => a.Type);
+            descriptor.Field(a => a.Text);
+            descriptor.Field(a => a.Line);
+            descriptor.Field(a => a.City);
+            descriptor.Field(a => a.District);
+            descriptor.Field(a => a.State);
+            descriptor.Field(a => a.PostalCode);
+            descriptor.Field(a => a.Country);
+            descriptor.Field(a => a.Period);
+        }
+    }
+
+    public class AttachmentType : ObjectType<Attachment>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Attachment> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(a => a.ContentType);
+            descriptor.Field(a => a.Language);
+            descriptor.Field(a => a.Data);
+            descriptor.Field(a => a.Url);
+            descriptor.Field(a => a.Size);
+            descriptor.Field(a => a.Hash);
+            descriptor.Field(a => a.Title);
+            descriptor.Field(a => a.Creation);
+        }
+    }
+
 }

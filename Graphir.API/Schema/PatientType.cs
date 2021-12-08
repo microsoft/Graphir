@@ -21,27 +21,26 @@ namespace Graphir.API.Schema
                 .Name("gender");
 
             descriptor.Field(p => p.BirthDate);
+            descriptor.Field(p => p.Telecom);
+            descriptor.Field(p => p.Address);
+            descriptor.Field(p => p.MaritalStatus);
+            descriptor.Field(p => p.Photo);
 
-                
-/*
-implicitRules: uri _implicitRules: ElementBase
-text: Narrative
-contained: [Resource]
-        telecom:[ContactPoint]
-       birthDate: date _birthDate: ElementBase
-      deceasedBoolean: Boolean _deceasedBoolean: ElementBase
-     deceasedDateTime: dateTime _deceasedDateTime: ElementBase
-    address: [Address]
-        maritalStatus: CodeableConcept
-        multipleBirthBoolean: Boolean _multipleBirthBoolean: ElementBase
-       multipleBirthInteger: Int _multipleBirthInteger: ElementBase
-      photo: [Attachment]
-        contact:[PatientContact]
-        communication:[PatientCommunication]
-        generalPractitioner:[Reference]
-        managingOrganization: Reference
-        link: [PatientLink]
-*/
+
+            /*
+            implicitRules: uri _implicitRules: ElementBase
+            contained: [Resource]
+                  deceasedBoolean: Boolean _deceasedBoolean: ElementBase
+                 deceasedDateTime: dateTime _deceasedDateTime: ElementBase
+                    multipleBirthBoolean: Boolean _multipleBirthBoolean: ElementBase
+                   multipleBirthInteger: Int _multipleBirthInteger: ElementBase
+                  photo: [Attachment]
+                    contact:[PatientContact]
+                    communication:[PatientCommunication]
+                    generalPractitioner:[Reference]
+                    managingOrganization: Reference
+                    link: [PatientLink]
+            */
         }
     }
 
