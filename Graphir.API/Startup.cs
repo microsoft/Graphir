@@ -1,3 +1,4 @@
+using Graphir.API.Schema;
 using Graphir.API.Services;
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,6 +29,8 @@ namespace Graphir.API
                     .AllowAnyMethod()
                     .AllowAnyOrigin()));
 
+            services.Configure<FhirDataConnection>(Configuration.GetSection("FhirConnection"));
+
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration, "AzureAd")
                 .EnableTokenAcquisitionToCallDownstreamApi()
                     .AddDownstreamWebApi("FhirAPI", Configuration.GetSection("FhirConnection"))
@@ -45,7 +48,14 @@ namespace Graphir.API
             services
                 .AddGraphQLServer()
                 .AddAuthorization()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()
+                    .AddType<PeriodType>()
+                    .AddType<HumanNameType>()
+                    .AddType<CodingType>()
+                    .AddType<CodeableConceptType>()
+                    .AddType<IdentifierType>()
+                    .AddType<PatientType>()
+                ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
