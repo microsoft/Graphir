@@ -1,34 +1,20 @@
-using Graphir.API;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
-string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Configure services on the builder (ConfigureServices)
-builder.Services.AddCors(options =>
+namespace Graphir.API
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        builder =>
-        {
-            builder
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-        });
-});
-
-builder.Services
-    .AddGraphQLServer()
-    .AddQueryType<Query>();
-
-var app = builder.Build();
-
-app
-    .UseCors(MyAllowSpecificOrigins)
-    .UseRouting()
-    .UseEndpoints(endpoints =>
+    public class Program
     {
-        endpoints.MapGraphQL();
-    });
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
 
-app.Run();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
+}
