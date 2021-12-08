@@ -22,7 +22,8 @@ namespace Graphir.API
         public async Task<string> Meta()
         {
             var meta = await _fhirService.CapabilityStatementAsync();
-            return meta.ToString();
+
+            return JsonConvert.SerializeObject(meta);
         }
 
         public string GetMe(ClaimsPrincipal principal)
