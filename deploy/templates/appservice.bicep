@@ -19,7 +19,7 @@ resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
   properties: {
     serverFarmId: serverFarms.id
     siteConfig: {
-      netFrameworkVersion: 'v6.0'
+      netFrameworkVersion: 'v5.0'
     }
   }
 }
