@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.R4" Version="3.7.0" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.2" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.3.2" />
-    <PackageReference Include="HotChocolate.Data" Version="11.3.2" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.3.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.3.2" />
+    <PackageReference Include="HotChocolate.Data" Version="12.3.2" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.21.1" />
   </ItemGroup>
 

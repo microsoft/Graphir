@@ -34,14 +34,13 @@ namespace Graphir.API
                 .AddInMemoryTokenCaches();
             services.AddAuthorization();
 
-            services.AddAuthorization();
-
             services.AddFhirService(() =>
             {
                 var fhir = new FhirDataConnection();
                 Configuration.Bind("FhirConnection", fhir);
                 return fhir;
             });
+            services.AddScoped<Query>();
 
             services
                 .AddGraphQLServer()
