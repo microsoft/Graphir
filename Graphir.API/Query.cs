@@ -1,10 +1,40 @@
-﻿namespace Graphir.API
+﻿using Graphir.API.Services;
+using Hl7.Fhir.Rest;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Identity.Web;
+using Newtonsoft.Json;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+namespace Graphir.API
 {
     public class Query
     {
-        public string GetMeta()
+        private readonly ITokenAcquisition _token;
+        private readonly FhirClient _fhirService;
+
+        public Query(ITokenAcquisition token, FhirClient fhirService)
         {
-            return "hello meta";
+            _token = token;
+            _fhirService = fhirService;
         }
-    }
+
+        public async Task<string> Meta()
+        {
+            var meta = await _fhirService.CapabilityStatementAsync();
+            return meta.ToString();
+        }
+
+        public string GetMe(ClaimsPrincipal principal)
+        {
+            return principal.Identity.Name;
+        }
+
+        public async Task<string> GetFhirToken()
+        {
+            var tokenResult = await _token.GetAccessTokenForUserAsync(new[] { "https://chestist-fhir-api.azurehealthcareapis.com/user_impersonation" });
+            return tokenResult;
+        }
+        
+    }    
 }
