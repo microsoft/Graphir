@@ -1,4 +1,5 @@
 # Project
+[![Build and deploy ASP.Net Core app to Azure Web App - Graphir.API](https://github.com/microsoft/Graphir/actions/workflows/main.yml/badge.svg)](https://github.com/microsoft/Graphir/actions/workflows/main.yml)
 
 # Requirements to run
 * Visual Studio 2022 (Progessional or Enterprise)
