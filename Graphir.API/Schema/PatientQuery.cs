@@ -44,10 +44,17 @@ namespace Graphir.API.Schema
 
         
 
-        public async Task<IList<Patient>> GetPatientByName(string firstname, string lastname)
+        public async Task<IList<Patient>> GetPatientsByName(string firstname, string lastname)
         {
-            var ret = await GetAllPatients();
+            var searchParams = new Dictionary<string, string>
+            {
+                { "given" , firstname },
+                {"family", lastname }
+            };
+
+            var ret = await SearchPatient(searchParams);
             return ret;
+
         }
 
        
@@ -55,12 +62,11 @@ namespace Graphir.API.Schema
 
         private async Task<IList<Patient>> SearchPatient(IDictionary<string, string> searchParameters)
         {
-            string identifier = searchParameters["identifier"];
-
             var searchResults = new List<Patient>();
 
-            if (!string.IsNullOrEmpty(identifier))
+            if (searchParameters.ContainsKey("identifier"))
             {
+                string identifier = searchParameters["identifier"];
                 Bundle bundle = await _fhirService.SearchByIdAsync<Patient>(identifier);
 
                 if (bundle != null)
