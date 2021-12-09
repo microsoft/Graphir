@@ -33,8 +33,12 @@ namespace Graphir.API.Schema
         public async Task<Patient> GetPatientByID(string id)
         {
 
-            var tPatient = new Patient() { Id = id };
-            var ret = await SearchPatient(tPatient);
+            var searchParams = new Dictionary<string, string>
+            {
+                { "identifier" , id }
+            };
+
+            var ret = await SearchPatient(searchParams);
             return ret.FirstOrDefault<Patient>();
         }
 
@@ -47,25 +51,40 @@ namespace Graphir.API.Schema
         }
 
        
-        private async Task<IList<Patient>> SearchPatient(Patient Patient)
+       
+
+        private async Task<IList<Patient>> SearchPatient(IDictionary<string, string> searchParameters)
         {
-            string givenName = ""; //The given name is not working on the mapping
-            string familyName = Patient.Name[0].Family;
-            string identifier = Patient.Identifier[0].Value;
-            Bundle bundle; if (!string.IsNullOrEmpty(identifier))
+            string identifier = searchParameters["identifier"];
+
+            var searchResults = new List<Patient>();
+
+            if (!string.IsNullOrEmpty(identifier))
             {
-                bundle = await _fhirService.SearchByIdAsync<Patient>(identifier); if (bundle != null)
-                    return bundle.Entry.Select(p => (Patient)p.Resource).ToList();
+                Bundle bundle = await _fhirService.SearchByIdAsync<Patient>(identifier);
+
+                if (bundle != null)
+                    searchResults = bundle.Entry.Select(p => (Patient)p.Resource).ToList();
             }
-            if (!string.IsNullOrEmpty(familyName))
+            else
             {
-                bundle = await _fhirService.SearchAsync<Patient>(criteria: new[] { $"family:contains={familyName}" }); if (bundle != null)
-                    return bundle.Entry.Select(p => (Patient)p.Resource).ToList();
+                IList<string> filterStrings = new List<string>();
+                foreach (var parameter in searchParameters)
+                {
+                    if (!string.IsNullOrEmpty(parameter.Value))
+                    {
+                        filterStrings.Add($"{parameter.Key}:contains={parameter.Value}");
+                    }
+                }
+                Bundle bundle = await _fhirService.SearchAsync<Patient>(criteria: filterStrings.ToArray<string>());
+
+                if (bundle != null)
+                    searchResults = bundle.Entry.Select(p => (Patient)p.Resource).ToList();
             }
-            return await GetPatientsAsync();
+
+            return searchResults;
         }
 
-      
         private async Task<IList<Patient>> GetPatientsAsync()
         {
             var bundle = await _fhirService.SearchAsync<Patient>(pageSize: 50);
