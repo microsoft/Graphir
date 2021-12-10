@@ -1,6 +1,7 @@
 ﻿using Graphir.API.Services;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
+using HotChocolate;
 using HotChocolate.Types;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
@@ -14,84 +15,54 @@ namespace Graphir.API.Schema
     [ExtendObjectType(OperationTypeNames.Query)]
 
 
-    public class PatientQuery 
+    public class PatientQuery
     {
-       private readonly FhirClient _fhirService;
+        private readonly FhirClient _fhirService;
 
         public PatientQuery(FhirClient fhirService)
         {
             _fhirService = fhirService;
         }
 
-        
-        public async Task<IList<Patient>> GetAllPatients()
+        [GraphQLName("Patient")]
+        public async Task<Patient> GetPatient(string id)
         {
-            var patients = await GetPatientsAsync();
-            return patients;
+            var bundle = await _fhirService.SearchByIdAsync<Patient>(id);
+            var result =
+                (bundle != null) ? bundle.Entry.Select(p => (Patient)p.Resource).First()
+                : new Patient();
+
+            return result;
         }
 
-        public async Task<Patient> GetPatientByID(string id)
+        [GraphQLName("PatientList")]
+        public async Task<IList<Patient>> GetPatientList(string name = "")
         {
+            IList<Patient>? results;
 
-            var searchParams = new Dictionary<string, string>
+            if (string.IsNullOrWhiteSpace(name))
             {
-                { "identifier" , id }
-            };
-
-            var ret = await SearchPatient(searchParams);
-            return ret.FirstOrDefault<Patient>();
-        }
-
-        
-
-        public async Task<IList<Patient>> GetPatientsByName(string firstname, string lastname)
-        {
-            var searchParams = new Dictionary<string, string>
-            {
-                { "given" , firstname },
-                {"family", lastname }
-            };
-
-            var ret = await SearchPatient(searchParams);
-            return ret;
-
-        }
-
-       
-       
-
-        private async Task<IList<Patient>> SearchPatient(IDictionary<string, string> searchParameters)
-        {
-            var searchResults = new List<Patient>();
-
-            if (searchParameters.ContainsKey("identifier"))
-            {
-                string identifier = searchParameters["identifier"];
-                Bundle bundle = await _fhirService.SearchByIdAsync<Patient>(identifier);
-
-                if (bundle != null)
-                    searchResults = bundle.Entry.Select(p => (Patient)p.Resource).ToList();
+                results = await GetPatientsAsync();
             }
             else
             {
-                IList<string> filterStrings = new List<string>();
-                foreach (var parameter in searchParameters)
-                {
-                    if (!string.IsNullOrEmpty(parameter.Value))
-                    {
-                        filterStrings.Add($"{parameter.Key}:contains={parameter.Value}");
-                    }
-                }
-                Bundle bundle = await _fhirService.SearchAsync<Patient>(criteria: filterStrings.ToArray<string>());
-
-                if (bundle != null)
-                    searchResults = bundle.Entry.Select(p => (Patient)p.Resource).ToList();
+                results = await SearchPatientByName(name);
             }
 
+            return results;
+        }
+
+        private async Task<List<Patient>> SearchPatientByName(string name)
+        {
+            var searchResults = new List<Patient>();
+            var filterString = $"name:contains={name}";
+            Bundle bundle = await _fhirService.SearchAsync<Patient>(criteria: new[] { filterString });
+            if (bundle != null)
+                searchResults = bundle.Entry.Select(p => (Patient)p.Resource).ToList();
             return searchResults;
         }
 
-        private async Task<IList<Patient>> GetPatientsAsync()
+        private async Task<List<Patient>> GetPatientsAsync()
         {
             var bundle = await _fhirService.SearchAsync<Patient>(pageSize: 50);
             var result = new List<Patient>();

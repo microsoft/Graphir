@@ -52,6 +52,8 @@ namespace Graphir.API.Schema
             descriptor.Field(h => h.Given);
             descriptor.Field(h => h.Period);
             descriptor.Field(h => h.Prefix);
+            descriptor.Field(h => h.Suffix);
+            descriptor.Field(h => h.Text);
         }
     }
 

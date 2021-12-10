@@ -58,6 +58,8 @@ namespace Graphir.API
                     .AddType<CodingType>()
                     .AddType<CodeableConceptType>()
                     .AddType<IdentifierType>()
+                    .AddType<PatientCommunicationType>()
+                    .AddType<PatientContactType>()
                     .AddType<PatientType>()
                 ;
         }
