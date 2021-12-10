@@ -43,13 +43,18 @@ namespace Graphir.API
                 Configuration.Bind("FhirConnection", fhir);
                 return fhir;
             });
+            
+            // Need to register query and mutation types here with DI
             services.AddScoped<Query>();
             services.AddScoped<PatientQuery>();
+            services.AddScoped<PatientMutation>();
+
             services
                 .AddGraphQLServer()
                 .AddAuthorization()
                 .AddQueryType<Query>()
                 .AddTypeExtension<PatientQuery>()
+                    .AddType<OperationOutcomeType>()
                     .AddType<AttachmentType>()
                     .AddType<AddressType>()
                     .AddType<ContactPointType>()
@@ -61,6 +66,8 @@ namespace Graphir.API
                     .AddType<PatientCommunicationType>()
                     .AddType<PatientContactType>()
                     .AddType<PatientType>()
+                .AddMutationType<Mutation>()
+                    .AddTypeExtension<PatientMutation>()
                 ;
         }
 

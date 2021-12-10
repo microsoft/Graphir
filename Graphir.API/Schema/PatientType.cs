@@ -66,4 +66,16 @@ namespace Graphir.API.Schema
         }
     }
 
+    public class PatientCreation : ResourceCreation<Patient>
+    {
+        public override Patient Resource { get; set; }
+    }
+
+    public class PatientUpdate : ResourceUpdate<Patient>
+    {
+        public override Patient Resource { get; set; }
+    }
+
+    public class PatientDelete : ResourceDelete<Patient> { }
+
 }

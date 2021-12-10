@@ -118,4 +118,32 @@ namespace Graphir.API.Schema
         }
     }
 
+    public class OperationOutcomeType : ObjectType<OperationOutcome>
+    {
+        protected override void Configure(IObjectTypeDescriptor<OperationOutcome> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(o => o.Success);
+        }
+    }
+
+    public abstract class ResourceCreation<T> where T : Resource
+    {
+        public virtual string Location { get; set; }
+        public abstract T Resource { get; set; }
+        public virtual OperationOutcome Information { get; set; }
+    }
+
+    public abstract class ResourceUpdate<T> where T : Resource
+    {
+        public abstract T Resource { get; set; }
+        public virtual OperationOutcome Information { get; set; }
+    }
+
+    public abstract class ResourceDelete<T> where T : Resource
+    {
+        public virtual OperationOutcome Information { get; set; }
+    }
+
 }
