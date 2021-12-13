@@ -15,7 +15,7 @@ namespace Graphir.API.Schema
     );
 
     public record CodeableConceptInput(
-        CodingInput? Coding,
+        CodingInput[]? Coding,
         string? Text
     );
 
