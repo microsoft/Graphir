@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+using HotChocolate;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema
@@ -36,6 +37,17 @@ namespace Graphir.API.Schema
                     link: [PatientLink]
             */
         }
+
+        /// <summary>
+        /// Convert PatientObject back to FHIR Patient
+        /// </summary>
+        /// <returns>Patient</returns>
+        [GraphQLIgnore]
+        public Patient ToPatient()
+        {
+            var patient = new Patient();
+            return patient;
+        }
     }
 
     public class PatientContactType : ObjectType<Patient.ContactComponent>
@@ -66,16 +78,51 @@ namespace Graphir.API.Schema
         }
     }
 
-    public class PatientCreation : ResourceCreation<Patient>
+    public class PatientCreation : IResourceCreation<Patient>
     {
-        public override Patient Resource { get; set; }
+        public string Location { get; set; }
+        public Patient Resource { get; set; }
+        public OperationOutcome Information { get; set; }
     }
 
-    public class PatientUpdate : ResourceUpdate<Patient>
+    public class PatientUpdate : IResourceUpdate<Patient>
     {
-        public override Patient Resource { get; set; }
+        public Patient Resource { get; set; }
+        public OperationOutcome Information { get; set; }
     }
 
-    public class PatientDelete : ResourceDelete<Patient> { }
+    public class PatientDelete : IResourceDelete<Patient>
+    {
+        public OperationOutcome Information { get; set; }
+    }    
+
+    public record PatientInput
+    (
+        string? Id,
+        IdentifierInput[]? Identifier,
+        string? Language,
+        bool? Active,
+        HumanNameInput[]? Name,
+        ContactPointInput[]? Telecom,
+        string? Gender,
+        string? BirthDate,
+        AddressInput[]? Address,
+        CodeableConceptInput? MaritalStatus,
+        PatientCommunicationInput[]? Communication
+    );
+
+    public record PatientContactInput(
+        CodeableConceptInput[]? Relationship,
+        HumanNameInput? Name,
+        ContactPointInput[]? Telecom,
+        AddressInput? Address,
+        string? Gender,
+        PeriodInput? Period
+    );
+
+    public record PatientCommunicationInput(
+        CodeableConceptInput? Language,
+        bool? Preferred
+    );
 
 }

@@ -54,8 +54,9 @@ namespace Graphir.API
                 .AddAuthorization()
                 .AddQueryType<Query>()
                     .AddTypeExtension<PatientQuery>()
-                .AddMutationType<Mutation>()
+                .AddMutationType()
                     .AddTypeExtension<PatientMutation>()
+                // ObjectTypes.cs
                 .AddType<OperationOutcomeType>()
                 .AddType<AttachmentType>()
                 .AddType<AddressType>()
@@ -65,9 +66,13 @@ namespace Graphir.API
                 .AddType<CodingType>()
                 .AddType<CodeableConceptType>()
                 .AddType<IdentifierType>()
+                // PatientType.cs
                 .AddType<PatientCommunicationType>()
                 .AddType<PatientContactType>()
-                .AddType<PatientType>()                
+                .AddType<PatientCreation>()
+                .AddType<PatientUpdate>()
+                .AddType<PatientDelete>()
+                .AddType<PatientType>()
                 ;
         }
 

@@ -128,22 +128,25 @@ namespace Graphir.API.Schema
         }
     }
 
-    public abstract class ResourceCreation<T> where T : Resource
+    [InterfaceType("ResourceCreation")]
+    public interface IResourceCreation<T> where T : Resource
     {
-        public virtual string Location { get; set; }
-        public abstract T Resource { get; set; }
-        public virtual OperationOutcome Information { get; set; }
+        public string Location { get; set; }
+        public T Resource { get; set; }
+        public OperationOutcome Information { get; set; }
     }
 
-    public abstract class ResourceUpdate<T> where T : Resource
+    [InterfaceType("ResourceUpdate")]
+    public interface IResourceUpdate<T> where T : Resource
     {
-        public abstract T Resource { get; set; }
-        public virtual OperationOutcome Information { get; set; }
+        public T Resource { get; set; }
+        public OperationOutcome Information { get; set; }
     }
 
-    public abstract class ResourceDelete<T> where T : Resource
+    [InterfaceType("ResourceDelete")]
+    public interface IResourceDelete<T> where T : Resource
     {
-        public virtual OperationOutcome Information { get; set; }
+        public OperationOutcome Information { get; set; }
     }
 
 }
