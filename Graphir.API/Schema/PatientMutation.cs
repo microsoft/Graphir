@@ -1,5 +1,6 @@
 ﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
+using Hl7.Fhir.Support;
 using HotChocolate;
 using HotChocolate.Types;
 using System;
@@ -24,11 +25,12 @@ namespace Graphir.API.Schema
             {
                 var newPatient = GetPatientFromInput(patient);
                 var result = await _fhirClient.CreateAsync(newPatient);
+                                                
                 return new PatientCreation
                 {
                     Location = $"Patient(id:\"{result.Id}\")",
                     Resource = result,
-                    Information = OperationOutcome.ForMessage("Created", OperationOutcome.IssueType.Informational)
+                    Information = new OperationOutcome()
                 };
             }
             catch (Exception ex)
@@ -58,7 +60,7 @@ namespace Graphir.API.Schema
                 return new PatientUpdate
                 {
                     Resource = result,
-                    Information = OperationOutcome.ForMessage("Updated", OperationOutcome.IssueType.Informational)
+                    Information = new OperationOutcome()
                 };
             }
             catch (Exception ex)
@@ -81,7 +83,7 @@ namespace Graphir.API.Schema
                 await _fhirClient.DeleteAsync(itemToDelete);
                 return new PatientDelete
                 {
-                    Information = OperationOutcome.ForMessage("Deleted", OperationOutcome.IssueType.Informational)
+                    Information = new OperationOutcome()
                 };
             }
             catch (Exception ex)

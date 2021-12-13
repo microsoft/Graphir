@@ -57,6 +57,7 @@ namespace Graphir.API
                 .AddMutationType()
                     .AddTypeExtension<PatientMutation>()
                 // ObjectTypes.cs
+                .AddType<OperationOutcomeIssueComponentType>()
                 .AddType<OperationOutcomeType>()
                 .AddType<AttachmentType>()
                 .AddType<AddressType>()
