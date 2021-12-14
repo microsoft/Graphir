@@ -43,24 +43,37 @@ namespace Graphir.API
                 Configuration.Bind("FhirConnection", fhir);
                 return fhir;
             });
+            
+            // Need to register query and mutation types here with DI
             services.AddScoped<Query>();
             services.AddScoped<PatientQuery>();
+            services.AddScoped<PatientMutation>();
+
             services
                 .AddGraphQLServer()
                 .AddAuthorization()
                 .AddQueryType<Query>()
-                .AddTypeExtension<PatientQuery>()
-                    .AddType<AttachmentType>()
-                    .AddType<AddressType>()
-                    .AddType<ContactPointType>()
-                    .AddType<PeriodType>()
-                    .AddType<HumanNameType>()
-                    .AddType<CodingType>()
-                    .AddType<CodeableConceptType>()
-                    .AddType<IdentifierType>()
-                    .AddType<PatientCommunicationType>()
-                    .AddType<PatientContactType>()
-                    .AddType<PatientType>()
+                    .AddTypeExtension<PatientQuery>()
+                .AddMutationType()
+                    .AddTypeExtension<PatientMutation>()
+                // ObjectTypes.cs
+                .AddType<OperationOutcomeIssueComponentType>()
+                .AddType<OperationOutcomeType>()
+                .AddType<AttachmentType>()
+                .AddType<AddressType>()
+                .AddType<ContactPointType>()
+                .AddType<PeriodType>()
+                .AddType<HumanNameType>()
+                .AddType<CodingType>()
+                .AddType<CodeableConceptType>()
+                .AddType<IdentifierType>()
+                // PatientType.cs
+                .AddType<PatientCommunicationType>()
+                .AddType<PatientContactType>()
+                .AddType<PatientCreation>()
+                .AddType<PatientUpdate>()
+                .AddType<PatientDelete>()
+                .AddType<PatientType>()
                 ;
         }
 
