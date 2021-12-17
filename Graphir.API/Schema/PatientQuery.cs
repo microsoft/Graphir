@@ -67,15 +67,20 @@ namespace Graphir.API.Schema
             // TODO: get list of patients based on params
             var allPatients = await GetPatientsAsync();
             var totalCount = allPatients.Count();
+            int pageSize = first ?? 10;
 
             if (!string.IsNullOrEmpty(after))
             {
-                allPatients = allPatients.SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).ToList();
+                allPatients = allPatients.SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).Skip(1).ToList();
             }
-
-            var edges = allPatients.Select(patient => new Edge<Patient>(patient, patient.Id)).Take(first ?? 10).ToList();
-            var pageInfo = new ConnectionPageInfo(false, false, null, null);
-            var connection = new Connection<Patient>(edges, pageInfo, ct => ValueTask.FromResult(totalCount));
+            
+            var edges = allPatients.Select(patient => new Edge<Patient>(patient, patient.Id)).Take(pageSize).ToList();
+            bool hasNext = allPatients.Count() > pageSize;
+            bool hasPrevious = (string.IsNullOrEmpty(after) ? false : true);
+            string firstCursor = edges.FirstOrDefault().Node.Id;
+            string lastCursor = edges.LastOrDefault().Node.Id;
+            var pageInfo = new ConnectionPageInfo(hasNext, hasPrevious, firstCursor, lastCursor);
+            var connection = new Connection<Patient>(edges, pageInfo, ct => ValueTask.FromResult(0));
 
             return connection;
         }
