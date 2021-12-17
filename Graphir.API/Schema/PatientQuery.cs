@@ -3,6 +3,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
+using HotChocolate.Types.Pagination;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Newtonsoft.Json;
@@ -50,6 +51,33 @@ namespace Graphir.API.Schema
             }
 
             return results;
+        }
+
+        /// <summary>
+        /// Get paged list of patients using GraphQL Connection
+        /// This will not be optimized for MVP since we are proxying through Firely to FHIR API.
+        /// </summary>
+        /// <param name="after">Only fetch items after this cursor (Patient.Id)</param>
+        /// <param name="first">Number of items to fetch</param>
+        /// <returns></returns>
+        [UsePaging]
+        [GraphQLName("PatientConnection")]
+        public async Task<Connection<Patient>> GetPatientConnection(string? after, int? first)
+        {
+            // TODO: get list of patients based on params
+            var allPatients = await GetPatientsAsync();
+            var totalCount = allPatients.Count();
+
+            if (!string.IsNullOrEmpty(after))
+            {
+                allPatients = allPatients.SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            var edges = allPatients.Select(patient => new Edge<Patient>(patient, patient.Id)).Take(first ?? 10).ToList();
+            var pageInfo = new ConnectionPageInfo(false, false, null, null);
+            var connection = new Connection<Patient>(edges, pageInfo, ct => ValueTask.FromResult(totalCount));
+
+            return connection;
         }
 
         private async Task<List<Patient>> SearchPatientByName(string name)
