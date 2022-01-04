@@ -31,12 +31,19 @@ namespace Graphir.API
 
             services.Configure<FhirDataConnection>(Configuration.GetSection("FhirConnection"));
 
+            // API Bearer token auth config
+            // 1. Register an application with AAD and grant it the following API permission:
+            // - https://fhir.azurehealthcareapis.com/user_impersonation
+            // - https://graph.microsoft.com/User.Read
+            // 2. Set AzureAd section properties of appsettings.json (store clientsecret in secure location - i.e. user secrets)
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration, "AzureAd")
                 .EnableTokenAcquisitionToCallDownstreamApi()
                     .AddDownstreamWebApi("FhirAPI", Configuration.GetSection("FhirConnection"))
                 .AddInMemoryTokenCaches();
+
             services.AddAuthorization();
 
+            // Call extension method to configure a scoped instance of FhirService
             services.AddFhirService(() =>
             {
                 var fhir = new FhirDataConnection();
@@ -49,6 +56,7 @@ namespace Graphir.API
             services.AddScoped<PatientQuery>();
             services.AddScoped<PatientMutation>();
 
+            // Register all HotChocolate types with DI
             services
                 .AddGraphQLServer()
                 .AddAuthorization()
