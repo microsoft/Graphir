@@ -9,7 +9,7 @@
 
 # Running locally
 * Open Solution
-* Right click on MotherBoxAPI project and select "Manager User Secrets"
+* Right click on Graphir.API project and select "Manager User Secrets"
 * Sample secret (you need to replace the password on the connection string and the client secret)
 ```JSON
 {
