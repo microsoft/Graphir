@@ -1,7 +1,5 @@
 using Graphir.API.Schema;
 using Graphir.API.Services;
-using HotChocolate.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
