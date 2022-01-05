@@ -83,6 +83,7 @@ namespace Graphir.API
                 .AddType<PatientDelete>()
                 .AddType<PatientType>()
                 // PractionerType.cs
+                .AddType<PractitionerQualificationType>()
                 .AddType<PractitionerType>()
                 ;
         }

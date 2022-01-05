@@ -24,7 +24,9 @@ namespace Graphir.API.Schema
             descriptor.Field(p => p.Telecom);
             descriptor.Field(p => p.Address);            
             descriptor.Field(p => p.Photo);            
-            descriptor.Field(p => p.Communication);        }
+            descriptor.Field(p => p.Communication);
+            descriptor.Field(p => p.Qualification); //#TODO: use resolver to get related resource
+        }
 
         /// <summary>
         /// Convert PractitionerObject back to FHIR Practitioner
@@ -46,7 +48,8 @@ namespace Graphir.API.Schema
 
             descriptor.Field(c => c.Code);
             descriptor.Field(c => c.Period);
-            descriptor.Field(c => c.Issuer);
+            descriptor.Field(c => c.Issuer.Url)
+                .Name("issuer");            
         }
     }
 

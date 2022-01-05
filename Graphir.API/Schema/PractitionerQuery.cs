@@ -36,7 +36,26 @@ namespace Graphir.API.Schema
             return result;
         }
 
-        [GraphQLName("PractitionerList")]
+        /// <summary>
+        /// Get List of Practitioners
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <example>
+        ///   query practitionerList{ 
+        ///      PractitionerList{ 
+        ///         id
+        ///         name
+        ///             { given family }
+        ///         qualification{
+        ///             code{text}
+        ///             period{start end}
+        ///             issuer
+        ///         }
+        ///      }
+        ///   }        
+        /// </example>
+        [GraphQLName("PractitionerList")]        
         public async Task<IList<Practitioner>> GetPractitionerList(string name = "")
         {
             IList<Practitioner>? results;
