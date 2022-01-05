@@ -1,3 +1,4 @@
+using Graphir.API.Extensions;
 using Graphir.API.Schema;
 using Graphir.API.Services;
 using Microsoft.AspNetCore.Builder;
@@ -49,7 +50,7 @@ namespace Graphir.API
                 return fhir;
             });
             
-            // Need to register query and mutation types here with DI
+            // Need to register query and mutation types here for constructor scoped-service DI
             services.AddScoped<Query>();
             services.AddScoped<PatientQuery>();
             services.AddScoped<PractitionerQuery>();
@@ -64,27 +65,8 @@ namespace Graphir.API
                     .AddTypeExtension<PractitionerQuery>()
                 .AddMutationType()
                     .AddTypeExtension<PatientMutation>()
-                // ObjectTypes.cs
-                .AddType<OperationOutcomeIssueComponentType>()
-                .AddType<OperationOutcomeType>()
-                .AddType<AttachmentType>()
-                .AddType<AddressType>()
-                .AddType<ContactPointType>()
-                .AddType<PeriodType>()
-                .AddType<HumanNameType>()
-                .AddType<CodingType>()
-                .AddType<CodeableConceptType>()
-                .AddType<IdentifierType>()
-                // PatientType.cs
-                .AddType<PatientCommunicationType>()
-                .AddType<PatientContactType>()
-                .AddType<PatientCreation>()
-                .AddType<PatientUpdate>()
-                .AddType<PatientDelete>()
-                .AddType<PatientType>()
-                // PractionerType.cs
-                .AddType<PractitionerQualificationType>()
-                .AddType<PractitionerType>()
+                .AddFhirTypes()
+                .AddPatient()
                 ;
         }
 
