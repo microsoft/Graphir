@@ -1,0 +1,56 @@
+﻿using Hl7.Fhir.Model;
+using HotChocolate;
+using HotChocolate.Types;
+
+namespace Graphir.API.Schema
+{
+    public class PractitionerType : ObjectType<Practitioner>
+    {
+        /// <summary>
+        /// Bind PractitionerType to FHIR Practitioner properties
+        /// </summary>
+        /// <param name="descriptor"></param>
+        protected override void Configure(IObjectTypeDescriptor<Practitioner> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(p => p.Id);
+            descriptor.Field(p => p.Identifier);
+            descriptor.Field(p => p.Active);
+            descriptor.Field(p => p.Name);
+            descriptor.Field(p => p.Language);
+            descriptor.Field(p => p.Gender);
+            descriptor.Field(p => p.BirthDate);
+            descriptor.Field(p => p.Telecom);
+            descriptor.Field(p => p.Address);            
+            descriptor.Field(p => p.Photo);            
+            descriptor.Field(p => p.Communication);
+            descriptor.Field(p => p.Qualification); //#TODO: use resolver to get related resource
+        }
+
+        /// <summary>
+        /// Convert PractitionerObject back to FHIR Practitioner
+        /// </summary>
+        /// <returns>Practitioner</returns>
+        [GraphQLIgnore]
+        public Practitioner ToPractitioner()
+        {
+            var practitioner = new Practitioner();
+            return practitioner;
+        }
+    }
+
+    public class PractitionerQualificationType : ObjectType<Practitioner.QualificationComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Practitioner.QualificationComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(c => c.Code);
+            descriptor.Field(c => c.Period);
+            descriptor.Field(c => c.Issuer.Url)
+                .Name("issuer");            
+        }
+    }
+
+}

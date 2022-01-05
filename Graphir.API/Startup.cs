@@ -52,6 +52,7 @@ namespace Graphir.API
             // Need to register query and mutation types here with DI
             services.AddScoped<Query>();
             services.AddScoped<PatientQuery>();
+            services.AddScoped<PractitionerQuery>();
             services.AddScoped<PatientMutation>();
 
             // Register all HotChocolate types with DI
@@ -60,6 +61,7 @@ namespace Graphir.API
                 .AddAuthorization()
                 .AddQueryType<Query>()
                     .AddTypeExtension<PatientQuery>()
+                    .AddTypeExtension<PractitionerQuery>()
                 .AddMutationType()
                     .AddTypeExtension<PatientMutation>()
                 // ObjectTypes.cs
@@ -80,6 +82,9 @@ namespace Graphir.API
                 .AddType<PatientUpdate>()
                 .AddType<PatientDelete>()
                 .AddType<PatientType>()
+                // PractionerType.cs
+                .AddType<PractitionerQualificationType>()
+                .AddType<PractitionerType>()
                 ;
         }
 
