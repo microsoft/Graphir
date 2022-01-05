@@ -1,0 +1,214 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type QuestionnaireResponse {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  partOf: [Reference]
+  questionnaire: canonical  _questionnaire: ElementBase
+  status: code  _status: ElementBase
+  subject: Reference
+  encounter: Reference
+  authored: dateTime  _authored: ElementBase
+  author: Reference
+  source: Reference
+  item: [QuestionnaireResponseItem]
+}
+
+type QuestionnaireResponseItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  linkId: String  _linkId: ElementBase
+  definition: uri  _definition: ElementBase
+  text: String  _text: ElementBase
+  answer: [QuestionnaireResponseItemAnswer]
+  item: [QuestionnaireResponseItem]
+}
+
+type QuestionnaireResponseItemAnswer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueDate: date  _valueDate: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valueTime: time  _valueTime: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueUri: uri  _valueUri: ElementBase
+  valueAttachment: Attachment
+  valueCoding: Coding
+  valueQuantity: Quantity
+  valueReference: Reference
+  item: [QuestionnaireResponseItem]
+}
+
+input QuestionnaireResponseInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  partOf: [ReferenceInput]
+  questionnaire: canonical  _questionnaire: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  subject: ReferenceInput
+  encounter: ReferenceInput
+  authored: dateTime  _authored: ElementBaseInput
+  author: ReferenceInput
+  source: ReferenceInput
+  item: [QuestionnaireResponseItemInput]
+}
+
+input QuestionnaireResponseItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  linkId: String  _linkId: ElementBaseInput
+  definition: uri  _definition: ElementBaseInput
+  text: String  _text: ElementBaseInput
+  answer: [QuestionnaireResponseItemAnswerInput]
+  item: [QuestionnaireResponseItem]
+}
+
+input QuestionnaireResponseItemAnswerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valueTime: time  _valueTime: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueUri: uri  _valueUri: ElementBaseInput
+  valueAttachment: AttachmentInput
+  valueCoding: CodingInput
+  valueQuantity: QuantityInput
+  valueReference: ReferenceInput
+  item: [QuestionnaireResponseItem]
+}
+
+type QuestionnaireResponseReadType {
+  QuestionnaireResponse(id: ID!): QuestionnaireResponse
+}
+
+type QuestionnaireResponseListType {
+  QuestionnaireResponseList(_filter: String
+    author: [reference]
+    authored: [date]
+    based_on: [reference]
+    encounter: [reference]
+    identifier: [token]
+    item_subject: [reference]
+    part_of: [reference]
+    patient: [reference]
+    questionnaire: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [QuestionnaireResponse]
+}
+
+type QuestionnaireResponseConnectionType {
+  QuestionnaireResponseConection(_filter: String
+    author: [reference]
+    authored: [date]
+    based_on: [reference]
+    encounter: [reference]
+    identifier: [token]
+    item_subject: [reference]
+    part_of: [reference]
+    patient: [reference]
+    questionnaire: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): QuestionnaireResponseConnection
+}
+
+type QuestionnaireResponseConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [QuestionnaireResponseEdge]
+}
+
+type QuestionnaireResponseEdge {
+  mode: String
+  score: Float
+  resource: QuestionnaireResponse
+}
+
+type QuestionnaireResponseCreateType {
+  QuestionnaireResponseCreate(resource: QuestionnaireResponseInput): QuestionnaireResponseCreation
+}
+
+type QuestionnaireResponseCreation {
+  location: String
+  resource: QuestionnaireResponse
+  information: OperationOutcome
+}
+
+type QuestionnaireResponseUpdateType {
+  QuestionnaireResponseUpdate(id: ID, resource: QuestionnaireResponseInput): QuestionnaireResponseUpdate
+}
+
+type QuestionnaireResponseUpdate {
+  resource: QuestionnaireResponse
+  information: OperationOutcome
+}
+
+type QuestionnaireResponseDeleteType {
+  QuestionnaireResponseDelete(id: ID): QuestionnaireResponseDelete
+}
+
+type QuestionnaireResponseDelete {
+  information: OperationOutcome
+}
+

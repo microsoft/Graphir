@@ -1,0 +1,140 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type AppointmentResponse {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  appointment: Reference!
+  start: instant  _start: ElementBase
+  end: instant  _end: ElementBase
+  participantType: [CodeableConcept]
+  actor: Reference
+  participantStatus: code  _participantStatus: ElementBase
+  comment: String  _comment: ElementBase
+}
+
+input AppointmentResponseInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  appointment: ReferenceInput!
+  start: instant  _start: ElementBaseInput
+  end: instant  _end: ElementBaseInput
+  participantType: [CodeableConceptInput]
+  actor: ReferenceInput
+  participantStatus: code  _participantStatus: ElementBaseInput
+  comment: String  _comment: ElementBaseInput
+}
+
+type AppointmentResponseReadType {
+  AppointmentResponse(id: ID!): AppointmentResponse
+}
+
+type AppointmentResponseListType {
+  AppointmentResponseList(_filter: String
+    actor: [reference]
+    appointment: [reference]
+    group: [reference]
+    identifier: [token]
+    location: [reference]
+    part_status: [token]
+    patient: [reference]
+    practitioner: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [AppointmentResponse]
+}
+
+type AppointmentResponseConnectionType {
+  AppointmentResponseConection(_filter: String
+    actor: [reference]
+    appointment: [reference]
+    group: [reference]
+    identifier: [token]
+    location: [reference]
+    part_status: [token]
+    patient: [reference]
+    practitioner: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): AppointmentResponseConnection
+}
+
+type AppointmentResponseConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [AppointmentResponseEdge]
+}
+
+type AppointmentResponseEdge {
+  mode: String
+  score: Float
+  resource: AppointmentResponse
+}
+
+type AppointmentResponseCreateType {
+  AppointmentResponseCreate(resource: AppointmentResponseInput): AppointmentResponseCreation
+}
+
+type AppointmentResponseCreation {
+  location: String
+  resource: AppointmentResponse
+  information: OperationOutcome
+}
+
+type AppointmentResponseUpdateType {
+  AppointmentResponseUpdate(id: ID, resource: AppointmentResponseInput): AppointmentResponseUpdate
+}
+
+type AppointmentResponseUpdate {
+  resource: AppointmentResponse
+  information: OperationOutcome
+}
+
+type AppointmentResponseDeleteType {
+  AppointmentResponseDelete(id: ID): AppointmentResponseDelete
+}
+
+type AppointmentResponseDelete {
+  information: OperationOutcome
+}
+

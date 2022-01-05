@@ -1,0 +1,320 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Encounter {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  statusHistory: [EncounterStatusHistory]
+  class: Coding!
+  classHistory: [EncounterClassHistory]
+  type: [CodeableConcept]
+  serviceType: CodeableConcept
+  priority: CodeableConcept
+  subject: Reference
+  subjectStatus: CodeableConcept
+  episodeOfCare: [Reference]
+  basedOn: [Reference]
+  participant: [EncounterParticipant]
+  appointment: [Reference]
+  period: Period
+  length: Duration
+  reason: [CodeableReference]
+  diagnosis: [EncounterDiagnosis]
+  account: [Reference]
+  hospitalization: EncounterHospitalization
+  location: [EncounterLocation]
+  serviceProvider: Reference
+  partOf: Reference
+}
+
+type EncounterStatusHistory {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  status: code  _status: ElementBase
+  period: Period!
+}
+
+type EncounterClassHistory {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  class: Coding!
+  period: Period!
+}
+
+type EncounterParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: [CodeableConcept]
+  period: Period
+  actor: Reference
+}
+
+type EncounterDiagnosis {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  condition: Reference!
+  use: CodeableConcept
+  rank: positiveInt  _rank: ElementBase
+}
+
+type EncounterHospitalization {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  preAdmissionIdentifier: Identifier
+  origin: Reference
+  admitSource: CodeableConcept
+  reAdmission: CodeableConcept
+  dietPreference: [CodeableConcept]
+  specialCourtesy: [CodeableConcept]
+  specialArrangement: [CodeableConcept]
+  destination: Reference
+  dischargeDisposition: CodeableConcept
+}
+
+type EncounterLocation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  location: Reference!
+  status: code  _status: ElementBase
+  physicalType: CodeableConcept
+  period: Period
+}
+
+input EncounterInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  statusHistory: [EncounterStatusHistoryInput]
+  class: CodingInput!
+  classHistory: [EncounterClassHistoryInput]
+  type: [CodeableConceptInput]
+  serviceType: CodeableConceptInput
+  priority: CodeableConceptInput
+  subject: ReferenceInput
+  subjectStatus: CodeableConceptInput
+  episodeOfCare: [ReferenceInput]
+  basedOn: [ReferenceInput]
+  participant: [EncounterParticipantInput]
+  appointment: [ReferenceInput]
+  period: PeriodInput
+  length: DurationInput
+  reason: [CodeableReferenceInput]
+  diagnosis: [EncounterDiagnosisInput]
+  account: [ReferenceInput]
+  hospitalization: EncounterHospitalizationInput
+  location: [EncounterLocationInput]
+  serviceProvider: ReferenceInput
+  partOf: ReferenceInput
+}
+
+input EncounterStatusHistoryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  status: code  _status: ElementBaseInput
+  period: PeriodInput!
+}
+
+input EncounterClassHistoryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  class: CodingInput!
+  period: PeriodInput!
+}
+
+input EncounterParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: [CodeableConceptInput]
+  period: PeriodInput
+  actor: ReferenceInput
+}
+
+input EncounterDiagnosisInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  condition: ReferenceInput!
+  use: CodeableConceptInput
+  rank: positiveInt  _rank: ElementBaseInput
+}
+
+input EncounterHospitalizationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  preAdmissionIdentifier: IdentifierInput
+  origin: ReferenceInput
+  admitSource: CodeableConceptInput
+  reAdmission: CodeableConceptInput
+  dietPreference: [CodeableConceptInput]
+  specialCourtesy: [CodeableConceptInput]
+  specialArrangement: [CodeableConceptInput]
+  destination: ReferenceInput
+  dischargeDisposition: CodeableConceptInput
+}
+
+input EncounterLocationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  location: ReferenceInput!
+  status: code  _status: ElementBaseInput
+  physicalType: CodeableConceptInput
+  period: PeriodInput
+}
+
+type EncounterReadType {
+  Encounter(id: ID!): Encounter
+}
+
+type EncounterListType {
+  EncounterList(_filter: String
+    account: [reference]
+    appointment: [reference]
+    based_on: [reference]
+    class: [token]
+    date: [date]
+    diagnosis: [reference]
+    episode_of_care: [reference]
+    identifier: [token]
+    length: [quantity]
+    location: [reference]
+    location_period: [date]
+    part_of: [reference]
+    participant: [reference]
+    participant_type: [token]
+    patient: [reference]
+    practitioner: [reference]
+    reason_code: [token]
+    reason_reference: [reference]
+    service_provider: [reference]
+    special_arrangement: [token]
+    status: [token]
+    subject: [reference]
+    subject_status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Encounter]
+}
+
+type EncounterConnectionType {
+  EncounterConection(_filter: String
+    account: [reference]
+    appointment: [reference]
+    based_on: [reference]
+    class: [token]
+    date: [date]
+    diagnosis: [reference]
+    episode_of_care: [reference]
+    identifier: [token]
+    length: [quantity]
+    location: [reference]
+    location_period: [date]
+    part_of: [reference]
+    participant: [reference]
+    participant_type: [token]
+    patient: [reference]
+    practitioner: [reference]
+    reason_code: [token]
+    reason_reference: [reference]
+    service_provider: [reference]
+    special_arrangement: [token]
+    status: [token]
+    subject: [reference]
+    subject_status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): EncounterConnection
+}
+
+type EncounterConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [EncounterEdge]
+}
+
+type EncounterEdge {
+  mode: String
+  score: Float
+  resource: Encounter
+}
+
+type EncounterCreateType {
+  EncounterCreate(resource: EncounterInput): EncounterCreation
+}
+
+type EncounterCreation {
+  location: String
+  resource: Encounter
+  information: OperationOutcome
+}
+
+type EncounterUpdateType {
+  EncounterUpdate(id: ID, resource: EncounterInput): EncounterUpdate
+}
+
+type EncounterUpdate {
+  resource: Encounter
+  information: OperationOutcome
+}
+
+type EncounterDeleteType {
+  EncounterDelete(id: ID): EncounterDelete
+}
+
+type EncounterDelete {
+  information: OperationOutcome
+}
+

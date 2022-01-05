@@ -1,0 +1,222 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ServiceRequest {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBase]
+  instantiatesUri: uri  _instantiatesUri: [ElementBase]
+  basedOn: [Reference]
+  replaces: [Reference]
+  requisition: Identifier
+  status: code  _status: ElementBase
+  intent: code  _intent: ElementBase
+  category: [CodeableConcept]
+  priority: code  _priority: ElementBase
+  doNotPerform: Boolean  _doNotPerform: ElementBase
+  code: CodeableConcept
+  orderDetail: [CodeableConcept]
+  quantityQuantity: Quantity
+  quantityRatio: Ratio
+  quantityRange: Range
+  subject: Reference!
+  encounter: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  asNeededBoolean: Boolean  _asNeededBoolean: ElementBase
+  asNeededCodeableConcept: CodeableConcept
+  authoredOn: dateTime  _authoredOn: ElementBase
+  requester: Reference
+  performerType: CodeableConcept
+  performer: [Reference]
+  location: [CodeableReference]
+  reason: [CodeableReference]
+  insurance: [Reference]
+  supportingInfo: [Reference]
+  specimen: [Reference]
+  bodySite: [CodeableConcept]
+  note: [Annotation]
+  patientInstruction: String  _patientInstruction: ElementBase
+  relevantHistory: [Reference]
+}
+
+input ServiceRequestInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBaseInput]
+  instantiatesUri: uri  _instantiatesUri: [ElementBaseInput]
+  basedOn: [ReferenceInput]
+  replaces: [ReferenceInput]
+  requisition: IdentifierInput
+  status: code  _status: ElementBaseInput
+  intent: code  _intent: ElementBaseInput
+  category: [CodeableConceptInput]
+  priority: code  _priority: ElementBaseInput
+  doNotPerform: Boolean  _doNotPerform: ElementBaseInput
+  code: CodeableConceptInput
+  orderDetail: [CodeableConceptInput]
+  quantityQuantity: QuantityInput
+  quantityRatio: RatioInput
+  quantityRange: RangeInput
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  asNeededBoolean: Boolean  _asNeededBoolean: ElementBaseInput
+  asNeededCodeableConcept: CodeableConceptInput
+  authoredOn: dateTime  _authoredOn: ElementBaseInput
+  requester: ReferenceInput
+  performerType: CodeableConceptInput
+  performer: [ReferenceInput]
+  location: [CodeableReferenceInput]
+  reason: [CodeableReferenceInput]
+  insurance: [ReferenceInput]
+  supportingInfo: [ReferenceInput]
+  specimen: [ReferenceInput]
+  bodySite: [CodeableConceptInput]
+  note: [AnnotationInput]
+  patientInstruction: String  _patientInstruction: ElementBaseInput
+  relevantHistory: [ReferenceInput]
+}
+
+type ServiceRequestReadType {
+  ServiceRequest(id: ID!): ServiceRequest
+}
+
+type ServiceRequestListType {
+  ServiceRequestList(_filter: String
+    authored: [date]
+    based_on: [reference]
+    body_site: [token]
+    category: [token]
+    code: [token]
+    encounter: [reference]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    intent: [token]
+    occurrence: [date]
+    patient: [reference]
+    performer: [reference]
+    performer_type: [token]
+    priority: [token]
+    replaces: [reference]
+    requester: [reference]
+    requisition: [token]
+    specimen: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ServiceRequest]
+}
+
+type ServiceRequestConnectionType {
+  ServiceRequestConection(_filter: String
+    authored: [date]
+    based_on: [reference]
+    body_site: [token]
+    category: [token]
+    code: [token]
+    encounter: [reference]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    intent: [token]
+    occurrence: [date]
+    patient: [reference]
+    performer: [reference]
+    performer_type: [token]
+    priority: [token]
+    replaces: [reference]
+    requester: [reference]
+    requisition: [token]
+    specimen: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ServiceRequestConnection
+}
+
+type ServiceRequestConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ServiceRequestEdge]
+}
+
+type ServiceRequestEdge {
+  mode: String
+  score: Float
+  resource: ServiceRequest
+}
+
+type ServiceRequestCreateType {
+  ServiceRequestCreate(resource: ServiceRequestInput): ServiceRequestCreation
+}
+
+type ServiceRequestCreation {
+  location: String
+  resource: ServiceRequest
+  information: OperationOutcome
+}
+
+type ServiceRequestUpdateType {
+  ServiceRequestUpdate(id: ID, resource: ServiceRequestInput): ServiceRequestUpdate
+}
+
+type ServiceRequestUpdate {
+  resource: ServiceRequest
+  information: OperationOutcome
+}
+
+type ServiceRequestDeleteType {
+  ServiceRequestDelete(id: ID): ServiceRequestDelete
+}
+
+type ServiceRequestDelete {
+  information: OperationOutcome
+}
+

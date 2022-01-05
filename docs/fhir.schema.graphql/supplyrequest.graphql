@@ -1,0 +1,176 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type SupplyRequest {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  category: CodeableConcept
+  priority: code  _priority: ElementBase
+  item: CodeableReference!
+  quantity: Quantity!
+  parameter: [SupplyRequestParameter]
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  authoredOn: dateTime  _authoredOn: ElementBase
+  requester: Reference
+  supplier: [Reference]
+  reason: [CodeableReference]
+  deliverFrom: Reference
+  deliverTo: Reference
+}
+
+type SupplyRequestParameter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueRange: Range
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+}
+
+input SupplyRequestInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  category: CodeableConceptInput
+  priority: code  _priority: ElementBaseInput
+  item: CodeableReferenceInput!
+  quantity: QuantityInput!
+  parameter: [SupplyRequestParameterInput]
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  authoredOn: dateTime  _authoredOn: ElementBaseInput
+  requester: ReferenceInput
+  supplier: [ReferenceInput]
+  reason: [CodeableReferenceInput]
+  deliverFrom: ReferenceInput
+  deliverTo: ReferenceInput
+}
+
+input SupplyRequestParameterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+}
+
+type SupplyRequestReadType {
+  SupplyRequest(id: ID!): SupplyRequest
+}
+
+type SupplyRequestListType {
+  SupplyRequestList(_filter: String
+    category: [token]
+    date: [date]
+    identifier: [token]
+    requester: [reference]
+    status: [token]
+    subject: [reference]
+    supplier: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [SupplyRequest]
+}
+
+type SupplyRequestConnectionType {
+  SupplyRequestConection(_filter: String
+    category: [token]
+    date: [date]
+    identifier: [token]
+    requester: [reference]
+    status: [token]
+    subject: [reference]
+    supplier: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SupplyRequestConnection
+}
+
+type SupplyRequestConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SupplyRequestEdge]
+}
+
+type SupplyRequestEdge {
+  mode: String
+  score: Float
+  resource: SupplyRequest
+}
+
+type SupplyRequestCreateType {
+  SupplyRequestCreate(resource: SupplyRequestInput): SupplyRequestCreation
+}
+
+type SupplyRequestCreation {
+  location: String
+  resource: SupplyRequest
+  information: OperationOutcome
+}
+
+type SupplyRequestUpdateType {
+  SupplyRequestUpdate(id: ID, resource: SupplyRequestInput): SupplyRequestUpdate
+}
+
+type SupplyRequestUpdate {
+  resource: SupplyRequest
+  information: OperationOutcome
+}
+
+type SupplyRequestDeleteType {
+  SupplyRequestDelete(id: ID): SupplyRequestDelete
+}
+
+type SupplyRequestDelete {
+  information: OperationOutcome
+}
+

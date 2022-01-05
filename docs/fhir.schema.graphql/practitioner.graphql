@@ -1,0 +1,190 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Practitioner {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  name: [HumanName]
+  telecom: [ContactPoint]
+  deceasedBoolean: Boolean  _deceasedBoolean: ElementBase
+  deceasedDateTime: dateTime  _deceasedDateTime: ElementBase
+  address: [Address]
+  gender: code  _gender: ElementBase
+  birthDate: date  _birthDate: ElementBase
+  photo: [Attachment]
+  qualification: [PractitionerQualification]
+  communication: [CodeableConcept]
+}
+
+type PractitionerQualification {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  code: CodeableConcept!
+  period: Period
+  issuer: Reference
+}
+
+input PractitionerInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  name: [HumanNameInput]
+  telecom: [ContactPointInput]
+  deceasedBoolean: Boolean  _deceasedBoolean: ElementBaseInput
+  deceasedDateTime: dateTime  _deceasedDateTime: ElementBaseInput
+  address: [AddressInput]
+  gender: code  _gender: ElementBaseInput
+  birthDate: date  _birthDate: ElementBaseInput
+  photo: [AttachmentInput]
+  qualification: [PractitionerQualificationInput]
+  communication: [CodeableConceptInput]
+}
+
+input PractitionerQualificationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  code: CodeableConceptInput!
+  period: PeriodInput
+  issuer: ReferenceInput
+}
+
+type PractitionerReadType {
+  Practitioner(id: ID!): Practitioner
+}
+
+type PractitionerListType {
+  PractitionerList(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    communication: [token]
+    death_date: [date]
+    deceased: [token]
+    email: [token]
+    family: [String]
+    gender: [token]
+    given: [String]
+    identifier: [token]
+    name: [String]
+    phone: [token]
+    phonetic: [String]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Practitioner]
+}
+
+type PractitionerConnectionType {
+  PractitionerConection(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    communication: [token]
+    death_date: [date]
+    deceased: [token]
+    email: [token]
+    family: [String]
+    gender: [token]
+    given: [String]
+    identifier: [token]
+    name: [String]
+    phone: [token]
+    phonetic: [String]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): PractitionerConnection
+}
+
+type PractitionerConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [PractitionerEdge]
+}
+
+type PractitionerEdge {
+  mode: String
+  score: Float
+  resource: Practitioner
+}
+
+type PractitionerCreateType {
+  PractitionerCreate(resource: PractitionerInput): PractitionerCreation
+}
+
+type PractitionerCreation {
+  location: String
+  resource: Practitioner
+  information: OperationOutcome
+}
+
+type PractitionerUpdateType {
+  PractitionerUpdate(id: ID, resource: PractitionerInput): PractitionerUpdate
+}
+
+type PractitionerUpdate {
+  resource: Practitioner
+  information: OperationOutcome
+}
+
+type PractitionerDeleteType {
+  PractitionerDelete(id: ID): PractitionerDelete
+}
+
+type PractitionerDelete {
+  information: OperationOutcome
+}
+

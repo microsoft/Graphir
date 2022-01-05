@@ -1,0 +1,292 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type AuditEvent {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  category: [CodeableConcept]
+  code: CodeableConcept!
+  action: code  _action: ElementBase
+  severity: code  _severity: ElementBase
+  occurredPeriod: Period
+  occurredDateTime: dateTime  _occurredDateTime: ElementBase
+  recorded: instant  _recorded: ElementBase
+  outcome: AuditEventOutcome
+  authorization: [CodeableConcept]
+  basedOn: [Reference]
+  encounter: Reference
+  agent: [AuditEventAgent]!
+  source: AuditEventSource!
+  entity: [AuditEventEntity]
+}
+
+type AuditEventOutcome {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: Coding!
+  detail: [CodeableConcept]
+}
+
+type AuditEventAgent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  role: [CodeableConcept]
+  who: Reference!
+  requestor: Boolean  _requestor: ElementBase
+  location: Reference
+  policy: uri  _policy: [ElementBase]
+  networkReference: Reference
+  networkUri: uri  _networkUri: ElementBase
+  networkString: String  _networkString: ElementBase
+  authorization: [CodeableConcept]
+}
+
+type AuditEventSource {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  site: Reference
+  observer: Reference!
+  type: [CodeableConcept]
+}
+
+type AuditEventEntity {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  what: Reference
+  role: CodeableConcept
+  securityLabel: [CodeableConcept]
+  query: base64Binary  _query: ElementBase
+  detail: [AuditEventEntityDetail]
+  agent: [AuditEventAgent]
+}
+
+type AuditEventEntityDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueQuantity: Quantity
+  valueCodeableConcept: CodeableConcept
+  valueString: String  _valueString: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueRange: Range
+  valueRatio: Ratio
+  valueTime: time  _valueTime: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valuePeriod: Period
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBase
+}
+
+input AuditEventInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput!
+  action: code  _action: ElementBaseInput
+  severity: code  _severity: ElementBaseInput
+  occurredPeriod: PeriodInput
+  occurredDateTime: dateTime  _occurredDateTime: ElementBaseInput
+  recorded: instant  _recorded: ElementBaseInput
+  outcome: AuditEventOutcomeInput
+  authorization: [CodeableConceptInput]
+  basedOn: [ReferenceInput]
+  encounter: ReferenceInput
+  agent: [AuditEventAgentInput]!
+  source: AuditEventSourceInput!
+  entity: [AuditEventEntityInput]
+}
+
+input AuditEventOutcomeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodingInput!
+  detail: [CodeableConceptInput]
+}
+
+input AuditEventAgentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  role: [CodeableConceptInput]
+  who: ReferenceInput!
+  requestor: Boolean  _requestor: ElementBaseInput
+  location: ReferenceInput
+  policy: uri  _policy: [ElementBaseInput]
+  networkReference: ReferenceInput
+  networkUri: uri  _networkUri: ElementBaseInput
+  networkString: String  _networkString: ElementBaseInput
+  authorization: [CodeableConceptInput]
+}
+
+input AuditEventSourceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  site: ReferenceInput
+  observer: ReferenceInput!
+  type: [CodeableConceptInput]
+}
+
+input AuditEventEntityInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  what: ReferenceInput
+  role: CodeableConceptInput
+  securityLabel: [CodeableConceptInput]
+  query: base64Binary  _query: ElementBaseInput
+  detail: [AuditEventEntityDetailInput]
+  agent: [AuditEventAgent]
+}
+
+input AuditEventEntityDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueQuantity: QuantityInput
+  valueCodeableConcept: CodeableConceptInput
+  valueString: String  _valueString: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueRange: RangeInput
+  valueRatio: RatioInput
+  valueTime: time  _valueTime: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valuePeriod: PeriodInput
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBaseInput
+}
+
+type AuditEventReadType {
+  AuditEvent(id: ID!): AuditEvent
+}
+
+type AuditEventListType {
+  AuditEventList(_filter: String
+    action: [token]
+    agent: [reference]
+    agent_role: [token]
+    based_on: [reference]
+    category: [token]
+    code: [token]
+    date: [date]
+    encounter: [reference]
+    entity: [reference]
+    entity_role: [token]
+    outcome: [token]
+    patient: [reference]
+    policy: [uri]
+    purpose: [token]
+    source: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [AuditEvent]
+}
+
+type AuditEventConnectionType {
+  AuditEventConection(_filter: String
+    action: [token]
+    agent: [reference]
+    agent_role: [token]
+    based_on: [reference]
+    category: [token]
+    code: [token]
+    date: [date]
+    encounter: [reference]
+    entity: [reference]
+    entity_role: [token]
+    outcome: [token]
+    patient: [reference]
+    policy: [uri]
+    purpose: [token]
+    source: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): AuditEventConnection
+}
+
+type AuditEventConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [AuditEventEdge]
+}
+
+type AuditEventEdge {
+  mode: String
+  score: Float
+  resource: AuditEvent
+}
+
+type AuditEventCreateType {
+  AuditEventCreate(resource: AuditEventInput): AuditEventCreation
+}
+
+type AuditEventCreation {
+  location: String
+  resource: AuditEvent
+  information: OperationOutcome
+}
+
+type AuditEventUpdateType {
+  AuditEventUpdate(id: ID, resource: AuditEventInput): AuditEventUpdate
+}
+
+type AuditEventUpdate {
+  resource: AuditEvent
+  information: OperationOutcome
+}
+
+type AuditEventDeleteType {
+  AuditEventDelete(id: ID): AuditEventDelete
+}
+
+type AuditEventDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,210 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type VerificationResult {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  target: [Reference]
+  targetLocation: String  _targetLocation: [ElementBase]
+  need: CodeableConcept
+  status: code  _status: ElementBase
+  statusDate: dateTime  _statusDate: ElementBase
+  validationType: CodeableConcept
+  validationProcess: [CodeableConcept]
+  frequency: Timing
+  lastPerformed: dateTime  _lastPerformed: ElementBase
+  nextScheduled: date  _nextScheduled: ElementBase
+  failureAction: CodeableConcept
+  primarySource: [VerificationResultPrimarySource]
+  attestation: VerificationResultAttestation
+  validator: [VerificationResultValidator]
+}
+
+type VerificationResultPrimarySource {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  who: Reference
+  type: [CodeableConcept]
+  communicationMethod: [CodeableConcept]
+  validationStatus: CodeableConcept
+  validationDate: dateTime  _validationDate: ElementBase
+  canPushUpdates: CodeableConcept
+  pushTypeAvailable: [CodeableConcept]
+}
+
+type VerificationResultAttestation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  who: Reference
+  onBehalfOf: Reference
+  communicationMethod: CodeableConcept
+  date: date  _date: ElementBase
+  sourceIdentityCertificate: String  _sourceIdentityCertificate: ElementBase
+  proxyIdentityCertificate: String  _proxyIdentityCertificate: ElementBase
+  proxySignature: Signature
+  sourceSignature: Signature
+}
+
+type VerificationResultValidator {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  organization: Reference!
+  identityCertificate: String  _identityCertificate: ElementBase
+  attestationSignature: Signature
+}
+
+input VerificationResultInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  target: [ReferenceInput]
+  targetLocation: String  _targetLocation: [ElementBaseInput]
+  need: CodeableConceptInput
+  status: code  _status: ElementBaseInput
+  statusDate: dateTime  _statusDate: ElementBaseInput
+  validationType: CodeableConceptInput
+  validationProcess: [CodeableConceptInput]
+  frequency: TimingInput
+  lastPerformed: dateTime  _lastPerformed: ElementBaseInput
+  nextScheduled: date  _nextScheduled: ElementBaseInput
+  failureAction: CodeableConceptInput
+  primarySource: [VerificationResultPrimarySourceInput]
+  attestation: VerificationResultAttestationInput
+  validator: [VerificationResultValidatorInput]
+}
+
+input VerificationResultPrimarySourceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  who: ReferenceInput
+  type: [CodeableConceptInput]
+  communicationMethod: [CodeableConceptInput]
+  validationStatus: CodeableConceptInput
+  validationDate: dateTime  _validationDate: ElementBaseInput
+  canPushUpdates: CodeableConceptInput
+  pushTypeAvailable: [CodeableConceptInput]
+}
+
+input VerificationResultAttestationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  who: ReferenceInput
+  onBehalfOf: ReferenceInput
+  communicationMethod: CodeableConceptInput
+  date: date  _date: ElementBaseInput
+  sourceIdentityCertificate: String  _sourceIdentityCertificate: ElementBaseInput
+  proxyIdentityCertificate: String  _proxyIdentityCertificate: ElementBaseInput
+  proxySignature: SignatureInput
+  sourceSignature: SignatureInput
+}
+
+input VerificationResultValidatorInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  organization: ReferenceInput!
+  identityCertificate: String  _identityCertificate: ElementBaseInput
+  attestationSignature: SignatureInput
+}
+
+type VerificationResultReadType {
+  VerificationResult(id: ID!): VerificationResult
+}
+
+type VerificationResultListType {
+  VerificationResultList(_filter: String
+    target: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [VerificationResult]
+}
+
+type VerificationResultConnectionType {
+  VerificationResultConection(_filter: String
+    target: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): VerificationResultConnection
+}
+
+type VerificationResultConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [VerificationResultEdge]
+}
+
+type VerificationResultEdge {
+  mode: String
+  score: Float
+  resource: VerificationResult
+}
+
+type VerificationResultCreateType {
+  VerificationResultCreate(resource: VerificationResultInput): VerificationResultCreation
+}
+
+type VerificationResultCreation {
+  location: String
+  resource: VerificationResult
+  information: OperationOutcome
+}
+
+type VerificationResultUpdateType {
+  VerificationResultUpdate(id: ID, resource: VerificationResultInput): VerificationResultUpdate
+}
+
+type VerificationResultUpdate {
+  resource: VerificationResult
+  information: OperationOutcome
+}
+
+type VerificationResultDeleteType {
+  VerificationResultDelete(id: ID): VerificationResultDelete
+}
+
+type VerificationResultDelete {
+  information: OperationOutcome
+}
+

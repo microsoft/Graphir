@@ -1,0 +1,156 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DeviceMetric {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  type: CodeableConcept!
+  unit: CodeableConcept
+  source: Reference
+  parent: Reference
+  operationalStatus: code  _operationalStatus: ElementBase
+  color: code  _color: ElementBase
+  category: code  _category: ElementBase
+  measurementPeriod: Timing
+  calibration: [DeviceMetricCalibration]
+}
+
+type DeviceMetricCalibration {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  state: code  _state: ElementBase
+  time: instant  _time: ElementBase
+}
+
+input DeviceMetricInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  type: CodeableConceptInput!
+  unit: CodeableConceptInput
+  source: ReferenceInput
+  parent: ReferenceInput
+  operationalStatus: code  _operationalStatus: ElementBaseInput
+  color: code  _color: ElementBaseInput
+  category: code  _category: ElementBaseInput
+  measurementPeriod: TimingInput
+  calibration: [DeviceMetricCalibrationInput]
+}
+
+input DeviceMetricCalibrationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  state: code  _state: ElementBaseInput
+  time: instant  _time: ElementBaseInput
+}
+
+type DeviceMetricReadType {
+  DeviceMetric(id: ID!): DeviceMetric
+}
+
+type DeviceMetricListType {
+  DeviceMetricList(_filter: String
+    category: [token]
+    identifier: [token]
+    parent: [reference]
+    source: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DeviceMetric]
+}
+
+type DeviceMetricConnectionType {
+  DeviceMetricConection(_filter: String
+    category: [token]
+    identifier: [token]
+    parent: [reference]
+    source: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DeviceMetricConnection
+}
+
+type DeviceMetricConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DeviceMetricEdge]
+}
+
+type DeviceMetricEdge {
+  mode: String
+  score: Float
+  resource: DeviceMetric
+}
+
+type DeviceMetricCreateType {
+  DeviceMetricCreate(resource: DeviceMetricInput): DeviceMetricCreation
+}
+
+type DeviceMetricCreation {
+  location: String
+  resource: DeviceMetric
+  information: OperationOutcome
+}
+
+type DeviceMetricUpdateType {
+  DeviceMetricUpdate(id: ID, resource: DeviceMetricInput): DeviceMetricUpdate
+}
+
+type DeviceMetricUpdate {
+  resource: DeviceMetric
+  information: OperationOutcome
+}
+
+type DeviceMetricDeleteType {
+  DeviceMetricDelete(id: ID): DeviceMetricDelete
+}
+
+type DeviceMetricDelete {
+  information: OperationOutcome
+}
+

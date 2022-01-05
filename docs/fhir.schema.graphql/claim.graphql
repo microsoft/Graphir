@@ -1,0 +1,510 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Claim {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  type: CodeableConcept!
+  subType: CodeableConcept
+  use: code  _use: ElementBase
+  patient: Reference!
+  billablePeriod: Period
+  created: dateTime  _created: ElementBase
+  enterer: Reference
+  insurer: Reference
+  provider: Reference!
+  priority: CodeableConcept!
+  fundsReserve: CodeableConcept
+  related: [ClaimRelated]
+  prescription: Reference
+  originalPrescription: Reference
+  payee: ClaimPayee
+  referral: Reference
+  facility: Reference
+  careTeam: [ClaimCareTeam]
+  supportingInfo: [ClaimSupportingInfo]
+  diagnosis: [ClaimDiagnosis]
+  procedure: [ClaimProcedure]
+  insurance: [ClaimInsurance]!
+  accident: ClaimAccident
+  item: [ClaimItem]
+  total: Money
+}
+
+type ClaimRelated {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  claim: Reference
+  relationship: CodeableConcept
+  reference: Identifier
+}
+
+type ClaimPayee {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  party: Reference
+}
+
+type ClaimCareTeam {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  provider: Reference!
+  responsible: Boolean  _responsible: ElementBase
+  role: CodeableConcept
+  qualification: CodeableConcept
+}
+
+type ClaimSupportingInfo {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  category: CodeableConcept!
+  code: CodeableConcept
+  timingDate: date  _timingDate: ElementBase
+  timingPeriod: Period
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueQuantity: Quantity
+  valueAttachment: Attachment
+  valueReference: Reference
+  reason: CodeableConcept
+}
+
+type ClaimDiagnosis {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  diagnosisCodeableConcept: CodeableConcept
+  diagnosisReference: Reference
+  type: [CodeableConcept]
+  onAdmission: CodeableConcept
+  packageCode: CodeableConcept
+}
+
+type ClaimProcedure {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  type: [CodeableConcept]
+  date: dateTime  _date: ElementBase
+  procedureCodeableConcept: CodeableConcept
+  procedureReference: Reference
+  udi: [Reference]
+}
+
+type ClaimInsurance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  focal: Boolean  _focal: ElementBase
+  identifier: Identifier
+  coverage: Reference!
+  businessArrangement: String  _businessArrangement: ElementBase
+  preAuthRef: String  _preAuthRef: [ElementBase]
+  claimResponse: Reference
+}
+
+type ClaimAccident {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  date: date  _date: ElementBase
+  type: CodeableConcept
+  locationAddress: Address
+  locationReference: Reference
+}
+
+type ClaimItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  careTeamSequence: positiveInt  _careTeamSequence: [ElementBase]
+  diagnosisSequence: positiveInt  _diagnosisSequence: [ElementBase]
+  procedureSequence: positiveInt  _procedureSequence: [ElementBase]
+  informationSequence: positiveInt  _informationSequence: [ElementBase]
+  revenue: CodeableConcept
+  category: CodeableConcept
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  servicedDate: date  _servicedDate: ElementBase
+  servicedPeriod: Period
+  locationCodeableConcept: CodeableConcept
+  locationAddress: Address
+  locationReference: Reference
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  udi: [Reference]
+  bodySite: CodeableConcept
+  subSite: [CodeableConcept]
+  encounter: [Reference]
+  detail: [ClaimItemDetail]
+}
+
+type ClaimItemDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  revenue: CodeableConcept
+  category: CodeableConcept
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  udi: [Reference]
+  subDetail: [ClaimItemDetailSubDetail]
+}
+
+type ClaimItemDetailSubDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  revenue: CodeableConcept
+  category: CodeableConcept
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  udi: [Reference]
+}
+
+input ClaimInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  type: CodeableConceptInput!
+  subType: CodeableConceptInput
+  use: code  _use: ElementBaseInput
+  patient: ReferenceInput!
+  billablePeriod: PeriodInput
+  created: dateTime  _created: ElementBaseInput
+  enterer: ReferenceInput
+  insurer: ReferenceInput
+  provider: ReferenceInput!
+  priority: CodeableConceptInput!
+  fundsReserve: CodeableConceptInput
+  related: [ClaimRelatedInput]
+  prescription: ReferenceInput
+  originalPrescription: ReferenceInput
+  payee: ClaimPayeeInput
+  referral: ReferenceInput
+  facility: ReferenceInput
+  careTeam: [ClaimCareTeamInput]
+  supportingInfo: [ClaimSupportingInfoInput]
+  diagnosis: [ClaimDiagnosisInput]
+  procedure: [ClaimProcedureInput]
+  insurance: [ClaimInsuranceInput]!
+  accident: ClaimAccidentInput
+  item: [ClaimItemInput]
+  total: MoneyInput
+}
+
+input ClaimRelatedInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  claim: ReferenceInput
+  relationship: CodeableConceptInput
+  reference: IdentifierInput
+}
+
+input ClaimPayeeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  party: ReferenceInput
+}
+
+input ClaimCareTeamInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  provider: ReferenceInput!
+  responsible: Boolean  _responsible: ElementBaseInput
+  role: CodeableConceptInput
+  qualification: CodeableConceptInput
+}
+
+input ClaimSupportingInfoInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  category: CodeableConceptInput!
+  code: CodeableConceptInput
+  timingDate: date  _timingDate: ElementBaseInput
+  timingPeriod: PeriodInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueQuantity: QuantityInput
+  valueAttachment: AttachmentInput
+  valueReference: ReferenceInput
+  reason: CodeableConceptInput
+}
+
+input ClaimDiagnosisInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  diagnosisCodeableConcept: CodeableConceptInput
+  diagnosisReference: ReferenceInput
+  type: [CodeableConceptInput]
+  onAdmission: CodeableConceptInput
+  packageCode: CodeableConceptInput
+}
+
+input ClaimProcedureInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  type: [CodeableConceptInput]
+  date: dateTime  _date: ElementBaseInput
+  procedureCodeableConcept: CodeableConceptInput
+  procedureReference: ReferenceInput
+  udi: [ReferenceInput]
+}
+
+input ClaimInsuranceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  focal: Boolean  _focal: ElementBaseInput
+  identifier: IdentifierInput
+  coverage: ReferenceInput!
+  businessArrangement: String  _businessArrangement: ElementBaseInput
+  preAuthRef: String  _preAuthRef: [ElementBaseInput]
+  claimResponse: ReferenceInput
+}
+
+input ClaimAccidentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  date: date  _date: ElementBaseInput
+  type: CodeableConceptInput
+  locationAddress: AddressInput
+  locationReference: ReferenceInput
+}
+
+input ClaimItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  careTeamSequence: positiveInt  _careTeamSequence: [ElementBaseInput]
+  diagnosisSequence: positiveInt  _diagnosisSequence: [ElementBaseInput]
+  procedureSequence: positiveInt  _procedureSequence: [ElementBaseInput]
+  informationSequence: positiveInt  _informationSequence: [ElementBaseInput]
+  revenue: CodeableConceptInput
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  servicedDate: date  _servicedDate: ElementBaseInput
+  servicedPeriod: PeriodInput
+  locationCodeableConcept: CodeableConceptInput
+  locationAddress: AddressInput
+  locationReference: ReferenceInput
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  udi: [ReferenceInput]
+  bodySite: CodeableConceptInput
+  subSite: [CodeableConceptInput]
+  encounter: [ReferenceInput]
+  detail: [ClaimItemDetailInput]
+}
+
+input ClaimItemDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  revenue: CodeableConceptInput
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  udi: [ReferenceInput]
+  subDetail: [ClaimItemDetailSubDetailInput]
+}
+
+input ClaimItemDetailSubDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  revenue: CodeableConceptInput
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  udi: [ReferenceInput]
+}
+
+type ClaimReadType {
+  Claim(id: ID!): Claim
+}
+
+type ClaimListType {
+  ClaimList(_filter: String
+    care_team: [reference]
+    created: [date]
+    detail_udi: [reference]
+    encounter: [reference]
+    enterer: [reference]
+    facility: [reference]
+    identifier: [token]
+    insurer: [reference]
+    item_udi: [reference]
+    patient: [reference]
+    payee: [reference]
+    priority: [token]
+    procedure_udi: [reference]
+    provider: [reference]
+    status: [token]
+    subdetail_udi: [reference]
+    use: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Claim]
+}
+
+type ClaimConnectionType {
+  ClaimConection(_filter: String
+    care_team: [reference]
+    created: [date]
+    detail_udi: [reference]
+    encounter: [reference]
+    enterer: [reference]
+    facility: [reference]
+    identifier: [token]
+    insurer: [reference]
+    item_udi: [reference]
+    patient: [reference]
+    payee: [reference]
+    priority: [token]
+    procedure_udi: [reference]
+    provider: [reference]
+    status: [token]
+    subdetail_udi: [reference]
+    use: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ClaimConnection
+}
+
+type ClaimConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ClaimEdge]
+}
+
+type ClaimEdge {
+  mode: String
+  score: Float
+  resource: Claim
+}
+
+type ClaimCreateType {
+  ClaimCreate(resource: ClaimInput): ClaimCreation
+}
+
+type ClaimCreation {
+  location: String
+  resource: Claim
+  information: OperationOutcome
+}
+
+type ClaimUpdateType {
+  ClaimUpdate(id: ID, resource: ClaimInput): ClaimUpdate
+}
+
+type ClaimUpdate {
+  resource: Claim
+  information: OperationOutcome
+}
+
+type ClaimDeleteType {
+  ClaimDelete(id: ID): ClaimDelete
+}
+
+type ClaimDelete {
+  information: OperationOutcome
+}
+

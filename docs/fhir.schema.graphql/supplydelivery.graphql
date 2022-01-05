@@ -1,0 +1,162 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type SupplyDelivery {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  partOf: [Reference]
+  status: code  _status: ElementBase
+  patient: Reference
+  type: CodeableConcept
+  suppliedItem: SupplyDeliverySuppliedItem
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  supplier: Reference
+  destination: Reference
+  receiver: [Reference]
+}
+
+type SupplyDeliverySuppliedItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  quantity: Quantity
+  itemCodeableConcept: CodeableConcept
+  itemReference: Reference
+}
+
+input SupplyDeliveryInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  partOf: [ReferenceInput]
+  status: code  _status: ElementBaseInput
+  patient: ReferenceInput
+  type: CodeableConceptInput
+  suppliedItem: SupplyDeliverySuppliedItemInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  supplier: ReferenceInput
+  destination: ReferenceInput
+  receiver: [ReferenceInput]
+}
+
+input SupplyDeliverySuppliedItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  quantity: QuantityInput
+  itemCodeableConcept: CodeableConceptInput
+  itemReference: ReferenceInput
+}
+
+type SupplyDeliveryReadType {
+  SupplyDelivery(id: ID!): SupplyDelivery
+}
+
+type SupplyDeliveryListType {
+  SupplyDeliveryList(_filter: String
+    identifier: [token]
+    patient: [reference]
+    receiver: [reference]
+    status: [token]
+    supplier: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [SupplyDelivery]
+}
+
+type SupplyDeliveryConnectionType {
+  SupplyDeliveryConection(_filter: String
+    identifier: [token]
+    patient: [reference]
+    receiver: [reference]
+    status: [token]
+    supplier: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SupplyDeliveryConnection
+}
+
+type SupplyDeliveryConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SupplyDeliveryEdge]
+}
+
+type SupplyDeliveryEdge {
+  mode: String
+  score: Float
+  resource: SupplyDelivery
+}
+
+type SupplyDeliveryCreateType {
+  SupplyDeliveryCreate(resource: SupplyDeliveryInput): SupplyDeliveryCreation
+}
+
+type SupplyDeliveryCreation {
+  location: String
+  resource: SupplyDelivery
+  information: OperationOutcome
+}
+
+type SupplyDeliveryUpdateType {
+  SupplyDeliveryUpdate(id: ID, resource: SupplyDeliveryInput): SupplyDeliveryUpdate
+}
+
+type SupplyDeliveryUpdate {
+  resource: SupplyDelivery
+  information: OperationOutcome
+}
+
+type SupplyDeliveryDeleteType {
+  SupplyDeliveryDelete(id: ID): SupplyDeliveryDelete
+}
+
+type SupplyDeliveryDelete {
+  information: OperationOutcome
+}
+

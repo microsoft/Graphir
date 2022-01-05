@@ -1,0 +1,208 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ArtifactAssessment {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  citeAsReference: Reference
+  citeAsMarkdown: markdown  _citeAsMarkdown: ElementBase
+  date: dateTime  _date: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: dateTime  _approvalDate: ElementBase
+  lastReviewDate: dateTime  _lastReviewDate: ElementBase
+  artifactReference: Reference
+  artifactUri: uri  _artifactUri: ElementBase
+  content: [ArtifactAssessmentContent]
+  workflowStatus: code  _workflowStatus: ElementBase
+  disposition: code  _disposition: ElementBase
+}
+
+type ArtifactAssessmentContent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  informationType: code  _informationType: ElementBase
+  summary: markdown  _summary: ElementBase
+  type: CodeableConcept
+  classifier: [CodeableConcept]
+  author: Reference
+  path: uri  _path: [ElementBase]
+  relatedArtifact: [RelatedArtifact]
+  freeToShare: Boolean  _freeToShare: ElementBase
+  component: [ArtifactAssessmentContent]
+}
+
+input ArtifactAssessmentInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  citeAsReference: ReferenceInput
+  citeAsMarkdown: markdown  _citeAsMarkdown: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: dateTime  _approvalDate: ElementBaseInput
+  lastReviewDate: dateTime  _lastReviewDate: ElementBaseInput
+  artifactReference: ReferenceInput
+  artifactUri: uri  _artifactUri: ElementBaseInput
+  content: [ArtifactAssessmentContentInput]
+  workflowStatus: code  _workflowStatus: ElementBaseInput
+  disposition: code  _disposition: ElementBaseInput
+}
+
+input ArtifactAssessmentContentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  informationType: code  _informationType: ElementBaseInput
+  summary: markdown  _summary: ElementBaseInput
+  type: CodeableConceptInput
+  classifier: [CodeableConceptInput]
+  author: ReferenceInput
+  path: uri  _path: [ElementBaseInput]
+  relatedArtifact: [RelatedArtifactInput]
+  freeToShare: Boolean  _freeToShare: ElementBaseInput
+  component: [ArtifactAssessmentContent]
+}
+
+type ArtifactAssessmentReadType {
+  ArtifactAssessment(id: ID!): ArtifactAssessment
+}
+
+type ArtifactAssessmentListType {
+  ArtifactAssessmentList(_filter: String
+    date: [date]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ArtifactAssessment]
+}
+
+type ArtifactAssessmentConnectionType {
+  ArtifactAssessmentConection(_filter: String
+    date: [date]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ArtifactAssessmentConnection
+}
+
+type ArtifactAssessmentConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ArtifactAssessmentEdge]
+}
+
+type ArtifactAssessmentEdge {
+  mode: String
+  score: Float
+  resource: ArtifactAssessment
+}
+
+type ArtifactAssessmentCreateType {
+  ArtifactAssessmentCreate(resource: ArtifactAssessmentInput): ArtifactAssessmentCreation
+}
+
+type ArtifactAssessmentCreation {
+  location: String
+  resource: ArtifactAssessment
+  information: OperationOutcome
+}
+
+type ArtifactAssessmentUpdateType {
+  ArtifactAssessmentUpdate(id: ID, resource: ArtifactAssessmentInput): ArtifactAssessmentUpdate
+}
+
+type ArtifactAssessmentUpdate {
+  resource: ArtifactAssessment
+  information: OperationOutcome
+}
+
+type ArtifactAssessmentDeleteType {
+  ArtifactAssessmentDelete(id: ID): ArtifactAssessmentDelete
+}
+
+type ArtifactAssessmentDelete {
+  information: OperationOutcome
+}
+

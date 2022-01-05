@@ -1,0 +1,234 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Condition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  clinicalStatus: CodeableConcept!
+  verificationStatus: CodeableConcept
+  category: [CodeableConcept]
+  severity: CodeableConcept
+  code: CodeableConcept
+  bodySite: [CodeableConcept]
+  subject: Reference!
+  encounter: Reference
+  onsetDateTime: dateTime  _onsetDateTime: ElementBase
+  onsetAge: Age
+  onsetPeriod: Period
+  onsetRange: Range
+  onsetString: String  _onsetString: ElementBase
+  abatementDateTime: dateTime  _abatementDateTime: ElementBase
+  abatementAge: Age
+  abatementPeriod: Period
+  abatementRange: Range
+  abatementString: String  _abatementString: ElementBase
+  recordedDate: dateTime  _recordedDate: ElementBase
+  recorder: Reference
+  asserter: Reference
+  stage: [ConditionStage]
+  evidence: [ConditionEvidence]
+  note: [Annotation]
+}
+
+type ConditionStage {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  summary: CodeableConcept
+  assessment: [Reference]
+  type: CodeableConcept
+}
+
+type ConditionEvidence {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: [CodeableConcept]
+  detail: [Reference]
+}
+
+input ConditionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  clinicalStatus: CodeableConceptInput!
+  verificationStatus: CodeableConceptInput
+  category: [CodeableConceptInput]
+  severity: CodeableConceptInput
+  code: CodeableConceptInput
+  bodySite: [CodeableConceptInput]
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  onsetDateTime: dateTime  _onsetDateTime: ElementBaseInput
+  onsetAge: AgeInput
+  onsetPeriod: PeriodInput
+  onsetRange: RangeInput
+  onsetString: String  _onsetString: ElementBaseInput
+  abatementDateTime: dateTime  _abatementDateTime: ElementBaseInput
+  abatementAge: AgeInput
+  abatementPeriod: PeriodInput
+  abatementRange: RangeInput
+  abatementString: String  _abatementString: ElementBaseInput
+  recordedDate: dateTime  _recordedDate: ElementBaseInput
+  recorder: ReferenceInput
+  asserter: ReferenceInput
+  stage: [ConditionStageInput]
+  evidence: [ConditionEvidenceInput]
+  note: [AnnotationInput]
+}
+
+input ConditionStageInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  summary: CodeableConceptInput
+  assessment: [ReferenceInput]
+  type: CodeableConceptInput
+}
+
+input ConditionEvidenceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: [CodeableConceptInput]
+  detail: [ReferenceInput]
+}
+
+type ConditionReadType {
+  Condition(id: ID!): Condition
+}
+
+type ConditionListType {
+  ConditionList(_filter: String
+    abatement_age: [quantity]
+    abatement_date: [date]
+    abatement_string: [String]
+    asserter: [reference]
+    body_site: [token]
+    category: [token]
+    clinical_status: [token]
+    code: [token]
+    encounter: [reference]
+    evidence: [token]
+    evidence_detail: [reference]
+    identifier: [token]
+    onset_age: [quantity]
+    onset_date: [date]
+    onset_info: [String]
+    patient: [reference]
+    recorded_date: [date]
+    severity: [token]
+    stage: [token]
+    subject: [reference]
+    verification_status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Condition]
+}
+
+type ConditionConnectionType {
+  ConditionConection(_filter: String
+    abatement_age: [quantity]
+    abatement_date: [date]
+    abatement_string: [String]
+    asserter: [reference]
+    body_site: [token]
+    category: [token]
+    clinical_status: [token]
+    code: [token]
+    encounter: [reference]
+    evidence: [token]
+    evidence_detail: [reference]
+    identifier: [token]
+    onset_age: [quantity]
+    onset_date: [date]
+    onset_info: [String]
+    patient: [reference]
+    recorded_date: [date]
+    severity: [token]
+    stage: [token]
+    subject: [reference]
+    verification_status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ConditionConnection
+}
+
+type ConditionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ConditionEdge]
+}
+
+type ConditionEdge {
+  mode: String
+  score: Float
+  resource: Condition
+}
+
+type ConditionCreateType {
+  ConditionCreate(resource: ConditionInput): ConditionCreation
+}
+
+type ConditionCreation {
+  location: String
+  resource: Condition
+  information: OperationOutcome
+}
+
+type ConditionUpdateType {
+  ConditionUpdate(id: ID, resource: ConditionInput): ConditionUpdate
+}
+
+type ConditionUpdate {
+  resource: Condition
+  information: OperationOutcome
+}
+
+type ConditionDeleteType {
+  ConditionDelete(id: ID): ConditionDelete
+}
+
+type ConditionDelete {
+  information: OperationOutcome
+}
+

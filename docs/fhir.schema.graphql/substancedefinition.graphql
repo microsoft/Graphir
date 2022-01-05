@@ -1,0 +1,412 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type SubstanceDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  status: CodeableConcept
+  classification: [CodeableConcept]
+  domain: CodeableConcept
+  grade: [CodeableConcept]
+  description: markdown  _description: ElementBase
+  informationSource: [Reference]
+  note: [Annotation]
+  manufacturer: [Reference]
+  supplier: [Reference]
+  moiety: [SubstanceDefinitionMoiety]
+  property: [SubstanceDefinitionProperty]
+  referenceInformation: Reference
+  molecularWeight: [SubstanceDefinitionMolecularWeight]
+  structure: SubstanceDefinitionStructure
+  code: [SubstanceDefinitionCode]
+  name: [SubstanceDefinitionName]
+  relationship: [SubstanceDefinitionRelationship]
+  nucleicAcid: Reference
+  polymer: Reference
+  protein: Reference
+  sourceMaterial: SubstanceDefinitionSourceMaterial
+}
+
+type SubstanceDefinitionMoiety {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  role: CodeableConcept
+  identifier: Identifier
+  name: String  _name: ElementBase
+  stereochemistry: CodeableConcept
+  opticalActivity: CodeableConcept
+  molecularFormula: String  _molecularFormula: ElementBase
+  amountQuantity: Quantity
+  amountString: String  _amountString: ElementBase
+  amountType: CodeableConcept
+}
+
+type SubstanceDefinitionProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueDate: date  _valueDate: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueAttachment: Attachment
+}
+
+type SubstanceDefinitionMolecularWeight {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  method: CodeableConcept
+  type: CodeableConcept
+  amount: Quantity!
+}
+
+type SubstanceDefinitionStructure {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  stereochemistry: CodeableConcept
+  opticalActivity: CodeableConcept
+  molecularFormula: String  _molecularFormula: ElementBase
+  molecularFormulaByMoiety: String  _molecularFormulaByMoiety: ElementBase
+  molecularWeight: SubstanceDefinitionMolecularWeight
+  technique: [CodeableConcept]
+  sourceDocument: [Reference]
+  representation: [SubstanceDefinitionStructureRepresentation]
+}
+
+type SubstanceDefinitionStructureRepresentation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  representation: String  _representation: ElementBase
+  format: CodeableConcept
+  document: Reference
+}
+
+type SubstanceDefinitionCode {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept
+  status: CodeableConcept
+  statusDate: dateTime  _statusDate: ElementBase
+  note: [Annotation]
+  source: [Reference]
+}
+
+type SubstanceDefinitionName {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  type: CodeableConcept
+  status: CodeableConcept
+  preferred: Boolean  _preferred: ElementBase
+  language: [CodeableConcept]
+  domain: [CodeableConcept]
+  jurisdiction: [CodeableConcept]
+  synonym: [SubstanceDefinitionName]
+  translation: [SubstanceDefinitionName]
+  official: [SubstanceDefinitionNameOfficial]
+  source: [Reference]
+}
+
+type SubstanceDefinitionNameOfficial {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  authority: CodeableConcept
+  status: CodeableConcept
+  date: dateTime  _date: ElementBase
+}
+
+type SubstanceDefinitionRelationship {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  substanceDefinitionReference: Reference
+  substanceDefinitionCodeableConcept: CodeableConcept
+  type: CodeableConcept!
+  isDefining: Boolean  _isDefining: ElementBase
+  amountQuantity: Quantity
+  amountRatio: Ratio
+  amountString: String  _amountString: ElementBase
+  amountRatioHighLimit: Ratio
+  amountType: CodeableConcept
+  source: [Reference]
+}
+
+type SubstanceDefinitionSourceMaterial {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  genus: CodeableConcept
+  species: CodeableConcept
+  part: CodeableConcept
+  countryOfOrigin: [CodeableConcept]
+}
+
+input SubstanceDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  status: CodeableConceptInput
+  classification: [CodeableConceptInput]
+  domain: CodeableConceptInput
+  grade: [CodeableConceptInput]
+  description: markdown  _description: ElementBaseInput
+  informationSource: [ReferenceInput]
+  note: [AnnotationInput]
+  manufacturer: [ReferenceInput]
+  supplier: [ReferenceInput]
+  moiety: [SubstanceDefinitionMoietyInput]
+  property: [SubstanceDefinitionPropertyInput]
+  referenceInformation: ReferenceInput
+  molecularWeight: [SubstanceDefinitionMolecularWeightInput]
+  structure: SubstanceDefinitionStructureInput
+  code: [SubstanceDefinitionCodeInput]
+  name: [SubstanceDefinitionNameInput]
+  relationship: [SubstanceDefinitionRelationshipInput]
+  nucleicAcid: ReferenceInput
+  polymer: ReferenceInput
+  protein: ReferenceInput
+  sourceMaterial: SubstanceDefinitionSourceMaterialInput
+}
+
+input SubstanceDefinitionMoietyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  role: CodeableConceptInput
+  identifier: IdentifierInput
+  name: String  _name: ElementBaseInput
+  stereochemistry: CodeableConceptInput
+  opticalActivity: CodeableConceptInput
+  molecularFormula: String  _molecularFormula: ElementBaseInput
+  amountQuantity: QuantityInput
+  amountString: String  _amountString: ElementBaseInput
+  amountType: CodeableConceptInput
+}
+
+input SubstanceDefinitionPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueAttachment: AttachmentInput
+}
+
+input SubstanceDefinitionMolecularWeightInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  method: CodeableConceptInput
+  type: CodeableConceptInput
+  amount: QuantityInput!
+}
+
+input SubstanceDefinitionStructureInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  stereochemistry: CodeableConceptInput
+  opticalActivity: CodeableConceptInput
+  molecularFormula: String  _molecularFormula: ElementBaseInput
+  molecularFormulaByMoiety: String  _molecularFormulaByMoiety: ElementBaseInput
+  molecularWeight: SubstanceDefinitionMolecularWeight
+  technique: [CodeableConceptInput]
+  sourceDocument: [ReferenceInput]
+  representation: [SubstanceDefinitionStructureRepresentationInput]
+}
+
+input SubstanceDefinitionStructureRepresentationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  representation: String  _representation: ElementBaseInput
+  format: CodeableConceptInput
+  document: ReferenceInput
+}
+
+input SubstanceDefinitionCodeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput
+  status: CodeableConceptInput
+  statusDate: dateTime  _statusDate: ElementBaseInput
+  note: [AnnotationInput]
+  source: [ReferenceInput]
+}
+
+input SubstanceDefinitionNameInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  type: CodeableConceptInput
+  status: CodeableConceptInput
+  preferred: Boolean  _preferred: ElementBaseInput
+  language: [CodeableConceptInput]
+  domain: [CodeableConceptInput]
+  jurisdiction: [CodeableConceptInput]
+  synonym: [SubstanceDefinitionName]
+  translation: [SubstanceDefinitionName]
+  official: [SubstanceDefinitionNameOfficialInput]
+  source: [ReferenceInput]
+}
+
+input SubstanceDefinitionNameOfficialInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  authority: CodeableConceptInput
+  status: CodeableConceptInput
+  date: dateTime  _date: ElementBaseInput
+}
+
+input SubstanceDefinitionRelationshipInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  substanceDefinitionReference: ReferenceInput
+  substanceDefinitionCodeableConcept: CodeableConceptInput
+  type: CodeableConceptInput!
+  isDefining: Boolean  _isDefining: ElementBaseInput
+  amountQuantity: QuantityInput
+  amountRatio: RatioInput
+  amountString: String  _amountString: ElementBaseInput
+  amountRatioHighLimit: RatioInput
+  amountType: CodeableConceptInput
+  source: [ReferenceInput]
+}
+
+input SubstanceDefinitionSourceMaterialInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  genus: CodeableConceptInput
+  species: CodeableConceptInput
+  part: CodeableConceptInput
+  countryOfOrigin: [CodeableConceptInput]
+}
+
+type SubstanceDefinitionReadType {
+  SubstanceDefinition(id: ID!): SubstanceDefinition
+}
+
+type SubstanceDefinitionListType {
+  SubstanceDefinitionList(_filter: String
+    classification: [token]
+    code: [token]
+    domain: [token]
+    identifier: [token]
+    name: [String]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [SubstanceDefinition]
+}
+
+type SubstanceDefinitionConnectionType {
+  SubstanceDefinitionConection(_filter: String
+    classification: [token]
+    code: [token]
+    domain: [token]
+    identifier: [token]
+    name: [String]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SubstanceDefinitionConnection
+}
+
+type SubstanceDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SubstanceDefinitionEdge]
+}
+
+type SubstanceDefinitionEdge {
+  mode: String
+  score: Float
+  resource: SubstanceDefinition
+}
+
+type SubstanceDefinitionCreateType {
+  SubstanceDefinitionCreate(resource: SubstanceDefinitionInput): SubstanceDefinitionCreation
+}
+
+type SubstanceDefinitionCreation {
+  location: String
+  resource: SubstanceDefinition
+  information: OperationOutcome
+}
+
+type SubstanceDefinitionUpdateType {
+  SubstanceDefinitionUpdate(id: ID, resource: SubstanceDefinitionInput): SubstanceDefinitionUpdate
+}
+
+type SubstanceDefinitionUpdate {
+  resource: SubstanceDefinition
+  information: OperationOutcome
+}
+
+type SubstanceDefinitionDeleteType {
+  SubstanceDefinitionDelete(id: ID): SubstanceDefinitionDelete
+}
+
+type SubstanceDefinitionDelete {
+  information: OperationOutcome
+}
+

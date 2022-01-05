@@ -1,0 +1,236 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type CoverageEligibilityRequest {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  priority: CodeableConcept
+  purpose: code  _purpose: [ElementBase]
+  patient: Reference!
+  servicedDate: date  _servicedDate: ElementBase
+  servicedPeriod: Period
+  created: dateTime  _created: ElementBase
+  enterer: Reference
+  provider: Reference
+  insurer: Reference!
+  facility: Reference
+  supportingInfo: [CoverageEligibilityRequestSupportingInfo]
+  insurance: [CoverageEligibilityRequestInsurance]
+  item: [CoverageEligibilityRequestItem]
+}
+
+type CoverageEligibilityRequestSupportingInfo {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  information: Reference!
+  appliesToAll: Boolean  _appliesToAll: ElementBase
+}
+
+type CoverageEligibilityRequestInsurance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  focal: Boolean  _focal: ElementBase
+  coverage: Reference!
+  businessArrangement: String  _businessArrangement: ElementBase
+}
+
+type CoverageEligibilityRequestItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  supportingInfoSequence: positiveInt  _supportingInfoSequence: [ElementBase]
+  category: CodeableConcept
+  productOrService: CodeableConcept
+  modifier: [CodeableConcept]
+  provider: Reference
+  quantity: Quantity
+  unitPrice: Money
+  facility: Reference
+  diagnosis: [CoverageEligibilityRequestItemDiagnosis]
+  detail: [Reference]
+}
+
+type CoverageEligibilityRequestItemDiagnosis {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  diagnosisCodeableConcept: CodeableConcept
+  diagnosisReference: Reference
+}
+
+input CoverageEligibilityRequestInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  priority: CodeableConceptInput
+  purpose: code  _purpose: [ElementBaseInput]
+  patient: ReferenceInput!
+  servicedDate: date  _servicedDate: ElementBaseInput
+  servicedPeriod: PeriodInput
+  created: dateTime  _created: ElementBaseInput
+  enterer: ReferenceInput
+  provider: ReferenceInput
+  insurer: ReferenceInput!
+  facility: ReferenceInput
+  supportingInfo: [CoverageEligibilityRequestSupportingInfoInput]
+  insurance: [CoverageEligibilityRequestInsuranceInput]
+  item: [CoverageEligibilityRequestItemInput]
+}
+
+input CoverageEligibilityRequestSupportingInfoInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  information: ReferenceInput!
+  appliesToAll: Boolean  _appliesToAll: ElementBaseInput
+}
+
+input CoverageEligibilityRequestInsuranceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  focal: Boolean  _focal: ElementBaseInput
+  coverage: ReferenceInput!
+  businessArrangement: String  _businessArrangement: ElementBaseInput
+}
+
+input CoverageEligibilityRequestItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  supportingInfoSequence: positiveInt  _supportingInfoSequence: [ElementBaseInput]
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput
+  modifier: [CodeableConceptInput]
+  provider: ReferenceInput
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  facility: ReferenceInput
+  diagnosis: [CoverageEligibilityRequestItemDiagnosisInput]
+  detail: [ReferenceInput]
+}
+
+input CoverageEligibilityRequestItemDiagnosisInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  diagnosisCodeableConcept: CodeableConceptInput
+  diagnosisReference: ReferenceInput
+}
+
+type CoverageEligibilityRequestReadType {
+  CoverageEligibilityRequest(id: ID!): CoverageEligibilityRequest
+}
+
+type CoverageEligibilityRequestListType {
+  CoverageEligibilityRequestList(_filter: String
+    created: [date]
+    enterer: [reference]
+    facility: [reference]
+    identifier: [token]
+    patient: [reference]
+    provider: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [CoverageEligibilityRequest]
+}
+
+type CoverageEligibilityRequestConnectionType {
+  CoverageEligibilityRequestConection(_filter: String
+    created: [date]
+    enterer: [reference]
+    facility: [reference]
+    identifier: [token]
+    patient: [reference]
+    provider: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): CoverageEligibilityRequestConnection
+}
+
+type CoverageEligibilityRequestConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [CoverageEligibilityRequestEdge]
+}
+
+type CoverageEligibilityRequestEdge {
+  mode: String
+  score: Float
+  resource: CoverageEligibilityRequest
+}
+
+type CoverageEligibilityRequestCreateType {
+  CoverageEligibilityRequestCreate(resource: CoverageEligibilityRequestInput): CoverageEligibilityRequestCreation
+}
+
+type CoverageEligibilityRequestCreation {
+  location: String
+  resource: CoverageEligibilityRequest
+  information: OperationOutcome
+}
+
+type CoverageEligibilityRequestUpdateType {
+  CoverageEligibilityRequestUpdate(id: ID, resource: CoverageEligibilityRequestInput): CoverageEligibilityRequestUpdate
+}
+
+type CoverageEligibilityRequestUpdate {
+  resource: CoverageEligibilityRequest
+  information: OperationOutcome
+}
+
+type CoverageEligibilityRequestDeleteType {
+  CoverageEligibilityRequestDelete(id: ID): CoverageEligibilityRequestDelete
+}
+
+type CoverageEligibilityRequestDelete {
+  information: OperationOutcome
+}
+

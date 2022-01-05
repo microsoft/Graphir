@@ -1,0 +1,218 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Appointment {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  cancellationReason: CodeableConcept
+  serviceCategory: [CodeableConcept]
+  serviceType: [CodeableConcept]
+  specialty: [CodeableConcept]
+  appointmentType: CodeableConcept
+  reason: [CodeableReference]
+  priority: CodeableConcept
+  description: String  _description: ElementBase
+  replaces: [Reference]
+  supportingInformation: [Reference]
+  start: instant  _start: ElementBase
+  end: instant  _end: ElementBase
+  minutesDuration: positiveInt  _minutesDuration: ElementBase
+  slot: [Reference]
+  account: [Reference]
+  created: dateTime  _created: ElementBase
+  note: [Annotation]
+  patientInstruction: [CodeableReference]
+  basedOn: [Reference]
+  subject: Reference
+  participant: [AppointmentParticipant]!
+  requestedPeriod: [Period]
+}
+
+type AppointmentParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: [CodeableConcept]
+  period: Period
+  actor: Reference
+  required: Boolean  _required: ElementBase
+  status: code  _status: ElementBase
+}
+
+input AppointmentInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  cancellationReason: CodeableConceptInput
+  serviceCategory: [CodeableConceptInput]
+  serviceType: [CodeableConceptInput]
+  specialty: [CodeableConceptInput]
+  appointmentType: CodeableConceptInput
+  reason: [CodeableReferenceInput]
+  priority: CodeableConceptInput
+  description: String  _description: ElementBaseInput
+  replaces: [ReferenceInput]
+  supportingInformation: [ReferenceInput]
+  start: instant  _start: ElementBaseInput
+  end: instant  _end: ElementBaseInput
+  minutesDuration: positiveInt  _minutesDuration: ElementBaseInput
+  slot: [ReferenceInput]
+  account: [ReferenceInput]
+  created: dateTime  _created: ElementBaseInput
+  note: [AnnotationInput]
+  patientInstruction: [CodeableReferenceInput]
+  basedOn: [ReferenceInput]
+  subject: ReferenceInput
+  participant: [AppointmentParticipantInput]!
+  requestedPeriod: [PeriodInput]
+}
+
+input AppointmentParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: [CodeableConceptInput]
+  period: PeriodInput
+  actor: ReferenceInput
+  required: Boolean  _required: ElementBaseInput
+  status: code  _status: ElementBaseInput
+}
+
+type AppointmentReadType {
+  Appointment(id: ID!): Appointment
+}
+
+type AppointmentListType {
+  AppointmentList(_filter: String
+    actor: [reference]
+    appointment_type: [token]
+    based_on: [reference]
+    date: [date]
+    group: [reference]
+    identifier: [token]
+    location: [reference]
+    part_status: [token]
+    patient: [reference]
+    practitioner: [reference]
+    reason_code: [token]
+    reason_reference: [reference]
+    requested_period: [date]
+    service_category: [token]
+    service_type: [token]
+    slot: [reference]
+    specialty: [token]
+    status: [token]
+    subject: [reference]
+    supporting_info: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Appointment]
+}
+
+type AppointmentConnectionType {
+  AppointmentConection(_filter: String
+    actor: [reference]
+    appointment_type: [token]
+    based_on: [reference]
+    date: [date]
+    group: [reference]
+    identifier: [token]
+    location: [reference]
+    part_status: [token]
+    patient: [reference]
+    practitioner: [reference]
+    reason_code: [token]
+    reason_reference: [reference]
+    requested_period: [date]
+    service_category: [token]
+    service_type: [token]
+    slot: [reference]
+    specialty: [token]
+    status: [token]
+    subject: [reference]
+    supporting_info: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): AppointmentConnection
+}
+
+type AppointmentConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [AppointmentEdge]
+}
+
+type AppointmentEdge {
+  mode: String
+  score: Float
+  resource: Appointment
+}
+
+type AppointmentCreateType {
+  AppointmentCreate(resource: AppointmentInput): AppointmentCreation
+}
+
+type AppointmentCreation {
+  location: String
+  resource: Appointment
+  information: OperationOutcome
+}
+
+type AppointmentUpdateType {
+  AppointmentUpdate(id: ID, resource: AppointmentInput): AppointmentUpdate
+}
+
+type AppointmentUpdate {
+  resource: Appointment
+  information: OperationOutcome
+}
+
+type AppointmentDeleteType {
+  AppointmentDelete(id: ID): AppointmentDelete
+}
+
+type AppointmentDelete {
+  information: OperationOutcome
+}
+

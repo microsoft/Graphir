@@ -1,0 +1,214 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ChargeItem {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  definitionUri: uri  _definitionUri: [ElementBase]
+  definitionCanonical: canonical  _definitionCanonical: [ElementBase]
+  status: code  _status: ElementBase
+  partOf: [Reference]
+  code: CodeableConcept!
+  subject: Reference!
+  context: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  performer: [ChargeItemPerformer]
+  performingOrganization: Reference
+  requestingOrganization: Reference
+  costCenter: Reference
+  quantity: Quantity
+  bodysite: [CodeableConcept]
+  factorOverride: decimal  _factorOverride: ElementBase
+  priceOverride: Money
+  overrideReason: String  _overrideReason: ElementBase
+  enterer: Reference
+  enteredDate: dateTime  _enteredDate: ElementBase
+  reason: [CodeableConcept]
+  service: [Reference]
+  product: [CodeableReference]
+  account: [Reference]
+  note: [Annotation]
+  supportingInformation: [Reference]
+}
+
+type ChargeItemPerformer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference!
+}
+
+input ChargeItemInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  definitionUri: uri  _definitionUri: [ElementBaseInput]
+  definitionCanonical: canonical  _definitionCanonical: [ElementBaseInput]
+  status: code  _status: ElementBaseInput
+  partOf: [ReferenceInput]
+  code: CodeableConceptInput!
+  subject: ReferenceInput!
+  context: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  performer: [ChargeItemPerformerInput]
+  performingOrganization: ReferenceInput
+  requestingOrganization: ReferenceInput
+  costCenter: ReferenceInput
+  quantity: QuantityInput
+  bodysite: [CodeableConceptInput]
+  factorOverride: decimal  _factorOverride: ElementBaseInput
+  priceOverride: MoneyInput
+  overrideReason: String  _overrideReason: ElementBaseInput
+  enterer: ReferenceInput
+  enteredDate: dateTime  _enteredDate: ElementBaseInput
+  reason: [CodeableConceptInput]
+  service: [ReferenceInput]
+  product: [CodeableReferenceInput]
+  account: [ReferenceInput]
+  note: [AnnotationInput]
+  supportingInformation: [ReferenceInput]
+}
+
+input ChargeItemPerformerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput!
+}
+
+type ChargeItemReadType {
+  ChargeItem(id: ID!): ChargeItem
+}
+
+type ChargeItemListType {
+  ChargeItemList(_filter: String
+    account: [reference]
+    code: [token]
+    context: [reference]
+    entered_date: [date]
+    enterer: [reference]
+    factor_override: [number]
+    identifier: [token]
+    occurrence: [date]
+    patient: [reference]
+    performer_actor: [reference]
+    performer_function: [token]
+    performing_organization: [reference]
+    price_override: [quantity]
+    quantity: [quantity]
+    requesting_organization: [reference]
+    service: [reference]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ChargeItem]
+}
+
+type ChargeItemConnectionType {
+  ChargeItemConection(_filter: String
+    account: [reference]
+    code: [token]
+    context: [reference]
+    entered_date: [date]
+    enterer: [reference]
+    factor_override: [number]
+    identifier: [token]
+    occurrence: [date]
+    patient: [reference]
+    performer_actor: [reference]
+    performer_function: [token]
+    performing_organization: [reference]
+    price_override: [quantity]
+    quantity: [quantity]
+    requesting_organization: [reference]
+    service: [reference]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ChargeItemConnection
+}
+
+type ChargeItemConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ChargeItemEdge]
+}
+
+type ChargeItemEdge {
+  mode: String
+  score: Float
+  resource: ChargeItem
+}
+
+type ChargeItemCreateType {
+  ChargeItemCreate(resource: ChargeItemInput): ChargeItemCreation
+}
+
+type ChargeItemCreation {
+  location: String
+  resource: ChargeItem
+  information: OperationOutcome
+}
+
+type ChargeItemUpdateType {
+  ChargeItemUpdate(id: ID, resource: ChargeItemInput): ChargeItemUpdate
+}
+
+type ChargeItemUpdate {
+  resource: ChargeItem
+  information: OperationOutcome
+}
+
+type ChargeItemDeleteType {
+  ChargeItemDelete(id: ID): ChargeItemDelete
+}
+
+type ChargeItemDelete {
+  information: OperationOutcome
+}
+

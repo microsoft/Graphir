@@ -1,0 +1,174 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Organization {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  type: [CodeableConcept]
+  name: String  _name: ElementBase
+  alias: String  _alias: [ElementBase]
+  telecom: [ContactPoint]
+  address: [Address]
+  partOf: Reference
+  contact: [OrganizationContact]
+  endpoint: [Reference]
+}
+
+type OrganizationContact {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  purpose: CodeableConcept
+  name: HumanName
+  telecom: [ContactPoint]
+  address: Address
+}
+
+input OrganizationInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  type: [CodeableConceptInput]
+  name: String  _name: ElementBaseInput
+  alias: String  _alias: [ElementBaseInput]
+  telecom: [ContactPointInput]
+  address: [AddressInput]
+  partOf: ReferenceInput
+  contact: [OrganizationContactInput]
+  endpoint: [ReferenceInput]
+}
+
+input OrganizationContactInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  purpose: CodeableConceptInput
+  name: HumanNameInput
+  telecom: [ContactPointInput]
+  address: AddressInput
+}
+
+type OrganizationReadType {
+  Organization(id: ID!): Organization
+}
+
+type OrganizationListType {
+  OrganizationList(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    endpoint: [reference]
+    identifier: [token]
+    name: [String]
+    partof: [reference]
+    phonetic: [String]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Organization]
+}
+
+type OrganizationConnectionType {
+  OrganizationConection(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    endpoint: [reference]
+    identifier: [token]
+    name: [String]
+    partof: [reference]
+    phonetic: [String]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): OrganizationConnection
+}
+
+type OrganizationConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [OrganizationEdge]
+}
+
+type OrganizationEdge {
+  mode: String
+  score: Float
+  resource: Organization
+}
+
+type OrganizationCreateType {
+  OrganizationCreate(resource: OrganizationInput): OrganizationCreation
+}
+
+type OrganizationCreation {
+  location: String
+  resource: Organization
+  information: OperationOutcome
+}
+
+type OrganizationUpdateType {
+  OrganizationUpdate(id: ID, resource: OrganizationInput): OrganizationUpdate
+}
+
+type OrganizationUpdate {
+  resource: Organization
+  information: OperationOutcome
+}
+
+type OrganizationDeleteType {
+  OrganizationDelete(id: ID): OrganizationDelete
+}
+
+type OrganizationDelete {
+  information: OperationOutcome
+}
+

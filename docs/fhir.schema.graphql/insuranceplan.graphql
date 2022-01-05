@@ -1,0 +1,332 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type InsurancePlan {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  type: [CodeableConcept]
+  name: String  _name: ElementBase
+  alias: String  _alias: [ElementBase]
+  period: Period
+  ownedBy: Reference
+  administeredBy: Reference
+  coverageArea: [Reference]
+  contact: [InsurancePlanContact]
+  endpoint: [Reference]
+  network: [Reference]
+  coverage: [InsurancePlanCoverage]
+  plan: [InsurancePlanPlan]
+}
+
+type InsurancePlanContact {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  purpose: CodeableConcept
+  name: HumanName
+  telecom: [ContactPoint]
+  address: Address
+}
+
+type InsurancePlanCoverage {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  network: [Reference]
+  benefit: [InsurancePlanCoverageBenefit]!
+}
+
+type InsurancePlanCoverageBenefit {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  requirement: String  _requirement: ElementBase
+  limit: [InsurancePlanCoverageBenefitLimit]
+}
+
+type InsurancePlanCoverageBenefitLimit {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  value: Quantity
+  code: CodeableConcept
+}
+
+type InsurancePlanPlan {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  type: CodeableConcept
+  coverageArea: [Reference]
+  network: [Reference]
+  generalCost: [InsurancePlanPlanGeneralCost]
+  specificCost: [InsurancePlanPlanSpecificCost]
+}
+
+type InsurancePlanPlanGeneralCost {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  groupSize: positiveInt  _groupSize: ElementBase
+  cost: Money
+  comment: String  _comment: ElementBase
+}
+
+type InsurancePlanPlanSpecificCost {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  category: CodeableConcept!
+  benefit: [InsurancePlanPlanSpecificCostBenefit]
+}
+
+type InsurancePlanPlanSpecificCostBenefit {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  cost: [InsurancePlanPlanSpecificCostBenefitCost]
+}
+
+type InsurancePlanPlanSpecificCostBenefitCost {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  applicability: CodeableConcept
+  qualifiers: [CodeableConcept]
+  value: Quantity
+}
+
+input InsurancePlanInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  type: [CodeableConceptInput]
+  name: String  _name: ElementBaseInput
+  alias: String  _alias: [ElementBaseInput]
+  period: PeriodInput
+  ownedBy: ReferenceInput
+  administeredBy: ReferenceInput
+  coverageArea: [ReferenceInput]
+  contact: [InsurancePlanContactInput]
+  endpoint: [ReferenceInput]
+  network: [ReferenceInput]
+  coverage: [InsurancePlanCoverageInput]
+  plan: [InsurancePlanPlanInput]
+}
+
+input InsurancePlanContactInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  purpose: CodeableConceptInput
+  name: HumanNameInput
+  telecom: [ContactPointInput]
+  address: AddressInput
+}
+
+input InsurancePlanCoverageInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  network: [ReferenceInput]
+  benefit: [InsurancePlanCoverageBenefitInput]!
+}
+
+input InsurancePlanCoverageBenefitInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  requirement: String  _requirement: ElementBaseInput
+  limit: [InsurancePlanCoverageBenefitLimitInput]
+}
+
+input InsurancePlanCoverageBenefitLimitInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  value: QuantityInput
+  code: CodeableConceptInput
+}
+
+input InsurancePlanPlanInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  type: CodeableConceptInput
+  coverageArea: [ReferenceInput]
+  network: [ReferenceInput]
+  generalCost: [InsurancePlanPlanGeneralCostInput]
+  specificCost: [InsurancePlanPlanSpecificCostInput]
+}
+
+input InsurancePlanPlanGeneralCostInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  groupSize: positiveInt  _groupSize: ElementBaseInput
+  cost: MoneyInput
+  comment: String  _comment: ElementBaseInput
+}
+
+input InsurancePlanPlanSpecificCostInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  category: CodeableConceptInput!
+  benefit: [InsurancePlanPlanSpecificCostBenefitInput]
+}
+
+input InsurancePlanPlanSpecificCostBenefitInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  cost: [InsurancePlanPlanSpecificCostBenefitCostInput]
+}
+
+input InsurancePlanPlanSpecificCostBenefitCostInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  applicability: CodeableConceptInput
+  qualifiers: [CodeableConceptInput]
+  value: QuantityInput
+}
+
+type InsurancePlanReadType {
+  InsurancePlan(id: ID!): InsurancePlan
+}
+
+type InsurancePlanListType {
+  InsurancePlanList(_filter: String
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    administered_by: [reference]
+    endpoint: [reference]
+    identifier: [token]
+    name: [String]
+    owned_by: [reference]
+    phonetic: [String]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [InsurancePlan]
+}
+
+type InsurancePlanConnectionType {
+  InsurancePlanConection(_filter: String
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    administered_by: [reference]
+    endpoint: [reference]
+    identifier: [token]
+    name: [String]
+    owned_by: [reference]
+    phonetic: [String]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): InsurancePlanConnection
+}
+
+type InsurancePlanConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [InsurancePlanEdge]
+}
+
+type InsurancePlanEdge {
+  mode: String
+  score: Float
+  resource: InsurancePlan
+}
+
+type InsurancePlanCreateType {
+  InsurancePlanCreate(resource: InsurancePlanInput): InsurancePlanCreation
+}
+
+type InsurancePlanCreation {
+  location: String
+  resource: InsurancePlan
+  information: OperationOutcome
+}
+
+type InsurancePlanUpdateType {
+  InsurancePlanUpdate(id: ID, resource: InsurancePlanInput): InsurancePlanUpdate
+}
+
+type InsurancePlanUpdate {
+  resource: InsurancePlan
+  information: OperationOutcome
+}
+
+type InsurancePlanDeleteType {
+  InsurancePlanDelete(id: ID): InsurancePlanDelete
+}
+
+type InsurancePlanDelete {
+  information: OperationOutcome
+}
+

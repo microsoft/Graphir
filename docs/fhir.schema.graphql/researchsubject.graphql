@@ -1,0 +1,164 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ResearchSubject {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  progress: [ResearchSubjectProgress]
+  period: Period
+  study: Reference!
+  subject: Reference!
+  assignedArm: String  _assignedArm: ElementBase
+  actualArm: String  _actualArm: ElementBase
+  consent: Reference
+}
+
+type ResearchSubjectProgress {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  subjectState: CodeableConcept
+  milestone: CodeableConcept
+  reason: CodeableConcept
+  startDate: dateTime  _startDate: ElementBase
+  endDate: dateTime  _endDate: ElementBase
+}
+
+input ResearchSubjectInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  progress: [ResearchSubjectProgressInput]
+  period: PeriodInput
+  study: ReferenceInput!
+  subject: ReferenceInput!
+  assignedArm: String  _assignedArm: ElementBaseInput
+  actualArm: String  _actualArm: ElementBaseInput
+  consent: ReferenceInput
+}
+
+input ResearchSubjectProgressInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  subjectState: CodeableConceptInput
+  milestone: CodeableConceptInput
+  reason: CodeableConceptInput
+  startDate: dateTime  _startDate: ElementBaseInput
+  endDate: dateTime  _endDate: ElementBaseInput
+}
+
+type ResearchSubjectReadType {
+  ResearchSubject(id: ID!): ResearchSubject
+}
+
+type ResearchSubjectListType {
+  ResearchSubjectList(_filter: String
+    date: [date]
+    identifier: [token]
+    patient: [reference]
+    status: [token]
+    study: [reference]
+    subject: [reference]
+    subject_state: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ResearchSubject]
+}
+
+type ResearchSubjectConnectionType {
+  ResearchSubjectConection(_filter: String
+    date: [date]
+    identifier: [token]
+    patient: [reference]
+    status: [token]
+    study: [reference]
+    subject: [reference]
+    subject_state: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ResearchSubjectConnection
+}
+
+type ResearchSubjectConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ResearchSubjectEdge]
+}
+
+type ResearchSubjectEdge {
+  mode: String
+  score: Float
+  resource: ResearchSubject
+}
+
+type ResearchSubjectCreateType {
+  ResearchSubjectCreate(resource: ResearchSubjectInput): ResearchSubjectCreation
+}
+
+type ResearchSubjectCreation {
+  location: String
+  resource: ResearchSubject
+  information: OperationOutcome
+}
+
+type ResearchSubjectUpdateType {
+  ResearchSubjectUpdate(id: ID, resource: ResearchSubjectInput): ResearchSubjectUpdate
+}
+
+type ResearchSubjectUpdate {
+  resource: ResearchSubject
+  information: OperationOutcome
+}
+
+type ResearchSubjectDeleteType {
+  ResearchSubjectDelete(id: ID): ResearchSubjectDelete
+}
+
+type ResearchSubjectDelete {
+  information: OperationOutcome
+}
+

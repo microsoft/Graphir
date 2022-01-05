@@ -1,0 +1,190 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ImmunizationRecommendation {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBase]
+  instantiatesUri: uri  _instantiatesUri: [ElementBase]
+  patient: Reference!
+  date: dateTime  _date: ElementBase
+  authority: Reference
+  recommendation: [ImmunizationRecommendationRecommendation]!
+}
+
+type ImmunizationRecommendationRecommendation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  vaccineCode: [CodeableConcept]
+  targetDisease: [CodeableConcept]
+  contraindicatedVaccineCode: [CodeableConcept]
+  forecastStatus: CodeableConcept!
+  forecastReason: [CodeableConcept]
+  dateCriterion: [ImmunizationRecommendationRecommendationDateCriterion]
+  description: String  _description: ElementBase
+  series: String  _series: ElementBase
+  doseNumber: String  _doseNumber: ElementBase
+  seriesDoses: String  _seriesDoses: ElementBase
+  supportingImmunization: [Reference]
+  supportingPatientInformation: [Reference]
+}
+
+type ImmunizationRecommendationRecommendationDateCriterion {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  value: dateTime  _value: ElementBase
+}
+
+input ImmunizationRecommendationInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBaseInput]
+  instantiatesUri: uri  _instantiatesUri: [ElementBaseInput]
+  patient: ReferenceInput!
+  date: dateTime  _date: ElementBaseInput
+  authority: ReferenceInput
+  recommendation: [ImmunizationRecommendationRecommendationInput]!
+}
+
+input ImmunizationRecommendationRecommendationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  vaccineCode: [CodeableConceptInput]
+  targetDisease: [CodeableConceptInput]
+  contraindicatedVaccineCode: [CodeableConceptInput]
+  forecastStatus: CodeableConceptInput!
+  forecastReason: [CodeableConceptInput]
+  dateCriterion: [ImmunizationRecommendationRecommendationDateCriterionInput]
+  description: String  _description: ElementBaseInput
+  series: String  _series: ElementBaseInput
+  doseNumber: String  _doseNumber: ElementBaseInput
+  seriesDoses: String  _seriesDoses: ElementBaseInput
+  supportingImmunization: [ReferenceInput]
+  supportingPatientInformation: [ReferenceInput]
+}
+
+input ImmunizationRecommendationRecommendationDateCriterionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  value: dateTime  _value: ElementBaseInput
+}
+
+type ImmunizationRecommendationReadType {
+  ImmunizationRecommendation(id: ID!): ImmunizationRecommendation
+}
+
+type ImmunizationRecommendationListType {
+  ImmunizationRecommendationList(_filter: String
+    date: [date]
+    identifier: [token]
+    information: [reference]
+    patient: [reference]
+    status: [token]
+    support: [reference]
+    target_disease: [token]
+    vaccine_type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ImmunizationRecommendation]
+}
+
+type ImmunizationRecommendationConnectionType {
+  ImmunizationRecommendationConection(_filter: String
+    date: [date]
+    identifier: [token]
+    information: [reference]
+    patient: [reference]
+    status: [token]
+    support: [reference]
+    target_disease: [token]
+    vaccine_type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ImmunizationRecommendationConnection
+}
+
+type ImmunizationRecommendationConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ImmunizationRecommendationEdge]
+}
+
+type ImmunizationRecommendationEdge {
+  mode: String
+  score: Float
+  resource: ImmunizationRecommendation
+}
+
+type ImmunizationRecommendationCreateType {
+  ImmunizationRecommendationCreate(resource: ImmunizationRecommendationInput): ImmunizationRecommendationCreation
+}
+
+type ImmunizationRecommendationCreation {
+  location: String
+  resource: ImmunizationRecommendation
+  information: OperationOutcome
+}
+
+type ImmunizationRecommendationUpdateType {
+  ImmunizationRecommendationUpdate(id: ID, resource: ImmunizationRecommendationInput): ImmunizationRecommendationUpdate
+}
+
+type ImmunizationRecommendationUpdate {
+  resource: ImmunizationRecommendation
+  information: OperationOutcome
+}
+
+type ImmunizationRecommendationDeleteType {
+  ImmunizationRecommendationDelete(id: ID): ImmunizationRecommendationDelete
+}
+
+type ImmunizationRecommendationDelete {
+  information: OperationOutcome
+}
+

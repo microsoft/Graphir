@@ -1,0 +1,160 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type OrganizationAffiliation {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  period: Period
+  organization: Reference
+  participatingOrganization: Reference
+  network: [Reference]
+  code: [CodeableConcept]
+  specialty: [CodeableConcept]
+  location: [Reference]
+  healthcareService: [Reference]
+  telecom: [ContactPoint]
+  endpoint: [Reference]
+}
+
+input OrganizationAffiliationInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  period: PeriodInput
+  organization: ReferenceInput
+  participatingOrganization: ReferenceInput
+  network: [ReferenceInput]
+  code: [CodeableConceptInput]
+  specialty: [CodeableConceptInput]
+  location: [ReferenceInput]
+  healthcareService: [ReferenceInput]
+  telecom: [ContactPointInput]
+  endpoint: [ReferenceInput]
+}
+
+type OrganizationAffiliationReadType {
+  OrganizationAffiliation(id: ID!): OrganizationAffiliation
+}
+
+type OrganizationAffiliationListType {
+  OrganizationAffiliationList(_filter: String
+    active: [token]
+    date: [date]
+    email: [token]
+    endpoint: [reference]
+    identifier: [token]
+    location: [reference]
+    network: [reference]
+    participating_organization: [reference]
+    phone: [token]
+    primary_organization: [reference]
+    role: [token]
+    service: [reference]
+    specialty: [token]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [OrganizationAffiliation]
+}
+
+type OrganizationAffiliationConnectionType {
+  OrganizationAffiliationConection(_filter: String
+    active: [token]
+    date: [date]
+    email: [token]
+    endpoint: [reference]
+    identifier: [token]
+    location: [reference]
+    network: [reference]
+    participating_organization: [reference]
+    phone: [token]
+    primary_organization: [reference]
+    role: [token]
+    service: [reference]
+    specialty: [token]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): OrganizationAffiliationConnection
+}
+
+type OrganizationAffiliationConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [OrganizationAffiliationEdge]
+}
+
+type OrganizationAffiliationEdge {
+  mode: String
+  score: Float
+  resource: OrganizationAffiliation
+}
+
+type OrganizationAffiliationCreateType {
+  OrganizationAffiliationCreate(resource: OrganizationAffiliationInput): OrganizationAffiliationCreation
+}
+
+type OrganizationAffiliationCreation {
+  location: String
+  resource: OrganizationAffiliation
+  information: OperationOutcome
+}
+
+type OrganizationAffiliationUpdateType {
+  OrganizationAffiliationUpdate(id: ID, resource: OrganizationAffiliationInput): OrganizationAffiliationUpdate
+}
+
+type OrganizationAffiliationUpdate {
+  resource: OrganizationAffiliation
+  information: OperationOutcome
+}
+
+type OrganizationAffiliationDeleteType {
+  OrganizationAffiliationDelete(id: ID): OrganizationAffiliationDelete
+}
+
+type OrganizationAffiliationDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,192 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type VisionPrescription {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  created: dateTime  _created: ElementBase
+  patient: Reference!
+  encounter: Reference
+  dateWritten: dateTime  _dateWritten: ElementBase
+  prescriber: Reference!
+  lensSpecification: [VisionPrescriptionLensSpecification]!
+}
+
+type VisionPrescriptionLensSpecification {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  product: CodeableConcept!
+  eye: code  _eye: ElementBase
+  sphere: decimal  _sphere: ElementBase
+  cylinder: decimal  _cylinder: ElementBase
+  axis: Int  _axis: ElementBase
+  prism: [VisionPrescriptionLensSpecificationPrism]
+  add: decimal  _add: ElementBase
+  power: decimal  _power: ElementBase
+  backCurve: decimal  _backCurve: ElementBase
+  diameter: decimal  _diameter: ElementBase
+  duration: Quantity
+  color: String  _color: ElementBase
+  brand: String  _brand: ElementBase
+  note: [Annotation]
+}
+
+type VisionPrescriptionLensSpecificationPrism {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  amount: decimal  _amount: ElementBase
+  base: code  _base: ElementBase
+}
+
+input VisionPrescriptionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  created: dateTime  _created: ElementBaseInput
+  patient: ReferenceInput!
+  encounter: ReferenceInput
+  dateWritten: dateTime  _dateWritten: ElementBaseInput
+  prescriber: ReferenceInput!
+  lensSpecification: [VisionPrescriptionLensSpecificationInput]!
+}
+
+input VisionPrescriptionLensSpecificationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  product: CodeableConceptInput!
+  eye: code  _eye: ElementBaseInput
+  sphere: decimal  _sphere: ElementBaseInput
+  cylinder: decimal  _cylinder: ElementBaseInput
+  axis: Int  _axis: ElementBaseInput
+  prism: [VisionPrescriptionLensSpecificationPrismInput]
+  add: decimal  _add: ElementBaseInput
+  power: decimal  _power: ElementBaseInput
+  backCurve: decimal  _backCurve: ElementBaseInput
+  diameter: decimal  _diameter: ElementBaseInput
+  duration: QuantityInput
+  color: String  _color: ElementBaseInput
+  brand: String  _brand: ElementBaseInput
+  note: [AnnotationInput]
+}
+
+input VisionPrescriptionLensSpecificationPrismInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  amount: decimal  _amount: ElementBaseInput
+  base: code  _base: ElementBaseInput
+}
+
+type VisionPrescriptionReadType {
+  VisionPrescription(id: ID!): VisionPrescription
+}
+
+type VisionPrescriptionListType {
+  VisionPrescriptionList(_filter: String
+    datewritten: [date]
+    encounter: [reference]
+    identifier: [token]
+    patient: [reference]
+    prescriber: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [VisionPrescription]
+}
+
+type VisionPrescriptionConnectionType {
+  VisionPrescriptionConection(_filter: String
+    datewritten: [date]
+    encounter: [reference]
+    identifier: [token]
+    patient: [reference]
+    prescriber: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): VisionPrescriptionConnection
+}
+
+type VisionPrescriptionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [VisionPrescriptionEdge]
+}
+
+type VisionPrescriptionEdge {
+  mode: String
+  score: Float
+  resource: VisionPrescription
+}
+
+type VisionPrescriptionCreateType {
+  VisionPrescriptionCreate(resource: VisionPrescriptionInput): VisionPrescriptionCreation
+}
+
+type VisionPrescriptionCreation {
+  location: String
+  resource: VisionPrescription
+  information: OperationOutcome
+}
+
+type VisionPrescriptionUpdateType {
+  VisionPrescriptionUpdate(id: ID, resource: VisionPrescriptionInput): VisionPrescriptionUpdate
+}
+
+type VisionPrescriptionUpdate {
+  resource: VisionPrescription
+  information: OperationOutcome
+}
+
+type VisionPrescriptionDeleteType {
+  VisionPrescriptionDelete(id: ID): VisionPrescriptionDelete
+}
+
+type VisionPrescriptionDelete {
+  information: OperationOutcome
+}
+

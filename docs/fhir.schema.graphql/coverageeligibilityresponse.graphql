@@ -1,0 +1,258 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type CoverageEligibilityResponse {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  purpose: code  _purpose: [ElementBase]
+  patient: Reference!
+  servicedDate: date  _servicedDate: ElementBase
+  servicedPeriod: Period
+  created: dateTime  _created: ElementBase
+  requestor: Reference
+  request: Reference!
+  outcome: code  _outcome: ElementBase
+  disposition: String  _disposition: ElementBase
+  insurer: Reference!
+  insurance: [CoverageEligibilityResponseInsurance]
+  preAuthRef: String  _preAuthRef: ElementBase
+  form: CodeableConcept
+  error: [CoverageEligibilityResponseError]
+}
+
+type CoverageEligibilityResponseInsurance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  coverage: Reference!
+  inforce: Boolean  _inforce: ElementBase
+  benefitPeriod: Period
+  item: [CoverageEligibilityResponseInsuranceItem]
+}
+
+type CoverageEligibilityResponseInsuranceItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  category: CodeableConcept
+  productOrService: CodeableConcept
+  modifier: [CodeableConcept]
+  provider: Reference
+  excluded: Boolean  _excluded: ElementBase
+  name: String  _name: ElementBase
+  description: String  _description: ElementBase
+  network: CodeableConcept
+  unit: CodeableConcept
+  term: CodeableConcept
+  benefit: [CoverageEligibilityResponseInsuranceItemBenefit]
+  authorizationRequired: Boolean  _authorizationRequired: ElementBase
+  authorizationSupporting: [CodeableConcept]
+  authorizationUrl: uri  _authorizationUrl: ElementBase
+}
+
+type CoverageEligibilityResponseInsuranceItemBenefit {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  allowedUnsignedInt: unsignedInt  _allowedUnsignedInt: ElementBase
+  allowedString: String  _allowedString: ElementBase
+  allowedMoney: Money
+  usedUnsignedInt: unsignedInt  _usedUnsignedInt: ElementBase
+  usedString: String  _usedString: ElementBase
+  usedMoney: Money
+}
+
+type CoverageEligibilityResponseError {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+}
+
+input CoverageEligibilityResponseInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  purpose: code  _purpose: [ElementBaseInput]
+  patient: ReferenceInput!
+  servicedDate: date  _servicedDate: ElementBaseInput
+  servicedPeriod: PeriodInput
+  created: dateTime  _created: ElementBaseInput
+  requestor: ReferenceInput
+  request: ReferenceInput!
+  outcome: code  _outcome: ElementBaseInput
+  disposition: String  _disposition: ElementBaseInput
+  insurer: ReferenceInput!
+  insurance: [CoverageEligibilityResponseInsuranceInput]
+  preAuthRef: String  _preAuthRef: ElementBaseInput
+  form: CodeableConceptInput
+  error: [CoverageEligibilityResponseErrorInput]
+}
+
+input CoverageEligibilityResponseInsuranceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  coverage: ReferenceInput!
+  inforce: Boolean  _inforce: ElementBaseInput
+  benefitPeriod: PeriodInput
+  item: [CoverageEligibilityResponseInsuranceItemInput]
+}
+
+input CoverageEligibilityResponseInsuranceItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput
+  modifier: [CodeableConceptInput]
+  provider: ReferenceInput
+  excluded: Boolean  _excluded: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  network: CodeableConceptInput
+  unit: CodeableConceptInput
+  term: CodeableConceptInput
+  benefit: [CoverageEligibilityResponseInsuranceItemBenefitInput]
+  authorizationRequired: Boolean  _authorizationRequired: ElementBaseInput
+  authorizationSupporting: [CodeableConceptInput]
+  authorizationUrl: uri  _authorizationUrl: ElementBaseInput
+}
+
+input CoverageEligibilityResponseInsuranceItemBenefitInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  allowedUnsignedInt: unsignedInt  _allowedUnsignedInt: ElementBaseInput
+  allowedString: String  _allowedString: ElementBaseInput
+  allowedMoney: MoneyInput
+  usedUnsignedInt: unsignedInt  _usedUnsignedInt: ElementBaseInput
+  usedString: String  _usedString: ElementBaseInput
+  usedMoney: MoneyInput
+}
+
+input CoverageEligibilityResponseErrorInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+}
+
+type CoverageEligibilityResponseReadType {
+  CoverageEligibilityResponse(id: ID!): CoverageEligibilityResponse
+}
+
+type CoverageEligibilityResponseListType {
+  CoverageEligibilityResponseList(_filter: String
+    created: [date]
+    disposition: [String]
+    identifier: [token]
+    insurer: [reference]
+    outcome: [token]
+    patient: [reference]
+    request: [reference]
+    requestor: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [CoverageEligibilityResponse]
+}
+
+type CoverageEligibilityResponseConnectionType {
+  CoverageEligibilityResponseConection(_filter: String
+    created: [date]
+    disposition: [String]
+    identifier: [token]
+    insurer: [reference]
+    outcome: [token]
+    patient: [reference]
+    request: [reference]
+    requestor: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): CoverageEligibilityResponseConnection
+}
+
+type CoverageEligibilityResponseConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [CoverageEligibilityResponseEdge]
+}
+
+type CoverageEligibilityResponseEdge {
+  mode: String
+  score: Float
+  resource: CoverageEligibilityResponse
+}
+
+type CoverageEligibilityResponseCreateType {
+  CoverageEligibilityResponseCreate(resource: CoverageEligibilityResponseInput): CoverageEligibilityResponseCreation
+}
+
+type CoverageEligibilityResponseCreation {
+  location: String
+  resource: CoverageEligibilityResponse
+  information: OperationOutcome
+}
+
+type CoverageEligibilityResponseUpdateType {
+  CoverageEligibilityResponseUpdate(id: ID, resource: CoverageEligibilityResponseInput): CoverageEligibilityResponseUpdate
+}
+
+type CoverageEligibilityResponseUpdate {
+  resource: CoverageEligibilityResponse
+  information: OperationOutcome
+}
+
+type CoverageEligibilityResponseDeleteType {
+  CoverageEligibilityResponseDelete(id: ID): CoverageEligibilityResponseDelete
+}
+
+type CoverageEligibilityResponseDelete {
+  information: OperationOutcome
+}
+

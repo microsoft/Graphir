@@ -1,0 +1,276 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type SpecimenDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: Identifier
+  version: String  _version: ElementBase
+  title: String  _title: ElementBase
+  derivedFromCanonical: canonical  _derivedFromCanonical: [ElementBase]
+  derivedFromUri: uri  _derivedFromUri: [ElementBase]
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  subjectCodeableConcept: CodeableConcept
+  subjectReference: Reference
+  date: dateTime  _date: ElementBase
+  publisher: Reference
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: date  _approvalDate: ElementBase
+  lastReviewDate: date  _lastReviewDate: ElementBase
+  effectivePeriod: Period
+  typeCollected: CodeableConcept
+  patientPreparation: [CodeableConcept]
+  timeAspect: String  _timeAspect: ElementBase
+  collection: [CodeableConcept]
+  typeTested: [SpecimenDefinitionTypeTested]
+}
+
+type SpecimenDefinitionTypeTested {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  isDerived: Boolean  _isDerived: ElementBase
+  type: CodeableConcept
+  preference: code  _preference: ElementBase
+  container: SpecimenDefinitionTypeTestedContainer
+  requirement: String  _requirement: ElementBase
+  retentionTime: Duration
+  singleUse: Boolean  _singleUse: ElementBase
+  rejectionCriterion: [CodeableConcept]
+  handling: [SpecimenDefinitionTypeTestedHandling]
+  testingDestination: [CodeableConcept]
+}
+
+type SpecimenDefinitionTypeTestedContainer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  material: CodeableConcept
+  type: CodeableConcept
+  cap: CodeableConcept
+  description: String  _description: ElementBase
+  capacity: Quantity
+  minimumVolumeQuantity: Quantity
+  minimumVolumeString: String  _minimumVolumeString: ElementBase
+  additive: [SpecimenDefinitionTypeTestedContainerAdditive]
+  preparation: String  _preparation: ElementBase
+}
+
+type SpecimenDefinitionTypeTestedContainerAdditive {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  additiveCodeableConcept: CodeableConcept
+  additiveReference: Reference
+}
+
+type SpecimenDefinitionTypeTestedHandling {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  temperatureQualifier: CodeableConcept
+  temperatureRange: Range
+  maxDuration: Duration
+  instruction: String  _instruction: ElementBase
+}
+
+input SpecimenDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: IdentifierInput
+  version: String  _version: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  derivedFromCanonical: canonical  _derivedFromCanonical: [ElementBaseInput]
+  derivedFromUri: uri  _derivedFromUri: [ElementBaseInput]
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  subjectCodeableConcept: CodeableConceptInput
+  subjectReference: ReferenceInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: ReferenceInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: date  _approvalDate: ElementBaseInput
+  lastReviewDate: date  _lastReviewDate: ElementBaseInput
+  effectivePeriod: PeriodInput
+  typeCollected: CodeableConceptInput
+  patientPreparation: [CodeableConceptInput]
+  timeAspect: String  _timeAspect: ElementBaseInput
+  collection: [CodeableConceptInput]
+  typeTested: [SpecimenDefinitionTypeTestedInput]
+}
+
+input SpecimenDefinitionTypeTestedInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  isDerived: Boolean  _isDerived: ElementBaseInput
+  type: CodeableConceptInput
+  preference: code  _preference: ElementBaseInput
+  container: SpecimenDefinitionTypeTestedContainerInput
+  requirement: String  _requirement: ElementBaseInput
+  retentionTime: DurationInput
+  singleUse: Boolean  _singleUse: ElementBaseInput
+  rejectionCriterion: [CodeableConceptInput]
+  handling: [SpecimenDefinitionTypeTestedHandlingInput]
+  testingDestination: [CodeableConceptInput]
+}
+
+input SpecimenDefinitionTypeTestedContainerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  material: CodeableConceptInput
+  type: CodeableConceptInput
+  cap: CodeableConceptInput
+  description: String  _description: ElementBaseInput
+  capacity: QuantityInput
+  minimumVolumeQuantity: QuantityInput
+  minimumVolumeString: String  _minimumVolumeString: ElementBaseInput
+  additive: [SpecimenDefinitionTypeTestedContainerAdditiveInput]
+  preparation: String  _preparation: ElementBaseInput
+}
+
+input SpecimenDefinitionTypeTestedContainerAdditiveInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  additiveCodeableConcept: CodeableConceptInput
+  additiveReference: ReferenceInput
+}
+
+input SpecimenDefinitionTypeTestedHandlingInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  temperatureQualifier: CodeableConceptInput
+  temperatureRange: RangeInput
+  maxDuration: DurationInput
+  instruction: String  _instruction: ElementBaseInput
+}
+
+type SpecimenDefinitionReadType {
+  SpecimenDefinition(id: ID!): SpecimenDefinition
+}
+
+type SpecimenDefinitionListType {
+  SpecimenDefinitionList(_filter: String
+    container: [token]
+    experimental: [token]
+    identifier: [token]
+    is_derived: [token]
+    status: [token]
+    title: [String]
+    type: [token]
+    type_tested: [token]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [SpecimenDefinition]
+}
+
+type SpecimenDefinitionConnectionType {
+  SpecimenDefinitionConection(_filter: String
+    container: [token]
+    experimental: [token]
+    identifier: [token]
+    is_derived: [token]
+    status: [token]
+    title: [String]
+    type: [token]
+    type_tested: [token]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SpecimenDefinitionConnection
+}
+
+type SpecimenDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SpecimenDefinitionEdge]
+}
+
+type SpecimenDefinitionEdge {
+  mode: String
+  score: Float
+  resource: SpecimenDefinition
+}
+
+type SpecimenDefinitionCreateType {
+  SpecimenDefinitionCreate(resource: SpecimenDefinitionInput): SpecimenDefinitionCreation
+}
+
+type SpecimenDefinitionCreation {
+  location: String
+  resource: SpecimenDefinition
+  information: OperationOutcome
+}
+
+type SpecimenDefinitionUpdateType {
+  SpecimenDefinitionUpdate(id: ID, resource: SpecimenDefinitionInput): SpecimenDefinitionUpdate
+}
+
+type SpecimenDefinitionUpdate {
+  resource: SpecimenDefinition
+  information: OperationOutcome
+}
+
+type SpecimenDefinitionDeleteType {
+  SpecimenDefinitionDelete(id: ID): SpecimenDefinitionDelete
+}
+
+type SpecimenDefinitionDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,458 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ValueSet {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  immutable: Boolean  _immutable: ElementBase
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  compose: ValueSetCompose
+  expansion: ValueSetExpansion
+  scope: ValueSetScope
+}
+
+type ValueSetCompose {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  lockedDate: date  _lockedDate: ElementBase
+  inactive: Boolean  _inactive: ElementBase
+  include: [ValueSetComposeInclude]!
+  exclude: [ValueSetComposeInclude]
+  property: String  _property: [ElementBase]
+}
+
+type ValueSetComposeInclude {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  system: uri  _system: ElementBase
+  version: String  _version: ElementBase
+  concept: [ValueSetComposeIncludeConcept]
+  filter: [ValueSetComposeIncludeFilter]
+  valueSet: canonical  _valueSet: [ElementBase]
+  copyright: String  _copyright: ElementBase
+}
+
+type ValueSetComposeIncludeConcept {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  display: String  _display: ElementBase
+  designation: [ValueSetComposeIncludeConceptDesignation]
+}
+
+type ValueSetComposeIncludeConceptDesignation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  language: code  _language: ElementBase
+  use: Coding
+  value: String  _value: ElementBase
+}
+
+type ValueSetComposeIncludeFilter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  property: code  _property: ElementBase
+  op: code  _op: ElementBase
+  value: String  _value: ElementBase
+}
+
+type ValueSetExpansion {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: uri  _identifier: ElementBase
+  timestamp: dateTime  _timestamp: ElementBase
+  total: Int  _total: ElementBase
+  offset: Int  _offset: ElementBase
+  parameter: [ValueSetExpansionParameter]
+  property: [ValueSetExpansionProperty]
+  contains: [ValueSetExpansionContains]
+}
+
+type ValueSetExpansionParameter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+  valueUri: uri  _valueUri: ElementBase
+  valueCode: code  _valueCode: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+}
+
+type ValueSetExpansionProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  uri: uri  _uri: ElementBase
+}
+
+type ValueSetExpansionContains {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  system: uri  _system: ElementBase
+  abstract: Boolean  _abstract: ElementBase
+  inactive: Boolean  _inactive: ElementBase
+  version: String  _version: ElementBase
+  code: code  _code: ElementBase
+  display: String  _display: ElementBase
+  designation: [ValueSetComposeIncludeConceptDesignation]
+  property: [ValueSetExpansionContainsProperty]
+  contains: [ValueSetExpansionContains]
+}
+
+type ValueSetExpansionContainsProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  valueCode: code  _valueCode: ElementBase
+  valueCoding: Coding
+  valueString: String  _valueString: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+}
+
+type ValueSetScope {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  focus: String  _focus: ElementBase
+  inclusionCriteria: String  _inclusionCriteria: ElementBase
+  exclusionCriteria: String  _exclusionCriteria: ElementBase
+}
+
+input ValueSetInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  immutable: Boolean  _immutable: ElementBaseInput
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  compose: ValueSetComposeInput
+  expansion: ValueSetExpansionInput
+  scope: ValueSetScopeInput
+}
+
+input ValueSetComposeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  lockedDate: date  _lockedDate: ElementBaseInput
+  inactive: Boolean  _inactive: ElementBaseInput
+  include: [ValueSetComposeIncludeInput]!
+  exclude: [ValueSetComposeInclude]
+  property: String  _property: [ElementBaseInput]
+}
+
+input ValueSetComposeIncludeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  system: uri  _system: ElementBaseInput
+  version: String  _version: ElementBaseInput
+  concept: [ValueSetComposeIncludeConceptInput]
+  filter: [ValueSetComposeIncludeFilterInput]
+  valueSet: canonical  _valueSet: [ElementBaseInput]
+  copyright: String  _copyright: ElementBaseInput
+}
+
+input ValueSetComposeIncludeConceptInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  display: String  _display: ElementBaseInput
+  designation: [ValueSetComposeIncludeConceptDesignationInput]
+}
+
+input ValueSetComposeIncludeConceptDesignationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  language: code  _language: ElementBaseInput
+  use: CodingInput
+  value: String  _value: ElementBaseInput
+}
+
+input ValueSetComposeIncludeFilterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  property: code  _property: ElementBaseInput
+  op: code  _op: ElementBaseInput
+  value: String  _value: ElementBaseInput
+}
+
+input ValueSetExpansionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: uri  _identifier: ElementBaseInput
+  timestamp: dateTime  _timestamp: ElementBaseInput
+  total: Int  _total: ElementBaseInput
+  offset: Int  _offset: ElementBaseInput
+  parameter: [ValueSetExpansionParameterInput]
+  property: [ValueSetExpansionPropertyInput]
+  contains: [ValueSetExpansionContainsInput]
+}
+
+input ValueSetExpansionParameterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+  valueUri: uri  _valueUri: ElementBaseInput
+  valueCode: code  _valueCode: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+}
+
+input ValueSetExpansionPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  uri: uri  _uri: ElementBaseInput
+}
+
+input ValueSetExpansionContainsInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  system: uri  _system: ElementBaseInput
+  abstract: Boolean  _abstract: ElementBaseInput
+  inactive: Boolean  _inactive: ElementBaseInput
+  version: String  _version: ElementBaseInput
+  code: code  _code: ElementBaseInput
+  display: String  _display: ElementBaseInput
+  designation: [ValueSetComposeIncludeConceptDesignation]
+  property: [ValueSetExpansionContainsPropertyInput]
+  contains: [ValueSetExpansionContains]
+}
+
+input ValueSetExpansionContainsPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  valueCode: code  _valueCode: ElementBaseInput
+  valueCoding: CodingInput
+  valueString: String  _valueString: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+}
+
+input ValueSetScopeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  focus: String  _focus: ElementBaseInput
+  inclusionCriteria: String  _inclusionCriteria: ElementBaseInput
+  exclusionCriteria: String  _exclusionCriteria: ElementBaseInput
+}
+
+type ValueSetReadType {
+  ValueSet(id: ID!): ValueSet
+}
+
+type ValueSetListType {
+  ValueSetList(_filter: String
+    code: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    expansion: [uri]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    reference: [uri]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ValueSet]
+}
+
+type ValueSetConnectionType {
+  ValueSetConection(_filter: String
+    code: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    expansion: [uri]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    reference: [uri]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ValueSetConnection
+}
+
+type ValueSetConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ValueSetEdge]
+}
+
+type ValueSetEdge {
+  mode: String
+  score: Float
+  resource: ValueSet
+}
+
+type ValueSetCreateType {
+  ValueSetCreate(resource: ValueSetInput): ValueSetCreation
+}
+
+type ValueSetCreation {
+  location: String
+  resource: ValueSet
+  information: OperationOutcome
+}
+
+type ValueSetUpdateType {
+  ValueSetUpdate(id: ID, resource: ValueSetInput): ValueSetUpdate
+}
+
+type ValueSetUpdate {
+  resource: ValueSet
+  information: OperationOutcome
+}
+
+type ValueSetDeleteType {
+  ValueSetDelete(id: ID): ValueSetDelete
+}
+
+type ValueSetDelete {
+  information: OperationOutcome
+}
+

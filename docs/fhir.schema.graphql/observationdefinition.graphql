@@ -1,0 +1,270 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ObservationDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: Identifier
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  date: dateTime  _date: ElementBase
+  publisher: Reference
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: date  _approvalDate: ElementBase
+  lastReviewDate: date  _lastReviewDate: ElementBase
+  effectivePeriod: Period
+  derivedFromCanonical: canonical  _derivedFromCanonical: [ElementBase]
+  derivedFromUri: uri  _derivedFromUri: [ElementBase]
+  subject: [CodeableConcept]
+  performerType: CodeableConcept
+  category: [CodeableConcept]
+  code: CodeableConcept!
+  permittedDataType: code  _permittedDataType: [ElementBase]
+  multipleResultsAllowed: Boolean  _multipleResultsAllowed: ElementBase
+  bodySite: CodeableConcept
+  method: CodeableConcept
+  specimen: [Reference]
+  device: [Reference]
+  preferredReportName: String  _preferredReportName: ElementBase
+  quantitativeDetails: ObservationDefinitionQuantitativeDetails
+  qualifiedValue: [ObservationDefinitionQualifiedValue]
+  hasMember: [Reference]
+  component: [ObservationDefinitionComponent]
+}
+
+type ObservationDefinitionQuantitativeDetails {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  unit: CodeableConcept
+  customaryUnit: CodeableConcept
+  conversionFactor: decimal  _conversionFactor: ElementBase
+  decimalPrecision: Int  _decimalPrecision: ElementBase
+}
+
+type ObservationDefinitionQualifiedValue {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  context: CodeableConcept
+  appliesTo: [CodeableConcept]
+  gender: code  _gender: ElementBase
+  age: Range
+  gestationalAge: Range
+  condition: String  _condition: ElementBase
+  rangeCategory: code  _rangeCategory: ElementBase
+  range: Range
+  validCodedValueSet: canonical  _validCodedValueSet: ElementBase
+  normalCodedValueSet: canonical  _normalCodedValueSet: ElementBase
+  abnormalCodedValueSet: canonical  _abnormalCodedValueSet: ElementBase
+  criticalCodedValueSet: canonical  _criticalCodedValueSet: ElementBase
+}
+
+type ObservationDefinitionComponent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  permittedDataType: code  _permittedDataType: [ElementBase]
+  quantitativeDetails: ObservationDefinitionQuantitativeDetails
+  qualifiedValue: [ObservationDefinitionQualifiedValue]
+}
+
+input ObservationDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: IdentifierInput
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: ReferenceInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: date  _approvalDate: ElementBaseInput
+  lastReviewDate: date  _lastReviewDate: ElementBaseInput
+  effectivePeriod: PeriodInput
+  derivedFromCanonical: canonical  _derivedFromCanonical: [ElementBaseInput]
+  derivedFromUri: uri  _derivedFromUri: [ElementBaseInput]
+  subject: [CodeableConceptInput]
+  performerType: CodeableConceptInput
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput!
+  permittedDataType: code  _permittedDataType: [ElementBaseInput]
+  multipleResultsAllowed: Boolean  _multipleResultsAllowed: ElementBaseInput
+  bodySite: CodeableConceptInput
+  method: CodeableConceptInput
+  specimen: [ReferenceInput]
+  device: [ReferenceInput]
+  preferredReportName: String  _preferredReportName: ElementBaseInput
+  quantitativeDetails: ObservationDefinitionQuantitativeDetailsInput
+  qualifiedValue: [ObservationDefinitionQualifiedValueInput]
+  hasMember: [ReferenceInput]
+  component: [ObservationDefinitionComponentInput]
+}
+
+input ObservationDefinitionQuantitativeDetailsInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  unit: CodeableConceptInput
+  customaryUnit: CodeableConceptInput
+  conversionFactor: decimal  _conversionFactor: ElementBaseInput
+  decimalPrecision: Int  _decimalPrecision: ElementBaseInput
+}
+
+input ObservationDefinitionQualifiedValueInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  context: CodeableConceptInput
+  appliesTo: [CodeableConceptInput]
+  gender: code  _gender: ElementBaseInput
+  age: RangeInput
+  gestationalAge: RangeInput
+  condition: String  _condition: ElementBaseInput
+  rangeCategory: code  _rangeCategory: ElementBaseInput
+  range: RangeInput
+  validCodedValueSet: canonical  _validCodedValueSet: ElementBaseInput
+  normalCodedValueSet: canonical  _normalCodedValueSet: ElementBaseInput
+  abnormalCodedValueSet: canonical  _abnormalCodedValueSet: ElementBaseInput
+  criticalCodedValueSet: canonical  _criticalCodedValueSet: ElementBaseInput
+}
+
+input ObservationDefinitionComponentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  permittedDataType: code  _permittedDataType: [ElementBaseInput]
+  quantitativeDetails: ObservationDefinitionQuantitativeDetails
+  qualifiedValue: [ObservationDefinitionQualifiedValue]
+}
+
+type ObservationDefinitionReadType {
+  ObservationDefinition(id: ID!): ObservationDefinition
+}
+
+type ObservationDefinitionListType {
+  ObservationDefinitionList(_filter: String
+    category: [token]
+    code: [token]
+    experimental: [token]
+    identifier: [token]
+    method: [token]
+    status: [token]
+    title: [String]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ObservationDefinition]
+}
+
+type ObservationDefinitionConnectionType {
+  ObservationDefinitionConection(_filter: String
+    category: [token]
+    code: [token]
+    experimental: [token]
+    identifier: [token]
+    method: [token]
+    status: [token]
+    title: [String]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ObservationDefinitionConnection
+}
+
+type ObservationDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ObservationDefinitionEdge]
+}
+
+type ObservationDefinitionEdge {
+  mode: String
+  score: Float
+  resource: ObservationDefinition
+}
+
+type ObservationDefinitionCreateType {
+  ObservationDefinitionCreate(resource: ObservationDefinitionInput): ObservationDefinitionCreation
+}
+
+type ObservationDefinitionCreation {
+  location: String
+  resource: ObservationDefinition
+  information: OperationOutcome
+}
+
+type ObservationDefinitionUpdateType {
+  ObservationDefinitionUpdate(id: ID, resource: ObservationDefinitionInput): ObservationDefinitionUpdate
+}
+
+type ObservationDefinitionUpdate {
+  resource: ObservationDefinition
+  information: OperationOutcome
+}
+
+type ObservationDefinitionDeleteType {
+  ObservationDefinitionDelete(id: ID): ObservationDefinitionDelete
+}
+
+type ObservationDefinitionDelete {
+  information: OperationOutcome
+}
+

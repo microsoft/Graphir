@@ -1,0 +1,244 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Procedure {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBase]
+  instantiatesUri: uri  _instantiatesUri: [ElementBase]
+  basedOn: [Reference]
+  partOf: [Reference]
+  status: code  _status: ElementBase
+  statusReason: CodeableConcept
+  category: [CodeableConcept]
+  code: CodeableConcept
+  subject: Reference!
+  encounter: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceString: String  _occurrenceString: ElementBase
+  occurrenceAge: Age
+  occurrenceRange: Range
+  occurrenceTiming: Timing
+  recorded: dateTime  _recorded: ElementBase
+  recorder: Reference
+  reportedBoolean: Boolean  _reportedBoolean: ElementBase
+  reportedReference: Reference
+  performer: [ProcedurePerformer]
+  location: Reference
+  reason: [CodeableReference]
+  bodySite: [CodeableConcept]
+  outcome: CodeableConcept
+  report: [Reference]
+  complication: [CodeableConcept]
+  complicationDetail: [Reference]
+  followUp: [CodeableConcept]
+  note: [Annotation]
+  focalDevice: [ProcedureFocalDevice]
+  used: [CodeableReference]
+  supportingInfo: [Reference]
+}
+
+type ProcedurePerformer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference!
+  onBehalfOf: Reference
+}
+
+type ProcedureFocalDevice {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  action: CodeableConcept
+  manipulated: Reference!
+}
+
+input ProcedureInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBaseInput]
+  instantiatesUri: uri  _instantiatesUri: [ElementBaseInput]
+  basedOn: [ReferenceInput]
+  partOf: [ReferenceInput]
+  status: code  _status: ElementBaseInput
+  statusReason: CodeableConceptInput
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceString: String  _occurrenceString: ElementBaseInput
+  occurrenceAge: AgeInput
+  occurrenceRange: RangeInput
+  occurrenceTiming: TimingInput
+  recorded: dateTime  _recorded: ElementBaseInput
+  recorder: ReferenceInput
+  reportedBoolean: Boolean  _reportedBoolean: ElementBaseInput
+  reportedReference: ReferenceInput
+  performer: [ProcedurePerformerInput]
+  location: ReferenceInput
+  reason: [CodeableReferenceInput]
+  bodySite: [CodeableConceptInput]
+  outcome: CodeableConceptInput
+  report: [ReferenceInput]
+  complication: [CodeableConceptInput]
+  complicationDetail: [ReferenceInput]
+  followUp: [CodeableConceptInput]
+  note: [AnnotationInput]
+  focalDevice: [ProcedureFocalDeviceInput]
+  used: [CodeableReferenceInput]
+  supportingInfo: [ReferenceInput]
+}
+
+input ProcedurePerformerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput!
+  onBehalfOf: ReferenceInput
+}
+
+input ProcedureFocalDeviceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  action: CodeableConceptInput
+  manipulated: ReferenceInput!
+}
+
+type ProcedureReadType {
+  Procedure(id: ID!): Procedure
+}
+
+type ProcedureListType {
+  ProcedureList(_filter: String
+    based_on: [reference]
+    category: [token]
+    code: [token]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    location: [reference]
+    part_of: [reference]
+    patient: [reference]
+    performer: [reference]
+    reason_code: [token]
+    reason_reference: [reference]
+    report: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Procedure]
+}
+
+type ProcedureConnectionType {
+  ProcedureConection(_filter: String
+    based_on: [reference]
+    category: [token]
+    code: [token]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    location: [reference]
+    part_of: [reference]
+    patient: [reference]
+    performer: [reference]
+    reason_code: [token]
+    reason_reference: [reference]
+    report: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ProcedureConnection
+}
+
+type ProcedureConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ProcedureEdge]
+}
+
+type ProcedureEdge {
+  mode: String
+  score: Float
+  resource: Procedure
+}
+
+type ProcedureCreateType {
+  ProcedureCreate(resource: ProcedureInput): ProcedureCreation
+}
+
+type ProcedureCreation {
+  location: String
+  resource: Procedure
+  information: OperationOutcome
+}
+
+type ProcedureUpdateType {
+  ProcedureUpdate(id: ID, resource: ProcedureInput): ProcedureUpdate
+}
+
+type ProcedureUpdate {
+  resource: Procedure
+  information: OperationOutcome
+}
+
+type ProcedureDeleteType {
+  ProcedureDelete(id: ID): ProcedureDelete
+}
+
+type ProcedureDelete {
+  information: OperationOutcome
+}
+

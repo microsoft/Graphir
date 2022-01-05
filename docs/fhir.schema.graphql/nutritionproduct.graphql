@@ -1,0 +1,216 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type NutritionProduct {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  status: code  _status: ElementBase
+  category: [CodeableConcept]
+  code: CodeableConcept
+  manufacturer: [Reference]
+  nutrient: [NutritionProductNutrient]
+  ingredient: [NutritionProductIngredient]
+  knownAllergen: [CodeableReference]
+  productCharacteristic: [NutritionProductProductCharacteristic]
+  instance: NutritionProductInstance
+  note: [Annotation]
+}
+
+type NutritionProductNutrient {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  item: CodeableReference
+  amount: [Ratio]
+}
+
+type NutritionProductIngredient {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  item: CodeableReference!
+  amount: [Ratio]
+}
+
+type NutritionProductProductCharacteristic {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueCodeableConcept: CodeableConcept
+  valueString: String  _valueString: ElementBase
+  valueQuantity: Quantity
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBase
+  valueAttachment: Attachment
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+}
+
+type NutritionProductInstance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  quantity: Quantity
+  identifier: [Identifier]
+  lotNumber: String  _lotNumber: ElementBase
+  expiry: dateTime  _expiry: ElementBase
+  useBy: dateTime  _useBy: ElementBase
+  biologicalSource: Identifier
+}
+
+input NutritionProductInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  status: code  _status: ElementBaseInput
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput
+  manufacturer: [ReferenceInput]
+  nutrient: [NutritionProductNutrientInput]
+  ingredient: [NutritionProductIngredientInput]
+  knownAllergen: [CodeableReferenceInput]
+  productCharacteristic: [NutritionProductProductCharacteristicInput]
+  instance: NutritionProductInstanceInput
+  note: [AnnotationInput]
+}
+
+input NutritionProductNutrientInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  item: CodeableReferenceInput
+  amount: [RatioInput]
+}
+
+input NutritionProductIngredientInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  item: CodeableReferenceInput!
+  amount: [RatioInput]
+}
+
+input NutritionProductProductCharacteristicInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueCodeableConcept: CodeableConceptInput
+  valueString: String  _valueString: ElementBaseInput
+  valueQuantity: QuantityInput
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBaseInput
+  valueAttachment: AttachmentInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+}
+
+input NutritionProductInstanceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  quantity: QuantityInput
+  identifier: [IdentifierInput]
+  lotNumber: String  _lotNumber: ElementBaseInput
+  expiry: dateTime  _expiry: ElementBaseInput
+  useBy: dateTime  _useBy: ElementBaseInput
+  biologicalSource: IdentifierInput
+}
+
+type NutritionProductReadType {
+  NutritionProduct(id: ID!): NutritionProduct
+}
+
+type NutritionProductListType {
+  NutritionProductList(_filter: String
+    identifier: [token]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [NutritionProduct]
+}
+
+type NutritionProductConnectionType {
+  NutritionProductConection(_filter: String
+    identifier: [token]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): NutritionProductConnection
+}
+
+type NutritionProductConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [NutritionProductEdge]
+}
+
+type NutritionProductEdge {
+  mode: String
+  score: Float
+  resource: NutritionProduct
+}
+
+type NutritionProductCreateType {
+  NutritionProductCreate(resource: NutritionProductInput): NutritionProductCreation
+}
+
+type NutritionProductCreation {
+  location: String
+  resource: NutritionProduct
+  information: OperationOutcome
+}
+
+type NutritionProductUpdateType {
+  NutritionProductUpdate(id: ID, resource: NutritionProductInput): NutritionProductUpdate
+}
+
+type NutritionProductUpdate {
+  resource: NutritionProduct
+  information: OperationOutcome
+}
+
+type NutritionProductDeleteType {
+  NutritionProductDelete(id: ID): NutritionProductDelete
+}
+
+type NutritionProductDelete {
+  information: OperationOutcome
+}
+

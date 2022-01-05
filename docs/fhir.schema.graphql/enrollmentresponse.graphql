@@ -1,0 +1,130 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type EnrollmentResponse {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  request: Reference
+  outcome: code  _outcome: ElementBase
+  disposition: String  _disposition: ElementBase
+  created: dateTime  _created: ElementBase
+  organization: Reference
+  requestProvider: Reference
+}
+
+input EnrollmentResponseInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  request: ReferenceInput
+  outcome: code  _outcome: ElementBaseInput
+  disposition: String  _disposition: ElementBaseInput
+  created: dateTime  _created: ElementBaseInput
+  organization: ReferenceInput
+  requestProvider: ReferenceInput
+}
+
+type EnrollmentResponseReadType {
+  EnrollmentResponse(id: ID!): EnrollmentResponse
+}
+
+type EnrollmentResponseListType {
+  EnrollmentResponseList(_filter: String
+    identifier: [token]
+    request: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [EnrollmentResponse]
+}
+
+type EnrollmentResponseConnectionType {
+  EnrollmentResponseConection(_filter: String
+    identifier: [token]
+    request: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): EnrollmentResponseConnection
+}
+
+type EnrollmentResponseConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [EnrollmentResponseEdge]
+}
+
+type EnrollmentResponseEdge {
+  mode: String
+  score: Float
+  resource: EnrollmentResponse
+}
+
+type EnrollmentResponseCreateType {
+  EnrollmentResponseCreate(resource: EnrollmentResponseInput): EnrollmentResponseCreation
+}
+
+type EnrollmentResponseCreation {
+  location: String
+  resource: EnrollmentResponse
+  information: OperationOutcome
+}
+
+type EnrollmentResponseUpdateType {
+  EnrollmentResponseUpdate(id: ID, resource: EnrollmentResponseInput): EnrollmentResponseUpdate
+}
+
+type EnrollmentResponseUpdate {
+  resource: EnrollmentResponse
+  information: OperationOutcome
+}
+
+type EnrollmentResponseDeleteType {
+  EnrollmentResponseDelete(id: ID): EnrollmentResponseDelete
+}
+
+type EnrollmentResponseDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,602 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Contract {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  url: uri  _url: ElementBase
+  version: String  _version: ElementBase
+  status: code  _status: ElementBase
+  legalState: CodeableConcept
+  instantiatesCanonical: Reference
+  instantiatesUri: uri  _instantiatesUri: ElementBase
+  contentDerivative: CodeableConcept
+  issued: dateTime  _issued: ElementBase
+  applies: Period
+  expirationType: CodeableConcept
+  subject: [Reference]
+  authority: [Reference]
+  domain: [Reference]
+  site: [Reference]
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  subtitle: String  _subtitle: ElementBase
+  alias: String  _alias: [ElementBase]
+  author: Reference
+  scope: CodeableConcept
+  topicCodeableConcept: CodeableConcept
+  topicReference: Reference
+  type: CodeableConcept
+  subType: [CodeableConcept]
+  contentDefinition: ContractContentDefinition
+  term: [ContractTerm]
+  supportingInfo: [Reference]
+  relevantHistory: [Reference]
+  signer: [ContractSigner]
+  friendly: [ContractFriendly]
+  legal: [ContractLegal]
+  rule: [ContractRule]
+  legallyBindingAttachment: Attachment
+  legallyBindingReference: Reference
+}
+
+type ContractContentDefinition {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  subType: CodeableConcept
+  publisher: Reference
+  publicationDate: dateTime  _publicationDate: ElementBase
+  publicationStatus: code  _publicationStatus: ElementBase
+  copyright: markdown  _copyright: ElementBase
+}
+
+type ContractTerm {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: Identifier
+  issued: dateTime  _issued: ElementBase
+  applies: Period
+  topicCodeableConcept: CodeableConcept
+  topicReference: Reference
+  type: CodeableConcept
+  subType: CodeableConcept
+  text: String  _text: ElementBase
+  securityLabel: [ContractTermSecurityLabel]
+  offer: ContractTermOffer!
+  asset: [ContractTermAsset]
+  action: [ContractTermAction]
+  group: [ContractTerm]
+}
+
+type ContractTermSecurityLabel {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  number: unsignedInt  _number: [ElementBase]
+  classification: Coding!
+  category: [Coding]
+  control: [Coding]
+}
+
+type ContractTermOffer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  party: [ContractTermOfferParty]
+  topic: Reference
+  type: CodeableConcept
+  decision: CodeableConcept
+  decisionMode: [CodeableConcept]
+  answer: [ContractTermOfferAnswer]
+  text: String  _text: ElementBase
+  linkId: String  _linkId: [ElementBase]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBase]
+}
+
+type ContractTermOfferParty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  reference: [Reference]!
+  role: CodeableConcept!
+}
+
+type ContractTermOfferAnswer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueDate: date  _valueDate: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valueTime: time  _valueTime: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueUri: uri  _valueUri: ElementBase
+  valueAttachment: Attachment
+  valueCoding: Coding
+  valueQuantity: Quantity
+  valueReference: Reference
+}
+
+type ContractTermAsset {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  scope: CodeableConcept
+  type: [CodeableConcept]
+  typeReference: [Reference]
+  subtype: [CodeableConcept]
+  relationship: Coding
+  context: [ContractTermAssetContext]
+  condition: String  _condition: ElementBase
+  periodType: [CodeableConcept]
+  period: [Period]
+  usePeriod: [Period]
+  text: String  _text: ElementBase
+  linkId: String  _linkId: [ElementBase]
+  answer: [ContractTermOfferAnswer]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBase]
+  valuedItem: [ContractTermAssetValuedItem]
+}
+
+type ContractTermAssetContext {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  reference: Reference
+  code: [CodeableConcept]
+  text: String  _text: ElementBase
+}
+
+type ContractTermAssetValuedItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  entityCodeableConcept: CodeableConcept
+  entityReference: Reference
+  identifier: Identifier
+  effectiveTime: dateTime  _effectiveTime: ElementBase
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  points: decimal  _points: ElementBase
+  net: Money
+  payment: String  _payment: ElementBase
+  paymentDate: dateTime  _paymentDate: ElementBase
+  responsible: Reference
+  recipient: Reference
+  linkId: String  _linkId: [ElementBase]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBase]
+}
+
+type ContractTermAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  doNotPerform: Boolean  _doNotPerform: ElementBase
+  type: CodeableConcept!
+  subject: [ContractTermActionSubject]
+  intent: CodeableConcept!
+  linkId: String  _linkId: [ElementBase]
+  status: CodeableConcept!
+  context: Reference
+  contextLinkId: String  _contextLinkId: [ElementBase]
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  requester: [Reference]
+  requesterLinkId: String  _requesterLinkId: [ElementBase]
+  performerType: [CodeableConcept]
+  performerRole: CodeableConcept
+  performer: Reference
+  performerLinkId: String  _performerLinkId: [ElementBase]
+  reason: [CodeableReference]
+  reasonLinkId: String  _reasonLinkId: [ElementBase]
+  note: [Annotation]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBase]
+}
+
+type ContractTermActionSubject {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  reference: [Reference]!
+  role: CodeableConcept
+}
+
+type ContractSigner {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: Coding!
+  party: Reference!
+  signature: [Signature]!
+}
+
+type ContractFriendly {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  contentAttachment: Attachment
+  contentReference: Reference
+}
+
+type ContractLegal {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  contentAttachment: Attachment
+  contentReference: Reference
+}
+
+type ContractRule {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  contentAttachment: Attachment
+  contentReference: Reference
+}
+
+input ContractInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  url: uri  _url: ElementBaseInput
+  version: String  _version: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  legalState: CodeableConceptInput
+  instantiatesCanonical: ReferenceInput
+  instantiatesUri: uri  _instantiatesUri: ElementBaseInput
+  contentDerivative: CodeableConceptInput
+  issued: dateTime  _issued: ElementBaseInput
+  applies: PeriodInput
+  expirationType: CodeableConceptInput
+  subject: [ReferenceInput]
+  authority: [ReferenceInput]
+  domain: [ReferenceInput]
+  site: [ReferenceInput]
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  subtitle: String  _subtitle: ElementBaseInput
+  alias: String  _alias: [ElementBaseInput]
+  author: ReferenceInput
+  scope: CodeableConceptInput
+  topicCodeableConcept: CodeableConceptInput
+  topicReference: ReferenceInput
+  type: CodeableConceptInput
+  subType: [CodeableConceptInput]
+  contentDefinition: ContractContentDefinitionInput
+  term: [ContractTermInput]
+  supportingInfo: [ReferenceInput]
+  relevantHistory: [ReferenceInput]
+  signer: [ContractSignerInput]
+  friendly: [ContractFriendlyInput]
+  legal: [ContractLegalInput]
+  rule: [ContractRuleInput]
+  legallyBindingAttachment: AttachmentInput
+  legallyBindingReference: ReferenceInput
+}
+
+input ContractContentDefinitionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  subType: CodeableConceptInput
+  publisher: ReferenceInput
+  publicationDate: dateTime  _publicationDate: ElementBaseInput
+  publicationStatus: code  _publicationStatus: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+}
+
+input ContractTermInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: IdentifierInput
+  issued: dateTime  _issued: ElementBaseInput
+  applies: PeriodInput
+  topicCodeableConcept: CodeableConceptInput
+  topicReference: ReferenceInput
+  type: CodeableConceptInput
+  subType: CodeableConceptInput
+  text: String  _text: ElementBaseInput
+  securityLabel: [ContractTermSecurityLabelInput]
+  offer: ContractTermOfferInput!
+  asset: [ContractTermAssetInput]
+  action: [ContractTermActionInput]
+  group: [ContractTerm]
+}
+
+input ContractTermSecurityLabelInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  number: unsignedInt  _number: [ElementBaseInput]
+  classification: CodingInput!
+  category: [CodingInput]
+  control: [CodingInput]
+}
+
+input ContractTermOfferInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  party: [ContractTermOfferPartyInput]
+  topic: ReferenceInput
+  type: CodeableConceptInput
+  decision: CodeableConceptInput
+  decisionMode: [CodeableConceptInput]
+  answer: [ContractTermOfferAnswerInput]
+  text: String  _text: ElementBaseInput
+  linkId: String  _linkId: [ElementBaseInput]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBaseInput]
+}
+
+input ContractTermOfferPartyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  reference: [ReferenceInput]!
+  role: CodeableConceptInput!
+}
+
+input ContractTermOfferAnswerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valueTime: time  _valueTime: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueUri: uri  _valueUri: ElementBaseInput
+  valueAttachment: AttachmentInput
+  valueCoding: CodingInput
+  valueQuantity: QuantityInput
+  valueReference: ReferenceInput
+}
+
+input ContractTermAssetInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  scope: CodeableConceptInput
+  type: [CodeableConceptInput]
+  typeReference: [ReferenceInput]
+  subtype: [CodeableConceptInput]
+  relationship: CodingInput
+  context: [ContractTermAssetContextInput]
+  condition: String  _condition: ElementBaseInput
+  periodType: [CodeableConceptInput]
+  period: [PeriodInput]
+  usePeriod: [PeriodInput]
+  text: String  _text: ElementBaseInput
+  linkId: String  _linkId: [ElementBaseInput]
+  answer: [ContractTermOfferAnswer]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBaseInput]
+  valuedItem: [ContractTermAssetValuedItemInput]
+}
+
+input ContractTermAssetContextInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  reference: ReferenceInput
+  code: [CodeableConceptInput]
+  text: String  _text: ElementBaseInput
+}
+
+input ContractTermAssetValuedItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  entityCodeableConcept: CodeableConceptInput
+  entityReference: ReferenceInput
+  identifier: IdentifierInput
+  effectiveTime: dateTime  _effectiveTime: ElementBaseInput
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  points: decimal  _points: ElementBaseInput
+  net: MoneyInput
+  payment: String  _payment: ElementBaseInput
+  paymentDate: dateTime  _paymentDate: ElementBaseInput
+  responsible: ReferenceInput
+  recipient: ReferenceInput
+  linkId: String  _linkId: [ElementBaseInput]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBaseInput]
+}
+
+input ContractTermActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  doNotPerform: Boolean  _doNotPerform: ElementBaseInput
+  type: CodeableConceptInput!
+  subject: [ContractTermActionSubjectInput]
+  intent: CodeableConceptInput!
+  linkId: String  _linkId: [ElementBaseInput]
+  status: CodeableConceptInput!
+  context: ReferenceInput
+  contextLinkId: String  _contextLinkId: [ElementBaseInput]
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  requester: [ReferenceInput]
+  requesterLinkId: String  _requesterLinkId: [ElementBaseInput]
+  performerType: [CodeableConceptInput]
+  performerRole: CodeableConceptInput
+  performer: ReferenceInput
+  performerLinkId: String  _performerLinkId: [ElementBaseInput]
+  reason: [CodeableReferenceInput]
+  reasonLinkId: String  _reasonLinkId: [ElementBaseInput]
+  note: [AnnotationInput]
+  securityLabelNumber: unsignedInt  _securityLabelNumber: [ElementBaseInput]
+}
+
+input ContractTermActionSubjectInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  reference: [ReferenceInput]!
+  role: CodeableConceptInput
+}
+
+input ContractSignerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodingInput!
+  party: ReferenceInput!
+  signature: [SignatureInput]!
+}
+
+input ContractFriendlyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  contentAttachment: AttachmentInput
+  contentReference: ReferenceInput
+}
+
+input ContractLegalInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  contentAttachment: AttachmentInput
+  contentReference: ReferenceInput
+}
+
+input ContractRuleInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  contentAttachment: AttachmentInput
+  contentReference: ReferenceInput
+}
+
+type ContractReadType {
+  Contract(id: ID!): Contract
+}
+
+type ContractListType {
+  ContractList(_filter: String
+    authority: [reference]
+    domain: [reference]
+    identifier: [token]
+    instantiates: [uri]
+    issued: [date]
+    patient: [reference]
+    signer: [reference]
+    status: [token]
+    subject: [reference]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Contract]
+}
+
+type ContractConnectionType {
+  ContractConection(_filter: String
+    authority: [reference]
+    domain: [reference]
+    identifier: [token]
+    instantiates: [uri]
+    issued: [date]
+    patient: [reference]
+    signer: [reference]
+    status: [token]
+    subject: [reference]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ContractConnection
+}
+
+type ContractConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ContractEdge]
+}
+
+type ContractEdge {
+  mode: String
+  score: Float
+  resource: Contract
+}
+
+type ContractCreateType {
+  ContractCreate(resource: ContractInput): ContractCreation
+}
+
+type ContractCreation {
+  location: String
+  resource: Contract
+  information: OperationOutcome
+}
+
+type ContractUpdateType {
+  ContractUpdate(id: ID, resource: ContractInput): ContractUpdate
+}
+
+type ContractUpdate {
+  resource: Contract
+  information: OperationOutcome
+}
+
+type ContractDeleteType {
+  ContractDelete(id: ID): ContractDelete
+}
+
+type ContractDelete {
+  information: OperationOutcome
+}
+

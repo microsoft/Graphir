@@ -1,0 +1,178 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type List {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  mode: code  _mode: ElementBase
+  title: String  _title: ElementBase
+  code: CodeableConcept
+  subject: Reference
+  encounter: Reference
+  date: dateTime  _date: ElementBase
+  source: Reference
+  orderedBy: CodeableConcept
+  note: [Annotation]
+  entry: [ListEntry]
+  emptyReason: CodeableConcept
+}
+
+type ListEntry {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  flag: CodeableConcept
+  deleted: Boolean  _deleted: ElementBase
+  date: dateTime  _date: ElementBase
+  item: Reference!
+}
+
+input ListInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  mode: code  _mode: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  code: CodeableConceptInput
+  subject: ReferenceInput
+  encounter: ReferenceInput
+  date: dateTime  _date: ElementBaseInput
+  source: ReferenceInput
+  orderedBy: CodeableConceptInput
+  note: [AnnotationInput]
+  entry: [ListEntryInput]
+  emptyReason: CodeableConceptInput
+}
+
+input ListEntryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  flag: CodeableConceptInput
+  deleted: Boolean  _deleted: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  item: ReferenceInput!
+}
+
+type ListReadType {
+  List(id: ID!): List
+}
+
+type ListListType {
+  ListList(_filter: String
+    code: [token]
+    date: [date]
+    empty_reason: [token]
+    encounter: [reference]
+    identifier: [token]
+    item: [reference]
+    notes: [String]
+    patient: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    title: [String]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [List]
+}
+
+type ListConnectionType {
+  ListConection(_filter: String
+    code: [token]
+    date: [date]
+    empty_reason: [token]
+    encounter: [reference]
+    identifier: [token]
+    item: [reference]
+    notes: [String]
+    patient: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    title: [String]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ListConnection
+}
+
+type ListConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ListEdge]
+}
+
+type ListEdge {
+  mode: String
+  score: Float
+  resource: List
+}
+
+type ListCreateType {
+  ListCreate(resource: ListInput): ListCreation
+}
+
+type ListCreation {
+  location: String
+  resource: List
+  information: OperationOutcome
+}
+
+type ListUpdateType {
+  ListUpdate(id: ID, resource: ListInput): ListUpdate
+}
+
+type ListUpdate {
+  resource: List
+  information: OperationOutcome
+}
+
+type ListDeleteType {
+  ListDelete(id: ID): ListDelete
+}
+
+type ListDelete {
+  information: OperationOutcome
+}
+

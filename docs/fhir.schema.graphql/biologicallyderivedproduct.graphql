@@ -1,0 +1,184 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type BiologicallyDerivedProduct {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  productCategory: code  _productCategory: ElementBase
+  productCode: CodeableConcept
+  parent: [Reference]
+  request: [Reference]
+  identifier: [Identifier]
+  biologicalSource: Identifier
+  processingFacility: [Reference]
+  division: String  _division: ElementBase
+  status: code  _status: ElementBase
+  expirationDate: dateTime  _expirationDate: ElementBase
+  collection: BiologicallyDerivedProductCollection
+  storageTempRequirements: Range
+  property: [BiologicallyDerivedProductProperty]
+}
+
+type BiologicallyDerivedProductCollection {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  collector: Reference
+  source: Reference
+  collectedDateTime: dateTime  _collectedDateTime: ElementBase
+  collectedPeriod: Period
+}
+
+type BiologicallyDerivedProductProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueRange: Range
+  valueString: String  _valueString: ElementBase
+  valueAttachment: Attachment
+}
+
+input BiologicallyDerivedProductInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  productCategory: code  _productCategory: ElementBaseInput
+  productCode: CodeableConceptInput
+  parent: [ReferenceInput]
+  request: [ReferenceInput]
+  identifier: [IdentifierInput]
+  biologicalSource: IdentifierInput
+  processingFacility: [ReferenceInput]
+  division: String  _division: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  expirationDate: dateTime  _expirationDate: ElementBaseInput
+  collection: BiologicallyDerivedProductCollectionInput
+  storageTempRequirements: RangeInput
+  property: [BiologicallyDerivedProductPropertyInput]
+}
+
+input BiologicallyDerivedProductCollectionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  collector: ReferenceInput
+  source: ReferenceInput
+  collectedDateTime: dateTime  _collectedDateTime: ElementBaseInput
+  collectedPeriod: PeriodInput
+}
+
+input BiologicallyDerivedProductPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+  valueString: String  _valueString: ElementBaseInput
+  valueAttachment: AttachmentInput
+}
+
+type BiologicallyDerivedProductReadType {
+  BiologicallyDerivedProduct(id: ID!): BiologicallyDerivedProduct
+}
+
+type BiologicallyDerivedProductListType {
+  BiologicallyDerivedProductList(_filter: String
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [BiologicallyDerivedProduct]
+}
+
+type BiologicallyDerivedProductConnectionType {
+  BiologicallyDerivedProductConection(_filter: String
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): BiologicallyDerivedProductConnection
+}
+
+type BiologicallyDerivedProductConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [BiologicallyDerivedProductEdge]
+}
+
+type BiologicallyDerivedProductEdge {
+  mode: String
+  score: Float
+  resource: BiologicallyDerivedProduct
+}
+
+type BiologicallyDerivedProductCreateType {
+  BiologicallyDerivedProductCreate(resource: BiologicallyDerivedProductInput): BiologicallyDerivedProductCreation
+}
+
+type BiologicallyDerivedProductCreation {
+  location: String
+  resource: BiologicallyDerivedProduct
+  information: OperationOutcome
+}
+
+type BiologicallyDerivedProductUpdateType {
+  BiologicallyDerivedProductUpdate(id: ID, resource: BiologicallyDerivedProductInput): BiologicallyDerivedProductUpdate
+}
+
+type BiologicallyDerivedProductUpdate {
+  resource: BiologicallyDerivedProduct
+  information: OperationOutcome
+}
+
+type BiologicallyDerivedProductDeleteType {
+  BiologicallyDerivedProductDelete(id: ID): BiologicallyDerivedProductDelete
+}
+
+type BiologicallyDerivedProductDelete {
+  information: OperationOutcome
+}
+

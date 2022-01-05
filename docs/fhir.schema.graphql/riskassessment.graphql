@@ -1,0 +1,190 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type RiskAssessment {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: Reference
+  parent: Reference
+  status: code  _status: ElementBase
+  method: CodeableConcept
+  code: CodeableConcept
+  subject: Reference!
+  encounter: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  condition: Reference
+  performer: Reference
+  reason: [CodeableReference]
+  basis: [Reference]
+  prediction: [RiskAssessmentPrediction]
+  mitigation: String  _mitigation: ElementBase
+  note: [Annotation]
+}
+
+type RiskAssessmentPrediction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  outcome: CodeableConcept
+  probabilityDecimal: decimal  _probabilityDecimal: ElementBase
+  probabilityRange: Range
+  qualitativeRisk: CodeableConcept
+  relativeRisk: decimal  _relativeRisk: ElementBase
+  whenPeriod: Period
+  whenRange: Range
+  rationale: String  _rationale: ElementBase
+}
+
+input RiskAssessmentInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: ReferenceInput
+  parent: ReferenceInput
+  status: code  _status: ElementBaseInput
+  method: CodeableConceptInput
+  code: CodeableConceptInput
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  condition: ReferenceInput
+  performer: ReferenceInput
+  reason: [CodeableReferenceInput]
+  basis: [ReferenceInput]
+  prediction: [RiskAssessmentPredictionInput]
+  mitigation: String  _mitigation: ElementBaseInput
+  note: [AnnotationInput]
+}
+
+input RiskAssessmentPredictionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  outcome: CodeableConceptInput
+  probabilityDecimal: decimal  _probabilityDecimal: ElementBaseInput
+  probabilityRange: RangeInput
+  qualitativeRisk: CodeableConceptInput
+  relativeRisk: decimal  _relativeRisk: ElementBaseInput
+  whenPeriod: PeriodInput
+  whenRange: RangeInput
+  rationale: String  _rationale: ElementBaseInput
+}
+
+type RiskAssessmentReadType {
+  RiskAssessment(id: ID!): RiskAssessment
+}
+
+type RiskAssessmentListType {
+  RiskAssessmentList(_filter: String
+    condition: [reference]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    method: [token]
+    patient: [reference]
+    performer: [reference]
+    probability: [number]
+    risk: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [RiskAssessment]
+}
+
+type RiskAssessmentConnectionType {
+  RiskAssessmentConection(_filter: String
+    condition: [reference]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    method: [token]
+    patient: [reference]
+    performer: [reference]
+    probability: [number]
+    risk: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): RiskAssessmentConnection
+}
+
+type RiskAssessmentConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [RiskAssessmentEdge]
+}
+
+type RiskAssessmentEdge {
+  mode: String
+  score: Float
+  resource: RiskAssessment
+}
+
+type RiskAssessmentCreateType {
+  RiskAssessmentCreate(resource: RiskAssessmentInput): RiskAssessmentCreation
+}
+
+type RiskAssessmentCreation {
+  location: String
+  resource: RiskAssessment
+  information: OperationOutcome
+}
+
+type RiskAssessmentUpdateType {
+  RiskAssessmentUpdate(id: ID, resource: RiskAssessmentInput): RiskAssessmentUpdate
+}
+
+type RiskAssessmentUpdate {
+  resource: RiskAssessment
+  information: OperationOutcome
+}
+
+type RiskAssessmentDeleteType {
+  RiskAssessmentDelete(id: ID): RiskAssessmentDelete
+}
+
+type RiskAssessmentDelete {
+  information: OperationOutcome
+}
+

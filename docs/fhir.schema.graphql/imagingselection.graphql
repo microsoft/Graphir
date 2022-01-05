@@ -1,0 +1,212 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ImagingSelection {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  subject: Reference
+  issued: instant  _issued: ElementBase
+  performer: [ImagingSelectionPerformer]
+  code: CodeableConcept!
+  studyUid: oid  _studyUid: ElementBase
+  derivedFrom: [Reference]
+  endpoint: [Reference]
+  seriesUid: oid  _seriesUid: ElementBase
+  frameOfReferenceUid: oid  _frameOfReferenceUid: ElementBase
+  bodySite: Coding
+  instance: [ImagingSelectionInstance]
+  imageRegion: ImagingSelectionImageRegion
+}
+
+type ImagingSelectionPerformer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference
+}
+
+type ImagingSelectionInstance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  uid: oid  _uid: ElementBase
+  sopClass: Coding
+  frameList: String  _frameList: ElementBase
+  observationUid: oid  _observationUid: [ElementBase]
+  segmentList: String  _segmentList: ElementBase
+  roiList: String  _roiList: ElementBase
+}
+
+type ImagingSelectionImageRegion {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  regionType: code  _regionType: ElementBase
+  coordinateType: code  _coordinateType: ElementBase
+  coordinates: decimal  _coordinates: [ElementBase]
+}
+
+input ImagingSelectionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  subject: ReferenceInput
+  issued: instant  _issued: ElementBaseInput
+  performer: [ImagingSelectionPerformerInput]
+  code: CodeableConceptInput!
+  studyUid: oid  _studyUid: ElementBaseInput
+  derivedFrom: [ReferenceInput]
+  endpoint: [ReferenceInput]
+  seriesUid: oid  _seriesUid: ElementBaseInput
+  frameOfReferenceUid: oid  _frameOfReferenceUid: ElementBaseInput
+  bodySite: CodingInput
+  instance: [ImagingSelectionInstanceInput]
+  imageRegion: ImagingSelectionImageRegionInput
+}
+
+input ImagingSelectionPerformerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput
+}
+
+input ImagingSelectionInstanceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  uid: oid  _uid: ElementBaseInput
+  sopClass: CodingInput
+  frameList: String  _frameList: ElementBaseInput
+  observationUid: oid  _observationUid: [ElementBaseInput]
+  segmentList: String  _segmentList: ElementBaseInput
+  roiList: String  _roiList: ElementBaseInput
+}
+
+input ImagingSelectionImageRegionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  regionType: code  _regionType: ElementBaseInput
+  coordinateType: code  _coordinateType: ElementBaseInput
+  coordinates: decimal  _coordinates: [ElementBaseInput]
+}
+
+type ImagingSelectionReadType {
+  ImagingSelection(id: ID!): ImagingSelection
+}
+
+type ImagingSelectionListType {
+  ImagingSelectionList(_filter: String
+    based_on: [reference]
+    body_site: [token]
+    code: [token]
+    derived_from: [reference]
+    identifier: [token]
+    issued: [date]
+    patient: [reference]
+    study_uid: [uri]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ImagingSelection]
+}
+
+type ImagingSelectionConnectionType {
+  ImagingSelectionConection(_filter: String
+    based_on: [reference]
+    body_site: [token]
+    code: [token]
+    derived_from: [reference]
+    identifier: [token]
+    issued: [date]
+    patient: [reference]
+    study_uid: [uri]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ImagingSelectionConnection
+}
+
+type ImagingSelectionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ImagingSelectionEdge]
+}
+
+type ImagingSelectionEdge {
+  mode: String
+  score: Float
+  resource: ImagingSelection
+}
+
+type ImagingSelectionCreateType {
+  ImagingSelectionCreate(resource: ImagingSelectionInput): ImagingSelectionCreation
+}
+
+type ImagingSelectionCreation {
+  location: String
+  resource: ImagingSelection
+  information: OperationOutcome
+}
+
+type ImagingSelectionUpdateType {
+  ImagingSelectionUpdate(id: ID, resource: ImagingSelectionInput): ImagingSelectionUpdate
+}
+
+type ImagingSelectionUpdate {
+  resource: ImagingSelection
+  information: OperationOutcome
+}
+
+type ImagingSelectionDeleteType {
+  ImagingSelectionDelete(id: ID): ImagingSelectionDelete
+}
+
+type ImagingSelectionDelete {
+  information: OperationOutcome
+}
+

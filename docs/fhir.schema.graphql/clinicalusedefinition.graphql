@@ -1,0 +1,288 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ClinicalUseDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  type: code  _type: ElementBase
+  category: [CodeableConcept]
+  subject: [Reference]
+  status: CodeableConcept
+  contraindication: ClinicalUseDefinitionContraindication
+  indication: ClinicalUseDefinitionIndication
+  interaction: ClinicalUseDefinitionInteraction
+  population: [Reference]
+  undesirableEffect: ClinicalUseDefinitionUndesirableEffect
+  warning: ClinicalUseDefinitionWarning
+}
+
+type ClinicalUseDefinitionContraindication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  diseaseSymptomProcedure: CodeableReference
+  diseaseStatus: CodeableReference
+  comorbidity: [CodeableReference]
+  indication: [Reference]
+  otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]
+}
+
+type ClinicalUseDefinitionContraindicationOtherTherapy {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  relationshipType: CodeableConcept!
+  therapy: CodeableReference!
+}
+
+type ClinicalUseDefinitionIndication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  diseaseSymptomProcedure: CodeableReference
+  diseaseStatus: CodeableReference
+  comorbidity: [CodeableReference]
+  intendedEffect: CodeableReference
+  duration: Quantity
+  undesirableEffect: [Reference]
+  otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]
+}
+
+type ClinicalUseDefinitionInteraction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  interactant: [ClinicalUseDefinitionInteractionInteractant]
+  type: CodeableConcept
+  effect: CodeableReference
+  incidence: CodeableConcept
+  management: [CodeableConcept]
+}
+
+type ClinicalUseDefinitionInteractionInteractant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  itemReference: Reference
+  itemCodeableConcept: CodeableConcept
+}
+
+type ClinicalUseDefinitionUndesirableEffect {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  symptomConditionEffect: CodeableReference
+  classification: CodeableConcept
+  frequencyOfOccurrence: CodeableConcept
+}
+
+type ClinicalUseDefinitionWarning {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  description: markdown  _description: ElementBase
+  code: CodeableConcept
+}
+
+input ClinicalUseDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  type: code  _type: ElementBaseInput
+  category: [CodeableConceptInput]
+  subject: [ReferenceInput]
+  status: CodeableConceptInput
+  contraindication: ClinicalUseDefinitionContraindicationInput
+  indication: ClinicalUseDefinitionIndicationInput
+  interaction: ClinicalUseDefinitionInteractionInput
+  population: [ReferenceInput]
+  undesirableEffect: ClinicalUseDefinitionUndesirableEffectInput
+  warning: ClinicalUseDefinitionWarningInput
+}
+
+input ClinicalUseDefinitionContraindicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  diseaseSymptomProcedure: CodeableReferenceInput
+  diseaseStatus: CodeableReferenceInput
+  comorbidity: [CodeableReferenceInput]
+  indication: [ReferenceInput]
+  otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapyInput]
+}
+
+input ClinicalUseDefinitionContraindicationOtherTherapyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  relationshipType: CodeableConceptInput!
+  therapy: CodeableReferenceInput!
+}
+
+input ClinicalUseDefinitionIndicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  diseaseSymptomProcedure: CodeableReferenceInput
+  diseaseStatus: CodeableReferenceInput
+  comorbidity: [CodeableReferenceInput]
+  intendedEffect: CodeableReferenceInput
+  duration: QuantityInput
+  undesirableEffect: [ReferenceInput]
+  otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]
+}
+
+input ClinicalUseDefinitionInteractionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  interactant: [ClinicalUseDefinitionInteractionInteractantInput]
+  type: CodeableConceptInput
+  effect: CodeableReferenceInput
+  incidence: CodeableConceptInput
+  management: [CodeableConceptInput]
+}
+
+input ClinicalUseDefinitionInteractionInteractantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  itemReference: ReferenceInput
+  itemCodeableConcept: CodeableConceptInput
+}
+
+input ClinicalUseDefinitionUndesirableEffectInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  symptomConditionEffect: CodeableReferenceInput
+  classification: CodeableConceptInput
+  frequencyOfOccurrence: CodeableConceptInput
+}
+
+input ClinicalUseDefinitionWarningInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  description: markdown  _description: ElementBaseInput
+  code: CodeableConceptInput
+}
+
+type ClinicalUseDefinitionReadType {
+  ClinicalUseDefinition(id: ID!): ClinicalUseDefinition
+}
+
+type ClinicalUseDefinitionListType {
+  ClinicalUseDefinitionList(_filter: String
+    contraindication: [token]
+    contraindication_reference: [reference]
+    effect: [token]
+    effect_reference: [reference]
+    identifier: [token]
+    indication: [token]
+    indication_reference: [reference]
+    interaction: [token]
+    product: [reference]
+    subject: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ClinicalUseDefinition]
+}
+
+type ClinicalUseDefinitionConnectionType {
+  ClinicalUseDefinitionConection(_filter: String
+    contraindication: [token]
+    contraindication_reference: [reference]
+    effect: [token]
+    effect_reference: [reference]
+    identifier: [token]
+    indication: [token]
+    indication_reference: [reference]
+    interaction: [token]
+    product: [reference]
+    subject: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ClinicalUseDefinitionConnection
+}
+
+type ClinicalUseDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ClinicalUseDefinitionEdge]
+}
+
+type ClinicalUseDefinitionEdge {
+  mode: String
+  score: Float
+  resource: ClinicalUseDefinition
+}
+
+type ClinicalUseDefinitionCreateType {
+  ClinicalUseDefinitionCreate(resource: ClinicalUseDefinitionInput): ClinicalUseDefinitionCreation
+}
+
+type ClinicalUseDefinitionCreation {
+  location: String
+  resource: ClinicalUseDefinition
+  information: OperationOutcome
+}
+
+type ClinicalUseDefinitionUpdateType {
+  ClinicalUseDefinitionUpdate(id: ID, resource: ClinicalUseDefinitionInput): ClinicalUseDefinitionUpdate
+}
+
+type ClinicalUseDefinitionUpdate {
+  resource: ClinicalUseDefinition
+  information: OperationOutcome
+}
+
+type ClinicalUseDefinitionDeleteType {
+  ClinicalUseDefinitionDelete(id: ID): ClinicalUseDefinitionDelete
+}
+
+type ClinicalUseDefinitionDelete {
+  information: OperationOutcome
+}
+

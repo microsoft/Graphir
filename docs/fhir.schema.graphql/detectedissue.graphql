@@ -1,0 +1,182 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DetectedIssue {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  code: CodeableConcept
+  severity: code  _severity: ElementBase
+  patient: Reference
+  identifiedDateTime: dateTime  _identifiedDateTime: ElementBase
+  identifiedPeriod: Period
+  author: Reference
+  implicated: [Reference]
+  evidence: [DetectedIssueEvidence]
+  detail: String  _detail: ElementBase
+  reference: uri  _reference: ElementBase
+  mitigation: [DetectedIssueMitigation]
+}
+
+type DetectedIssueEvidence {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: [CodeableConcept]
+  detail: [Reference]
+}
+
+type DetectedIssueMitigation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  action: CodeableConcept!
+  date: dateTime  _date: ElementBase
+  author: Reference
+}
+
+input DetectedIssueInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  code: CodeableConceptInput
+  severity: code  _severity: ElementBaseInput
+  patient: ReferenceInput
+  identifiedDateTime: dateTime  _identifiedDateTime: ElementBaseInput
+  identifiedPeriod: PeriodInput
+  author: ReferenceInput
+  implicated: [ReferenceInput]
+  evidence: [DetectedIssueEvidenceInput]
+  detail: String  _detail: ElementBaseInput
+  reference: uri  _reference: ElementBaseInput
+  mitigation: [DetectedIssueMitigationInput]
+}
+
+input DetectedIssueEvidenceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: [CodeableConceptInput]
+  detail: [ReferenceInput]
+}
+
+input DetectedIssueMitigationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  action: CodeableConceptInput!
+  date: dateTime  _date: ElementBaseInput
+  author: ReferenceInput
+}
+
+type DetectedIssueReadType {
+  DetectedIssue(id: ID!): DetectedIssue
+}
+
+type DetectedIssueListType {
+  DetectedIssueList(_filter: String
+    author: [reference]
+    code: [token]
+    identified: [date]
+    identifier: [token]
+    implicated: [reference]
+    patient: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DetectedIssue]
+}
+
+type DetectedIssueConnectionType {
+  DetectedIssueConection(_filter: String
+    author: [reference]
+    code: [token]
+    identified: [date]
+    identifier: [token]
+    implicated: [reference]
+    patient: [reference]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DetectedIssueConnection
+}
+
+type DetectedIssueConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DetectedIssueEdge]
+}
+
+type DetectedIssueEdge {
+  mode: String
+  score: Float
+  resource: DetectedIssue
+}
+
+type DetectedIssueCreateType {
+  DetectedIssueCreate(resource: DetectedIssueInput): DetectedIssueCreation
+}
+
+type DetectedIssueCreation {
+  location: String
+  resource: DetectedIssue
+  information: OperationOutcome
+}
+
+type DetectedIssueUpdateType {
+  DetectedIssueUpdate(id: ID, resource: DetectedIssueInput): DetectedIssueUpdate
+}
+
+type DetectedIssueUpdate {
+  resource: DetectedIssue
+  information: OperationOutcome
+}
+
+type DetectedIssueDeleteType {
+  DetectedIssueDelete(id: ID): DetectedIssueDelete
+}
+
+type DetectedIssueDelete {
+  information: OperationOutcome
+}
+

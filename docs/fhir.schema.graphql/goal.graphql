@@ -1,0 +1,190 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Goal {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  lifecycleStatus: code  _lifecycleStatus: ElementBase
+  achievementStatus: CodeableConcept
+  category: [CodeableConcept]
+  continuous: Boolean  _continuous: ElementBase
+  priority: CodeableConcept
+  description: CodeableConcept!
+  subject: Reference!
+  startDate: date  _startDate: ElementBase
+  startCodeableConcept: CodeableConcept
+  target: [GoalTarget]
+  statusDate: date  _statusDate: ElementBase
+  statusReason: String  _statusReason: ElementBase
+  source: Reference
+  addresses: [Reference]
+  note: [Annotation]
+  outcome: [CodeableReference]
+}
+
+type GoalTarget {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  measure: CodeableConcept
+  detailQuantity: Quantity
+  detailRange: Range
+  detailCodeableConcept: CodeableConcept
+  detailString: String  _detailString: ElementBase
+  detailBoolean: Boolean  _detailBoolean: ElementBase
+  detailInteger: Int  _detailInteger: ElementBase
+  detailRatio: Ratio
+  dueDate: date  _dueDate: ElementBase
+  dueDuration: Duration
+}
+
+input GoalInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  lifecycleStatus: code  _lifecycleStatus: ElementBaseInput
+  achievementStatus: CodeableConceptInput
+  category: [CodeableConceptInput]
+  continuous: Boolean  _continuous: ElementBaseInput
+  priority: CodeableConceptInput
+  description: CodeableConceptInput!
+  subject: ReferenceInput!
+  startDate: date  _startDate: ElementBaseInput
+  startCodeableConcept: CodeableConceptInput
+  target: [GoalTargetInput]
+  statusDate: date  _statusDate: ElementBaseInput
+  statusReason: String  _statusReason: ElementBaseInput
+  source: ReferenceInput
+  addresses: [ReferenceInput]
+  note: [AnnotationInput]
+  outcome: [CodeableReferenceInput]
+}
+
+input GoalTargetInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  measure: CodeableConceptInput
+  detailQuantity: QuantityInput
+  detailRange: RangeInput
+  detailCodeableConcept: CodeableConceptInput
+  detailString: String  _detailString: ElementBaseInput
+  detailBoolean: Boolean  _detailBoolean: ElementBaseInput
+  detailInteger: Int  _detailInteger: ElementBaseInput
+  detailRatio: RatioInput
+  dueDate: date  _dueDate: ElementBaseInput
+  dueDuration: DurationInput
+}
+
+type GoalReadType {
+  Goal(id: ID!): Goal
+}
+
+type GoalListType {
+  GoalList(_filter: String
+    achievement_status: [token]
+    category: [token]
+    identifier: [token]
+    lifecycle_status: [token]
+    patient: [reference]
+    start_date: [date]
+    subject: [reference]
+    target_date: [date]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Goal]
+}
+
+type GoalConnectionType {
+  GoalConection(_filter: String
+    achievement_status: [token]
+    category: [token]
+    identifier: [token]
+    lifecycle_status: [token]
+    patient: [reference]
+    start_date: [date]
+    subject: [reference]
+    target_date: [date]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): GoalConnection
+}
+
+type GoalConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [GoalEdge]
+}
+
+type GoalEdge {
+  mode: String
+  score: Float
+  resource: Goal
+}
+
+type GoalCreateType {
+  GoalCreate(resource: GoalInput): GoalCreation
+}
+
+type GoalCreation {
+  location: String
+  resource: Goal
+  information: OperationOutcome
+}
+
+type GoalUpdateType {
+  GoalUpdate(id: ID, resource: GoalInput): GoalUpdate
+}
+
+type GoalUpdate {
+  resource: Goal
+  information: OperationOutcome
+}
+
+type GoalDeleteType {
+  GoalDelete(id: ID): GoalDelete
+}
+
+type GoalDelete {
+  information: OperationOutcome
+}
+

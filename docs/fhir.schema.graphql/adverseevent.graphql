@@ -1,0 +1,300 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type AdverseEvent {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  actuality: code  _actuality: ElementBase
+  category: [CodeableConcept]
+  code: CodeableConcept
+  subject: Reference!
+  encounter: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  detected: dateTime  _detected: ElementBase
+  recordedDate: dateTime  _recordedDate: ElementBase
+  resultingCondition: [Reference]
+  location: Reference
+  seriousness: CodeableConcept
+  outcome: [CodeableConcept]
+  recorder: Reference
+  participant: [AdverseEventParticipant]
+  suspectEntity: [AdverseEventSuspectEntity]
+  contributingFactor: [AdverseEventContributingFactor]
+  preventiveAction: [AdverseEventPreventiveAction]
+  mitigatingAction: [AdverseEventMitigatingAction]
+  supportingInfo: [AdverseEventSupportingInfo]
+  study: [Reference]
+}
+
+type AdverseEventParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference!
+}
+
+type AdverseEventSuspectEntity {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  instanceCodeableConcept: CodeableConcept
+  instanceReference: Reference
+  causality: AdverseEventSuspectEntityCausality
+}
+
+type AdverseEventSuspectEntityCausality {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  assessmentMethod: CodeableConcept
+  entityRelatedness: CodeableConcept
+  author: Reference
+}
+
+type AdverseEventContributingFactor {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  itemReference: Reference
+  itemCodeableConcept: CodeableConcept
+}
+
+type AdverseEventPreventiveAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  itemReference: Reference
+  itemCodeableConcept: CodeableConcept
+}
+
+type AdverseEventMitigatingAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  itemReference: Reference
+  itemCodeableConcept: CodeableConcept
+}
+
+type AdverseEventSupportingInfo {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  itemReference: Reference
+  itemCodeableConcept: CodeableConcept
+}
+
+input AdverseEventInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  actuality: code  _actuality: ElementBaseInput
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  detected: dateTime  _detected: ElementBaseInput
+  recordedDate: dateTime  _recordedDate: ElementBaseInput
+  resultingCondition: [ReferenceInput]
+  location: ReferenceInput
+  seriousness: CodeableConceptInput
+  outcome: [CodeableConceptInput]
+  recorder: ReferenceInput
+  participant: [AdverseEventParticipantInput]
+  suspectEntity: [AdverseEventSuspectEntityInput]
+  contributingFactor: [AdverseEventContributingFactorInput]
+  preventiveAction: [AdverseEventPreventiveActionInput]
+  mitigatingAction: [AdverseEventMitigatingActionInput]
+  supportingInfo: [AdverseEventSupportingInfoInput]
+  study: [ReferenceInput]
+}
+
+input AdverseEventParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput!
+}
+
+input AdverseEventSuspectEntityInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  instanceCodeableConcept: CodeableConceptInput
+  instanceReference: ReferenceInput
+  causality: AdverseEventSuspectEntityCausalityInput
+}
+
+input AdverseEventSuspectEntityCausalityInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  assessmentMethod: CodeableConceptInput
+  entityRelatedness: CodeableConceptInput
+  author: ReferenceInput
+}
+
+input AdverseEventContributingFactorInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  itemReference: ReferenceInput
+  itemCodeableConcept: CodeableConceptInput
+}
+
+input AdverseEventPreventiveActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  itemReference: ReferenceInput
+  itemCodeableConcept: CodeableConceptInput
+}
+
+input AdverseEventMitigatingActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  itemReference: ReferenceInput
+  itemCodeableConcept: CodeableConceptInput
+}
+
+input AdverseEventSupportingInfoInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  itemReference: ReferenceInput
+  itemCodeableConcept: CodeableConceptInput
+}
+
+type AdverseEventReadType {
+  AdverseEvent(id: ID!): AdverseEvent
+}
+
+type AdverseEventListType {
+  AdverseEventList(_filter: String
+    actuality: [token]
+    category: [token]
+    code: [token]
+    date: [date]
+    identifier: [token]
+    location: [reference]
+    patient: [reference]
+    recorder: [reference]
+    resultingcondition: [reference]
+    seriousness: [token]
+    status: [token]
+    study: [reference]
+    subject: [reference]
+    substance: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [AdverseEvent]
+}
+
+type AdverseEventConnectionType {
+  AdverseEventConection(_filter: String
+    actuality: [token]
+    category: [token]
+    code: [token]
+    date: [date]
+    identifier: [token]
+    location: [reference]
+    patient: [reference]
+    recorder: [reference]
+    resultingcondition: [reference]
+    seriousness: [token]
+    status: [token]
+    study: [reference]
+    subject: [reference]
+    substance: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): AdverseEventConnection
+}
+
+type AdverseEventConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [AdverseEventEdge]
+}
+
+type AdverseEventEdge {
+  mode: String
+  score: Float
+  resource: AdverseEvent
+}
+
+type AdverseEventCreateType {
+  AdverseEventCreate(resource: AdverseEventInput): AdverseEventCreation
+}
+
+type AdverseEventCreation {
+  location: String
+  resource: AdverseEvent
+  information: OperationOutcome
+}
+
+type AdverseEventUpdateType {
+  AdverseEventUpdate(id: ID, resource: AdverseEventInput): AdverseEventUpdate
+}
+
+type AdverseEventUpdate {
+  resource: AdverseEvent
+  information: OperationOutcome
+}
+
+type AdverseEventDeleteType {
+  AdverseEventDelete(id: ID): AdverseEventDelete
+}
+
+type AdverseEventDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,142 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Endpoint {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  connectionType: Coding!
+  name: String  _name: ElementBase
+  managingOrganization: Reference
+  contact: [ContactPoint]
+  period: Period
+  payloadType: [CodeableConcept]!
+  payloadMimeType: code  _payloadMimeType: [ElementBase]
+  address: url  _address: ElementBase
+  header: String  _header: [ElementBase]
+}
+
+input EndpointInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  connectionType: CodingInput!
+  name: String  _name: ElementBaseInput
+  managingOrganization: ReferenceInput
+  contact: [ContactPointInput]
+  period: PeriodInput
+  payloadType: [CodeableConceptInput]!
+  payloadMimeType: code  _payloadMimeType: [ElementBaseInput]
+  address: url  _address: ElementBaseInput
+  header: String  _header: [ElementBaseInput]
+}
+
+type EndpointReadType {
+  Endpoint(id: ID!): Endpoint
+}
+
+type EndpointListType {
+  EndpointList(_filter: String
+    connection_type: [token]
+    identifier: [token]
+    name: [String]
+    organization: [reference]
+    payload_type: [token]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Endpoint]
+}
+
+type EndpointConnectionType {
+  EndpointConection(_filter: String
+    connection_type: [token]
+    identifier: [token]
+    name: [String]
+    organization: [reference]
+    payload_type: [token]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): EndpointConnection
+}
+
+type EndpointConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [EndpointEdge]
+}
+
+type EndpointEdge {
+  mode: String
+  score: Float
+  resource: Endpoint
+}
+
+type EndpointCreateType {
+  EndpointCreate(resource: EndpointInput): EndpointCreation
+}
+
+type EndpointCreation {
+  location: String
+  resource: Endpoint
+  information: OperationOutcome
+}
+
+type EndpointUpdateType {
+  EndpointUpdate(id: ID, resource: EndpointInput): EndpointUpdate
+}
+
+type EndpointUpdate {
+  resource: Endpoint
+  information: OperationOutcome
+}
+
+type EndpointDeleteType {
+  EndpointDelete(id: ID): EndpointDelete
+}
+
+type EndpointDelete {
+  information: OperationOutcome
+}
+

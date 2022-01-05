@@ -1,0 +1,178 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type MedicationUsage {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  category: [CodeableConcept]
+  medication: CodeableReference!
+  subject: Reference!
+  encounter: Reference
+  effectiveDateTime: dateTime  _effectiveDateTime: ElementBase
+  effectivePeriod: Period
+  dateAsserted: dateTime  _dateAsserted: ElementBase
+  informationSource: Reference
+  derivedFrom: [Reference]
+  reason: [CodeableReference]
+  note: [Annotation]
+  renderedDosageInstruction: String  _renderedDosageInstruction: ElementBase
+  dosage: [Dosage]
+  adherence: MedicationUsageAdherence
+}
+
+type MedicationUsageAdherence {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  reason: CodeableConcept
+}
+
+input MedicationUsageInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  category: [CodeableConceptInput]
+  medication: CodeableReferenceInput!
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  effectiveDateTime: dateTime  _effectiveDateTime: ElementBaseInput
+  effectivePeriod: PeriodInput
+  dateAsserted: dateTime  _dateAsserted: ElementBaseInput
+  informationSource: ReferenceInput
+  derivedFrom: [ReferenceInput]
+  reason: [CodeableReferenceInput]
+  note: [AnnotationInput]
+  renderedDosageInstruction: String  _renderedDosageInstruction: ElementBaseInput
+  dosage: [DosageInput]
+  adherence: MedicationUsageAdherenceInput
+}
+
+input MedicationUsageAdherenceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  reason: CodeableConceptInput
+}
+
+type MedicationUsageReadType {
+  MedicationUsage(id: ID!): MedicationUsage
+}
+
+type MedicationUsageListType {
+  MedicationUsageList(_filter: String
+    adherence: [token]
+    category: [token]
+    code: [token]
+    effective: [date]
+    encounter: [reference]
+    identifier: [token]
+    medication: [reference]
+    patient: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [MedicationUsage]
+}
+
+type MedicationUsageConnectionType {
+  MedicationUsageConection(_filter: String
+    adherence: [token]
+    category: [token]
+    code: [token]
+    effective: [date]
+    encounter: [reference]
+    identifier: [token]
+    medication: [reference]
+    patient: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): MedicationUsageConnection
+}
+
+type MedicationUsageConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [MedicationUsageEdge]
+}
+
+type MedicationUsageEdge {
+  mode: String
+  score: Float
+  resource: MedicationUsage
+}
+
+type MedicationUsageCreateType {
+  MedicationUsageCreate(resource: MedicationUsageInput): MedicationUsageCreation
+}
+
+type MedicationUsageCreation {
+  location: String
+  resource: MedicationUsage
+  information: OperationOutcome
+}
+
+type MedicationUsageUpdateType {
+  MedicationUsageUpdate(id: ID, resource: MedicationUsageInput): MedicationUsageUpdate
+}
+
+type MedicationUsageUpdate {
+  resource: MedicationUsage
+  information: OperationOutcome
+}
+
+type MedicationUsageDeleteType {
+  MedicationUsageDelete(id: ID): MedicationUsageDelete
+}
+
+type MedicationUsageDelete {
+  information: OperationOutcome
+}
+

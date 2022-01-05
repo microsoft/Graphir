@@ -1,0 +1,240 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Composition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: Identifier
+  status: code  _status: ElementBase
+  type: CodeableConcept!
+  category: [CodeableConcept]
+  subject: Reference
+  encounter: Reference
+  date: dateTime  _date: ElementBase
+  author: [Reference]!
+  title: String  _title: ElementBase
+  confidentiality: code  _confidentiality: ElementBase
+  attester: [CompositionAttester]
+  custodian: Reference
+  relatesTo: [RelatedArtifact]
+  event: [CompositionEvent]
+  section: [CompositionSection]
+}
+
+type CompositionAttester {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  mode: CodeableConcept!
+  time: dateTime  _time: ElementBase
+  party: Reference
+}
+
+type CompositionEvent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: [CodeableConcept]
+  period: Period
+  detail: [Reference]
+}
+
+type CompositionSection {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  title: String  _title: ElementBase
+  code: CodeableConcept
+  author: [Reference]
+  focus: Reference
+  text: Narrative
+  mode: code  _mode: ElementBase
+  orderedBy: CodeableConcept
+  entry: [Reference]
+  emptyReason: CodeableConcept
+  section: [CompositionSection]
+}
+
+input CompositionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: IdentifierInput
+  status: code  _status: ElementBaseInput
+  type: CodeableConceptInput!
+  category: [CodeableConceptInput]
+  subject: ReferenceInput
+  encounter: ReferenceInput
+  date: dateTime  _date: ElementBaseInput
+  author: [ReferenceInput]!
+  title: String  _title: ElementBaseInput
+  confidentiality: code  _confidentiality: ElementBaseInput
+  attester: [CompositionAttesterInput]
+  custodian: ReferenceInput
+  relatesTo: [RelatedArtifactInput]
+  event: [CompositionEventInput]
+  section: [CompositionSectionInput]
+}
+
+input CompositionAttesterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  mode: CodeableConceptInput!
+  time: dateTime  _time: ElementBaseInput
+  party: ReferenceInput
+}
+
+input CompositionEventInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: [CodeableConceptInput]
+  period: PeriodInput
+  detail: [ReferenceInput]
+}
+
+input CompositionSectionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  title: String  _title: ElementBaseInput
+  code: CodeableConceptInput
+  author: [ReferenceInput]
+  focus: ReferenceInput
+  text: NarrativeInput
+  mode: code  _mode: ElementBaseInput
+  orderedBy: CodeableConceptInput
+  entry: [ReferenceInput]
+  emptyReason: CodeableConceptInput
+  section: [CompositionSection]
+}
+
+type CompositionReadType {
+  Composition(id: ID!): Composition
+}
+
+type CompositionListType {
+  CompositionList(_filter: String
+    attester: [reference]
+    author: [reference]
+    category: [token]
+    confidentiality: [token]
+    context: [token]
+    date: [date]
+    encounter: [reference]
+    entry: [reference]
+    identifier: [token]
+    patient: [reference]
+    period: [date]
+    related: [reference]
+    section: [token]
+    status: [token]
+    subject: [reference]
+    title: [String]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Composition]
+}
+
+type CompositionConnectionType {
+  CompositionConection(_filter: String
+    attester: [reference]
+    author: [reference]
+    category: [token]
+    confidentiality: [token]
+    context: [token]
+    date: [date]
+    encounter: [reference]
+    entry: [reference]
+    identifier: [token]
+    patient: [reference]
+    period: [date]
+    related: [reference]
+    section: [token]
+    status: [token]
+    subject: [reference]
+    title: [String]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): CompositionConnection
+}
+
+type CompositionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [CompositionEdge]
+}
+
+type CompositionEdge {
+  mode: String
+  score: Float
+  resource: Composition
+}
+
+type CompositionCreateType {
+  CompositionCreate(resource: CompositionInput): CompositionCreation
+}
+
+type CompositionCreation {
+  location: String
+  resource: Composition
+  information: OperationOutcome
+}
+
+type CompositionUpdateType {
+  CompositionUpdate(id: ID, resource: CompositionInput): CompositionUpdate
+}
+
+type CompositionUpdate {
+  resource: Composition
+  information: OperationOutcome
+}
+
+type CompositionDeleteType {
+  CompositionDelete(id: ID): CompositionDelete
+}
+
+type CompositionDelete {
+  information: OperationOutcome
+}
+
