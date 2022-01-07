@@ -109,6 +109,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## CI
 
+CI for this project is enabled through GitHub Actions
+
 # Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
