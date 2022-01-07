@@ -1,11 +1,11 @@
 # Table of Contents
 
-* Introduction
-* Getting Started
-* Calling Graphir
-* How It Works
-* Contributing
-* Trademarks
+* [Introduction](#introduction)
+* [Getting Started](#getting-started)
+* [Calling Graphir](#calling-graphir)
+* [How It Works](#how-it-works)
+* [Contributing](#contributing)
+* [Trademarks](#trademarks)
 
 # Introduction
 
@@ -27,8 +27,7 @@ To follow this guide for running locally you will need the following
 
 * dotnet 5.0
 * Visual Studio 2022 (Professional or Enterprise)
-* [Azure FHIR API & API app registration]()
-* [Client App Registration]()
+* [API app registration & client App Registration](https://github.com/microsoft/Graphir/tree/main/docs/Readme-Registering-Prerequisite-Apps.md)
 
 ## Running Locally
 * Open Solution with Visual Studio
@@ -82,10 +81,6 @@ query patientList {
 * You will need to fist complete the section "With Postman" so that you can generate a valid access token.
 
 # How It Works
-
-## Dependencies
-	
-* HotChocolate
 
 ## Application Startup
 
