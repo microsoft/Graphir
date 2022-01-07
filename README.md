@@ -1,3 +1,5 @@
+<img src="./imgs/graphir.svg" width=300 align=right> <br/>
+
 # Table of Contents
 
 * [Introduction](#introduction)
