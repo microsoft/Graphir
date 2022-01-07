@@ -27,7 +27,7 @@ To follow this guide for running locally you will need the following
 
 * dotnet 5.0
 * Visual Studio 2022 (Professional or Enterprise)
-* [API app registration & client App Registration](https://github.com/microsoft/Graphir/tree/main/docs/Readme-Registering-Prerequisite-Apps.md)
+* [API app registration & client App Registration](https://github.com/microsoft/Graphir/blob/master/docs/Readme-Registering-Prerequisite-Apps.md)
 
 ## Running Locally
 * Open Solution with Visual Studio
