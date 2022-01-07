@@ -46,7 +46,6 @@ To follow this guide for running locally you will need the following
 ``` 
 * Compile
 * Run/debug local
-* **What about FhirConnection?**
 
 # Calling Graphir
 
