@@ -1,5 +1,6 @@
 <img src="./imgs/graphir.svg" width=300 align=right> <br/>
 
+[![Build and deploy ASP.Net Core app to Azure Web App - Graphir.API](https://github.com/microsoft/Graphir/actions/workflows/main.yml/badge.svg)](https://github.com/microsoft/Graphir/actions/workflows/main.yml)
 # Table of Contents
 
 * [Introduction](#introduction)
