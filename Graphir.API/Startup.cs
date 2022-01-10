@@ -67,6 +67,7 @@ namespace Graphir.API
                     .AddTypeExtension<PatientMutation>()
                 .AddFhirTypes()
                 .AddPatient()
+                .AddPractitioner()
                 ;
         }
 
