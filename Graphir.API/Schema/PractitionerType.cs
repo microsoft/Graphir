@@ -53,4 +53,58 @@ namespace Graphir.API.Schema
         }
     }
 
+    public class PractitionerCreation : IResourceCreation<Practitioner>
+    {
+        public string Location { get; set; }
+        public Practitioner Resource { get; set; }
+        public OperationOutcome Information { get; set; }
+    }
+
+    public class PractitionerUpdate : IResourceUpdate<Practitioner>
+    {
+        public Practitioner Resource { get; set; }
+        public OperationOutcome Information { get; set; }
+    }
+
+    public class PractitionerDelete : IResourceDelete<Practitioner>
+    {
+        public OperationOutcome Information { get; set; }
+    }
+
+    public record PractitionerInput
+    (
+        string? Id,
+        IdentifierInput[]? Identifier,
+        string? Language,
+        bool? Active,
+        HumanNameInput[]? Name,
+        ContactPointInput[]? Telecom,
+        string? Gender,
+        string? BirthDate,
+        AddressInput[]? Address,
+        PractitionerCommunicationInput[]? Communication,
+        PractitionerQualificationInput[]? Qualification
+    );
+
+    public record PractitionerContactInput(
+        CodeableConceptInput[]? Relationship,
+        HumanNameInput? Name,
+        ContactPointInput[]? Telecom,
+        AddressInput? Address,
+        string? Gender,
+        PeriodInput? Period
+    );
+
+    public record PractitionerCommunicationInput(
+        CodeableConceptInput? Language,
+        bool? Preferred
+    );
+
+    public record PractitionerQualificationInput(
+        string? Id,
+        IdentifierInput[]? Identifier,
+        CodeableConceptInput[]? code,
+        PeriodInput? Period
+        //ReferenceInput? Issuer
+    );
 }
