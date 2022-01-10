@@ -42,15 +42,7 @@ namespace Graphir.API.Practitioners
         /// 
         /// </example>
         [GraphQLName("Practitioner")]
-        public async Task<Practitioner> GetPractitioner(string id)
-        {
-            var bundle = await _fhirService.SearchByIdAsync<Practitioner>(id);
-            var result =
-                (bundle != null) ? bundle.Entry.Select(p => (Practitioner)p.Resource).First()
-                : new Practitioner();
-
-            return result;
-        }
+        public async Task<Practitioner> GetPractitioner(string id, PractitionerByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
 
         /// <summary>
         /// Get List of Practitioners

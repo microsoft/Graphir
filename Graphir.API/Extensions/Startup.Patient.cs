@@ -1,4 +1,5 @@
-﻿using Graphir.API.Schema;
+﻿using Graphir.API.Practitioners;
+using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ namespace Graphir.API.Extensions
         this IRequestExecutorBuilder graphBuilder)
         {
             graphBuilder
+                .AddDataLoader<PatientByIdDataLoader>()
                 .AddType<PatientCommunicationType>()
                 .AddType<PatientContactType>()
                 .AddType<PatientCreation>()
