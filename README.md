@@ -84,7 +84,8 @@ query patientList {
 
 # How It Works
 
-## Application Startup
+## Application Startup and App Registrations
+See [Graphir API Authentication and Authorization](./docs/authentication.md)
 
 ## Lifecycle of a Request
 
