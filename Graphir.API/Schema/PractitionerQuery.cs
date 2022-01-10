@@ -25,6 +25,26 @@ namespace Graphir.API.Schema
             _fhirService = fhirService;
         }
 
+        /// <summary>
+        /// Get Practitioner by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <example>
+        /// query practitioner{ 
+        ///     Practitioner(id: "00000174-0823-dc8d-0000-00000000e876")
+        ///     {
+        ///         id
+        ///         name{ given family}
+        ///         qualification{
+        ///             code{ text}
+        ///             period{ start end}
+        ///             issuer
+        ///         }
+        ///     }
+        /// }
+        /// 
+        /// </example>
         [GraphQLName("Practitioner")]
         public async Task<Practitioner> GetPractitioner(string id)
         {
@@ -43,7 +63,7 @@ namespace Graphir.API.Schema
         /// <returns></returns>
         /// <example>
         ///   query practitionerList{ 
-        ///      PractitionerList{ 
+        ///      PractitionerList{              //Optional w/ Name:    PractitionerList(name: "Kutch"){  
         ///         id
         ///         name
         ///             { given family }
