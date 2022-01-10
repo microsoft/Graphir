@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Graphir.API.Schema
 {
     public record AddressInput(
@@ -59,5 +61,11 @@ namespace Graphir.API.Schema
         string? End
     );
 
-    
+    public record ResourceReferenceInput(
+        string? Reference,
+        string? Type,
+        IdentifierInput? Identifier,
+        string? Display
+    );
+
 }

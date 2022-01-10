@@ -21,7 +21,8 @@ namespace Graphir.API.Utils
                 Telecom = patient.Telecom?.Select(t => ToContactPoint(t)).ToList(),
                 Address = patient.Address?.Select(a => ToAddress(a)).ToList(),
                 MaritalStatus = (patient.MaritalStatus != null) ? ToCodeableConcept(patient.MaritalStatus) : null,
-                Communication = patient.Communication?.Select(c => ToCommunicationComponent(c)).ToList()
+                Communication = patient.Communication?.Select(c => ToCommunicationComponent(c)).ToList(),
+                GeneralPractitioner = patient.GeneralPractitioner?.Select(p => ToResourceReference(p)).ToList()
             };
             return result;
         }
@@ -141,6 +142,18 @@ namespace Graphir.API.Utils
                 System = input.System ?? string.Empty,
                 UserSelected = input.UserSelected ?? false,
                 Version = input.Version ?? string.Empty
+            };
+            return result;
+        }
+
+        public static ResourceReference ToResourceReference(ResourceReferenceInput input)
+        {
+            var result = new ResourceReference
+            {
+                Identifier = (input.Identifier != null) ? ToIdentifier(input.Identifier) : null,
+                Display = input.Display ?? string.Empty,
+                Reference = input.Reference ?? string.Empty,
+                Type = input.Type ?? string.Empty
             };
             return result;
         }
