@@ -26,9 +26,23 @@ namespace Graphir.API.Schema
         /// <param name="practitioner"></param>
         /// <returns></returns>
         /// <example>
-        /// 
-        /// 
-        /// </example>
+        ///   mutation createPractitioner{
+        ///     createPractitioner(
+        ///         practitioner: {
+        ///             name:
+        ///             {
+        ///                 given: "[FName]"
+        ///                 family: "[LName]"
+        ///             }
+        ///         }
+        ///     )
+        ///     {            
+        ///        information {
+        ///           success
+        ///        }
+        ///     }
+        ///  }        
+        ///  /// </example>
         public async Task<PractitionerCreation> CreatePractitioner(PractitionerInput practitioner)
         {
             try
@@ -62,8 +76,22 @@ namespace Graphir.API.Schema
         /// <param name="practitioner"></param>
         /// <returns></returns>
         /// <example>
-        /// 
-        /// 
+        ///   mutation updatePractitioner{
+        ///     updatePractitioner(
+        ///         id: "2c821522-89bf-4776-9c1d-a5a89720a016"
+        ///         practitioner: {
+        ///             name:
+        ///             {
+        ///                 given: "Jack"
+        ///             }
+        ///         }
+        ///     )
+        ///     {            
+        ///        information {
+        ///           success
+        ///        }
+        ///     }
+        ///  }
         /// </example>
         public async Task<PractitionerUpdate> UpdatePractitioner(string id, PractitionerInput practitioner)
         {
@@ -112,8 +140,14 @@ namespace Graphir.API.Schema
         /// <param name="id"></param>
         /// <returns></returns>
         /// <example>
-        /// 
-        /// 
+        ///  mutation deletePractitioner
+        ///  {
+        ///     deletePractitioner (id: "68c20673-7ecf-43bf-83d2-3ecb16553233") {    
+        ///       information {
+        ///         success
+        ///       }
+        ///     }
+        ///  }        
         /// </example>
         public async Task<PractitionerDelete> DeletePractitioner(string id)
         {
