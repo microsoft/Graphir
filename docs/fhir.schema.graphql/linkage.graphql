@@ -1,0 +1,136 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Linkage {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  active: Boolean  _active: ElementBase
+  author: Reference
+  item: [LinkageItem]!
+}
+
+type LinkageItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  resource: Reference!
+}
+
+input LinkageInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  active: Boolean  _active: ElementBaseInput
+  author: ReferenceInput
+  item: [LinkageItemInput]!
+}
+
+input LinkageItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  resource: ReferenceInput!
+}
+
+type LinkageReadType {
+  Linkage(id: ID!): Linkage
+}
+
+type LinkageListType {
+  LinkageList(_filter: String
+    author: [reference]
+    item: [reference]
+    source: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Linkage]
+}
+
+type LinkageConnectionType {
+  LinkageConection(_filter: String
+    author: [reference]
+    item: [reference]
+    source: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): LinkageConnection
+}
+
+type LinkageConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [LinkageEdge]
+}
+
+type LinkageEdge {
+  mode: String
+  score: Float
+  resource: Linkage
+}
+
+type LinkageCreateType {
+  LinkageCreate(resource: LinkageInput): LinkageCreation
+}
+
+type LinkageCreation {
+  location: String
+  resource: Linkage
+  information: OperationOutcome
+}
+
+type LinkageUpdateType {
+  LinkageUpdate(id: ID, resource: LinkageInput): LinkageUpdate
+}
+
+type LinkageUpdate {
+  resource: Linkage
+  information: OperationOutcome
+}
+
+type LinkageDeleteType {
+  LinkageDelete(id: ID): LinkageDelete
+}
+
+type LinkageDelete {
+  information: OperationOutcome
+}
+

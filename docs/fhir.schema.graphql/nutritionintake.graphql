@@ -1,0 +1,230 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type NutritionIntake {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBase]
+  instantiatesUri: uri  _instantiatesUri: [ElementBase]
+  basedOn: [Reference]
+  partOf: [Reference]
+  status: code  _status: ElementBase
+  statusReason: [CodeableConcept]
+  code: CodeableConcept
+  subject: Reference!
+  encounter: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  recorded: dateTime  _recorded: ElementBase
+  reportedBoolean: Boolean  _reportedBoolean: ElementBase
+  reportedReference: Reference
+  consumedItem: [NutritionIntakeConsumedItem]!
+  ingredientLabel: [NutritionIntakeIngredientLabel]
+  performer: [NutritionIntakePerformer]
+  location: Reference
+  derivedFrom: [Reference]
+  reason: [CodeableReference]
+  note: [Annotation]
+}
+
+type NutritionIntakeConsumedItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  nutritionProduct: CodeableReference!
+  schedule: Timing
+  amount: Quantity
+  rate: Quantity
+  notConsumed: Boolean  _notConsumed: ElementBase
+  notConsumedReason: CodeableConcept
+}
+
+type NutritionIntakeIngredientLabel {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  nutrient: CodeableReference!
+  amount: Quantity!
+}
+
+type NutritionIntakePerformer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference!
+}
+
+input NutritionIntakeInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBaseInput]
+  instantiatesUri: uri  _instantiatesUri: [ElementBaseInput]
+  basedOn: [ReferenceInput]
+  partOf: [ReferenceInput]
+  status: code  _status: ElementBaseInput
+  statusReason: [CodeableConceptInput]
+  code: CodeableConceptInput
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  recorded: dateTime  _recorded: ElementBaseInput
+  reportedBoolean: Boolean  _reportedBoolean: ElementBaseInput
+  reportedReference: ReferenceInput
+  consumedItem: [NutritionIntakeConsumedItemInput]!
+  ingredientLabel: [NutritionIntakeIngredientLabelInput]
+  performer: [NutritionIntakePerformerInput]
+  location: ReferenceInput
+  derivedFrom: [ReferenceInput]
+  reason: [CodeableReferenceInput]
+  note: [AnnotationInput]
+}
+
+input NutritionIntakeConsumedItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  nutritionProduct: CodeableReferenceInput!
+  schedule: TimingInput
+  amount: QuantityInput
+  rate: QuantityInput
+  notConsumed: Boolean  _notConsumed: ElementBaseInput
+  notConsumedReason: CodeableConceptInput
+}
+
+input NutritionIntakeIngredientLabelInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  nutrient: CodeableReferenceInput!
+  amount: QuantityInput!
+}
+
+input NutritionIntakePerformerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput!
+}
+
+type NutritionIntakeReadType {
+  NutritionIntake(id: ID!): NutritionIntake
+}
+
+type NutritionIntakeListType {
+  NutritionIntakeList(_filter: String
+    code: [token]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    nutrition: [token]
+    part_of: [reference]
+    patient: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [NutritionIntake]
+}
+
+type NutritionIntakeConnectionType {
+  NutritionIntakeConection(_filter: String
+    code: [token]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    nutrition: [token]
+    part_of: [reference]
+    patient: [reference]
+    source: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): NutritionIntakeConnection
+}
+
+type NutritionIntakeConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [NutritionIntakeEdge]
+}
+
+type NutritionIntakeEdge {
+  mode: String
+  score: Float
+  resource: NutritionIntake
+}
+
+type NutritionIntakeCreateType {
+  NutritionIntakeCreate(resource: NutritionIntakeInput): NutritionIntakeCreation
+}
+
+type NutritionIntakeCreation {
+  location: String
+  resource: NutritionIntake
+  information: OperationOutcome
+}
+
+type NutritionIntakeUpdateType {
+  NutritionIntakeUpdate(id: ID, resource: NutritionIntakeInput): NutritionIntakeUpdate
+}
+
+type NutritionIntakeUpdate {
+  resource: NutritionIntake
+  information: OperationOutcome
+}
+
+type NutritionIntakeDeleteType {
+  NutritionIntakeDelete(id: ID): NutritionIntakeDelete
+}
+
+type NutritionIntakeDelete {
+  information: OperationOutcome
+}
+

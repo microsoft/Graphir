@@ -1,0 +1,214 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Person {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  name: [HumanName]
+  telecom: [ContactPoint]
+  gender: code  _gender: ElementBase
+  birthDate: date  _birthDate: ElementBase
+  deceasedBoolean: Boolean  _deceasedBoolean: ElementBase
+  deceasedDateTime: dateTime  _deceasedDateTime: ElementBase
+  address: [Address]
+  maritalStatus: CodeableConcept
+  photo: [Attachment]
+  managingOrganization: Reference
+  communication: [PersonCommunication]
+  link: [PersonLink]
+}
+
+type PersonCommunication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  language: CodeableConcept!
+  preferred: Boolean  _preferred: ElementBase
+}
+
+type PersonLink {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  target: Reference!
+  assurance: code  _assurance: ElementBase
+}
+
+input PersonInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  name: [HumanNameInput]
+  telecom: [ContactPointInput]
+  gender: code  _gender: ElementBaseInput
+  birthDate: date  _birthDate: ElementBaseInput
+  deceasedBoolean: Boolean  _deceasedBoolean: ElementBaseInput
+  deceasedDateTime: dateTime  _deceasedDateTime: ElementBaseInput
+  address: [AddressInput]
+  maritalStatus: CodeableConceptInput
+  photo: [AttachmentInput]
+  managingOrganization: ReferenceInput
+  communication: [PersonCommunicationInput]
+  link: [PersonLinkInput]
+}
+
+input PersonCommunicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  language: CodeableConceptInput!
+  preferred: Boolean  _preferred: ElementBaseInput
+}
+
+input PersonLinkInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  target: ReferenceInput!
+  assurance: code  _assurance: ElementBaseInput
+}
+
+type PersonReadType {
+  Person(id: ID!): Person
+}
+
+type PersonListType {
+  PersonList(_filter: String
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    birthdate: [date]
+    death_date: [date]
+    deceased: [token]
+    email: [token]
+    family: [String]
+    gender: [token]
+    given: [String]
+    identifier: [token]
+    link: [reference]
+    name: [String]
+    organization: [reference]
+    patient: [reference]
+    phone: [token]
+    phonetic: [String]
+    practitioner: [reference]
+    relatedperson: [reference]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Person]
+}
+
+type PersonConnectionType {
+  PersonConection(_filter: String
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    birthdate: [date]
+    death_date: [date]
+    deceased: [token]
+    email: [token]
+    family: [String]
+    gender: [token]
+    given: [String]
+    identifier: [token]
+    link: [reference]
+    name: [String]
+    organization: [reference]
+    patient: [reference]
+    phone: [token]
+    phonetic: [String]
+    practitioner: [reference]
+    relatedperson: [reference]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): PersonConnection
+}
+
+type PersonConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [PersonEdge]
+}
+
+type PersonEdge {
+  mode: String
+  score: Float
+  resource: Person
+}
+
+type PersonCreateType {
+  PersonCreate(resource: PersonInput): PersonCreation
+}
+
+type PersonCreation {
+  location: String
+  resource: Person
+  information: OperationOutcome
+}
+
+type PersonUpdateType {
+  PersonUpdate(id: ID, resource: PersonInput): PersonUpdate
+}
+
+type PersonUpdate {
+  resource: Person
+  information: OperationOutcome
+}
+
+type PersonDeleteType {
+  PersonDelete(id: ID): PersonDelete
+}
+
+type PersonDelete {
+  information: OperationOutcome
+}
+

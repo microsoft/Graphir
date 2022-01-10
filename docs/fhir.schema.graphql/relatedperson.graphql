@@ -1,0 +1,186 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type RelatedPerson {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  patient: Reference!
+  relationship: [CodeableConcept]
+  name: [HumanName]
+  telecom: [ContactPoint]
+  gender: code  _gender: ElementBase
+  birthDate: date  _birthDate: ElementBase
+  address: [Address]
+  photo: [Attachment]
+  period: Period
+  communication: [RelatedPersonCommunication]
+}
+
+type RelatedPersonCommunication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  language: CodeableConcept!
+  preferred: Boolean  _preferred: ElementBase
+}
+
+input RelatedPersonInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  patient: ReferenceInput!
+  relationship: [CodeableConceptInput]
+  name: [HumanNameInput]
+  telecom: [ContactPointInput]
+  gender: code  _gender: ElementBaseInput
+  birthDate: date  _birthDate: ElementBaseInput
+  address: [AddressInput]
+  photo: [AttachmentInput]
+  period: PeriodInput
+  communication: [RelatedPersonCommunicationInput]
+}
+
+input RelatedPersonCommunicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  language: CodeableConceptInput!
+  preferred: Boolean  _preferred: ElementBaseInput
+}
+
+type RelatedPersonReadType {
+  RelatedPerson(id: ID!): RelatedPerson
+}
+
+type RelatedPersonListType {
+  RelatedPersonList(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    birthdate: [date]
+    email: [token]
+    family: [String]
+    gender: [token]
+    given: [String]
+    identifier: [token]
+    name: [String]
+    patient: [reference]
+    phone: [token]
+    phonetic: [String]
+    relationship: [token]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [RelatedPerson]
+}
+
+type RelatedPersonConnectionType {
+  RelatedPersonConection(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    birthdate: [date]
+    email: [token]
+    family: [String]
+    gender: [token]
+    given: [String]
+    identifier: [token]
+    name: [String]
+    patient: [reference]
+    phone: [token]
+    phonetic: [String]
+    relationship: [token]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): RelatedPersonConnection
+}
+
+type RelatedPersonConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [RelatedPersonEdge]
+}
+
+type RelatedPersonEdge {
+  mode: String
+  score: Float
+  resource: RelatedPerson
+}
+
+type RelatedPersonCreateType {
+  RelatedPersonCreate(resource: RelatedPersonInput): RelatedPersonCreation
+}
+
+type RelatedPersonCreation {
+  location: String
+  resource: RelatedPerson
+  information: OperationOutcome
+}
+
+type RelatedPersonUpdateType {
+  RelatedPersonUpdate(id: ID, resource: RelatedPersonInput): RelatedPersonUpdate
+}
+
+type RelatedPersonUpdate {
+  resource: RelatedPerson
+  information: OperationOutcome
+}
+
+type RelatedPersonDeleteType {
+  RelatedPersonDelete(id: ID): RelatedPersonDelete
+}
+
+type RelatedPersonDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,252 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type SubstanceSourceMaterial {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sourceMaterialClass: CodeableConcept
+  sourceMaterialType: CodeableConcept
+  sourceMaterialState: CodeableConcept
+  organismId: Identifier
+  organismName: String  _organismName: ElementBase
+  parentSubstanceId: [Identifier]
+  parentSubstanceName: String  _parentSubstanceName: [ElementBase]
+  countryOfOrigin: [CodeableConcept]
+  geographicalLocation: String  _geographicalLocation: [ElementBase]
+  developmentStage: CodeableConcept
+  fractionDescription: [SubstanceSourceMaterialFractionDescription]
+  organism: SubstanceSourceMaterialOrganism
+  partDescription: [SubstanceSourceMaterialPartDescription]
+}
+
+type SubstanceSourceMaterialFractionDescription {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  fraction: String  _fraction: ElementBase
+  materialType: CodeableConcept
+}
+
+type SubstanceSourceMaterialOrganism {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  family: CodeableConcept
+  genus: CodeableConcept
+  species: CodeableConcept
+  intraspecificType: CodeableConcept
+  intraspecificDescription: String  _intraspecificDescription: ElementBase
+  author: [SubstanceSourceMaterialOrganismAuthor]
+  hybrid: SubstanceSourceMaterialOrganismHybrid
+  organismGeneral: SubstanceSourceMaterialOrganismOrganismGeneral
+}
+
+type SubstanceSourceMaterialOrganismAuthor {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  authorType: CodeableConcept
+  authorDescription: String  _authorDescription: ElementBase
+}
+
+type SubstanceSourceMaterialOrganismHybrid {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  maternalOrganismId: String  _maternalOrganismId: ElementBase
+  maternalOrganismName: String  _maternalOrganismName: ElementBase
+  paternalOrganismId: String  _paternalOrganismId: ElementBase
+  paternalOrganismName: String  _paternalOrganismName: ElementBase
+  hybridType: CodeableConcept
+}
+
+type SubstanceSourceMaterialOrganismOrganismGeneral {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  kingdom: CodeableConcept
+  phylum: CodeableConcept
+  class: CodeableConcept
+  order: CodeableConcept
+}
+
+type SubstanceSourceMaterialPartDescription {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  part: CodeableConcept
+  partLocation: CodeableConcept
+}
+
+input SubstanceSourceMaterialInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sourceMaterialClass: CodeableConceptInput
+  sourceMaterialType: CodeableConceptInput
+  sourceMaterialState: CodeableConceptInput
+  organismId: IdentifierInput
+  organismName: String  _organismName: ElementBaseInput
+  parentSubstanceId: [IdentifierInput]
+  parentSubstanceName: String  _parentSubstanceName: [ElementBaseInput]
+  countryOfOrigin: [CodeableConceptInput]
+  geographicalLocation: String  _geographicalLocation: [ElementBaseInput]
+  developmentStage: CodeableConceptInput
+  fractionDescription: [SubstanceSourceMaterialFractionDescriptionInput]
+  organism: SubstanceSourceMaterialOrganismInput
+  partDescription: [SubstanceSourceMaterialPartDescriptionInput]
+}
+
+input SubstanceSourceMaterialFractionDescriptionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  fraction: String  _fraction: ElementBaseInput
+  materialType: CodeableConceptInput
+}
+
+input SubstanceSourceMaterialOrganismInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  family: CodeableConceptInput
+  genus: CodeableConceptInput
+  species: CodeableConceptInput
+  intraspecificType: CodeableConceptInput
+  intraspecificDescription: String  _intraspecificDescription: ElementBaseInput
+  author: [SubstanceSourceMaterialOrganismAuthorInput]
+  hybrid: SubstanceSourceMaterialOrganismHybridInput
+  organismGeneral: SubstanceSourceMaterialOrganismOrganismGeneralInput
+}
+
+input SubstanceSourceMaterialOrganismAuthorInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  authorType: CodeableConceptInput
+  authorDescription: String  _authorDescription: ElementBaseInput
+}
+
+input SubstanceSourceMaterialOrganismHybridInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  maternalOrganismId: String  _maternalOrganismId: ElementBaseInput
+  maternalOrganismName: String  _maternalOrganismName: ElementBaseInput
+  paternalOrganismId: String  _paternalOrganismId: ElementBaseInput
+  paternalOrganismName: String  _paternalOrganismName: ElementBaseInput
+  hybridType: CodeableConceptInput
+}
+
+input SubstanceSourceMaterialOrganismOrganismGeneralInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  kingdom: CodeableConceptInput
+  phylum: CodeableConceptInput
+  class: CodeableConceptInput
+  order: CodeableConceptInput
+}
+
+input SubstanceSourceMaterialPartDescriptionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  part: CodeableConceptInput
+  partLocation: CodeableConceptInput
+}
+
+type SubstanceSourceMaterialReadType {
+  SubstanceSourceMaterial(id: ID!): SubstanceSourceMaterial
+}
+
+type SubstanceSourceMaterialListType {
+  SubstanceSourceMaterialList(_filter: String
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [SubstanceSourceMaterial]
+}
+
+type SubstanceSourceMaterialConnectionType {
+  SubstanceSourceMaterialConection(_filter: String
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SubstanceSourceMaterialConnection
+}
+
+type SubstanceSourceMaterialConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SubstanceSourceMaterialEdge]
+}
+
+type SubstanceSourceMaterialEdge {
+  mode: String
+  score: Float
+  resource: SubstanceSourceMaterial
+}
+
+type SubstanceSourceMaterialCreateType {
+  SubstanceSourceMaterialCreate(resource: SubstanceSourceMaterialInput): SubstanceSourceMaterialCreation
+}
+
+type SubstanceSourceMaterialCreation {
+  location: String
+  resource: SubstanceSourceMaterial
+  information: OperationOutcome
+}
+
+type SubstanceSourceMaterialUpdateType {
+  SubstanceSourceMaterialUpdate(id: ID, resource: SubstanceSourceMaterialInput): SubstanceSourceMaterialUpdate
+}
+
+type SubstanceSourceMaterialUpdate {
+  resource: SubstanceSourceMaterial
+  information: OperationOutcome
+}
+
+type SubstanceSourceMaterialDeleteType {
+  SubstanceSourceMaterialDelete(id: ID): SubstanceSourceMaterialDelete
+}
+
+type SubstanceSourceMaterialDelete {
+  information: OperationOutcome
+}
+

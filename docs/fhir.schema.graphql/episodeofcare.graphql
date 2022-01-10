@@ -1,0 +1,184 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type EpisodeOfCare {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  statusHistory: [EpisodeOfCareStatusHistory]
+  type: [CodeableConcept]
+  diagnosis: [EpisodeOfCareDiagnosis]
+  patient: Reference!
+  managingOrganization: Reference
+  period: Period
+  referralRequest: [Reference]
+  careManager: Reference
+  team: [Reference]
+  account: [Reference]
+}
+
+type EpisodeOfCareStatusHistory {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  status: code  _status: ElementBase
+  period: Period!
+}
+
+type EpisodeOfCareDiagnosis {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  condition: Reference!
+  role: CodeableConcept
+  rank: positiveInt  _rank: ElementBase
+}
+
+input EpisodeOfCareInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  statusHistory: [EpisodeOfCareStatusHistoryInput]
+  type: [CodeableConceptInput]
+  diagnosis: [EpisodeOfCareDiagnosisInput]
+  patient: ReferenceInput!
+  managingOrganization: ReferenceInput
+  period: PeriodInput
+  referralRequest: [ReferenceInput]
+  careManager: ReferenceInput
+  team: [ReferenceInput]
+  account: [ReferenceInput]
+}
+
+input EpisodeOfCareStatusHistoryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  status: code  _status: ElementBaseInput
+  period: PeriodInput!
+}
+
+input EpisodeOfCareDiagnosisInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  condition: ReferenceInput!
+  role: CodeableConceptInput
+  rank: positiveInt  _rank: ElementBaseInput
+}
+
+type EpisodeOfCareReadType {
+  EpisodeOfCare(id: ID!): EpisodeOfCare
+}
+
+type EpisodeOfCareListType {
+  EpisodeOfCareList(_filter: String
+    care_manager: [reference]
+    condition: [reference]
+    date: [date]
+    identifier: [token]
+    incoming_referral: [reference]
+    organization: [reference]
+    patient: [reference]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [EpisodeOfCare]
+}
+
+type EpisodeOfCareConnectionType {
+  EpisodeOfCareConection(_filter: String
+    care_manager: [reference]
+    condition: [reference]
+    date: [date]
+    identifier: [token]
+    incoming_referral: [reference]
+    organization: [reference]
+    patient: [reference]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): EpisodeOfCareConnection
+}
+
+type EpisodeOfCareConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [EpisodeOfCareEdge]
+}
+
+type EpisodeOfCareEdge {
+  mode: String
+  score: Float
+  resource: EpisodeOfCare
+}
+
+type EpisodeOfCareCreateType {
+  EpisodeOfCareCreate(resource: EpisodeOfCareInput): EpisodeOfCareCreation
+}
+
+type EpisodeOfCareCreation {
+  location: String
+  resource: EpisodeOfCare
+  information: OperationOutcome
+}
+
+type EpisodeOfCareUpdateType {
+  EpisodeOfCareUpdate(id: ID, resource: EpisodeOfCareInput): EpisodeOfCareUpdate
+}
+
+type EpisodeOfCareUpdate {
+  resource: EpisodeOfCare
+  information: OperationOutcome
+}
+
+type EpisodeOfCareDeleteType {
+  EpisodeOfCareDelete(id: ID): EpisodeOfCareDelete
+}
+
+type EpisodeOfCareDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,218 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Parameters {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  parameter: [ParametersParameter]
+}
+
+type ParametersParameter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueCanonical: canonical  _valueCanonical: ElementBase
+  valueCode: code  _valueCode: ElementBase
+  valueDate: date  _valueDate: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+  valueId: ID  _valueId: ElementBase
+  valueInstant: instant  _valueInstant: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueInteger64: integer64  _valueInteger64: ElementBase
+  valueMarkdown: markdown  _valueMarkdown: ElementBase
+  valueOid: oid  _valueOid: ElementBase
+  valuePositiveInt: positiveInt  _valuePositiveInt: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueTime: time  _valueTime: ElementBase
+  valueUnsignedInt: unsignedInt  _valueUnsignedInt: ElementBase
+  valueUri: uri  _valueUri: ElementBase
+  valueUrl: url  _valueUrl: ElementBase
+  valueUuid: uuid  _valueUuid: ElementBase
+  valueAddress: Address
+  valueAge: Age
+  valueAnnotation: Annotation
+  valueAttachment: Attachment
+  valueCodeableConcept: CodeableConcept
+  valueCoding: Coding
+  valueContactPoint: ContactPoint
+  valueCount: Count
+  valueDistance: Distance
+  valueDuration: Duration
+  valueHumanName: HumanName
+  valueIdentifier: Identifier
+  valueMoney: Money
+  valuePeriod: Period
+  valueQuantity: Quantity
+  valueRange: Range
+  valueRatio: Ratio
+  valueSampledData: SampledData
+  valueSignature: Signature
+  valueTiming: Timing
+  valueContactDetail: ContactDetail
+  valueContributor: Contributor
+  valueDataRequirement: DataRequirement
+  valueExpression: Expression
+  valueParameterDefinition: ParameterDefinition
+  valueRelatedArtifact: RelatedArtifact
+  valueTriggerDefinition: TriggerDefinition
+  valueUsageContext: UsageContext
+  valueDosage: Dosage
+  valueMeta: Meta
+  resource: Resource
+  part: [ParametersParameter]
+}
+
+input ParametersInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  parameter: [ParametersParameterInput]
+}
+
+input ParametersParameterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueCanonical: canonical  _valueCanonical: ElementBaseInput
+  valueCode: code  _valueCode: ElementBaseInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+  valueId: ID  _valueId: ElementBaseInput
+  valueInstant: instant  _valueInstant: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueInteger64: integer64  _valueInteger64: ElementBaseInput
+  valueMarkdown: markdown  _valueMarkdown: ElementBaseInput
+  valueOid: oid  _valueOid: ElementBaseInput
+  valuePositiveInt: positiveInt  _valuePositiveInt: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueTime: time  _valueTime: ElementBaseInput
+  valueUnsignedInt: unsignedInt  _valueUnsignedInt: ElementBaseInput
+  valueUri: uri  _valueUri: ElementBaseInput
+  valueUrl: url  _valueUrl: ElementBaseInput
+  valueUuid: uuid  _valueUuid: ElementBaseInput
+  valueAddress: AddressInput
+  valueAge: AgeInput
+  valueAnnotation: AnnotationInput
+  valueAttachment: AttachmentInput
+  valueCodeableConcept: CodeableConceptInput
+  valueCoding: CodingInput
+  valueContactPoint: ContactPointInput
+  valueCount: CountInput
+  valueDistance: DistanceInput
+  valueDuration: DurationInput
+  valueHumanName: HumanNameInput
+  valueIdentifier: IdentifierInput
+  valueMoney: MoneyInput
+  valuePeriod: PeriodInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+  valueRatio: RatioInput
+  valueSampledData: SampledDataInput
+  valueSignature: SignatureInput
+  valueTiming: TimingInput
+  valueContactDetail: ContactDetailInput
+  valueContributor: ContributorInput
+  valueDataRequirement: DataRequirementInput
+  valueExpression: ExpressionInput
+  valueParameterDefinition: ParameterDefinitionInput
+  valueRelatedArtifact: RelatedArtifactInput
+  valueTriggerDefinition: TriggerDefinitionInput
+  valueUsageContext: UsageContextInput
+  valueDosage: DosageInput
+  valueMeta: MetaInput
+  resource: ResourceInput
+  part: [ParametersParameter]
+}
+
+type ParametersReadType {
+  Parameters(id: ID!): Parameters
+}
+
+type ParametersListType {
+  ParametersList(_filter: String
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Parameters]
+}
+
+type ParametersConnectionType {
+  ParametersConection(_filter: String
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ParametersConnection
+}
+
+type ParametersConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ParametersEdge]
+}
+
+type ParametersEdge {
+  mode: String
+  score: Float
+  resource: Parameters
+}
+
+type ParametersCreateType {
+  ParametersCreate(resource: ParametersInput): ParametersCreation
+}
+
+type ParametersCreation {
+  location: String
+  resource: Parameters
+  information: OperationOutcome
+}
+
+type ParametersUpdateType {
+  ParametersUpdate(id: ID, resource: ParametersInput): ParametersUpdate
+}
+
+type ParametersUpdate {
+  resource: Parameters
+  information: OperationOutcome
+}
+
+type ParametersDeleteType {
+  ParametersDelete(id: ID): ParametersDelete
+}
+
+type ParametersDelete {
+  information: OperationOutcome
+}
+

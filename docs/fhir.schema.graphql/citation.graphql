@@ -1,0 +1,688 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Citation {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: date  _approvalDate: ElementBase
+  lastReviewDate: date  _lastReviewDate: ElementBase
+  effectivePeriod: Period
+  author: [ContactDetail]
+  editor: [ContactDetail]
+  reviewer: [ContactDetail]
+  endorser: [ContactDetail]
+  summary: [CitationSummary]
+  classification: [CitationClassification]
+  note: [Annotation]
+  currentState: [CodeableConcept]
+  statusDate: [CitationStatusDate]
+  relatedArtifact: [RelatedArtifact]
+  citedArtifact: CitationCitedArtifact
+}
+
+type CitationSummary {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  style: CodeableConcept
+  text: markdown  _text: ElementBase
+}
+
+type CitationClassification {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  classifier: [CodeableConcept]
+}
+
+type CitationStatusDate {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  activity: CodeableConcept!
+  actual: Boolean  _actual: ElementBase
+  period: Period!
+}
+
+type CitationCitedArtifact {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  relatedIdentifier: [Identifier]
+  dateAccessed: dateTime  _dateAccessed: ElementBase
+  version: CitationCitedArtifactVersion
+  currentState: [CodeableConcept]
+  statusDate: [CitationCitedArtifactStatusDate]
+  title: [CitationCitedArtifactTitle]
+  abstract: [CitationCitedArtifactAbstract]
+  part: CitationCitedArtifactPart
+  relatesTo: [RelatedArtifact]
+  publicationForm: [CitationCitedArtifactPublicationForm]
+  webLocation: [CitationCitedArtifactWebLocation]
+  classification: [CitationCitedArtifactClassification]
+  contributorship: CitationCitedArtifactContributorship
+  note: [Annotation]
+}
+
+type CitationCitedArtifactVersion {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  value: String  _value: ElementBase
+  baseCitation: Reference
+}
+
+type CitationCitedArtifactStatusDate {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  activity: CodeableConcept!
+  actual: Boolean  _actual: ElementBase
+  period: Period!
+}
+
+type CitationCitedArtifactTitle {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: [CodeableConcept]
+  language: CodeableConcept
+  text: markdown  _text: ElementBase
+}
+
+type CitationCitedArtifactAbstract {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  language: CodeableConcept
+  text: markdown  _text: ElementBase
+  copyright: markdown  _copyright: ElementBase
+}
+
+type CitationCitedArtifactPart {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  value: String  _value: ElementBase
+  baseCitation: Reference
+}
+
+type CitationCitedArtifactPublicationForm {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  publishedIn: CitationCitedArtifactPublicationFormPublishedIn
+  periodicRelease: CitationCitedArtifactPublicationFormPeriodicRelease
+  articleDate: dateTime  _articleDate: ElementBase
+  lastRevisionDate: dateTime  _lastRevisionDate: ElementBase
+  language: [CodeableConcept]
+  accessionNumber: String  _accessionNumber: ElementBase
+  pageString: String  _pageString: ElementBase
+  firstPage: String  _firstPage: ElementBase
+  lastPage: String  _lastPage: ElementBase
+  pageCount: String  _pageCount: ElementBase
+  copyright: markdown  _copyright: ElementBase
+}
+
+type CitationCitedArtifactPublicationFormPublishedIn {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  identifier: [Identifier]
+  title: String  _title: ElementBase
+  publisher: Reference
+  publisherLocation: String  _publisherLocation: ElementBase
+}
+
+type CitationCitedArtifactPublicationFormPeriodicRelease {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  citedMedium: CodeableConcept
+  volume: String  _volume: ElementBase
+  issue: String  _issue: ElementBase
+  dateOfPublication: CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication
+}
+
+type CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  date: date  _date: ElementBase
+  year: String  _year: ElementBase
+  month: String  _month: ElementBase
+  day: String  _day: ElementBase
+  season: String  _season: ElementBase
+  text: String  _text: ElementBase
+}
+
+type CitationCitedArtifactWebLocation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  classifier: [CodeableConcept]
+  url: uri  _url: ElementBase
+}
+
+type CitationCitedArtifactClassification {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  classifier: [CodeableConcept]
+  whoClassified: CitationCitedArtifactClassificationWhoClassified
+}
+
+type CitationCitedArtifactClassificationWhoClassified {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  person: Reference
+  organization: Reference
+  publisher: Reference
+  classifierCopyright: String  _classifierCopyright: ElementBase
+  freeToShare: Boolean  _freeToShare: ElementBase
+}
+
+type CitationCitedArtifactContributorship {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  complete: Boolean  _complete: ElementBase
+  entry: [CitationCitedArtifactContributorshipEntry]
+  summary: [CitationCitedArtifactContributorshipSummary]
+}
+
+type CitationCitedArtifactContributorshipEntry {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: HumanName
+  initials: String  _initials: ElementBase
+  collectiveName: String  _collectiveName: ElementBase
+  identifier: [Identifier]
+  affiliationInfo: [CitationCitedArtifactContributorshipEntryAffiliationInfo]
+  address: [Address]
+  telecom: [ContactPoint]
+  contributionType: [CodeableConcept]
+  role: CodeableConcept
+  contributionInstance: [CitationCitedArtifactContributorshipEntryContributionInstance]
+  correspondingContact: Boolean  _correspondingContact: ElementBase
+  rankingOrder: positiveInt  _rankingOrder: ElementBase
+}
+
+type CitationCitedArtifactContributorshipEntryAffiliationInfo {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  affiliation: String  _affiliation: ElementBase
+  role: String  _role: ElementBase
+  identifier: [Identifier]
+}
+
+type CitationCitedArtifactContributorshipEntryContributionInstance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  time: dateTime  _time: ElementBase
+}
+
+type CitationCitedArtifactContributorshipSummary {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  style: CodeableConcept
+  source: CodeableConcept
+  value: markdown  _value: ElementBase
+}
+
+input CitationInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: date  _approvalDate: ElementBaseInput
+  lastReviewDate: date  _lastReviewDate: ElementBaseInput
+  effectivePeriod: PeriodInput
+  author: [ContactDetailInput]
+  editor: [ContactDetailInput]
+  reviewer: [ContactDetailInput]
+  endorser: [ContactDetailInput]
+  summary: [CitationSummaryInput]
+  classification: [CitationClassificationInput]
+  note: [AnnotationInput]
+  currentState: [CodeableConceptInput]
+  statusDate: [CitationStatusDateInput]
+  relatedArtifact: [RelatedArtifactInput]
+  citedArtifact: CitationCitedArtifactInput
+}
+
+input CitationSummaryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  style: CodeableConceptInput
+  text: markdown  _text: ElementBaseInput
+}
+
+input CitationClassificationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  classifier: [CodeableConceptInput]
+}
+
+input CitationStatusDateInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  activity: CodeableConceptInput!
+  actual: Boolean  _actual: ElementBaseInput
+  period: PeriodInput!
+}
+
+input CitationCitedArtifactInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  relatedIdentifier: [IdentifierInput]
+  dateAccessed: dateTime  _dateAccessed: ElementBaseInput
+  version: CitationCitedArtifactVersionInput
+  currentState: [CodeableConceptInput]
+  statusDate: [CitationCitedArtifactStatusDateInput]
+  title: [CitationCitedArtifactTitleInput]
+  abstract: [CitationCitedArtifactAbstractInput]
+  part: CitationCitedArtifactPartInput
+  relatesTo: [RelatedArtifactInput]
+  publicationForm: [CitationCitedArtifactPublicationFormInput]
+  webLocation: [CitationCitedArtifactWebLocationInput]
+  classification: [CitationCitedArtifactClassificationInput]
+  contributorship: CitationCitedArtifactContributorshipInput
+  note: [AnnotationInput]
+}
+
+input CitationCitedArtifactVersionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  value: String  _value: ElementBaseInput
+  baseCitation: ReferenceInput
+}
+
+input CitationCitedArtifactStatusDateInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  activity: CodeableConceptInput!
+  actual: Boolean  _actual: ElementBaseInput
+  period: PeriodInput!
+}
+
+input CitationCitedArtifactTitleInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: [CodeableConceptInput]
+  language: CodeableConceptInput
+  text: markdown  _text: ElementBaseInput
+}
+
+input CitationCitedArtifactAbstractInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  language: CodeableConceptInput
+  text: markdown  _text: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+}
+
+input CitationCitedArtifactPartInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  value: String  _value: ElementBaseInput
+  baseCitation: ReferenceInput
+}
+
+input CitationCitedArtifactPublicationFormInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  publishedIn: CitationCitedArtifactPublicationFormPublishedInInput
+  periodicRelease: CitationCitedArtifactPublicationFormPeriodicReleaseInput
+  articleDate: dateTime  _articleDate: ElementBaseInput
+  lastRevisionDate: dateTime  _lastRevisionDate: ElementBaseInput
+  language: [CodeableConceptInput]
+  accessionNumber: String  _accessionNumber: ElementBaseInput
+  pageString: String  _pageString: ElementBaseInput
+  firstPage: String  _firstPage: ElementBaseInput
+  lastPage: String  _lastPage: ElementBaseInput
+  pageCount: String  _pageCount: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+}
+
+input CitationCitedArtifactPublicationFormPublishedInInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  identifier: [IdentifierInput]
+  title: String  _title: ElementBaseInput
+  publisher: ReferenceInput
+  publisherLocation: String  _publisherLocation: ElementBaseInput
+}
+
+input CitationCitedArtifactPublicationFormPeriodicReleaseInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  citedMedium: CodeableConceptInput
+  volume: String  _volume: ElementBaseInput
+  issue: String  _issue: ElementBaseInput
+  dateOfPublication: CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationInput
+}
+
+input CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  date: date  _date: ElementBaseInput
+  year: String  _year: ElementBaseInput
+  month: String  _month: ElementBaseInput
+  day: String  _day: ElementBaseInput
+  season: String  _season: ElementBaseInput
+  text: String  _text: ElementBaseInput
+}
+
+input CitationCitedArtifactWebLocationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  classifier: [CodeableConceptInput]
+  url: uri  _url: ElementBaseInput
+}
+
+input CitationCitedArtifactClassificationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  classifier: [CodeableConceptInput]
+  whoClassified: CitationCitedArtifactClassificationWhoClassifiedInput
+}
+
+input CitationCitedArtifactClassificationWhoClassifiedInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  person: ReferenceInput
+  organization: ReferenceInput
+  publisher: ReferenceInput
+  classifierCopyright: String  _classifierCopyright: ElementBaseInput
+  freeToShare: Boolean  _freeToShare: ElementBaseInput
+}
+
+input CitationCitedArtifactContributorshipInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  complete: Boolean  _complete: ElementBaseInput
+  entry: [CitationCitedArtifactContributorshipEntryInput]
+  summary: [CitationCitedArtifactContributorshipSummaryInput]
+}
+
+input CitationCitedArtifactContributorshipEntryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: HumanNameInput
+  initials: String  _initials: ElementBaseInput
+  collectiveName: String  _collectiveName: ElementBaseInput
+  identifier: [IdentifierInput]
+  affiliationInfo: [CitationCitedArtifactContributorshipEntryAffiliationInfoInput]
+  address: [AddressInput]
+  telecom: [ContactPointInput]
+  contributionType: [CodeableConceptInput]
+  role: CodeableConceptInput
+  contributionInstance: [CitationCitedArtifactContributorshipEntryContributionInstanceInput]
+  correspondingContact: Boolean  _correspondingContact: ElementBaseInput
+  rankingOrder: positiveInt  _rankingOrder: ElementBaseInput
+}
+
+input CitationCitedArtifactContributorshipEntryAffiliationInfoInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  affiliation: String  _affiliation: ElementBaseInput
+  role: String  _role: ElementBaseInput
+  identifier: [IdentifierInput]
+}
+
+input CitationCitedArtifactContributorshipEntryContributionInstanceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  time: dateTime  _time: ElementBaseInput
+}
+
+input CitationCitedArtifactContributorshipSummaryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  style: CodeableConceptInput
+  source: CodeableConceptInput
+  value: markdown  _value: ElementBaseInput
+}
+
+type CitationReadType {
+  Citation(id: ID!): Citation
+}
+
+type CitationListType {
+  CitationList(_filter: String
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    effective: [date]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Citation]
+}
+
+type CitationConnectionType {
+  CitationConection(_filter: String
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    effective: [date]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): CitationConnection
+}
+
+type CitationConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [CitationEdge]
+}
+
+type CitationEdge {
+  mode: String
+  score: Float
+  resource: Citation
+}
+
+type CitationCreateType {
+  CitationCreate(resource: CitationInput): CitationCreation
+}
+
+type CitationCreation {
+  location: String
+  resource: Citation
+  information: OperationOutcome
+}
+
+type CitationUpdateType {
+  CitationUpdate(id: ID, resource: CitationInput): CitationUpdate
+}
+
+type CitationUpdate {
+  resource: Citation
+  information: OperationOutcome
+}
+
+type CitationDeleteType {
+  CitationDelete(id: ID): CitationDelete
+}
+
+type CitationDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,270 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type SubscriptionTopic {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  title: String  _title: ElementBase
+  derivedFrom: canonical  _derivedFrom: [ElementBase]
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: date  _approvalDate: ElementBase
+  lastReviewDate: date  _lastReviewDate: ElementBase
+  effectivePeriod: Period
+  resourceTrigger: [SubscriptionTopicResourceTrigger]
+  eventTrigger: [SubscriptionTopicEventTrigger]
+  canFilterBy: [SubscriptionTopicCanFilterBy]
+  notificationShape: [SubscriptionTopicNotificationShape]
+}
+
+type SubscriptionTopicResourceTrigger {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  description: markdown  _description: ElementBase
+  resource: uri  _resource: ElementBase
+  supportedInteraction: code  _supportedInteraction: [ElementBase]
+  queryCriteria: SubscriptionTopicResourceTriggerQueryCriteria
+  fhirPathCriteria: String  _fhirPathCriteria: ElementBase
+}
+
+type SubscriptionTopicResourceTriggerQueryCriteria {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  previous: String  _previous: ElementBase
+  resultForCreate: code  _resultForCreate: ElementBase
+  current: String  _current: ElementBase
+  resultForDelete: code  _resultForDelete: ElementBase
+  requireBoth: Boolean  _requireBoth: ElementBase
+}
+
+type SubscriptionTopicEventTrigger {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  description: markdown  _description: ElementBase
+  event: CodeableConcept!
+  resource: uri  _resource: ElementBase
+}
+
+type SubscriptionTopicCanFilterBy {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  description: markdown  _description: ElementBase
+  resource: uri  _resource: ElementBase
+  filterParameter: String  _filterParameter: ElementBase
+  modifier: code  _modifier: [ElementBase]
+}
+
+type SubscriptionTopicNotificationShape {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  resource: uri  _resource: ElementBase
+  include: String  _include: [ElementBase]
+  revInclude: String  _revInclude: [ElementBase]
+}
+
+input SubscriptionTopicInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  derivedFrom: canonical  _derivedFrom: [ElementBaseInput]
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: date  _approvalDate: ElementBaseInput
+  lastReviewDate: date  _lastReviewDate: ElementBaseInput
+  effectivePeriod: PeriodInput
+  resourceTrigger: [SubscriptionTopicResourceTriggerInput]
+  eventTrigger: [SubscriptionTopicEventTriggerInput]
+  canFilterBy: [SubscriptionTopicCanFilterByInput]
+  notificationShape: [SubscriptionTopicNotificationShapeInput]
+}
+
+input SubscriptionTopicResourceTriggerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  description: markdown  _description: ElementBaseInput
+  resource: uri  _resource: ElementBaseInput
+  supportedInteraction: code  _supportedInteraction: [ElementBaseInput]
+  queryCriteria: SubscriptionTopicResourceTriggerQueryCriteriaInput
+  fhirPathCriteria: String  _fhirPathCriteria: ElementBaseInput
+}
+
+input SubscriptionTopicResourceTriggerQueryCriteriaInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  previous: String  _previous: ElementBaseInput
+  resultForCreate: code  _resultForCreate: ElementBaseInput
+  current: String  _current: ElementBaseInput
+  resultForDelete: code  _resultForDelete: ElementBaseInput
+  requireBoth: Boolean  _requireBoth: ElementBaseInput
+}
+
+input SubscriptionTopicEventTriggerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  description: markdown  _description: ElementBaseInput
+  event: CodeableConceptInput!
+  resource: uri  _resource: ElementBaseInput
+}
+
+input SubscriptionTopicCanFilterByInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  description: markdown  _description: ElementBaseInput
+  resource: uri  _resource: ElementBaseInput
+  filterParameter: String  _filterParameter: ElementBaseInput
+  modifier: code  _modifier: [ElementBaseInput]
+}
+
+input SubscriptionTopicNotificationShapeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  resource: uri  _resource: ElementBaseInput
+  include: String  _include: [ElementBaseInput]
+  revInclude: String  _revInclude: [ElementBaseInput]
+}
+
+type SubscriptionTopicReadType {
+  SubscriptionTopic(id: ID!): SubscriptionTopic
+}
+
+type SubscriptionTopicListType {
+  SubscriptionTopicList(_filter: String
+    date: [date]
+    derived_or_self: [uri]
+    identifier: [token]
+    resource: [uri]
+    status: [token]
+    title: [String]
+    trigger_description: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [SubscriptionTopic]
+}
+
+type SubscriptionTopicConnectionType {
+  SubscriptionTopicConection(_filter: String
+    date: [date]
+    derived_or_self: [uri]
+    identifier: [token]
+    resource: [uri]
+    status: [token]
+    title: [String]
+    trigger_description: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SubscriptionTopicConnection
+}
+
+type SubscriptionTopicConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SubscriptionTopicEdge]
+}
+
+type SubscriptionTopicEdge {
+  mode: String
+  score: Float
+  resource: SubscriptionTopic
+}
+
+type SubscriptionTopicCreateType {
+  SubscriptionTopicCreate(resource: SubscriptionTopicInput): SubscriptionTopicCreation
+}
+
+type SubscriptionTopicCreation {
+  location: String
+  resource: SubscriptionTopic
+  information: OperationOutcome
+}
+
+type SubscriptionTopicUpdateType {
+  SubscriptionTopicUpdate(id: ID, resource: SubscriptionTopicInput): SubscriptionTopicUpdate
+}
+
+type SubscriptionTopicUpdate {
+  resource: SubscriptionTopic
+  information: OperationOutcome
+}
+
+type SubscriptionTopicDeleteType {
+  SubscriptionTopicDelete(id: ID): SubscriptionTopicDelete
+}
+
+type SubscriptionTopicDelete {
+  information: OperationOutcome
+}
+

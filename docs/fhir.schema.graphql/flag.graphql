@@ -1,0 +1,138 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Flag {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  category: [CodeableConcept]
+  code: CodeableConcept!
+  subject: Reference!
+  period: Period
+  encounter: Reference
+  author: Reference
+}
+
+input FlagInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput!
+  subject: ReferenceInput!
+  period: PeriodInput
+  encounter: ReferenceInput
+  author: ReferenceInput
+}
+
+type FlagReadType {
+  Flag(id: ID!): Flag
+}
+
+type FlagListType {
+  FlagList(_filter: String
+    author: [reference]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    patient: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Flag]
+}
+
+type FlagConnectionType {
+  FlagConection(_filter: String
+    author: [reference]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    patient: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): FlagConnection
+}
+
+type FlagConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [FlagEdge]
+}
+
+type FlagEdge {
+  mode: String
+  score: Float
+  resource: Flag
+}
+
+type FlagCreateType {
+  FlagCreate(resource: FlagInput): FlagCreation
+}
+
+type FlagCreation {
+  location: String
+  resource: Flag
+  information: OperationOutcome
+}
+
+type FlagUpdateType {
+  FlagUpdate(id: ID, resource: FlagInput): FlagUpdate
+}
+
+type FlagUpdate {
+  resource: Flag
+  information: OperationOutcome
+}
+
+type FlagDeleteType {
+  FlagDelete(id: ID): FlagDelete
+}
+
+type FlagDelete {
+  information: OperationOutcome
+}
+

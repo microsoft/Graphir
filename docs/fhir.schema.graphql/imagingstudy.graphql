@@ -1,0 +1,250 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ImagingStudy {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  modality: [Coding]
+  subject: Reference!
+  encounter: Reference
+  started: dateTime  _started: ElementBase
+  basedOn: [Reference]
+  referrer: Reference
+  interpreter: [Reference]
+  endpoint: [Reference]
+  numberOfSeries: unsignedInt  _numberOfSeries: ElementBase
+  numberOfInstances: unsignedInt  _numberOfInstances: ElementBase
+  procedure: [CodeableReference]
+  location: Reference
+  reason: [CodeableReference]
+  note: [Annotation]
+  description: String  _description: ElementBase
+  series: [ImagingStudySeries]
+}
+
+type ImagingStudySeries {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  uid: ID  _uid: ElementBase
+  number: unsignedInt  _number: ElementBase
+  modality: Coding!
+  description: String  _description: ElementBase
+  numberOfInstances: unsignedInt  _numberOfInstances: ElementBase
+  endpoint: [Reference]
+  bodySite: Coding
+  laterality: Coding
+  specimen: [Reference]
+  started: dateTime  _started: ElementBase
+  performer: [ImagingStudySeriesPerformer]
+  instance: [ImagingStudySeriesInstance]
+}
+
+type ImagingStudySeriesPerformer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference!
+}
+
+type ImagingStudySeriesInstance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  uid: ID  _uid: ElementBase
+  sopClass: Coding!
+  number: unsignedInt  _number: ElementBase
+  title: String  _title: ElementBase
+}
+
+input ImagingStudyInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  modality: [CodingInput]
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  started: dateTime  _started: ElementBaseInput
+  basedOn: [ReferenceInput]
+  referrer: ReferenceInput
+  interpreter: [ReferenceInput]
+  endpoint: [ReferenceInput]
+  numberOfSeries: unsignedInt  _numberOfSeries: ElementBaseInput
+  numberOfInstances: unsignedInt  _numberOfInstances: ElementBaseInput
+  procedure: [CodeableReferenceInput]
+  location: ReferenceInput
+  reason: [CodeableReferenceInput]
+  note: [AnnotationInput]
+  description: String  _description: ElementBaseInput
+  series: [ImagingStudySeriesInput]
+}
+
+input ImagingStudySeriesInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  uid: ID  _uid: ElementBaseInput
+  number: unsignedInt  _number: ElementBaseInput
+  modality: CodingInput!
+  description: String  _description: ElementBaseInput
+  numberOfInstances: unsignedInt  _numberOfInstances: ElementBaseInput
+  endpoint: [ReferenceInput]
+  bodySite: CodingInput
+  laterality: CodingInput
+  specimen: [ReferenceInput]
+  started: dateTime  _started: ElementBaseInput
+  performer: [ImagingStudySeriesPerformerInput]
+  instance: [ImagingStudySeriesInstanceInput]
+}
+
+input ImagingStudySeriesPerformerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput!
+}
+
+input ImagingStudySeriesInstanceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  uid: ID  _uid: ElementBaseInput
+  sopClass: CodingInput!
+  number: unsignedInt  _number: ElementBaseInput
+  title: String  _title: ElementBaseInput
+}
+
+type ImagingStudyReadType {
+  ImagingStudy(id: ID!): ImagingStudy
+}
+
+type ImagingStudyListType {
+  ImagingStudyList(_filter: String
+    basedon: [reference]
+    bodysite: [token]
+    dicom_class: [token]
+    encounter: [reference]
+    endpoint: [reference]
+    identifier: [token]
+    instance: [token]
+    interpreter: [reference]
+    modality: [token]
+    patient: [reference]
+    performer: [reference]
+    reason: [token]
+    referrer: [reference]
+    series: [token]
+    started: [date]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ImagingStudy]
+}
+
+type ImagingStudyConnectionType {
+  ImagingStudyConection(_filter: String
+    basedon: [reference]
+    bodysite: [token]
+    dicom_class: [token]
+    encounter: [reference]
+    endpoint: [reference]
+    identifier: [token]
+    instance: [token]
+    interpreter: [reference]
+    modality: [token]
+    patient: [reference]
+    performer: [reference]
+    reason: [token]
+    referrer: [reference]
+    series: [token]
+    started: [date]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ImagingStudyConnection
+}
+
+type ImagingStudyConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ImagingStudyEdge]
+}
+
+type ImagingStudyEdge {
+  mode: String
+  score: Float
+  resource: ImagingStudy
+}
+
+type ImagingStudyCreateType {
+  ImagingStudyCreate(resource: ImagingStudyInput): ImagingStudyCreation
+}
+
+type ImagingStudyCreation {
+  location: String
+  resource: ImagingStudy
+  information: OperationOutcome
+}
+
+type ImagingStudyUpdateType {
+  ImagingStudyUpdate(id: ID, resource: ImagingStudyInput): ImagingStudyUpdate
+}
+
+type ImagingStudyUpdate {
+  resource: ImagingStudy
+  information: OperationOutcome
+}
+
+type ImagingStudyDeleteType {
+  ImagingStudyDelete(id: ID): ImagingStudyDelete
+}
+
+type ImagingStudyDelete {
+  information: OperationOutcome
+}
+

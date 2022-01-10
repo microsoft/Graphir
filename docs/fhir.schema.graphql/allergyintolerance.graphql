@@ -1,0 +1,206 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type AllergyIntolerance {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  clinicalStatus: CodeableConcept
+  verificationStatus: CodeableConcept
+  type: code  _type: ElementBase
+  category: code  _category: [ElementBase]
+  criticality: code  _criticality: ElementBase
+  code: CodeableConcept
+  patient: Reference!
+  encounter: Reference
+  onsetDateTime: dateTime  _onsetDateTime: ElementBase
+  onsetAge: Age
+  onsetPeriod: Period
+  onsetRange: Range
+  onsetString: String  _onsetString: ElementBase
+  recordedDate: dateTime  _recordedDate: ElementBase
+  recorder: Reference
+  asserter: Reference
+  lastOccurrence: dateTime  _lastOccurrence: ElementBase
+  note: [Annotation]
+  reaction: [AllergyIntoleranceReaction]
+}
+
+type AllergyIntoleranceReaction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  substance: CodeableConcept
+  manifestation: [CodeableReference]!
+  description: String  _description: ElementBase
+  onset: dateTime  _onset: ElementBase
+  severity: code  _severity: ElementBase
+  exposureRoute: CodeableConcept
+  note: [Annotation]
+}
+
+input AllergyIntoleranceInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  clinicalStatus: CodeableConceptInput
+  verificationStatus: CodeableConceptInput
+  type: code  _type: ElementBaseInput
+  category: code  _category: [ElementBaseInput]
+  criticality: code  _criticality: ElementBaseInput
+  code: CodeableConceptInput
+  patient: ReferenceInput!
+  encounter: ReferenceInput
+  onsetDateTime: dateTime  _onsetDateTime: ElementBaseInput
+  onsetAge: AgeInput
+  onsetPeriod: PeriodInput
+  onsetRange: RangeInput
+  onsetString: String  _onsetString: ElementBaseInput
+  recordedDate: dateTime  _recordedDate: ElementBaseInput
+  recorder: ReferenceInput
+  asserter: ReferenceInput
+  lastOccurrence: dateTime  _lastOccurrence: ElementBaseInput
+  note: [AnnotationInput]
+  reaction: [AllergyIntoleranceReactionInput]
+}
+
+input AllergyIntoleranceReactionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  substance: CodeableConceptInput
+  manifestation: [CodeableReferenceInput]!
+  description: String  _description: ElementBaseInput
+  onset: dateTime  _onset: ElementBaseInput
+  severity: code  _severity: ElementBaseInput
+  exposureRoute: CodeableConceptInput
+  note: [AnnotationInput]
+}
+
+type AllergyIntoleranceReadType {
+  AllergyIntolerance(id: ID!): AllergyIntolerance
+}
+
+type AllergyIntoleranceListType {
+  AllergyIntoleranceList(_filter: String
+    asserter: [reference]
+    category: [token]
+    clinical_status: [token]
+    code: [token]
+    criticality: [token]
+    date: [date]
+    identifier: [token]
+    last_date: [date]
+    manifestation_code: [token]
+    manifestation_reference: [reference]
+    patient: [reference]
+    recorder: [reference]
+    route: [token]
+    severity: [token]
+    type: [token]
+    verification_status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [AllergyIntolerance]
+}
+
+type AllergyIntoleranceConnectionType {
+  AllergyIntoleranceConection(_filter: String
+    asserter: [reference]
+    category: [token]
+    clinical_status: [token]
+    code: [token]
+    criticality: [token]
+    date: [date]
+    identifier: [token]
+    last_date: [date]
+    manifestation_code: [token]
+    manifestation_reference: [reference]
+    patient: [reference]
+    recorder: [reference]
+    route: [token]
+    severity: [token]
+    type: [token]
+    verification_status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): AllergyIntoleranceConnection
+}
+
+type AllergyIntoleranceConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [AllergyIntoleranceEdge]
+}
+
+type AllergyIntoleranceEdge {
+  mode: String
+  score: Float
+  resource: AllergyIntolerance
+}
+
+type AllergyIntoleranceCreateType {
+  AllergyIntoleranceCreate(resource: AllergyIntoleranceInput): AllergyIntoleranceCreation
+}
+
+type AllergyIntoleranceCreation {
+  location: String
+  resource: AllergyIntolerance
+  information: OperationOutcome
+}
+
+type AllergyIntoleranceUpdateType {
+  AllergyIntoleranceUpdate(id: ID, resource: AllergyIntoleranceInput): AllergyIntoleranceUpdate
+}
+
+type AllergyIntoleranceUpdate {
+  resource: AllergyIntolerance
+  information: OperationOutcome
+}
+
+type AllergyIntoleranceDeleteType {
+  AllergyIntoleranceDelete(id: ID): AllergyIntoleranceDelete
+}
+
+type AllergyIntoleranceDelete {
+  information: OperationOutcome
+}
+

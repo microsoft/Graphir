@@ -1,0 +1,298 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type MeasureReport {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  type: code  _type: ElementBase
+  dataUpdateType: code  _dataUpdateType: ElementBase
+  measure: canonical  _measure: ElementBase
+  subject: Reference
+  date: dateTime  _date: ElementBase
+  reporter: Reference
+  reportingVendor: Reference
+  period: Period!
+  scoring: CodeableConcept
+  improvementNotation: CodeableConcept
+  group: [MeasureReportGroup]
+  evaluatedResource: [Reference]
+}
+
+type MeasureReportGroup {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept
+  population: [MeasureReportGroupPopulation]
+  measureScoreQuantity: Quantity
+  measureScoreDateTime: dateTime  _measureScoreDateTime: ElementBase
+  measureScoreCodeableConcept: CodeableConcept
+  measureScorePeriod: Period
+  measureScoreRange: Range
+  measureScoreDuration: Duration
+  stratifier: [MeasureReportGroupStratifier]
+}
+
+type MeasureReportGroupPopulation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept
+  count: Int  _count: ElementBase
+  subjectResults: Reference
+}
+
+type MeasureReportGroupStratifier {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: [CodeableConcept]
+  stratum: [MeasureReportGroupStratifierStratum]
+}
+
+type MeasureReportGroupStratifierStratum {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  valueCodeableConcept: CodeableConcept
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueQuantity: Quantity
+  valueRange: Range
+  valueReference: Reference
+  component: [MeasureReportGroupStratifierStratumComponent]
+  population: [MeasureReportGroupStratifierStratumPopulation]
+  measureScoreQuantity: Quantity
+  measureScoreDateTime: dateTime  _measureScoreDateTime: ElementBase
+  measureScoreCodeableConcept: CodeableConcept
+  measureScorePeriod: Period
+  measureScoreRange: Range
+  measureScoreDuration: Duration
+}
+
+type MeasureReportGroupStratifierStratumComponent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  valueCodeableConcept: CodeableConcept
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueQuantity: Quantity
+  valueRange: Range
+  valueReference: Reference
+}
+
+type MeasureReportGroupStratifierStratumPopulation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept
+  count: Int  _count: ElementBase
+  subjectResults: Reference
+}
+
+input MeasureReportInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  type: code  _type: ElementBaseInput
+  dataUpdateType: code  _dataUpdateType: ElementBaseInput
+  measure: canonical  _measure: ElementBaseInput
+  subject: ReferenceInput
+  date: dateTime  _date: ElementBaseInput
+  reporter: ReferenceInput
+  reportingVendor: ReferenceInput
+  period: PeriodInput!
+  scoring: CodeableConceptInput
+  improvementNotation: CodeableConceptInput
+  group: [MeasureReportGroupInput]
+  evaluatedResource: [ReferenceInput]
+}
+
+input MeasureReportGroupInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput
+  population: [MeasureReportGroupPopulationInput]
+  measureScoreQuantity: QuantityInput
+  measureScoreDateTime: dateTime  _measureScoreDateTime: ElementBaseInput
+  measureScoreCodeableConcept: CodeableConceptInput
+  measureScorePeriod: PeriodInput
+  measureScoreRange: RangeInput
+  measureScoreDuration: DurationInput
+  stratifier: [MeasureReportGroupStratifierInput]
+}
+
+input MeasureReportGroupPopulationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput
+  count: Int  _count: ElementBaseInput
+  subjectResults: ReferenceInput
+}
+
+input MeasureReportGroupStratifierInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: [CodeableConceptInput]
+  stratum: [MeasureReportGroupStratifierStratumInput]
+}
+
+input MeasureReportGroupStratifierStratumInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  valueCodeableConcept: CodeableConceptInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+  valueReference: ReferenceInput
+  component: [MeasureReportGroupStratifierStratumComponentInput]
+  population: [MeasureReportGroupStratifierStratumPopulationInput]
+  measureScoreQuantity: QuantityInput
+  measureScoreDateTime: dateTime  _measureScoreDateTime: ElementBaseInput
+  measureScoreCodeableConcept: CodeableConceptInput
+  measureScorePeriod: PeriodInput
+  measureScoreRange: RangeInput
+  measureScoreDuration: DurationInput
+}
+
+input MeasureReportGroupStratifierStratumComponentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  valueCodeableConcept: CodeableConceptInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+  valueReference: ReferenceInput
+}
+
+input MeasureReportGroupStratifierStratumPopulationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput
+  count: Int  _count: ElementBaseInput
+  subjectResults: ReferenceInput
+}
+
+type MeasureReportReadType {
+  MeasureReport(id: ID!): MeasureReport
+}
+
+type MeasureReportListType {
+  MeasureReportList(_filter: String
+    date: [date]
+    evaluated_resource: [reference]
+    identifier: [token]
+    measure: [reference]
+    patient: [reference]
+    period: [date]
+    reporter: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [MeasureReport]
+}
+
+type MeasureReportConnectionType {
+  MeasureReportConection(_filter: String
+    date: [date]
+    evaluated_resource: [reference]
+    identifier: [token]
+    measure: [reference]
+    patient: [reference]
+    period: [date]
+    reporter: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): MeasureReportConnection
+}
+
+type MeasureReportConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [MeasureReportEdge]
+}
+
+type MeasureReportEdge {
+  mode: String
+  score: Float
+  resource: MeasureReport
+}
+
+type MeasureReportCreateType {
+  MeasureReportCreate(resource: MeasureReportInput): MeasureReportCreation
+}
+
+type MeasureReportCreation {
+  location: String
+  resource: MeasureReport
+  information: OperationOutcome
+}
+
+type MeasureReportUpdateType {
+  MeasureReportUpdate(id: ID, resource: MeasureReportInput): MeasureReportUpdate
+}
+
+type MeasureReportUpdate {
+  resource: MeasureReport
+  information: OperationOutcome
+}
+
+type MeasureReportDeleteType {
+  MeasureReportDelete(id: ID): MeasureReportDelete
+}
+
+type MeasureReportDelete {
+  information: OperationOutcome
+}
+

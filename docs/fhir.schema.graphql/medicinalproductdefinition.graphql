@@ -1,0 +1,318 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type MedicinalProductDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  type: CodeableConcept
+  domain: CodeableConcept
+  version: String  _version: ElementBase
+  status: CodeableConcept
+  statusDate: dateTime  _statusDate: ElementBase
+  description: markdown  _description: ElementBase
+  combinedPharmaceuticalDoseForm: CodeableConcept
+  route: [CodeableConcept]
+  indication: markdown  _indication: ElementBase
+  legalStatusOfSupply: CodeableConcept
+  additionalMonitoringIndicator: CodeableConcept
+  specialMeasures: [CodeableConcept]
+  pediatricUseIndicator: CodeableConcept
+  classification: [CodeableConcept]
+  marketingStatus: [MarketingStatus]
+  packagedMedicinalProduct: [CodeableConcept]
+  ingredient: [CodeableConcept]
+  impurity: [CodeableReference]
+  attachedDocument: [Reference]
+  masterFile: [Reference]
+  contact: [MedicinalProductDefinitionContact]
+  clinicalTrial: [Reference]
+  code: [Coding]
+  name: [MedicinalProductDefinitionName]!
+  crossReference: [MedicinalProductDefinitionCrossReference]
+  operation: [MedicinalProductDefinitionOperation]
+  characteristic: [MedicinalProductDefinitionCharacteristic]
+}
+
+type MedicinalProductDefinitionContact {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  contact: Reference!
+}
+
+type MedicinalProductDefinitionName {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  productName: String  _productName: ElementBase
+  type: CodeableConcept
+  namePart: [MedicinalProductDefinitionNameNamePart]
+  countryLanguage: [MedicinalProductDefinitionNameCountryLanguage]
+}
+
+type MedicinalProductDefinitionNameNamePart {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  part: String  _part: ElementBase
+  type: CodeableConcept!
+}
+
+type MedicinalProductDefinitionNameCountryLanguage {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  country: CodeableConcept!
+  jurisdiction: CodeableConcept
+  language: CodeableConcept!
+}
+
+type MedicinalProductDefinitionCrossReference {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  product: CodeableReference!
+  type: CodeableConcept
+}
+
+type MedicinalProductDefinitionOperation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableReference
+  effectiveDate: Period
+  organization: [Reference]
+  confidentialityIndicator: CodeableConcept
+}
+
+type MedicinalProductDefinitionCharacteristic {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueDate: date  _valueDate: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueAttachment: Attachment
+}
+
+input MedicinalProductDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  type: CodeableConceptInput
+  domain: CodeableConceptInput
+  version: String  _version: ElementBaseInput
+  status: CodeableConceptInput
+  statusDate: dateTime  _statusDate: ElementBaseInput
+  description: markdown  _description: ElementBaseInput
+  combinedPharmaceuticalDoseForm: CodeableConceptInput
+  route: [CodeableConceptInput]
+  indication: markdown  _indication: ElementBaseInput
+  legalStatusOfSupply: CodeableConceptInput
+  additionalMonitoringIndicator: CodeableConceptInput
+  specialMeasures: [CodeableConceptInput]
+  pediatricUseIndicator: CodeableConceptInput
+  classification: [CodeableConceptInput]
+  marketingStatus: [MarketingStatusInput]
+  packagedMedicinalProduct: [CodeableConceptInput]
+  ingredient: [CodeableConceptInput]
+  impurity: [CodeableReferenceInput]
+  attachedDocument: [ReferenceInput]
+  masterFile: [ReferenceInput]
+  contact: [MedicinalProductDefinitionContactInput]
+  clinicalTrial: [ReferenceInput]
+  code: [CodingInput]
+  name: [MedicinalProductDefinitionNameInput]!
+  crossReference: [MedicinalProductDefinitionCrossReferenceInput]
+  operation: [MedicinalProductDefinitionOperationInput]
+  characteristic: [MedicinalProductDefinitionCharacteristicInput]
+}
+
+input MedicinalProductDefinitionContactInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  contact: ReferenceInput!
+}
+
+input MedicinalProductDefinitionNameInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  productName: String  _productName: ElementBaseInput
+  type: CodeableConceptInput
+  namePart: [MedicinalProductDefinitionNameNamePartInput]
+  countryLanguage: [MedicinalProductDefinitionNameCountryLanguageInput]
+}
+
+input MedicinalProductDefinitionNameNamePartInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  part: String  _part: ElementBaseInput
+  type: CodeableConceptInput!
+}
+
+input MedicinalProductDefinitionNameCountryLanguageInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  country: CodeableConceptInput!
+  jurisdiction: CodeableConceptInput
+  language: CodeableConceptInput!
+}
+
+input MedicinalProductDefinitionCrossReferenceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  product: CodeableReferenceInput!
+  type: CodeableConceptInput
+}
+
+input MedicinalProductDefinitionOperationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableReferenceInput
+  effectiveDate: PeriodInput
+  organization: [ReferenceInput]
+  confidentialityIndicator: CodeableConceptInput
+}
+
+input MedicinalProductDefinitionCharacteristicInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueAttachment: AttachmentInput
+}
+
+type MedicinalProductDefinitionReadType {
+  MedicinalProductDefinition(id: ID!): MedicinalProductDefinition
+}
+
+type MedicinalProductDefinitionListType {
+  MedicinalProductDefinitionList(_filter: String
+    characteristic: [token]
+    characteristic_type: [token]
+    contact: [reference]
+    domain: [token]
+    identifier: [token]
+    ingredient: [token]
+    master_file: [reference]
+    name: [String]
+    name_language: [token]
+    product_classification: [token]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [MedicinalProductDefinition]
+}
+
+type MedicinalProductDefinitionConnectionType {
+  MedicinalProductDefinitionConection(_filter: String
+    characteristic: [token]
+    characteristic_type: [token]
+    contact: [reference]
+    domain: [token]
+    identifier: [token]
+    ingredient: [token]
+    master_file: [reference]
+    name: [String]
+    name_language: [token]
+    product_classification: [token]
+    status: [token]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): MedicinalProductDefinitionConnection
+}
+
+type MedicinalProductDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [MedicinalProductDefinitionEdge]
+}
+
+type MedicinalProductDefinitionEdge {
+  mode: String
+  score: Float
+  resource: MedicinalProductDefinition
+}
+
+type MedicinalProductDefinitionCreateType {
+  MedicinalProductDefinitionCreate(resource: MedicinalProductDefinitionInput): MedicinalProductDefinitionCreation
+}
+
+type MedicinalProductDefinitionCreation {
+  location: String
+  resource: MedicinalProductDefinition
+  information: OperationOutcome
+}
+
+type MedicinalProductDefinitionUpdateType {
+  MedicinalProductDefinitionUpdate(id: ID, resource: MedicinalProductDefinitionInput): MedicinalProductDefinitionUpdate
+}
+
+type MedicinalProductDefinitionUpdate {
+  resource: MedicinalProductDefinition
+  information: OperationOutcome
+}
+
+type MedicinalProductDefinitionDeleteType {
+  MedicinalProductDefinitionDelete(id: ID): MedicinalProductDefinitionDelete
+}
+
+type MedicinalProductDefinitionDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,260 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DocumentReference {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  status: code  _status: ElementBase
+  docStatus: code  _docStatus: ElementBase
+  type: CodeableConcept
+  category: [CodeableConcept]
+  subject: Reference
+  encounter: [Reference]
+  event: [CodeableConcept]
+  facilityType: CodeableConcept
+  practiceSetting: CodeableConcept
+  period: Period
+  date: instant  _date: ElementBase
+  author: [Reference]
+  attester: [DocumentReferenceAttester]
+  custodian: Reference
+  relatesTo: [DocumentReferenceRelatesTo]
+  description: markdown  _description: ElementBase
+  securityLabel: [CodeableConcept]
+  content: [DocumentReferenceContent]!
+  sourcePatientInfo: Reference
+  related: [Reference]
+}
+
+type DocumentReferenceAttester {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  mode: code  _mode: ElementBase
+  time: dateTime  _time: ElementBase
+  party: Reference
+}
+
+type DocumentReferenceRelatesTo {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  target: Reference!
+}
+
+type DocumentReferenceContent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  attachment: Attachment!
+  format: Coding
+  identifier: Identifier
+}
+
+input DocumentReferenceInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  status: code  _status: ElementBaseInput
+  docStatus: code  _docStatus: ElementBaseInput
+  type: CodeableConceptInput
+  category: [CodeableConceptInput]
+  subject: ReferenceInput
+  encounter: [ReferenceInput]
+  event: [CodeableConceptInput]
+  facilityType: CodeableConceptInput
+  practiceSetting: CodeableConceptInput
+  period: PeriodInput
+  date: instant  _date: ElementBaseInput
+  author: [ReferenceInput]
+  attester: [DocumentReferenceAttesterInput]
+  custodian: ReferenceInput
+  relatesTo: [DocumentReferenceRelatesToInput]
+  description: markdown  _description: ElementBaseInput
+  securityLabel: [CodeableConceptInput]
+  content: [DocumentReferenceContentInput]!
+  sourcePatientInfo: ReferenceInput
+  related: [ReferenceInput]
+}
+
+input DocumentReferenceAttesterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  mode: code  _mode: ElementBaseInput
+  time: dateTime  _time: ElementBaseInput
+  party: ReferenceInput
+}
+
+input DocumentReferenceRelatesToInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  target: ReferenceInput!
+}
+
+input DocumentReferenceContentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  attachment: AttachmentInput!
+  format: CodingInput
+  identifier: IdentifierInput
+}
+
+type DocumentReferenceReadType {
+  DocumentReference(id: ID!): DocumentReference
+}
+
+type DocumentReferenceListType {
+  DocumentReferenceList(_filter: String
+    attester: [reference]
+    author: [reference]
+    based_on: [reference]
+    category: [token]
+    contenttype: [token]
+    creation: [date]
+    custodian: [reference]
+    date: [date]
+    description: [String]
+    doc_status: [token]
+    encounter: [reference]
+    event: [token]
+    facility: [token]
+    format: [token]
+    identifier: [token]
+    language: [token]
+    location: [uri]
+    patient: [reference]
+    period: [date]
+    related: [reference]
+    relatesto: [reference]
+    relation: [token]
+    relationship: [composite]
+    security_label: [token]
+    setting: [token]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DocumentReference]
+}
+
+type DocumentReferenceConnectionType {
+  DocumentReferenceConection(_filter: String
+    attester: [reference]
+    author: [reference]
+    based_on: [reference]
+    category: [token]
+    contenttype: [token]
+    creation: [date]
+    custodian: [reference]
+    date: [date]
+    description: [String]
+    doc_status: [token]
+    encounter: [reference]
+    event: [token]
+    facility: [token]
+    format: [token]
+    identifier: [token]
+    language: [token]
+    location: [uri]
+    patient: [reference]
+    period: [date]
+    related: [reference]
+    relatesto: [reference]
+    relation: [token]
+    relationship: [composite]
+    security_label: [token]
+    setting: [token]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DocumentReferenceConnection
+}
+
+type DocumentReferenceConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DocumentReferenceEdge]
+}
+
+type DocumentReferenceEdge {
+  mode: String
+  score: Float
+  resource: DocumentReference
+}
+
+type DocumentReferenceCreateType {
+  DocumentReferenceCreate(resource: DocumentReferenceInput): DocumentReferenceCreation
+}
+
+type DocumentReferenceCreation {
+  location: String
+  resource: DocumentReference
+  information: OperationOutcome
+}
+
+type DocumentReferenceUpdateType {
+  DocumentReferenceUpdate(id: ID, resource: DocumentReferenceInput): DocumentReferenceUpdate
+}
+
+type DocumentReferenceUpdate {
+  resource: DocumentReference
+  information: OperationOutcome
+}
+
+type DocumentReferenceDeleteType {
+  DocumentReferenceDelete(id: ID): DocumentReferenceDelete
+}
+
+type DocumentReferenceDelete {
+  information: OperationOutcome
+}
+

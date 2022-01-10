@@ -1,0 +1,366 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type MolecularSequence {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  type: code  _type: ElementBase
+  coordinateSystem: Int  _coordinateSystem: ElementBase
+  patient: Reference
+  specimen: Reference
+  device: Reference
+  performer: Reference
+  quantity: Quantity
+  referenceSeq: MolecularSequenceReferenceSeq
+  variant: [MolecularSequenceVariant]
+  observedSeq: String  _observedSeq: ElementBase
+  quality: [MolecularSequenceQuality]
+  readCoverage: Int  _readCoverage: ElementBase
+  repository: [MolecularSequenceRepository]
+  pointer: [Reference]
+  structureVariant: [MolecularSequenceStructureVariant]
+}
+
+type MolecularSequenceReferenceSeq {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  chromosome: CodeableConcept
+  genomeBuild: String  _genomeBuild: ElementBase
+  orientation: code  _orientation: ElementBase
+  referenceSeqId: CodeableConcept
+  referenceSeqPointer: Reference
+  referenceSeqString: String  _referenceSeqString: ElementBase
+  strand: code  _strand: ElementBase
+  windowStart: Int  _windowStart: ElementBase
+  windowEnd: Int  _windowEnd: ElementBase
+}
+
+type MolecularSequenceVariant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  start: Int  _start: ElementBase
+  end: Int  _end: ElementBase
+  observedAllele: String  _observedAllele: ElementBase
+  referenceAllele: String  _referenceAllele: ElementBase
+  cigar: String  _cigar: ElementBase
+  variantPointer: Reference
+}
+
+type MolecularSequenceQuality {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  standardSequence: CodeableConcept
+  start: Int  _start: ElementBase
+  end: Int  _end: ElementBase
+  score: Quantity
+  method: CodeableConcept
+  truthTP: decimal  _truthTP: ElementBase
+  queryTP: decimal  _queryTP: ElementBase
+  truthFN: decimal  _truthFN: ElementBase
+  queryFP: decimal  _queryFP: ElementBase
+  gtFP: decimal  _gtFP: ElementBase
+  precision: decimal  _precision: ElementBase
+  recall: decimal  _recall: ElementBase
+  fScore: decimal  _fScore: ElementBase
+  roc: MolecularSequenceQualityRoc
+}
+
+type MolecularSequenceQualityRoc {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  score: Int  _score: [ElementBase]
+  numTP: Int  _numTP: [ElementBase]
+  numFP: Int  _numFP: [ElementBase]
+  numFN: Int  _numFN: [ElementBase]
+  precision: decimal  _precision: [ElementBase]
+  sensitivity: decimal  _sensitivity: [ElementBase]
+  fMeasure: decimal  _fMeasure: [ElementBase]
+}
+
+type MolecularSequenceRepository {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  url: uri  _url: ElementBase
+  name: String  _name: ElementBase
+  datasetId: String  _datasetId: ElementBase
+  variantsetId: String  _variantsetId: ElementBase
+  readsetId: String  _readsetId: ElementBase
+}
+
+type MolecularSequenceStructureVariant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  variantType: CodeableConcept
+  exact: Boolean  _exact: ElementBase
+  length: Int  _length: ElementBase
+  outer: MolecularSequenceStructureVariantOuter
+  inner: MolecularSequenceStructureVariantInner
+}
+
+type MolecularSequenceStructureVariantOuter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  start: Int  _start: ElementBase
+  end: Int  _end: ElementBase
+}
+
+type MolecularSequenceStructureVariantInner {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  start: Int  _start: ElementBase
+  end: Int  _end: ElementBase
+}
+
+input MolecularSequenceInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  type: code  _type: ElementBaseInput
+  coordinateSystem: Int  _coordinateSystem: ElementBaseInput
+  patient: ReferenceInput
+  specimen: ReferenceInput
+  device: ReferenceInput
+  performer: ReferenceInput
+  quantity: QuantityInput
+  referenceSeq: MolecularSequenceReferenceSeqInput
+  variant: [MolecularSequenceVariantInput]
+  observedSeq: String  _observedSeq: ElementBaseInput
+  quality: [MolecularSequenceQualityInput]
+  readCoverage: Int  _readCoverage: ElementBaseInput
+  repository: [MolecularSequenceRepositoryInput]
+  pointer: [ReferenceInput]
+  structureVariant: [MolecularSequenceStructureVariantInput]
+}
+
+input MolecularSequenceReferenceSeqInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  chromosome: CodeableConceptInput
+  genomeBuild: String  _genomeBuild: ElementBaseInput
+  orientation: code  _orientation: ElementBaseInput
+  referenceSeqId: CodeableConceptInput
+  referenceSeqPointer: ReferenceInput
+  referenceSeqString: String  _referenceSeqString: ElementBaseInput
+  strand: code  _strand: ElementBaseInput
+  windowStart: Int  _windowStart: ElementBaseInput
+  windowEnd: Int  _windowEnd: ElementBaseInput
+}
+
+input MolecularSequenceVariantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  start: Int  _start: ElementBaseInput
+  end: Int  _end: ElementBaseInput
+  observedAllele: String  _observedAllele: ElementBaseInput
+  referenceAllele: String  _referenceAllele: ElementBaseInput
+  cigar: String  _cigar: ElementBaseInput
+  variantPointer: ReferenceInput
+}
+
+input MolecularSequenceQualityInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  standardSequence: CodeableConceptInput
+  start: Int  _start: ElementBaseInput
+  end: Int  _end: ElementBaseInput
+  score: QuantityInput
+  method: CodeableConceptInput
+  truthTP: decimal  _truthTP: ElementBaseInput
+  queryTP: decimal  _queryTP: ElementBaseInput
+  truthFN: decimal  _truthFN: ElementBaseInput
+  queryFP: decimal  _queryFP: ElementBaseInput
+  gtFP: decimal  _gtFP: ElementBaseInput
+  precision: decimal  _precision: ElementBaseInput
+  recall: decimal  _recall: ElementBaseInput
+  fScore: decimal  _fScore: ElementBaseInput
+  roc: MolecularSequenceQualityRocInput
+}
+
+input MolecularSequenceQualityRocInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  score: Int  _score: [ElementBaseInput]
+  numTP: Int  _numTP: [ElementBaseInput]
+  numFP: Int  _numFP: [ElementBaseInput]
+  numFN: Int  _numFN: [ElementBaseInput]
+  precision: decimal  _precision: [ElementBaseInput]
+  sensitivity: decimal  _sensitivity: [ElementBaseInput]
+  fMeasure: decimal  _fMeasure: [ElementBaseInput]
+}
+
+input MolecularSequenceRepositoryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  url: uri  _url: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  datasetId: String  _datasetId: ElementBaseInput
+  variantsetId: String  _variantsetId: ElementBaseInput
+  readsetId: String  _readsetId: ElementBaseInput
+}
+
+input MolecularSequenceStructureVariantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  variantType: CodeableConceptInput
+  exact: Boolean  _exact: ElementBaseInput
+  length: Int  _length: ElementBaseInput
+  outer: MolecularSequenceStructureVariantOuterInput
+  inner: MolecularSequenceStructureVariantInnerInput
+}
+
+input MolecularSequenceStructureVariantOuterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  start: Int  _start: ElementBaseInput
+  end: Int  _end: ElementBaseInput
+}
+
+input MolecularSequenceStructureVariantInnerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  start: Int  _start: ElementBaseInput
+  end: Int  _end: ElementBaseInput
+}
+
+type MolecularSequenceReadType {
+  MolecularSequence(id: ID!): MolecularSequence
+}
+
+type MolecularSequenceListType {
+  MolecularSequenceList(_filter: String
+    chromosome: [token]
+    chromosome_variant_coordinate: [composite]
+    chromosome_window_coordinate: [composite]
+    identifier: [token]
+    patient: [reference]
+    referenceseqid: [token]
+    referenceseqid_variant_coordinate: [composite]
+    referenceseqid_window_coordinate: [composite]
+    type: [token]
+    variant_end: [number]
+    variant_start: [number]
+    window_end: [number]
+    window_start: [number]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [MolecularSequence]
+}
+
+type MolecularSequenceConnectionType {
+  MolecularSequenceConection(_filter: String
+    chromosome: [token]
+    chromosome_variant_coordinate: [composite]
+    chromosome_window_coordinate: [composite]
+    identifier: [token]
+    patient: [reference]
+    referenceseqid: [token]
+    referenceseqid_variant_coordinate: [composite]
+    referenceseqid_window_coordinate: [composite]
+    type: [token]
+    variant_end: [number]
+    variant_start: [number]
+    window_end: [number]
+    window_start: [number]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): MolecularSequenceConnection
+}
+
+type MolecularSequenceConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [MolecularSequenceEdge]
+}
+
+type MolecularSequenceEdge {
+  mode: String
+  score: Float
+  resource: MolecularSequence
+}
+
+type MolecularSequenceCreateType {
+  MolecularSequenceCreate(resource: MolecularSequenceInput): MolecularSequenceCreation
+}
+
+type MolecularSequenceCreation {
+  location: String
+  resource: MolecularSequence
+  information: OperationOutcome
+}
+
+type MolecularSequenceUpdateType {
+  MolecularSequenceUpdate(id: ID, resource: MolecularSequenceInput): MolecularSequenceUpdate
+}
+
+type MolecularSequenceUpdate {
+  resource: MolecularSequence
+  information: OperationOutcome
+}
+
+type MolecularSequenceDeleteType {
+  MolecularSequenceDelete(id: ID): MolecularSequenceDelete
+}
+
+type MolecularSequenceDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,134 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type OperationOutcome {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  issue: [OperationOutcomeIssue]!
+}
+
+type OperationOutcomeIssue {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  severity: code  _severity: ElementBase
+  code: code  _code: ElementBase
+  details: CodeableConcept
+  diagnostics: String  _diagnostics: ElementBase
+  location: String  _location: [ElementBase]
+  expression: String  _expression: [ElementBase]
+}
+
+input OperationOutcomeInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  issue: [OperationOutcomeIssueInput]!
+}
+
+input OperationOutcomeIssueInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  severity: code  _severity: ElementBaseInput
+  code: code  _code: ElementBaseInput
+  details: CodeableConceptInput
+  diagnostics: String  _diagnostics: ElementBaseInput
+  location: String  _location: [ElementBaseInput]
+  expression: String  _expression: [ElementBaseInput]
+}
+
+type OperationOutcomeReadType {
+  OperationOutcome(id: ID!): OperationOutcome
+}
+
+type OperationOutcomeListType {
+  OperationOutcomeList(_filter: String
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [OperationOutcome]
+}
+
+type OperationOutcomeConnectionType {
+  OperationOutcomeConection(_filter: String
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): OperationOutcomeConnection
+}
+
+type OperationOutcomeConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [OperationOutcomeEdge]
+}
+
+type OperationOutcomeEdge {
+  mode: String
+  score: Float
+  resource: OperationOutcome
+}
+
+type OperationOutcomeCreateType {
+  OperationOutcomeCreate(resource: OperationOutcomeInput): OperationOutcomeCreation
+}
+
+type OperationOutcomeCreation {
+  location: String
+  resource: OperationOutcome
+  information: OperationOutcome
+}
+
+type OperationOutcomeUpdateType {
+  OperationOutcomeUpdate(id: ID, resource: OperationOutcomeInput): OperationOutcomeUpdate
+}
+
+type OperationOutcomeUpdate {
+  resource: OperationOutcome
+  information: OperationOutcome
+}
+
+type OperationOutcomeDeleteType {
+  OperationOutcomeDelete(id: ID): OperationOutcomeDelete
+}
+
+type OperationOutcomeDelete {
+  information: OperationOutcome
+}
+

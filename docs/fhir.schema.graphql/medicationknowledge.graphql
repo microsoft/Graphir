@@ -1,0 +1,476 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type MedicationKnowledge {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  code: CodeableConcept
+  status: code  _status: ElementBase
+  author: Reference
+  intendedJurisdiction: [CodeableConcept]
+  name: String  _name: [ElementBase]
+  relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]
+  associatedMedication: [Reference]
+  productType: [CodeableConcept]
+  monograph: [MedicationKnowledgeMonograph]
+  preparationInstruction: markdown  _preparationInstruction: ElementBase
+  cost: [MedicationKnowledgeCost]
+  monitoringProgram: [MedicationKnowledgeMonitoringProgram]
+  indicationGuideline: [MedicationKnowledgeIndicationGuideline]
+  medicineClassification: [MedicationKnowledgeMedicineClassification]
+  packaging: [MedicationKnowledgePackaging]
+  clinicalUseIssue: [Reference]
+  regulatory: [MedicationKnowledgeRegulatory]
+  definitional: MedicationKnowledgeDefinitional
+}
+
+type MedicationKnowledgeRelatedMedicationKnowledge {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  reference: [Reference]!
+}
+
+type MedicationKnowledgeMonograph {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  source: Reference
+}
+
+type MedicationKnowledgeCost {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  effectiveDate: [Period]
+  type: CodeableConcept!
+  source: String  _source: ElementBase
+  costMoney: Money
+  costCodeableConcept: CodeableConcept
+}
+
+type MedicationKnowledgeMonitoringProgram {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  name: String  _name: ElementBase
+}
+
+type MedicationKnowledgeIndicationGuideline {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  indication: [CodeableReference]
+  dosingGuideline: [MedicationKnowledgeIndicationGuidelineDosingGuideline]
+}
+
+type MedicationKnowledgeIndicationGuidelineDosingGuideline {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  treatmentIntent: CodeableConcept
+  dosage: [MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage]
+  administrationTreatment: CodeableConcept
+  patientCharacteristic: [MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic]
+}
+
+type MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  dosage: [Dosage]!
+}
+
+type MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueRange: Range
+}
+
+type MedicationKnowledgeMedicineClassification {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  sourceString: String  _sourceString: ElementBase
+  sourceUri: uri  _sourceUri: ElementBase
+  classification: [CodeableConcept]
+}
+
+type MedicationKnowledgePackaging {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  cost: [MedicationKnowledgeCost]
+  packagedProduct: Reference
+}
+
+type MedicationKnowledgeRegulatory {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  regulatoryAuthority: Reference!
+  substitution: [MedicationKnowledgeRegulatorySubstitution]
+  schedule: [CodeableConcept]
+  maxDispense: MedicationKnowledgeRegulatoryMaxDispense
+}
+
+type MedicationKnowledgeRegulatorySubstitution {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  allowed: Boolean  _allowed: ElementBase
+}
+
+type MedicationKnowledgeRegulatoryMaxDispense {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  quantity: Quantity!
+  period: Duration
+}
+
+type MedicationKnowledgeDefinitional {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  definition: [Reference]
+  doseForm: CodeableConcept
+  intendedRoute: [CodeableConcept]
+  ingredient: [MedicationKnowledgeDefinitionalIngredient]
+  drugCharacteristic: [MedicationKnowledgeDefinitionalDrugCharacteristic]
+}
+
+type MedicationKnowledgeDefinitionalIngredient {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  item: CodeableReference!
+  type: CodeableConcept
+  strengthRatio: Ratio
+  strengthCodeableConcept: CodeableConcept
+  strengthQuantity: Quantity
+}
+
+type MedicationKnowledgeDefinitionalDrugCharacteristic {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  valueCodeableConcept: CodeableConcept
+  valueString: String  _valueString: ElementBase
+  valueQuantity: Quantity
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBase
+  valueAttachment: Attachment
+}
+
+input MedicationKnowledgeInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  code: CodeableConceptInput
+  status: code  _status: ElementBaseInput
+  author: ReferenceInput
+  intendedJurisdiction: [CodeableConceptInput]
+  name: String  _name: [ElementBaseInput]
+  relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledgeInput]
+  associatedMedication: [ReferenceInput]
+  productType: [CodeableConceptInput]
+  monograph: [MedicationKnowledgeMonographInput]
+  preparationInstruction: markdown  _preparationInstruction: ElementBaseInput
+  cost: [MedicationKnowledgeCostInput]
+  monitoringProgram: [MedicationKnowledgeMonitoringProgramInput]
+  indicationGuideline: [MedicationKnowledgeIndicationGuidelineInput]
+  medicineClassification: [MedicationKnowledgeMedicineClassificationInput]
+  packaging: [MedicationKnowledgePackagingInput]
+  clinicalUseIssue: [ReferenceInput]
+  regulatory: [MedicationKnowledgeRegulatoryInput]
+  definitional: MedicationKnowledgeDefinitionalInput
+}
+
+input MedicationKnowledgeRelatedMedicationKnowledgeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  reference: [ReferenceInput]!
+}
+
+input MedicationKnowledgeMonographInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  source: ReferenceInput
+}
+
+input MedicationKnowledgeCostInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  effectiveDate: [PeriodInput]
+  type: CodeableConceptInput!
+  source: String  _source: ElementBaseInput
+  costMoney: MoneyInput
+  costCodeableConcept: CodeableConceptInput
+}
+
+input MedicationKnowledgeMonitoringProgramInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  name: String  _name: ElementBaseInput
+}
+
+input MedicationKnowledgeIndicationGuidelineInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  indication: [CodeableReferenceInput]
+  dosingGuideline: [MedicationKnowledgeIndicationGuidelineDosingGuidelineInput]
+}
+
+input MedicationKnowledgeIndicationGuidelineDosingGuidelineInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  treatmentIntent: CodeableConceptInput
+  dosage: [MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageInput]
+  administrationTreatment: CodeableConceptInput
+  patientCharacteristic: [MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicInput]
+}
+
+input MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  dosage: [DosageInput]!
+}
+
+input MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+}
+
+input MedicationKnowledgeMedicineClassificationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  sourceString: String  _sourceString: ElementBaseInput
+  sourceUri: uri  _sourceUri: ElementBaseInput
+  classification: [CodeableConceptInput]
+}
+
+input MedicationKnowledgePackagingInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  cost: [MedicationKnowledgeCost]
+  packagedProduct: ReferenceInput
+}
+
+input MedicationKnowledgeRegulatoryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  regulatoryAuthority: ReferenceInput!
+  substitution: [MedicationKnowledgeRegulatorySubstitutionInput]
+  schedule: [CodeableConceptInput]
+  maxDispense: MedicationKnowledgeRegulatoryMaxDispenseInput
+}
+
+input MedicationKnowledgeRegulatorySubstitutionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  allowed: Boolean  _allowed: ElementBaseInput
+}
+
+input MedicationKnowledgeRegulatoryMaxDispenseInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  quantity: QuantityInput!
+  period: DurationInput
+}
+
+input MedicationKnowledgeDefinitionalInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  definition: [ReferenceInput]
+  doseForm: CodeableConceptInput
+  intendedRoute: [CodeableConceptInput]
+  ingredient: [MedicationKnowledgeDefinitionalIngredientInput]
+  drugCharacteristic: [MedicationKnowledgeDefinitionalDrugCharacteristicInput]
+}
+
+input MedicationKnowledgeDefinitionalIngredientInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  item: CodeableReferenceInput!
+  type: CodeableConceptInput
+  strengthRatio: RatioInput
+  strengthCodeableConcept: CodeableConceptInput
+  strengthQuantity: QuantityInput
+}
+
+input MedicationKnowledgeDefinitionalDrugCharacteristicInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  valueCodeableConcept: CodeableConceptInput
+  valueString: String  _valueString: ElementBaseInput
+  valueQuantity: QuantityInput
+  valueBase64Binary: base64Binary  _valueBase64Binary: ElementBaseInput
+  valueAttachment: AttachmentInput
+}
+
+type MedicationKnowledgeReadType {
+  MedicationKnowledge(id: ID!): MedicationKnowledge
+}
+
+type MedicationKnowledgeListType {
+  MedicationKnowledgeList(_filter: String
+    classification: [token]
+    classification_type: [token]
+    code: [token]
+    doseform: [token]
+    identifier: [token]
+    ingredient: [reference]
+    ingredient_code: [token]
+    monitoring_program_name: [token]
+    monitoring_program_type: [token]
+    monograph: [reference]
+    monograph_type: [token]
+    packaging_cost: [quantity]
+    packaging_cost_concept: [token]
+    product_type: [token]
+    source_cost: [token]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [MedicationKnowledge]
+}
+
+type MedicationKnowledgeConnectionType {
+  MedicationKnowledgeConection(_filter: String
+    classification: [token]
+    classification_type: [token]
+    code: [token]
+    doseform: [token]
+    identifier: [token]
+    ingredient: [reference]
+    ingredient_code: [token]
+    monitoring_program_name: [token]
+    monitoring_program_type: [token]
+    monograph: [reference]
+    monograph_type: [token]
+    packaging_cost: [quantity]
+    packaging_cost_concept: [token]
+    product_type: [token]
+    source_cost: [token]
+    status: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): MedicationKnowledgeConnection
+}
+
+type MedicationKnowledgeConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [MedicationKnowledgeEdge]
+}
+
+type MedicationKnowledgeEdge {
+  mode: String
+  score: Float
+  resource: MedicationKnowledge
+}
+
+type MedicationKnowledgeCreateType {
+  MedicationKnowledgeCreate(resource: MedicationKnowledgeInput): MedicationKnowledgeCreation
+}
+
+type MedicationKnowledgeCreation {
+  location: String
+  resource: MedicationKnowledge
+  information: OperationOutcome
+}
+
+type MedicationKnowledgeUpdateType {
+  MedicationKnowledgeUpdate(id: ID, resource: MedicationKnowledgeInput): MedicationKnowledgeUpdate
+}
+
+type MedicationKnowledgeUpdate {
+  resource: MedicationKnowledge
+  information: OperationOutcome
+}
+
+type MedicationKnowledgeDeleteType {
+  MedicationKnowledgeDelete(id: ID): MedicationKnowledgeDelete
+}
+
+type MedicationKnowledgeDelete {
+  information: OperationOutcome
+}
+

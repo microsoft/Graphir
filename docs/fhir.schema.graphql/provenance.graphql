@@ -1,0 +1,198 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Provenance {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  target: [Reference]!
+  occurredPeriod: Period
+  occurredDateTime: dateTime  _occurredDateTime: ElementBase
+  recorded: instant  _recorded: ElementBase
+  policy: uri  _policy: [ElementBase]
+  location: Reference
+  authorization: [CodeableReference]
+  activity: CodeableConcept
+  basedOn: [Reference]
+  encounter: Reference
+  agent: [ProvenanceAgent]!
+  entity: [ProvenanceEntity]
+  signature: [Signature]
+}
+
+type ProvenanceAgent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  role: [CodeableConcept]
+  who: Reference!
+  onBehalfOf: Reference
+}
+
+type ProvenanceEntity {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  role: code  _role: ElementBase
+  what: Reference!
+  agent: [ProvenanceAgent]
+}
+
+input ProvenanceInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  target: [ReferenceInput]!
+  occurredPeriod: PeriodInput
+  occurredDateTime: dateTime  _occurredDateTime: ElementBaseInput
+  recorded: instant  _recorded: ElementBaseInput
+  policy: uri  _policy: [ElementBaseInput]
+  location: ReferenceInput
+  authorization: [CodeableReferenceInput]
+  activity: CodeableConceptInput
+  basedOn: [ReferenceInput]
+  encounter: ReferenceInput
+  agent: [ProvenanceAgentInput]!
+  entity: [ProvenanceEntityInput]
+  signature: [SignatureInput]
+}
+
+input ProvenanceAgentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  role: [CodeableConceptInput]
+  who: ReferenceInput!
+  onBehalfOf: ReferenceInput
+}
+
+input ProvenanceEntityInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  role: code  _role: ElementBaseInput
+  what: ReferenceInput!
+  agent: [ProvenanceAgent]
+}
+
+type ProvenanceReadType {
+  Provenance(id: ID!): Provenance
+}
+
+type ProvenanceListType {
+  ProvenanceList(_filter: String
+    activity: [token]
+    agent: [reference]
+    agent_role: [token]
+    agent_type: [token]
+    based_on: [reference]
+    encounter: [reference]
+    entity: [reference]
+    location: [reference]
+    patient: [reference]
+    recorded: [date]
+    signature_type: [token]
+    target: [reference]
+    when: [date]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Provenance]
+}
+
+type ProvenanceConnectionType {
+  ProvenanceConection(_filter: String
+    activity: [token]
+    agent: [reference]
+    agent_role: [token]
+    agent_type: [token]
+    based_on: [reference]
+    encounter: [reference]
+    entity: [reference]
+    location: [reference]
+    patient: [reference]
+    recorded: [date]
+    signature_type: [token]
+    target: [reference]
+    when: [date]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ProvenanceConnection
+}
+
+type ProvenanceConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ProvenanceEdge]
+}
+
+type ProvenanceEdge {
+  mode: String
+  score: Float
+  resource: Provenance
+}
+
+type ProvenanceCreateType {
+  ProvenanceCreate(resource: ProvenanceInput): ProvenanceCreation
+}
+
+type ProvenanceCreation {
+  location: String
+  resource: Provenance
+  information: OperationOutcome
+}
+
+type ProvenanceUpdateType {
+  ProvenanceUpdate(id: ID, resource: ProvenanceInput): ProvenanceUpdate
+}
+
+type ProvenanceUpdate {
+  resource: Provenance
+  information: OperationOutcome
+}
+
+type ProvenanceDeleteType {
+  ProvenanceDelete(id: ID): ProvenanceDelete
+}
+
+type ProvenanceDelete {
+  information: OperationOutcome
+}
+

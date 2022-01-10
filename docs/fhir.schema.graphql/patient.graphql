@@ -1,0 +1,248 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Patient {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  name: [HumanName]
+  telecom: [ContactPoint]
+  gender: code  _gender: ElementBase
+  birthDate: date  _birthDate: ElementBase
+  deceasedBoolean: Boolean  _deceasedBoolean: ElementBase
+  deceasedDateTime: dateTime  _deceasedDateTime: ElementBase
+  address: [Address]
+  maritalStatus: CodeableConcept
+  multipleBirthBoolean: Boolean  _multipleBirthBoolean: ElementBase
+  multipleBirthInteger: Int  _multipleBirthInteger: ElementBase
+  photo: [Attachment]
+  contact: [PatientContact]
+  communication: [PatientCommunication]
+  generalPractitioner: [Reference]
+  managingOrganization: Reference
+  link: [PatientLink]
+}
+
+type PatientContact {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  relationship: [CodeableConcept]
+  name: HumanName
+  telecom: [ContactPoint]
+  address: Address
+  gender: code  _gender: ElementBase
+  organization: Reference
+  period: Period
+}
+
+type PatientCommunication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  language: CodeableConcept!
+  preferred: Boolean  _preferred: ElementBase
+}
+
+type PatientLink {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  other: Reference!
+  type: code  _type: ElementBase
+}
+
+input PatientInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  name: [HumanNameInput]
+  telecom: [ContactPointInput]
+  gender: code  _gender: ElementBaseInput
+  birthDate: date  _birthDate: ElementBaseInput
+  deceasedBoolean: Boolean  _deceasedBoolean: ElementBaseInput
+  deceasedDateTime: dateTime  _deceasedDateTime: ElementBaseInput
+  address: [AddressInput]
+  maritalStatus: CodeableConceptInput
+  multipleBirthBoolean: Boolean  _multipleBirthBoolean: ElementBaseInput
+  multipleBirthInteger: Int  _multipleBirthInteger: ElementBaseInput
+  photo: [AttachmentInput]
+  contact: [PatientContactInput]
+  communication: [PatientCommunicationInput]
+  generalPractitioner: [ReferenceInput]
+  managingOrganization: ReferenceInput
+  link: [PatientLinkInput]
+}
+
+input PatientContactInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  relationship: [CodeableConceptInput]
+  name: HumanNameInput
+  telecom: [ContactPointInput]
+  address: AddressInput
+  gender: code  _gender: ElementBaseInput
+  organization: ReferenceInput
+  period: PeriodInput
+}
+
+input PatientCommunicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  language: CodeableConceptInput!
+  preferred: Boolean  _preferred: ElementBaseInput
+}
+
+input PatientLinkInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  other: ReferenceInput!
+  type: code  _type: ElementBaseInput
+}
+
+type PatientReadType {
+  Patient(id: ID!): Patient
+}
+
+type PatientListType {
+  PatientList(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    birthdate: [date]
+    death_date: [date]
+    deceased: [token]
+    email: [token]
+    family: [String]
+    gender: [token]
+    general_practitioner: [reference]
+    given: [String]
+    identifier: [token]
+    language: [token]
+    link: [reference]
+    name: [String]
+    organization: [reference]
+    phone: [token]
+    phonetic: [String]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Patient]
+}
+
+type PatientConnectionType {
+  PatientConection(_filter: String
+    active: [token]
+    address: [String]
+    address_city: [String]
+    address_country: [String]
+    address_postalcode: [String]
+    address_state: [String]
+    address_use: [token]
+    birthdate: [date]
+    death_date: [date]
+    deceased: [token]
+    email: [token]
+    family: [String]
+    gender: [token]
+    general_practitioner: [reference]
+    given: [String]
+    identifier: [token]
+    language: [token]
+    link: [reference]
+    name: [String]
+    organization: [reference]
+    phone: [token]
+    phonetic: [String]
+    telecom: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): PatientConnection
+}
+
+type PatientConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [PatientEdge]
+}
+
+type PatientEdge {
+  mode: String
+  score: Float
+  resource: Patient
+}
+
+type PatientCreateType {
+  PatientCreate(resource: PatientInput): PatientCreation
+}
+
+type PatientCreation {
+  location: String
+  resource: Patient
+  information: OperationOutcome
+}
+
+type PatientUpdateType {
+  PatientUpdate(id: ID, resource: PatientInput): PatientUpdate
+}
+
+type PatientUpdate {
+  resource: Patient
+  information: OperationOutcome
+}
+
+type PatientDeleteType {
+  PatientDelete(id: ID): PatientDelete
+}
+
+type PatientDelete {
+  information: OperationOutcome
+}
+

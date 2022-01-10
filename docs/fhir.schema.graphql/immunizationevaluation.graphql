@@ -1,0 +1,148 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ImmunizationEvaluation {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  patient: Reference!
+  date: dateTime  _date: ElementBase
+  authority: Reference
+  targetDisease: CodeableConcept!
+  immunizationEvent: Reference!
+  doseStatus: CodeableConcept!
+  doseStatusReason: [CodeableConcept]
+  description: String  _description: ElementBase
+  series: String  _series: ElementBase
+  doseNumber: String  _doseNumber: ElementBase
+  seriesDoses: String  _seriesDoses: ElementBase
+}
+
+input ImmunizationEvaluationInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  patient: ReferenceInput!
+  date: dateTime  _date: ElementBaseInput
+  authority: ReferenceInput
+  targetDisease: CodeableConceptInput!
+  immunizationEvent: ReferenceInput!
+  doseStatus: CodeableConceptInput!
+  doseStatusReason: [CodeableConceptInput]
+  description: String  _description: ElementBaseInput
+  series: String  _series: ElementBaseInput
+  doseNumber: String  _doseNumber: ElementBaseInput
+  seriesDoses: String  _seriesDoses: ElementBaseInput
+}
+
+type ImmunizationEvaluationReadType {
+  ImmunizationEvaluation(id: ID!): ImmunizationEvaluation
+}
+
+type ImmunizationEvaluationListType {
+  ImmunizationEvaluationList(_filter: String
+    date: [date]
+    dose_status: [token]
+    identifier: [token]
+    immunization_event: [reference]
+    patient: [reference]
+    status: [token]
+    target_disease: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ImmunizationEvaluation]
+}
+
+type ImmunizationEvaluationConnectionType {
+  ImmunizationEvaluationConection(_filter: String
+    date: [date]
+    dose_status: [token]
+    identifier: [token]
+    immunization_event: [reference]
+    patient: [reference]
+    status: [token]
+    target_disease: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ImmunizationEvaluationConnection
+}
+
+type ImmunizationEvaluationConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ImmunizationEvaluationEdge]
+}
+
+type ImmunizationEvaluationEdge {
+  mode: String
+  score: Float
+  resource: ImmunizationEvaluation
+}
+
+type ImmunizationEvaluationCreateType {
+  ImmunizationEvaluationCreate(resource: ImmunizationEvaluationInput): ImmunizationEvaluationCreation
+}
+
+type ImmunizationEvaluationCreation {
+  location: String
+  resource: ImmunizationEvaluation
+  information: OperationOutcome
+}
+
+type ImmunizationEvaluationUpdateType {
+  ImmunizationEvaluationUpdate(id: ID, resource: ImmunizationEvaluationInput): ImmunizationEvaluationUpdate
+}
+
+type ImmunizationEvaluationUpdate {
+  resource: ImmunizationEvaluation
+  information: OperationOutcome
+}
+
+type ImmunizationEvaluationDeleteType {
+  ImmunizationEvaluationDelete(id: ID): ImmunizationEvaluationDelete
+}
+
+type ImmunizationEvaluationDelete {
+  information: OperationOutcome
+}
+

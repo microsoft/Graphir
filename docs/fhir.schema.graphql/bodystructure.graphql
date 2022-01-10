@@ -1,0 +1,170 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type BodyStructure {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  active: Boolean  _active: ElementBase
+  morphology: CodeableConcept
+  location: CodeableConcept
+  includedStructure: [BodyStructureIncludedStructure]!
+  excludedStructure: [BodyStructureExcludedStructure]
+  description: String  _description: ElementBase
+  image: [Attachment]
+  patient: Reference!
+}
+
+type BodyStructureIncludedStructure {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  structure: CodeableConcept!
+  laterality: CodeableConcept
+  qualifier: [CodeableConcept]
+}
+
+type BodyStructureExcludedStructure {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  structure: CodeableConcept!
+  laterality: CodeableConcept
+  qualifier: [CodeableConcept]
+}
+
+input BodyStructureInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  active: Boolean  _active: ElementBaseInput
+  morphology: CodeableConceptInput
+  location: CodeableConceptInput
+  includedStructure: [BodyStructureIncludedStructureInput]!
+  excludedStructure: [BodyStructureExcludedStructureInput]
+  description: String  _description: ElementBaseInput
+  image: [AttachmentInput]
+  patient: ReferenceInput!
+}
+
+input BodyStructureIncludedStructureInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  structure: CodeableConceptInput!
+  laterality: CodeableConceptInput
+  qualifier: [CodeableConceptInput]
+}
+
+input BodyStructureExcludedStructureInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  structure: CodeableConceptInput!
+  laterality: CodeableConceptInput
+  qualifier: [CodeableConceptInput]
+}
+
+type BodyStructureReadType {
+  BodyStructure(id: ID!): BodyStructure
+}
+
+type BodyStructureListType {
+  BodyStructureList(_filter: String
+    identifier: [token]
+    location: [token]
+    morphology: [token]
+    patient: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [BodyStructure]
+}
+
+type BodyStructureConnectionType {
+  BodyStructureConection(_filter: String
+    identifier: [token]
+    location: [token]
+    morphology: [token]
+    patient: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): BodyStructureConnection
+}
+
+type BodyStructureConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [BodyStructureEdge]
+}
+
+type BodyStructureEdge {
+  mode: String
+  score: Float
+  resource: BodyStructure
+}
+
+type BodyStructureCreateType {
+  BodyStructureCreate(resource: BodyStructureInput): BodyStructureCreation
+}
+
+type BodyStructureCreation {
+  location: String
+  resource: BodyStructure
+  information: OperationOutcome
+}
+
+type BodyStructureUpdateType {
+  BodyStructureUpdate(id: ID, resource: BodyStructureInput): BodyStructureUpdate
+}
+
+type BodyStructureUpdate {
+  resource: BodyStructure
+  information: OperationOutcome
+}
+
+type BodyStructureDeleteType {
+  BodyStructureDelete(id: ID): BodyStructureDelete
+}
+
+type BodyStructureDelete {
+  information: OperationOutcome
+}
+

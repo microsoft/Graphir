@@ -1,0 +1,342 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Device {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  displayName: String  _displayName: ElementBase
+  definition: CodeableReference
+  udiCarrier: [DeviceUdiCarrier]
+  status: code  _status: ElementBase
+  statusReason: [CodeableConcept]
+  biologicalSource: Identifier
+  manufacturer: String  _manufacturer: ElementBase
+  manufactureDate: dateTime  _manufactureDate: ElementBase
+  expirationDate: dateTime  _expirationDate: ElementBase
+  lotNumber: String  _lotNumber: ElementBase
+  serialNumber: String  _serialNumber: ElementBase
+  deviceName: [DeviceDeviceName]
+  modelNumber: String  _modelNumber: ElementBase
+  partNumber: String  _partNumber: ElementBase
+  type: [CodeableConcept]
+  version: [DeviceVersion]
+  property: [DeviceProperty]
+  subject: Reference
+  operationalStatus: DeviceOperationalStatus
+  associationStatus: DeviceAssociationStatus
+  owner: Reference
+  contact: [ContactPoint]
+  location: Reference
+  url: uri  _url: ElementBase
+  endpoint: [Reference]
+  link: [DeviceLink]
+  note: [Annotation]
+  safety: [CodeableConcept]
+  parent: Reference
+}
+
+type DeviceUdiCarrier {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  deviceIdentifier: String  _deviceIdentifier: ElementBase
+  issuer: uri  _issuer: ElementBase
+  jurisdiction: uri  _jurisdiction: ElementBase
+  carrierAIDC: base64Binary  _carrierAIDC: ElementBase
+  carrierHRF: String  _carrierHRF: ElementBase
+  entryType: code  _entryType: ElementBase
+}
+
+type DeviceDeviceName {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  type: code  _type: ElementBase
+}
+
+type DeviceVersion {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  component: Identifier
+  value: String  _value: ElementBase
+}
+
+type DeviceProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueQuantity: Quantity
+  valueCodeableConcept: CodeableConcept
+  valueString: String  _valueString: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueRange: Range
+  valueAttachment: Attachment
+}
+
+type DeviceOperationalStatus {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  value: CodeableConcept!
+  reason: [CodeableConcept]
+}
+
+type DeviceAssociationStatus {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  value: CodeableConcept!
+  reason: [CodeableConcept]
+}
+
+type DeviceLink {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  relation: Coding!
+  relatedDevice: CodeableReference!
+}
+
+input DeviceInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  displayName: String  _displayName: ElementBaseInput
+  definition: CodeableReferenceInput
+  udiCarrier: [DeviceUdiCarrierInput]
+  status: code  _status: ElementBaseInput
+  statusReason: [CodeableConceptInput]
+  biologicalSource: IdentifierInput
+  manufacturer: String  _manufacturer: ElementBaseInput
+  manufactureDate: dateTime  _manufactureDate: ElementBaseInput
+  expirationDate: dateTime  _expirationDate: ElementBaseInput
+  lotNumber: String  _lotNumber: ElementBaseInput
+  serialNumber: String  _serialNumber: ElementBaseInput
+  deviceName: [DeviceDeviceNameInput]
+  modelNumber: String  _modelNumber: ElementBaseInput
+  partNumber: String  _partNumber: ElementBaseInput
+  type: [CodeableConceptInput]
+  version: [DeviceVersionInput]
+  property: [DevicePropertyInput]
+  subject: ReferenceInput
+  operationalStatus: DeviceOperationalStatusInput
+  associationStatus: DeviceAssociationStatusInput
+  owner: ReferenceInput
+  contact: [ContactPointInput]
+  location: ReferenceInput
+  url: uri  _url: ElementBaseInput
+  endpoint: [ReferenceInput]
+  link: [DeviceLinkInput]
+  note: [AnnotationInput]
+  safety: [CodeableConceptInput]
+  parent: ReferenceInput
+}
+
+input DeviceUdiCarrierInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  deviceIdentifier: String  _deviceIdentifier: ElementBaseInput
+  issuer: uri  _issuer: ElementBaseInput
+  jurisdiction: uri  _jurisdiction: ElementBaseInput
+  carrierAIDC: base64Binary  _carrierAIDC: ElementBaseInput
+  carrierHRF: String  _carrierHRF: ElementBaseInput
+  entryType: code  _entryType: ElementBaseInput
+}
+
+input DeviceDeviceNameInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  type: code  _type: ElementBaseInput
+}
+
+input DeviceVersionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  component: IdentifierInput
+  value: String  _value: ElementBaseInput
+}
+
+input DevicePropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueQuantity: QuantityInput
+  valueCodeableConcept: CodeableConceptInput
+  valueString: String  _valueString: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueRange: RangeInput
+  valueAttachment: AttachmentInput
+}
+
+input DeviceOperationalStatusInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  value: CodeableConceptInput!
+  reason: [CodeableConceptInput]
+}
+
+input DeviceAssociationStatusInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  value: CodeableConceptInput!
+  reason: [CodeableConceptInput]
+}
+
+input DeviceLinkInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  relation: CodingInput!
+  relatedDevice: CodeableReferenceInput!
+}
+
+type DeviceReadType {
+  Device(id: ID!): Device
+}
+
+type DeviceListType {
+  DeviceList(_filter: String
+    definition: [reference]
+    device_name: [String]
+    expiration_date: [date]
+    identifier: [token]
+    location: [reference]
+    lot_number: [String]
+    manufacture_date: [date]
+    manufacturer: [String]
+    model: [String]
+    organization: [reference]
+    parent: [reference]
+    patient: [reference]
+    serial_number: [String]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    udi_carrier: [String]
+    udi_di: [String]
+    url: [uri]
+    version: [String]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Device]
+}
+
+type DeviceConnectionType {
+  DeviceConection(_filter: String
+    definition: [reference]
+    device_name: [String]
+    expiration_date: [date]
+    identifier: [token]
+    location: [reference]
+    lot_number: [String]
+    manufacture_date: [date]
+    manufacturer: [String]
+    model: [String]
+    organization: [reference]
+    parent: [reference]
+    patient: [reference]
+    serial_number: [String]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    udi_carrier: [String]
+    udi_di: [String]
+    url: [uri]
+    version: [String]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DeviceConnection
+}
+
+type DeviceConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DeviceEdge]
+}
+
+type DeviceEdge {
+  mode: String
+  score: Float
+  resource: Device
+}
+
+type DeviceCreateType {
+  DeviceCreate(resource: DeviceInput): DeviceCreation
+}
+
+type DeviceCreation {
+  location: String
+  resource: Device
+  information: OperationOutcome
+}
+
+type DeviceUpdateType {
+  DeviceUpdate(id: ID, resource: DeviceInput): DeviceUpdate
+}
+
+type DeviceUpdate {
+  resource: Device
+  information: OperationOutcome
+}
+
+type DeviceDeleteType {
+  DeviceDelete(id: ID): DeviceDelete
+}
+
+type DeviceDelete {
+  information: OperationOutcome
+}
+

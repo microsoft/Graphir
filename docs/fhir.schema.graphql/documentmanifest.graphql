@@ -1,0 +1,174 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DocumentManifest {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  masterIdentifier: Identifier
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  type: CodeableConcept
+  subject: Reference
+  created: dateTime  _created: ElementBase
+  author: [Reference]
+  recipient: [Reference]
+  source: uri  _source: ElementBase
+  description: String  _description: ElementBase
+  content: [Reference]!
+  related: [DocumentManifestRelated]
+}
+
+type DocumentManifestRelated {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: Identifier
+  ref: Reference
+}
+
+input DocumentManifestInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  masterIdentifier: IdentifierInput
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  type: CodeableConceptInput
+  subject: ReferenceInput
+  created: dateTime  _created: ElementBaseInput
+  author: [ReferenceInput]
+  recipient: [ReferenceInput]
+  source: uri  _source: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  content: [ReferenceInput]!
+  related: [DocumentManifestRelatedInput]
+}
+
+input DocumentManifestRelatedInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: IdentifierInput
+  ref: ReferenceInput
+}
+
+type DocumentManifestReadType {
+  DocumentManifest(id: ID!): DocumentManifest
+}
+
+type DocumentManifestListType {
+  DocumentManifestList(_filter: String
+    author: [reference]
+    created: [date]
+    description: [String]
+    identifier: [token]
+    item: [reference]
+    patient: [reference]
+    recipient: [reference]
+    related_id: [token]
+    related_ref: [reference]
+    source: [uri]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DocumentManifest]
+}
+
+type DocumentManifestConnectionType {
+  DocumentManifestConection(_filter: String
+    author: [reference]
+    created: [date]
+    description: [String]
+    identifier: [token]
+    item: [reference]
+    patient: [reference]
+    recipient: [reference]
+    related_id: [token]
+    related_ref: [reference]
+    source: [uri]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DocumentManifestConnection
+}
+
+type DocumentManifestConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DocumentManifestEdge]
+}
+
+type DocumentManifestEdge {
+  mode: String
+  score: Float
+  resource: DocumentManifest
+}
+
+type DocumentManifestCreateType {
+  DocumentManifestCreate(resource: DocumentManifestInput): DocumentManifestCreation
+}
+
+type DocumentManifestCreation {
+  location: String
+  resource: DocumentManifest
+  information: OperationOutcome
+}
+
+type DocumentManifestUpdateType {
+  DocumentManifestUpdate(id: ID, resource: DocumentManifestInput): DocumentManifestUpdate
+}
+
+type DocumentManifestUpdate {
+  resource: DocumentManifest
+  information: OperationOutcome
+}
+
+type DocumentManifestDeleteType {
+  DocumentManifestDelete(id: ID): DocumentManifestDelete
+}
+
+type DocumentManifestDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,224 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Bundle {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  identifier: Identifier
+  type: code  _type: ElementBase
+  timestamp: instant  _timestamp: ElementBase
+  total: unsignedInt  _total: ElementBase
+  link: [BundleLink]
+  entry: [BundleEntry]
+  signature: Signature
+}
+
+type BundleLink {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  relation: String  _relation: ElementBase
+  url: uri  _url: ElementBase
+}
+
+type BundleEntry {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  link: [BundleLink]
+  fullUrl: uri  _fullUrl: ElementBase
+  resource: Resource
+  search: BundleEntrySearch
+  request: BundleEntryRequest
+  response: BundleEntryResponse
+}
+
+type BundleEntrySearch {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  mode: code  _mode: ElementBase
+  score: decimal  _score: ElementBase
+}
+
+type BundleEntryRequest {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  method: code  _method: ElementBase
+  url: uri  _url: ElementBase
+  ifNoneMatch: String  _ifNoneMatch: ElementBase
+  ifModifiedSince: instant  _ifModifiedSince: ElementBase
+  ifMatch: String  _ifMatch: ElementBase
+  ifNoneExist: String  _ifNoneExist: ElementBase
+}
+
+type BundleEntryResponse {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  status: String  _status: ElementBase
+  location: uri  _location: ElementBase
+  etag: String  _etag: ElementBase
+  lastModified: instant  _lastModified: ElementBase
+  outcome: Resource
+}
+
+input BundleInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  identifier: IdentifierInput
+  type: code  _type: ElementBaseInput
+  timestamp: instant  _timestamp: ElementBaseInput
+  total: unsignedInt  _total: ElementBaseInput
+  link: [BundleLinkInput]
+  entry: [BundleEntryInput]
+  signature: SignatureInput
+}
+
+input BundleLinkInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  relation: String  _relation: ElementBaseInput
+  url: uri  _url: ElementBaseInput
+}
+
+input BundleEntryInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  link: [BundleLink]
+  fullUrl: uri  _fullUrl: ElementBaseInput
+  resource: ResourceInput
+  search: BundleEntrySearchInput
+  request: BundleEntryRequestInput
+  response: BundleEntryResponseInput
+}
+
+input BundleEntrySearchInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  mode: code  _mode: ElementBaseInput
+  score: decimal  _score: ElementBaseInput
+}
+
+input BundleEntryRequestInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  method: code  _method: ElementBaseInput
+  url: uri  _url: ElementBaseInput
+  ifNoneMatch: String  _ifNoneMatch: ElementBaseInput
+  ifModifiedSince: instant  _ifModifiedSince: ElementBaseInput
+  ifMatch: String  _ifMatch: ElementBaseInput
+  ifNoneExist: String  _ifNoneExist: ElementBaseInput
+}
+
+input BundleEntryResponseInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  status: String  _status: ElementBaseInput
+  location: uri  _location: ElementBaseInput
+  etag: String  _etag: ElementBaseInput
+  lastModified: instant  _lastModified: ElementBaseInput
+  outcome: ResourceInput
+}
+
+type BundleReadType {
+  Bundle(id: ID!): Bundle
+}
+
+type BundleListType {
+  BundleList(_filter: String
+    composition: [reference]
+    identifier: [token]
+    message: [reference]
+    timestamp: [date]
+    type: [token]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Bundle]
+}
+
+type BundleConnectionType {
+  BundleConection(_filter: String
+    composition: [reference]
+    identifier: [token]
+    message: [reference]
+    timestamp: [date]
+    type: [token]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): BundleConnection
+}
+
+type BundleConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [BundleEdge]
+}
+
+type BundleEdge {
+  mode: String
+  score: Float
+  resource: Bundle
+}
+
+type BundleCreateType {
+  BundleCreate(resource: BundleInput): BundleCreation
+}
+
+type BundleCreation {
+  location: String
+  resource: Bundle
+  information: OperationOutcome
+}
+
+type BundleUpdateType {
+  BundleUpdate(id: ID, resource: BundleInput): BundleUpdate
+}
+
+type BundleUpdate {
+  resource: Bundle
+  information: OperationOutcome
+}
+
+type BundleDeleteType {
+  BundleDelete(id: ID): BundleDelete
+}
+
+type BundleDelete {
+  information: OperationOutcome
+}
+

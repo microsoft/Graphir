@@ -1,0 +1,336 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ActivityDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  subtitle: String  _subtitle: ElementBase
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  subjectCodeableConcept: CodeableConcept
+  subjectReference: Reference
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  usage: String  _usage: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: date  _approvalDate: ElementBase
+  lastReviewDate: date  _lastReviewDate: ElementBase
+  effectivePeriod: Period
+  topic: [CodeableConcept]
+  author: [ContactDetail]
+  editor: [ContactDetail]
+  reviewer: [ContactDetail]
+  endorser: [ContactDetail]
+  relatedArtifact: [RelatedArtifact]
+  library: canonical  _library: [ElementBase]
+  kind: code  _kind: ElementBase
+  profile: canonical  _profile: ElementBase
+  code: CodeableConcept
+  intent: code  _intent: ElementBase
+  priority: code  _priority: ElementBase
+  doNotPerform: Boolean  _doNotPerform: ElementBase
+  timingTiming: Timing
+  timingAge: Age
+  timingRange: Range
+  timingDuration: Duration
+  location: CodeableReference
+  participant: [ActivityDefinitionParticipant]
+  productReference: Reference
+  productCodeableConcept: CodeableConcept
+  quantity: Quantity
+  dosage: [Dosage]
+  bodySite: [CodeableConcept]
+  specimenRequirement: [Reference]
+  observationRequirement: [Reference]
+  observationResultRequirement: [Reference]
+  transform: canonical  _transform: ElementBase
+  dynamicValue: [ActivityDefinitionDynamicValue]
+}
+
+type ActivityDefinitionParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  typeReference: Reference
+  role: CodeableConcept
+  function: CodeableConcept
+}
+
+type ActivityDefinitionDynamicValue {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  path: String  _path: ElementBase
+  expression: Expression!
+}
+
+input ActivityDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  subtitle: String  _subtitle: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  subjectCodeableConcept: CodeableConceptInput
+  subjectReference: ReferenceInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  usage: String  _usage: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: date  _approvalDate: ElementBaseInput
+  lastReviewDate: date  _lastReviewDate: ElementBaseInput
+  effectivePeriod: PeriodInput
+  topic: [CodeableConceptInput]
+  author: [ContactDetailInput]
+  editor: [ContactDetailInput]
+  reviewer: [ContactDetailInput]
+  endorser: [ContactDetailInput]
+  relatedArtifact: [RelatedArtifactInput]
+  library: canonical  _library: [ElementBaseInput]
+  kind: code  _kind: ElementBaseInput
+  profile: canonical  _profile: ElementBaseInput
+  code: CodeableConceptInput
+  intent: code  _intent: ElementBaseInput
+  priority: code  _priority: ElementBaseInput
+  doNotPerform: Boolean  _doNotPerform: ElementBaseInput
+  timingTiming: TimingInput
+  timingAge: AgeInput
+  timingRange: RangeInput
+  timingDuration: DurationInput
+  location: CodeableReferenceInput
+  participant: [ActivityDefinitionParticipantInput]
+  productReference: ReferenceInput
+  productCodeableConcept: CodeableConceptInput
+  quantity: QuantityInput
+  dosage: [DosageInput]
+  bodySite: [CodeableConceptInput]
+  specimenRequirement: [ReferenceInput]
+  observationRequirement: [ReferenceInput]
+  observationResultRequirement: [ReferenceInput]
+  transform: canonical  _transform: ElementBaseInput
+  dynamicValue: [ActivityDefinitionDynamicValueInput]
+}
+
+input ActivityDefinitionParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  typeReference: ReferenceInput
+  role: CodeableConceptInput
+  function: CodeableConceptInput
+}
+
+input ActivityDefinitionDynamicValueInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  path: String  _path: ElementBaseInput
+  expression: ExpressionInput!
+}
+
+type ActivityDefinitionReadType {
+  ActivityDefinition(id: ID!): ActivityDefinition
+}
+
+type ActivityDefinitionListType {
+  ActivityDefinitionList(_filter: String
+    composed_of: [reference]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    depends_on: [reference]
+    derived_from: [reference]
+    description: [String]
+    effective: [date]
+    identifier: [token]
+    jurisdiction: [token]
+    kind: [token]
+    name: [String]
+    predecessor: [reference]
+    publisher: [String]
+    status: [token]
+    successor: [reference]
+    title: [String]
+    topic: [token]
+    url: [uri]
+    version: [token]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ActivityDefinition]
+}
+
+type ActivityDefinitionConnectionType {
+  ActivityDefinitionConection(_filter: String
+    composed_of: [reference]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    depends_on: [reference]
+    derived_from: [reference]
+    description: [String]
+    effective: [date]
+    identifier: [token]
+    jurisdiction: [token]
+    kind: [token]
+    name: [String]
+    predecessor: [reference]
+    publisher: [String]
+    status: [token]
+    successor: [reference]
+    title: [String]
+    topic: [token]
+    url: [uri]
+    version: [token]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ActivityDefinitionConnection
+}
+
+type ActivityDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ActivityDefinitionEdge]
+}
+
+type ActivityDefinitionEdge {
+  mode: String
+  score: Float
+  resource: ActivityDefinition
+}
+
+type ActivityDefinitionCreateType {
+  ActivityDefinitionCreate(resource: ActivityDefinitionInput): ActivityDefinitionCreation
+}
+
+type ActivityDefinitionCreation {
+  location: String
+  resource: ActivityDefinition
+  information: OperationOutcome
+}
+
+type ActivityDefinitionUpdateType {
+  ActivityDefinitionUpdate(id: ID, resource: ActivityDefinitionInput): ActivityDefinitionUpdate
+}
+
+type ActivityDefinitionUpdate {
+  resource: ActivityDefinition
+  information: OperationOutcome
+}
+
+type ActivityDefinitionDeleteType {
+  ActivityDefinitionDelete(id: ID): ActivityDefinitionDelete
+}
+
+type ActivityDefinitionDelete {
+  information: OperationOutcome
+}
+

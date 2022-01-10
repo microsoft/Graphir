@@ -1,0 +1,264 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type GraphDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  start: code  _start: ElementBase
+  profile: canonical  _profile: ElementBase
+  link: [GraphDefinitionLink]
+}
+
+type GraphDefinitionLink {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  path: String  _path: ElementBase
+  sliceName: String  _sliceName: ElementBase
+  min: Int  _min: ElementBase
+  max: String  _max: ElementBase
+  description: String  _description: ElementBase
+  target: [GraphDefinitionLinkTarget]
+}
+
+type GraphDefinitionLinkTarget {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  params: String  _params: ElementBase
+  profile: canonical  _profile: ElementBase
+  compartment: [GraphDefinitionLinkTargetCompartment]
+  link: [GraphDefinitionLink]
+}
+
+type GraphDefinitionLinkTargetCompartment {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  use: code  _use: ElementBase
+  code: code  _code: ElementBase
+  rule: code  _rule: ElementBase
+  expression: String  _expression: ElementBase
+  description: String  _description: ElementBase
+}
+
+input GraphDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  start: code  _start: ElementBaseInput
+  profile: canonical  _profile: ElementBaseInput
+  link: [GraphDefinitionLinkInput]
+}
+
+input GraphDefinitionLinkInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  path: String  _path: ElementBaseInput
+  sliceName: String  _sliceName: ElementBaseInput
+  min: Int  _min: ElementBaseInput
+  max: String  _max: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  target: [GraphDefinitionLinkTargetInput]
+}
+
+input GraphDefinitionLinkTargetInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  params: String  _params: ElementBaseInput
+  profile: canonical  _profile: ElementBaseInput
+  compartment: [GraphDefinitionLinkTargetCompartmentInput]
+  link: [GraphDefinitionLink]
+}
+
+input GraphDefinitionLinkTargetCompartmentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  use: code  _use: ElementBaseInput
+  code: code  _code: ElementBaseInput
+  rule: code  _rule: ElementBaseInput
+  expression: String  _expression: ElementBaseInput
+  description: String  _description: ElementBaseInput
+}
+
+type GraphDefinitionReadType {
+  GraphDefinition(id: ID!): GraphDefinition
+}
+
+type GraphDefinitionListType {
+  GraphDefinitionList(_filter: String
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    start: [token]
+    status: [token]
+    url: [uri]
+    version: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [GraphDefinition]
+}
+
+type GraphDefinitionConnectionType {
+  GraphDefinitionConection(_filter: String
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    start: [token]
+    status: [token]
+    url: [uri]
+    version: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): GraphDefinitionConnection
+}
+
+type GraphDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [GraphDefinitionEdge]
+}
+
+type GraphDefinitionEdge {
+  mode: String
+  score: Float
+  resource: GraphDefinition
+}
+
+type GraphDefinitionCreateType {
+  GraphDefinitionCreate(resource: GraphDefinitionInput): GraphDefinitionCreation
+}
+
+type GraphDefinitionCreation {
+  location: String
+  resource: GraphDefinition
+  information: OperationOutcome
+}
+
+type GraphDefinitionUpdateType {
+  GraphDefinitionUpdate(id: ID, resource: GraphDefinitionInput): GraphDefinitionUpdate
+}
+
+type GraphDefinitionUpdate {
+  resource: GraphDefinition
+  information: OperationOutcome
+}
+
+type GraphDefinitionDeleteType {
+  GraphDefinitionDelete(id: ID): GraphDefinitionDelete
+}
+
+type GraphDefinitionDelete {
+  information: OperationOutcome
+}
+

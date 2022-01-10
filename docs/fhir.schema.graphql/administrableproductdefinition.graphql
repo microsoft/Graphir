@@ -1,0 +1,230 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type AdministrableProductDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  formOf: [Reference]
+  administrableDoseForm: CodeableConcept
+  unitOfPresentation: CodeableConcept
+  producedFrom: [Reference]
+  ingredient: [CodeableConcept]
+  device: Reference
+  property: [AdministrableProductDefinitionProperty]
+  routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministration]!
+}
+
+type AdministrableProductDefinitionProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueDate: date  _valueDate: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueAttachment: Attachment
+  status: CodeableConcept
+}
+
+type AdministrableProductDefinitionRouteOfAdministration {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  firstDose: Quantity
+  maxSingleDose: Quantity
+  maxDosePerDay: Quantity
+  maxDosePerTreatmentPeriod: Ratio
+  maxTreatmentPeriod: Duration
+  targetSpecies: [AdministrableProductDefinitionRouteOfAdministrationTargetSpecies]
+}
+
+type AdministrableProductDefinitionRouteOfAdministrationTargetSpecies {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept!
+  withdrawalPeriod: [AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod]
+}
+
+type AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  tissue: CodeableConcept!
+  value: Quantity!
+  supportingInformation: String  _supportingInformation: ElementBase
+}
+
+input AdministrableProductDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  formOf: [ReferenceInput]
+  administrableDoseForm: CodeableConceptInput
+  unitOfPresentation: CodeableConceptInput
+  producedFrom: [ReferenceInput]
+  ingredient: [CodeableConceptInput]
+  device: ReferenceInput
+  property: [AdministrableProductDefinitionPropertyInput]
+  routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministrationInput]!
+}
+
+input AdministrableProductDefinitionPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueAttachment: AttachmentInput
+  status: CodeableConceptInput
+}
+
+input AdministrableProductDefinitionRouteOfAdministrationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  firstDose: QuantityInput
+  maxSingleDose: QuantityInput
+  maxDosePerDay: QuantityInput
+  maxDosePerTreatmentPeriod: RatioInput
+  maxTreatmentPeriod: DurationInput
+  targetSpecies: [AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesInput]
+}
+
+input AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput!
+  withdrawalPeriod: [AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodInput]
+}
+
+input AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  tissue: CodeableConceptInput!
+  value: QuantityInput!
+  supportingInformation: String  _supportingInformation: ElementBaseInput
+}
+
+type AdministrableProductDefinitionReadType {
+  AdministrableProductDefinition(id: ID!): AdministrableProductDefinition
+}
+
+type AdministrableProductDefinitionListType {
+  AdministrableProductDefinitionList(_filter: String
+    device: [reference]
+    dose_form: [token]
+    form_of: [reference]
+    identifier: [token]
+    ingredient: [token]
+    manufactured_item: [reference]
+    route: [token]
+    target_species: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [AdministrableProductDefinition]
+}
+
+type AdministrableProductDefinitionConnectionType {
+  AdministrableProductDefinitionConection(_filter: String
+    device: [reference]
+    dose_form: [token]
+    form_of: [reference]
+    identifier: [token]
+    ingredient: [token]
+    manufactured_item: [reference]
+    route: [token]
+    target_species: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): AdministrableProductDefinitionConnection
+}
+
+type AdministrableProductDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [AdministrableProductDefinitionEdge]
+}
+
+type AdministrableProductDefinitionEdge {
+  mode: String
+  score: Float
+  resource: AdministrableProductDefinition
+}
+
+type AdministrableProductDefinitionCreateType {
+  AdministrableProductDefinitionCreate(resource: AdministrableProductDefinitionInput): AdministrableProductDefinitionCreation
+}
+
+type AdministrableProductDefinitionCreation {
+  location: String
+  resource: AdministrableProductDefinition
+  information: OperationOutcome
+}
+
+type AdministrableProductDefinitionUpdateType {
+  AdministrableProductDefinitionUpdate(id: ID, resource: AdministrableProductDefinitionInput): AdministrableProductDefinitionUpdate
+}
+
+type AdministrableProductDefinitionUpdate {
+  resource: AdministrableProductDefinition
+  information: OperationOutcome
+}
+
+type AdministrableProductDefinitionDeleteType {
+  AdministrableProductDefinitionDelete(id: ID): AdministrableProductDefinitionDelete
+}
+
+type AdministrableProductDefinitionDelete {
+  information: OperationOutcome
+}
+

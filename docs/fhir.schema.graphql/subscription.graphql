@@ -1,0 +1,174 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Subscription {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  name: String  _name: ElementBase
+  status: code  _status: ElementBase
+  topic: canonical  _topic: ElementBase
+  contact: [ContactPoint]
+  end: instant  _end: ElementBase
+  reason: String  _reason: ElementBase
+  filterBy: [SubscriptionFilterBy]
+  channelType: Coding!
+  endpoint: url  _endpoint: ElementBase
+  header: String  _header: [ElementBase]
+  heartbeatPeriod: unsignedInt  _heartbeatPeriod: ElementBase
+  timeout: unsignedInt  _timeout: ElementBase
+  contentType: code  _contentType: ElementBase
+  content: code  _content: ElementBase
+  notificationUrlLocation: code  _notificationUrlLocation: ElementBase
+  maxCount: positiveInt  _maxCount: ElementBase
+}
+
+type SubscriptionFilterBy {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  resourceType: uri  _resourceType: ElementBase
+  searchParamName: String  _searchParamName: ElementBase
+  searchModifier: code  _searchModifier: ElementBase
+  value: String  _value: ElementBase
+}
+
+input SubscriptionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  name: String  _name: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  topic: canonical  _topic: ElementBaseInput
+  contact: [ContactPointInput]
+  end: instant  _end: ElementBaseInput
+  reason: String  _reason: ElementBaseInput
+  filterBy: [SubscriptionFilterByInput]
+  channelType: CodingInput!
+  endpoint: url  _endpoint: ElementBaseInput
+  header: String  _header: [ElementBaseInput]
+  heartbeatPeriod: unsignedInt  _heartbeatPeriod: ElementBaseInput
+  timeout: unsignedInt  _timeout: ElementBaseInput
+  contentType: code  _contentType: ElementBaseInput
+  content: code  _content: ElementBaseInput
+  notificationUrlLocation: code  _notificationUrlLocation: ElementBaseInput
+  maxCount: positiveInt  _maxCount: ElementBaseInput
+}
+
+input SubscriptionFilterByInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  resourceType: uri  _resourceType: ElementBaseInput
+  searchParamName: String  _searchParamName: ElementBaseInput
+  searchModifier: code  _searchModifier: ElementBaseInput
+  value: String  _value: ElementBaseInput
+}
+
+type SubscriptionReadType {
+  Subscription(id: ID!): Subscription
+}
+
+type SubscriptionListType {
+  SubscriptionList(_filter: String
+    contact: [token]
+    identifier: [token]
+    payload: [token]
+    status: [token]
+    type: [token]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Subscription]
+}
+
+type SubscriptionConnectionType {
+  SubscriptionConection(_filter: String
+    contact: [token]
+    identifier: [token]
+    payload: [token]
+    status: [token]
+    type: [token]
+    url: [uri]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): SubscriptionConnection
+}
+
+type SubscriptionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [SubscriptionEdge]
+}
+
+type SubscriptionEdge {
+  mode: String
+  score: Float
+  resource: Subscription
+}
+
+type SubscriptionCreateType {
+  SubscriptionCreate(resource: SubscriptionInput): SubscriptionCreation
+}
+
+type SubscriptionCreation {
+  location: String
+  resource: Subscription
+  information: OperationOutcome
+}
+
+type SubscriptionUpdateType {
+  SubscriptionUpdate(id: ID, resource: SubscriptionInput): SubscriptionUpdate
+}
+
+type SubscriptionUpdate {
+  resource: Subscription
+  information: OperationOutcome
+}
+
+type SubscriptionDeleteType {
+  SubscriptionDelete(id: ID): SubscriptionDelete
+}
+
+type SubscriptionDelete {
+  information: OperationOutcome
+}
+

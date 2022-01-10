@@ -1,0 +1,198 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DiagnosticReport {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  status: code  _status: ElementBase
+  category: [CodeableConcept]
+  code: CodeableConcept!
+  subject: Reference
+  encounter: Reference
+  effectiveDateTime: dateTime  _effectiveDateTime: ElementBase
+  effectivePeriod: Period
+  issued: instant  _issued: ElementBase
+  performer: [Reference]
+  resultsInterpreter: [Reference]
+  specimen: [Reference]
+  result: [Reference]
+  note: [Annotation]
+  imagingStudy: [Reference]
+  media: [DiagnosticReportMedia]
+  composition: Reference
+  conclusion: String  _conclusion: ElementBase
+  conclusionCode: [CodeableConcept]
+  presentedForm: [Attachment]
+}
+
+type DiagnosticReportMedia {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  comment: String  _comment: ElementBase
+  link: Reference!
+}
+
+input DiagnosticReportInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  status: code  _status: ElementBaseInput
+  category: [CodeableConceptInput]
+  code: CodeableConceptInput!
+  subject: ReferenceInput
+  encounter: ReferenceInput
+  effectiveDateTime: dateTime  _effectiveDateTime: ElementBaseInput
+  effectivePeriod: PeriodInput
+  issued: instant  _issued: ElementBaseInput
+  performer: [ReferenceInput]
+  resultsInterpreter: [ReferenceInput]
+  specimen: [ReferenceInput]
+  result: [ReferenceInput]
+  note: [AnnotationInput]
+  imagingStudy: [ReferenceInput]
+  media: [DiagnosticReportMediaInput]
+  composition: ReferenceInput
+  conclusion: String  _conclusion: ElementBaseInput
+  conclusionCode: [CodeableConceptInput]
+  presentedForm: [AttachmentInput]
+}
+
+input DiagnosticReportMediaInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  comment: String  _comment: ElementBaseInput
+  link: ReferenceInput!
+}
+
+type DiagnosticReportReadType {
+  DiagnosticReport(id: ID!): DiagnosticReport
+}
+
+type DiagnosticReportListType {
+  DiagnosticReportList(_filter: String
+    based_on: [reference]
+    category: [token]
+    code: [token]
+    conclusion: [token]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    issued: [date]
+    media: [reference]
+    patient: [reference]
+    performer: [reference]
+    result: [reference]
+    results_interpreter: [reference]
+    specimen: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DiagnosticReport]
+}
+
+type DiagnosticReportConnectionType {
+  DiagnosticReportConection(_filter: String
+    based_on: [reference]
+    category: [token]
+    code: [token]
+    conclusion: [token]
+    date: [date]
+    encounter: [reference]
+    identifier: [token]
+    issued: [date]
+    media: [reference]
+    patient: [reference]
+    performer: [reference]
+    result: [reference]
+    results_interpreter: [reference]
+    specimen: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DiagnosticReportConnection
+}
+
+type DiagnosticReportConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DiagnosticReportEdge]
+}
+
+type DiagnosticReportEdge {
+  mode: String
+  score: Float
+  resource: DiagnosticReport
+}
+
+type DiagnosticReportCreateType {
+  DiagnosticReportCreate(resource: DiagnosticReportInput): DiagnosticReportCreation
+}
+
+type DiagnosticReportCreation {
+  location: String
+  resource: DiagnosticReport
+  information: OperationOutcome
+}
+
+type DiagnosticReportUpdateType {
+  DiagnosticReportUpdate(id: ID, resource: DiagnosticReportInput): DiagnosticReportUpdate
+}
+
+type DiagnosticReportUpdate {
+  resource: DiagnosticReport
+  information: OperationOutcome
+}
+
+type DiagnosticReportDeleteType {
+  DiagnosticReportDelete(id: ID): DiagnosticReportDelete
+}
+
+type DiagnosticReportDelete {
+  information: OperationOutcome
+}
+

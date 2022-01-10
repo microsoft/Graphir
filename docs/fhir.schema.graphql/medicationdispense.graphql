@@ -1,0 +1,234 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type MedicationDispense {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  partOf: [Reference]
+  status: code  _status: ElementBase
+  statusReason: CodeableReference
+  statusChanged: dateTime  _statusChanged: ElementBase
+  category: [CodeableConcept]
+  medication: CodeableReference!
+  subject: Reference!
+  encounter: Reference
+  supportingInformation: [Reference]
+  performer: [MedicationDispensePerformer]
+  location: Reference
+  authorizingPrescription: [Reference]
+  type: CodeableConcept
+  quantity: Quantity
+  daysSupply: Quantity
+  recorded: dateTime  _recorded: ElementBase
+  whenPrepared: dateTime  _whenPrepared: ElementBase
+  whenHandedOver: dateTime  _whenHandedOver: ElementBase
+  destination: Reference
+  receiver: [Reference]
+  note: [Annotation]
+  renderedDosageInstruction: String  _renderedDosageInstruction: ElementBase
+  dosageInstruction: [Dosage]
+  substitution: MedicationDispenseSubstitution
+  detectedIssue: [Reference]
+  eventHistory: [Reference]
+}
+
+type MedicationDispensePerformer {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  function: CodeableConcept
+  actor: Reference!
+}
+
+type MedicationDispenseSubstitution {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  wasSubstituted: Boolean  _wasSubstituted: ElementBase
+  type: CodeableConcept
+  reason: [CodeableConcept]
+  responsibleParty: Reference
+}
+
+input MedicationDispenseInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  partOf: [ReferenceInput]
+  status: code  _status: ElementBaseInput
+  statusReason: CodeableReferenceInput
+  statusChanged: dateTime  _statusChanged: ElementBaseInput
+  category: [CodeableConceptInput]
+  medication: CodeableReferenceInput!
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  supportingInformation: [ReferenceInput]
+  performer: [MedicationDispensePerformerInput]
+  location: ReferenceInput
+  authorizingPrescription: [ReferenceInput]
+  type: CodeableConceptInput
+  quantity: QuantityInput
+  daysSupply: QuantityInput
+  recorded: dateTime  _recorded: ElementBaseInput
+  whenPrepared: dateTime  _whenPrepared: ElementBaseInput
+  whenHandedOver: dateTime  _whenHandedOver: ElementBaseInput
+  destination: ReferenceInput
+  receiver: [ReferenceInput]
+  note: [AnnotationInput]
+  renderedDosageInstruction: String  _renderedDosageInstruction: ElementBaseInput
+  dosageInstruction: [DosageInput]
+  substitution: MedicationDispenseSubstitutionInput
+  detectedIssue: [ReferenceInput]
+  eventHistory: [ReferenceInput]
+}
+
+input MedicationDispensePerformerInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  function: CodeableConceptInput
+  actor: ReferenceInput!
+}
+
+input MedicationDispenseSubstitutionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  wasSubstituted: Boolean  _wasSubstituted: ElementBaseInput
+  type: CodeableConceptInput
+  reason: [CodeableConceptInput]
+  responsibleParty: ReferenceInput
+}
+
+type MedicationDispenseReadType {
+  MedicationDispense(id: ID!): MedicationDispense
+}
+
+type MedicationDispenseListType {
+  MedicationDispenseList(_filter: String
+    code: [token]
+    destination: [reference]
+    encounter: [reference]
+    identifier: [token]
+    location: [reference]
+    medication: [reference]
+    patient: [reference]
+    performer: [reference]
+    prescription: [reference]
+    receiver: [reference]
+    recorded: [date]
+    responsibleparty: [reference]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    whenhandedover: [date]
+    whenprepared: [date]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [MedicationDispense]
+}
+
+type MedicationDispenseConnectionType {
+  MedicationDispenseConection(_filter: String
+    code: [token]
+    destination: [reference]
+    encounter: [reference]
+    identifier: [token]
+    location: [reference]
+    medication: [reference]
+    patient: [reference]
+    performer: [reference]
+    prescription: [reference]
+    receiver: [reference]
+    recorded: [date]
+    responsibleparty: [reference]
+    status: [token]
+    subject: [reference]
+    type: [token]
+    whenhandedover: [date]
+    whenprepared: [date]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): MedicationDispenseConnection
+}
+
+type MedicationDispenseConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [MedicationDispenseEdge]
+}
+
+type MedicationDispenseEdge {
+  mode: String
+  score: Float
+  resource: MedicationDispense
+}
+
+type MedicationDispenseCreateType {
+  MedicationDispenseCreate(resource: MedicationDispenseInput): MedicationDispenseCreation
+}
+
+type MedicationDispenseCreation {
+  location: String
+  resource: MedicationDispense
+  information: OperationOutcome
+}
+
+type MedicationDispenseUpdateType {
+  MedicationDispenseUpdate(id: ID, resource: MedicationDispenseInput): MedicationDispenseUpdate
+}
+
+type MedicationDispenseUpdate {
+  resource: MedicationDispense
+  information: OperationOutcome
+}
+
+type MedicationDispenseDeleteType {
+  MedicationDispenseDelete(id: ID): MedicationDispenseDelete
+}
+
+type MedicationDispenseDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,186 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ClinicalImpression {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  statusReason: CodeableConcept
+  description: String  _description: ElementBase
+  subject: Reference!
+  encounter: Reference
+  effectiveDateTime: dateTime  _effectiveDateTime: ElementBase
+  effectivePeriod: Period
+  date: dateTime  _date: ElementBase
+  performer: Reference
+  previous: Reference
+  problem: [Reference]
+  protocol: uri  _protocol: [ElementBase]
+  summary: String  _summary: ElementBase
+  finding: [ClinicalImpressionFinding]
+  prognosisCodeableConcept: [CodeableConcept]
+  prognosisReference: [Reference]
+  supportingInfo: [Reference]
+  note: [Annotation]
+}
+
+type ClinicalImpressionFinding {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  item: CodeableReference
+  basis: String  _basis: ElementBase
+}
+
+input ClinicalImpressionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  statusReason: CodeableConceptInput
+  description: String  _description: ElementBaseInput
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  effectiveDateTime: dateTime  _effectiveDateTime: ElementBaseInput
+  effectivePeriod: PeriodInput
+  date: dateTime  _date: ElementBaseInput
+  performer: ReferenceInput
+  previous: ReferenceInput
+  problem: [ReferenceInput]
+  protocol: uri  _protocol: [ElementBaseInput]
+  summary: String  _summary: ElementBaseInput
+  finding: [ClinicalImpressionFindingInput]
+  prognosisCodeableConcept: [CodeableConceptInput]
+  prognosisReference: [ReferenceInput]
+  supportingInfo: [ReferenceInput]
+  note: [AnnotationInput]
+}
+
+input ClinicalImpressionFindingInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  item: CodeableReferenceInput
+  basis: String  _basis: ElementBaseInput
+}
+
+type ClinicalImpressionReadType {
+  ClinicalImpression(id: ID!): ClinicalImpression
+}
+
+type ClinicalImpressionListType {
+  ClinicalImpressionList(_filter: String
+    date: [date]
+    encounter: [reference]
+    finding_code: [token]
+    finding_ref: [reference]
+    identifier: [token]
+    patient: [reference]
+    performer: [reference]
+    previous: [reference]
+    problem: [reference]
+    status: [token]
+    subject: [reference]
+    supporting_info: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ClinicalImpression]
+}
+
+type ClinicalImpressionConnectionType {
+  ClinicalImpressionConection(_filter: String
+    date: [date]
+    encounter: [reference]
+    finding_code: [token]
+    finding_ref: [reference]
+    identifier: [token]
+    patient: [reference]
+    performer: [reference]
+    previous: [reference]
+    problem: [reference]
+    status: [token]
+    subject: [reference]
+    supporting_info: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ClinicalImpressionConnection
+}
+
+type ClinicalImpressionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ClinicalImpressionEdge]
+}
+
+type ClinicalImpressionEdge {
+  mode: String
+  score: Float
+  resource: ClinicalImpression
+}
+
+type ClinicalImpressionCreateType {
+  ClinicalImpressionCreate(resource: ClinicalImpressionInput): ClinicalImpressionCreation
+}
+
+type ClinicalImpressionCreation {
+  location: String
+  resource: ClinicalImpression
+  information: OperationOutcome
+}
+
+type ClinicalImpressionUpdateType {
+  ClinicalImpressionUpdate(id: ID, resource: ClinicalImpressionInput): ClinicalImpressionUpdate
+}
+
+type ClinicalImpressionUpdate {
+  resource: ClinicalImpression
+  information: OperationOutcome
+}
+
+type ClinicalImpressionDeleteType {
+  ClinicalImpressionDelete(id: ID): ClinicalImpressionDelete
+}
+
+type ClinicalImpressionDelete {
+  information: OperationOutcome
+}
+

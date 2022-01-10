@@ -1,0 +1,468 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DeviceDefinition {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  description: markdown  _description: ElementBase
+  identifier: [Identifier]
+  udiDeviceIdentifier: [DeviceDefinitionUdiDeviceIdentifier]
+  manufacturerString: String  _manufacturerString: ElementBase
+  manufacturerReference: Reference
+  deviceName: [DeviceDefinitionDeviceName]
+  modelNumber: String  _modelNumber: ElementBase
+  classification: [DeviceDefinitionClassification]
+  hasPart: [DeviceDefinitionHasPart]
+  packaging: [DeviceDefinitionPackaging]
+  version: [DeviceDefinitionVersion]
+  safety: [CodeableConcept]
+  shelfLifeStorage: [ProductShelfLife]
+  languageCode: [CodeableConcept]
+  property: [DeviceDefinitionProperty]
+  owner: Reference
+  contact: [ContactPoint]
+  link: [DeviceDefinitionLink]
+  note: [Annotation]
+  parentDevice: Reference
+  material: [DeviceDefinitionMaterial]
+  productionIdentifierInUDI: code  _productionIdentifierInUDI: [ElementBase]
+  guideline: DeviceDefinitionGuideline
+  correctiveAction: DeviceDefinitionCorrectiveAction
+  chargeItem: [DeviceDefinitionChargeItem]
+}
+
+type DeviceDefinitionUdiDeviceIdentifier {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  deviceIdentifier: String  _deviceIdentifier: ElementBase
+  issuer: uri  _issuer: ElementBase
+  jurisdiction: uri  _jurisdiction: ElementBase
+  marketDistribution: [DeviceDefinitionUdiDeviceIdentifierMarketDistribution]
+}
+
+type DeviceDefinitionUdiDeviceIdentifierMarketDistribution {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  marketPeriod: Period!
+  subJurisdiction: uri  _subJurisdiction: ElementBase
+}
+
+type DeviceDefinitionDeviceName {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  type: code  _type: ElementBase
+}
+
+type DeviceDefinitionClassification {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  justification: [RelatedArtifact]
+}
+
+type DeviceDefinitionHasPart {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  reference: Reference!
+  count: Int  _count: ElementBase
+}
+
+type DeviceDefinitionPackaging {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: Identifier
+  type: CodeableConcept
+  count: Int  _count: ElementBase
+  distributor: [DeviceDefinitionPackagingDistributor]
+  udiDeviceIdentifier: [DeviceDefinitionPackagingUdiDeviceIdentifier]
+  packaging: [DeviceDefinitionPackaging]
+}
+
+type DeviceDefinitionPackagingDistributor {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  organizationReference: [Reference]
+}
+
+type DeviceDefinitionPackagingUdiDeviceIdentifier {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  deviceIdentifier: String  _deviceIdentifier: ElementBase
+  issuer: uri  _issuer: ElementBase
+  jurisdiction: uri  _jurisdiction: ElementBase
+  marketDistribution: DeviceDefinitionPackagingUdiDeviceIdentifierMarketDistribution
+}
+
+type DeviceDefinitionPackagingUdiDeviceIdentifierMarketDistribution {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  marketPeriod: Period
+  subJurisdiction: uri  _subJurisdiction: ElementBase
+}
+
+type DeviceDefinitionVersion {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  component: Identifier
+  value: String  _value: ElementBase
+}
+
+type DeviceDefinitionProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  valueQuantity: Quantity
+  valueCodeableConcept: CodeableConcept
+  valueString: String  _valueString: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueRange: Range
+  valueAttachment: Attachment
+}
+
+type DeviceDefinitionLink {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  relation: Coding!
+  relatedDevice: CodeableReference!
+}
+
+type DeviceDefinitionMaterial {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  substance: CodeableConcept!
+  alternate: Boolean  _alternate: ElementBase
+  allergenicIndicator: Boolean  _allergenicIndicator: ElementBase
+}
+
+type DeviceDefinitionGuideline {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  useContext: [UsageContext]
+  usageInstruction: markdown  _usageInstruction: ElementBase
+  relatedArtifact: [RelatedArtifact]
+  indication: [CodeableReference]
+  contraindication: [CodeableReference]
+  warning: [CodeableReference]
+  intendedUse: String  _intendedUse: ElementBase
+}
+
+type DeviceDefinitionCorrectiveAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  recall: Boolean  _recall: ElementBase
+  scope: code  _scope: ElementBase
+  period: Period!
+}
+
+type DeviceDefinitionChargeItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  chargeItemCode: CodeableReference!
+  count: Quantity!
+  effectivePeriod: Period
+  useContext: [UsageContext]
+}
+
+input DeviceDefinitionInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  description: markdown  _description: ElementBaseInput
+  identifier: [IdentifierInput]
+  udiDeviceIdentifier: [DeviceDefinitionUdiDeviceIdentifierInput]
+  manufacturerString: String  _manufacturerString: ElementBaseInput
+  manufacturerReference: ReferenceInput
+  deviceName: [DeviceDefinitionDeviceNameInput]
+  modelNumber: String  _modelNumber: ElementBaseInput
+  classification: [DeviceDefinitionClassificationInput]
+  hasPart: [DeviceDefinitionHasPartInput]
+  packaging: [DeviceDefinitionPackagingInput]
+  version: [DeviceDefinitionVersionInput]
+  safety: [CodeableConceptInput]
+  shelfLifeStorage: [ProductShelfLifeInput]
+  languageCode: [CodeableConceptInput]
+  property: [DeviceDefinitionPropertyInput]
+  owner: ReferenceInput
+  contact: [ContactPointInput]
+  link: [DeviceDefinitionLinkInput]
+  note: [AnnotationInput]
+  parentDevice: ReferenceInput
+  material: [DeviceDefinitionMaterialInput]
+  productionIdentifierInUDI: code  _productionIdentifierInUDI: [ElementBaseInput]
+  guideline: DeviceDefinitionGuidelineInput
+  correctiveAction: DeviceDefinitionCorrectiveActionInput
+  chargeItem: [DeviceDefinitionChargeItemInput]
+}
+
+input DeviceDefinitionUdiDeviceIdentifierInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  deviceIdentifier: String  _deviceIdentifier: ElementBaseInput
+  issuer: uri  _issuer: ElementBaseInput
+  jurisdiction: uri  _jurisdiction: ElementBaseInput
+  marketDistribution: [DeviceDefinitionUdiDeviceIdentifierMarketDistributionInput]
+}
+
+input DeviceDefinitionUdiDeviceIdentifierMarketDistributionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  marketPeriod: PeriodInput!
+  subJurisdiction: uri  _subJurisdiction: ElementBaseInput
+}
+
+input DeviceDefinitionDeviceNameInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  type: code  _type: ElementBaseInput
+}
+
+input DeviceDefinitionClassificationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  justification: [RelatedArtifactInput]
+}
+
+input DeviceDefinitionHasPartInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  reference: ReferenceInput!
+  count: Int  _count: ElementBaseInput
+}
+
+input DeviceDefinitionPackagingInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: IdentifierInput
+  type: CodeableConceptInput
+  count: Int  _count: ElementBaseInput
+  distributor: [DeviceDefinitionPackagingDistributorInput]
+  udiDeviceIdentifier: [DeviceDefinitionPackagingUdiDeviceIdentifierInput]
+  packaging: [DeviceDefinitionPackaging]
+}
+
+input DeviceDefinitionPackagingDistributorInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  organizationReference: [ReferenceInput]
+}
+
+input DeviceDefinitionPackagingUdiDeviceIdentifierInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  deviceIdentifier: String  _deviceIdentifier: ElementBaseInput
+  issuer: uri  _issuer: ElementBaseInput
+  jurisdiction: uri  _jurisdiction: ElementBaseInput
+  marketDistribution: DeviceDefinitionPackagingUdiDeviceIdentifierMarketDistributionInput
+}
+
+input DeviceDefinitionPackagingUdiDeviceIdentifierMarketDistributionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  marketPeriod: PeriodInput
+  subJurisdiction: uri  _subJurisdiction: ElementBaseInput
+}
+
+input DeviceDefinitionVersionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  component: IdentifierInput
+  value: String  _value: ElementBaseInput
+}
+
+input DeviceDefinitionPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  valueQuantity: QuantityInput
+  valueCodeableConcept: CodeableConceptInput
+  valueString: String  _valueString: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueRange: RangeInput
+  valueAttachment: AttachmentInput
+}
+
+input DeviceDefinitionLinkInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  relation: CodingInput!
+  relatedDevice: CodeableReferenceInput!
+}
+
+input DeviceDefinitionMaterialInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  substance: CodeableConceptInput!
+  alternate: Boolean  _alternate: ElementBaseInput
+  allergenicIndicator: Boolean  _allergenicIndicator: ElementBaseInput
+}
+
+input DeviceDefinitionGuidelineInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  useContext: [UsageContextInput]
+  usageInstruction: markdown  _usageInstruction: ElementBaseInput
+  relatedArtifact: [RelatedArtifactInput]
+  indication: [CodeableReferenceInput]
+  contraindication: [CodeableReferenceInput]
+  warning: [CodeableReferenceInput]
+  intendedUse: String  _intendedUse: ElementBaseInput
+}
+
+input DeviceDefinitionCorrectiveActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  recall: Boolean  _recall: ElementBaseInput
+  scope: code  _scope: ElementBaseInput
+  period: PeriodInput!
+}
+
+input DeviceDefinitionChargeItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  chargeItemCode: CodeableReferenceInput!
+  count: QuantityInput!
+  effectivePeriod: PeriodInput
+  useContext: [UsageContextInput]
+}
+
+type DeviceDefinitionReadType {
+  DeviceDefinition(id: ID!): DeviceDefinition
+}
+
+type DeviceDefinitionListType {
+  DeviceDefinitionList(_filter: String
+    identifier: [token]
+    parent: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DeviceDefinition]
+}
+
+type DeviceDefinitionConnectionType {
+  DeviceDefinitionConection(_filter: String
+    identifier: [token]
+    parent: [reference]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DeviceDefinitionConnection
+}
+
+type DeviceDefinitionConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DeviceDefinitionEdge]
+}
+
+type DeviceDefinitionEdge {
+  mode: String
+  score: Float
+  resource: DeviceDefinition
+}
+
+type DeviceDefinitionCreateType {
+  DeviceDefinitionCreate(resource: DeviceDefinitionInput): DeviceDefinitionCreation
+}
+
+type DeviceDefinitionCreation {
+  location: String
+  resource: DeviceDefinition
+  information: OperationOutcome
+}
+
+type DeviceDefinitionUpdateType {
+  DeviceDefinitionUpdate(id: ID, resource: DeviceDefinitionInput): DeviceDefinitionUpdate
+}
+
+type DeviceDefinitionUpdate {
+  resource: DeviceDefinition
+  information: OperationOutcome
+}
+
+type DeviceDefinitionDeleteType {
+  DeviceDefinitionDelete(id: ID): DeviceDefinitionDelete
+}
+
+type DeviceDefinitionDelete {
+  information: OperationOutcome
+}
+

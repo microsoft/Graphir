@@ -1,0 +1,340 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type CodeSystem {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  caseSensitive: Boolean  _caseSensitive: ElementBase
+  valueSet: canonical  _valueSet: ElementBase
+  hierarchyMeaning: code  _hierarchyMeaning: ElementBase
+  compositional: Boolean  _compositional: ElementBase
+  versionNeeded: Boolean  _versionNeeded: ElementBase
+  content: code  _content: ElementBase
+  supplements: canonical  _supplements: ElementBase
+  count: unsignedInt  _count: ElementBase
+  filter: [CodeSystemFilter]
+  property: [CodeSystemProperty]
+  concept: [CodeSystemConcept]
+}
+
+type CodeSystemFilter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  description: String  _description: ElementBase
+  operator: code  _operator: [ElementBase]
+  value: String  _value: ElementBase
+}
+
+type CodeSystemProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  uri: uri  _uri: ElementBase
+  description: String  _description: ElementBase
+  type: code  _type: ElementBase
+}
+
+type CodeSystemConcept {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  display: String  _display: ElementBase
+  definition: String  _definition: ElementBase
+  designation: [CodeSystemConceptDesignation]
+  property: [CodeSystemConceptProperty]
+  concept: [CodeSystemConcept]
+}
+
+type CodeSystemConceptDesignation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  language: code  _language: ElementBase
+  use: Coding
+  value: String  _value: ElementBase
+}
+
+type CodeSystemConceptProperty {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: code  _code: ElementBase
+  valueCode: code  _valueCode: ElementBase
+  valueCoding: Coding
+  valueString: String  _valueString: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+}
+
+input CodeSystemInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  caseSensitive: Boolean  _caseSensitive: ElementBaseInput
+  valueSet: canonical  _valueSet: ElementBaseInput
+  hierarchyMeaning: code  _hierarchyMeaning: ElementBaseInput
+  compositional: Boolean  _compositional: ElementBaseInput
+  versionNeeded: Boolean  _versionNeeded: ElementBaseInput
+  content: code  _content: ElementBaseInput
+  supplements: canonical  _supplements: ElementBaseInput
+  count: unsignedInt  _count: ElementBaseInput
+  filter: [CodeSystemFilterInput]
+  property: [CodeSystemPropertyInput]
+  concept: [CodeSystemConceptInput]
+}
+
+input CodeSystemFilterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  operator: code  _operator: [ElementBaseInput]
+  value: String  _value: ElementBaseInput
+}
+
+input CodeSystemPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  uri: uri  _uri: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  type: code  _type: ElementBaseInput
+}
+
+input CodeSystemConceptInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  display: String  _display: ElementBaseInput
+  definition: String  _definition: ElementBaseInput
+  designation: [CodeSystemConceptDesignationInput]
+  property: [CodeSystemConceptPropertyInput]
+  concept: [CodeSystemConcept]
+}
+
+input CodeSystemConceptDesignationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  language: code  _language: ElementBaseInput
+  use: CodingInput
+  value: String  _value: ElementBaseInput
+}
+
+input CodeSystemConceptPropertyInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: code  _code: ElementBaseInput
+  valueCode: code  _valueCode: ElementBaseInput
+  valueCoding: CodingInput
+  valueString: String  _valueString: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+}
+
+type CodeSystemReadType {
+  CodeSystem(id: ID!): CodeSystem
+}
+
+type CodeSystemListType {
+  CodeSystemList(_filter: String
+    code: [token]
+    content_mode: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    language: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    supplements: [reference]
+    system: [uri]
+    title: [String]
+    url: [uri]
+    version: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [CodeSystem]
+}
+
+type CodeSystemConnectionType {
+  CodeSystemConection(_filter: String
+    code: [token]
+    content_mode: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    language: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    supplements: [reference]
+    system: [uri]
+    title: [String]
+    url: [uri]
+    version: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): CodeSystemConnection
+}
+
+type CodeSystemConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [CodeSystemEdge]
+}
+
+type CodeSystemEdge {
+  mode: String
+  score: Float
+  resource: CodeSystem
+}
+
+type CodeSystemCreateType {
+  CodeSystemCreate(resource: CodeSystemInput): CodeSystemCreation
+}
+
+type CodeSystemCreation {
+  location: String
+  resource: CodeSystem
+  information: OperationOutcome
+}
+
+type CodeSystemUpdateType {
+  CodeSystemUpdate(id: ID, resource: CodeSystemInput): CodeSystemUpdate
+}
+
+type CodeSystemUpdate {
+  resource: CodeSystem
+  information: OperationOutcome
+}
+
+type CodeSystemDeleteType {
+  CodeSystemDelete(id: ID): CodeSystemDelete
+}
+
+type CodeSystemDelete {
+  information: OperationOutcome
+}
+

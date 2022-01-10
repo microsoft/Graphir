@@ -1,0 +1,204 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type CommunicationRequest {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  basedOn: [Reference]
+  replaces: [Reference]
+  groupIdentifier: Identifier
+  status: code  _status: ElementBase
+  statusReason: CodeableConcept
+  intent: code  _intent: ElementBase
+  category: [CodeableConcept]
+  priority: code  _priority: ElementBase
+  doNotPerform: Boolean  _doNotPerform: ElementBase
+  medium: [CodeableConcept]
+  subject: Reference
+  about: [Reference]
+  encounter: Reference
+  payload: [CommunicationRequestPayload]
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  authoredOn: dateTime  _authoredOn: ElementBase
+  requester: Reference
+  recipient: [Reference]
+  informationProvider: [Reference]
+  reason: [CodeableReference]
+  note: [Annotation]
+}
+
+type CommunicationRequestPayload {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  contentAttachment: Attachment
+  contentReference: Reference
+  contentCodeableConcept: CodeableConcept
+}
+
+input CommunicationRequestInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  basedOn: [ReferenceInput]
+  replaces: [ReferenceInput]
+  groupIdentifier: IdentifierInput
+  status: code  _status: ElementBaseInput
+  statusReason: CodeableConceptInput
+  intent: code  _intent: ElementBaseInput
+  category: [CodeableConceptInput]
+  priority: code  _priority: ElementBaseInput
+  doNotPerform: Boolean  _doNotPerform: ElementBaseInput
+  medium: [CodeableConceptInput]
+  subject: ReferenceInput
+  about: [ReferenceInput]
+  encounter: ReferenceInput
+  payload: [CommunicationRequestPayloadInput]
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  authoredOn: dateTime  _authoredOn: ElementBaseInput
+  requester: ReferenceInput
+  recipient: [ReferenceInput]
+  informationProvider: [ReferenceInput]
+  reason: [CodeableReferenceInput]
+  note: [AnnotationInput]
+}
+
+input CommunicationRequestPayloadInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  contentAttachment: AttachmentInput
+  contentReference: ReferenceInput
+  contentCodeableConcept: CodeableConceptInput
+}
+
+type CommunicationRequestReadType {
+  CommunicationRequest(id: ID!): CommunicationRequest
+}
+
+type CommunicationRequestListType {
+  CommunicationRequestList(_filter: String
+    authored: [date]
+    based_on: [reference]
+    category: [token]
+    encounter: [reference]
+    group_identifier: [token]
+    identifier: [token]
+    information_provider: [reference]
+    medium: [token]
+    occurrence: [date]
+    patient: [reference]
+    priority: [token]
+    recipient: [reference]
+    replaces: [reference]
+    requester: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [CommunicationRequest]
+}
+
+type CommunicationRequestConnectionType {
+  CommunicationRequestConection(_filter: String
+    authored: [date]
+    based_on: [reference]
+    category: [token]
+    encounter: [reference]
+    group_identifier: [token]
+    identifier: [token]
+    information_provider: [reference]
+    medium: [token]
+    occurrence: [date]
+    patient: [reference]
+    priority: [token]
+    recipient: [reference]
+    replaces: [reference]
+    requester: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): CommunicationRequestConnection
+}
+
+type CommunicationRequestConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [CommunicationRequestEdge]
+}
+
+type CommunicationRequestEdge {
+  mode: String
+  score: Float
+  resource: CommunicationRequest
+}
+
+type CommunicationRequestCreateType {
+  CommunicationRequestCreate(resource: CommunicationRequestInput): CommunicationRequestCreation
+}
+
+type CommunicationRequestCreation {
+  location: String
+  resource: CommunicationRequest
+  information: OperationOutcome
+}
+
+type CommunicationRequestUpdateType {
+  CommunicationRequestUpdate(id: ID, resource: CommunicationRequestInput): CommunicationRequestUpdate
+}
+
+type CommunicationRequestUpdate {
+  resource: CommunicationRequest
+  information: OperationOutcome
+}
+
+type CommunicationRequestDeleteType {
+  CommunicationRequestDelete(id: ID): CommunicationRequestDelete
+}
+
+type CommunicationRequestDelete {
+  information: OperationOutcome
+}
+

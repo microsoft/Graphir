@@ -1,0 +1,220 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type DeviceRequest {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBase]
+  instantiatesUri: uri  _instantiatesUri: [ElementBase]
+  basedOn: [Reference]
+  priorRequest: [Reference]
+  groupIdentifier: Identifier
+  status: code  _status: ElementBase
+  intent: code  _intent: ElementBase
+  priority: code  _priority: ElementBase
+  doNotPerform: Boolean  _doNotPerform: ElementBase
+  code: CodeableReference!
+  quantity: Int  _quantity: ElementBase
+  parameter: [DeviceRequestParameter]
+  subject: Reference!
+  encounter: Reference
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBase
+  occurrencePeriod: Period
+  occurrenceTiming: Timing
+  authoredOn: dateTime  _authoredOn: ElementBase
+  requester: Reference
+  performerType: CodeableConcept
+  performer: Reference
+  reason: [CodeableReference]
+  insurance: [Reference]
+  supportingInfo: [Reference]
+  note: [Annotation]
+  relevantHistory: [Reference]
+}
+
+type DeviceRequestParameter {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  code: CodeableConcept
+  valueCodeableConcept: CodeableConcept
+  valueQuantity: Quantity
+  valueRange: Range
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+}
+
+input DeviceRequestInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBaseInput]
+  instantiatesUri: uri  _instantiatesUri: [ElementBaseInput]
+  basedOn: [ReferenceInput]
+  priorRequest: [ReferenceInput]
+  groupIdentifier: IdentifierInput
+  status: code  _status: ElementBaseInput
+  intent: code  _intent: ElementBaseInput
+  priority: code  _priority: ElementBaseInput
+  doNotPerform: Boolean  _doNotPerform: ElementBaseInput
+  code: CodeableReferenceInput!
+  quantity: Int  _quantity: ElementBaseInput
+  parameter: [DeviceRequestParameterInput]
+  subject: ReferenceInput!
+  encounter: ReferenceInput
+  occurrenceDateTime: dateTime  _occurrenceDateTime: ElementBaseInput
+  occurrencePeriod: PeriodInput
+  occurrenceTiming: TimingInput
+  authoredOn: dateTime  _authoredOn: ElementBaseInput
+  requester: ReferenceInput
+  performerType: CodeableConceptInput
+  performer: ReferenceInput
+  reason: [CodeableReferenceInput]
+  insurance: [ReferenceInput]
+  supportingInfo: [ReferenceInput]
+  note: [AnnotationInput]
+  relevantHistory: [ReferenceInput]
+}
+
+input DeviceRequestParameterInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  code: CodeableConceptInput
+  valueCodeableConcept: CodeableConceptInput
+  valueQuantity: QuantityInput
+  valueRange: RangeInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+}
+
+type DeviceRequestReadType {
+  DeviceRequest(id: ID!): DeviceRequest
+}
+
+type DeviceRequestListType {
+  DeviceRequestList(_filter: String
+    authored_on: [date]
+    based_on: [reference]
+    code: [token]
+    device: [reference]
+    encounter: [reference]
+    event_date: [date]
+    group_identifier: [token]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    insurance: [reference]
+    intent: [token]
+    patient: [reference]
+    performer: [reference]
+    prior_request: [reference]
+    requester: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [DeviceRequest]
+}
+
+type DeviceRequestConnectionType {
+  DeviceRequestConection(_filter: String
+    authored_on: [date]
+    based_on: [reference]
+    code: [token]
+    device: [reference]
+    encounter: [reference]
+    event_date: [date]
+    group_identifier: [token]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    insurance: [reference]
+    intent: [token]
+    patient: [reference]
+    performer: [reference]
+    prior_request: [reference]
+    requester: [reference]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): DeviceRequestConnection
+}
+
+type DeviceRequestConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [DeviceRequestEdge]
+}
+
+type DeviceRequestEdge {
+  mode: String
+  score: Float
+  resource: DeviceRequest
+}
+
+type DeviceRequestCreateType {
+  DeviceRequestCreate(resource: DeviceRequestInput): DeviceRequestCreation
+}
+
+type DeviceRequestCreation {
+  location: String
+  resource: DeviceRequest
+  information: OperationOutcome
+}
+
+type DeviceRequestUpdateType {
+  DeviceRequestUpdate(id: ID, resource: DeviceRequestInput): DeviceRequestUpdate
+}
+
+type DeviceRequestUpdate {
+  resource: DeviceRequest
+  information: OperationOutcome
+}
+
+type DeviceRequestDeleteType {
+  DeviceRequestDelete(id: ID): DeviceRequestDelete
+}
+
+type DeviceRequestDelete {
+  information: OperationOutcome
+}
+

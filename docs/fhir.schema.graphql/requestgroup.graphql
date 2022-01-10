@@ -1,0 +1,296 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type RequestGroup {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBase]
+  instantiatesUri: uri  _instantiatesUri: [ElementBase]
+  basedOn: [Reference]
+  replaces: [Reference]
+  groupIdentifier: Identifier
+  status: code  _status: ElementBase
+  intent: code  _intent: ElementBase
+  priority: code  _priority: ElementBase
+  code: CodeableConcept
+  subject: Reference
+  encounter: Reference
+  authoredOn: dateTime  _authoredOn: ElementBase
+  author: Reference
+  reason: [CodeableReference]
+  goal: [Reference]
+  note: [Annotation]
+  action: [RequestGroupAction]
+}
+
+type RequestGroupAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  linkId: String  _linkId: ElementBase
+  prefix: String  _prefix: ElementBase
+  title: String  _title: ElementBase
+  description: String  _description: ElementBase
+  textEquivalent: String  _textEquivalent: ElementBase
+  priority: code  _priority: ElementBase
+  code: [CodeableConcept]
+  documentation: [RelatedArtifact]
+  goal: [Reference]
+  condition: [RequestGroupActionCondition]
+  relatedAction: [RequestGroupActionRelatedAction]
+  timingDateTime: dateTime  _timingDateTime: ElementBase
+  timingAge: Age
+  timingPeriod: Period
+  timingDuration: Duration
+  timingRange: Range
+  timingTiming: Timing
+  location: CodeableReference
+  participant: [RequestGroupActionParticipant]
+  type: CodeableConcept
+  groupingBehavior: code  _groupingBehavior: ElementBase
+  selectionBehavior: code  _selectionBehavior: ElementBase
+  requiredBehavior: code  _requiredBehavior: ElementBase
+  precheckBehavior: code  _precheckBehavior: ElementBase
+  cardinalityBehavior: code  _cardinalityBehavior: ElementBase
+  resource: Reference
+  action: [RequestGroupAction]
+}
+
+type RequestGroupActionCondition {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  kind: code  _kind: ElementBase
+  expression: Expression
+}
+
+type RequestGroupActionRelatedAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  targetId: ID  _targetId: ElementBase
+  relationship: code  _relationship: ElementBase
+  offsetDuration: Duration
+  offsetRange: Range
+}
+
+type RequestGroupActionParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  typeReference: Reference
+  role: CodeableConcept
+  function: CodeableConcept
+  actor: Reference
+}
+
+input RequestGroupInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  instantiatesCanonical: canonical  _instantiatesCanonical: [ElementBaseInput]
+  instantiatesUri: uri  _instantiatesUri: [ElementBaseInput]
+  basedOn: [ReferenceInput]
+  replaces: [ReferenceInput]
+  groupIdentifier: IdentifierInput
+  status: code  _status: ElementBaseInput
+  intent: code  _intent: ElementBaseInput
+  priority: code  _priority: ElementBaseInput
+  code: CodeableConceptInput
+  subject: ReferenceInput
+  encounter: ReferenceInput
+  authoredOn: dateTime  _authoredOn: ElementBaseInput
+  author: ReferenceInput
+  reason: [CodeableReferenceInput]
+  goal: [ReferenceInput]
+  note: [AnnotationInput]
+  action: [RequestGroupActionInput]
+}
+
+input RequestGroupActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  linkId: String  _linkId: ElementBaseInput
+  prefix: String  _prefix: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  textEquivalent: String  _textEquivalent: ElementBaseInput
+  priority: code  _priority: ElementBaseInput
+  code: [CodeableConceptInput]
+  documentation: [RelatedArtifactInput]
+  goal: [ReferenceInput]
+  condition: [RequestGroupActionConditionInput]
+  relatedAction: [RequestGroupActionRelatedActionInput]
+  timingDateTime: dateTime  _timingDateTime: ElementBaseInput
+  timingAge: AgeInput
+  timingPeriod: PeriodInput
+  timingDuration: DurationInput
+  timingRange: RangeInput
+  timingTiming: TimingInput
+  location: CodeableReferenceInput
+  participant: [RequestGroupActionParticipantInput]
+  type: CodeableConceptInput
+  groupingBehavior: code  _groupingBehavior: ElementBaseInput
+  selectionBehavior: code  _selectionBehavior: ElementBaseInput
+  requiredBehavior: code  _requiredBehavior: ElementBaseInput
+  precheckBehavior: code  _precheckBehavior: ElementBaseInput
+  cardinalityBehavior: code  _cardinalityBehavior: ElementBaseInput
+  resource: ReferenceInput
+  action: [RequestGroupAction]
+}
+
+input RequestGroupActionConditionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  kind: code  _kind: ElementBaseInput
+  expression: ExpressionInput
+}
+
+input RequestGroupActionRelatedActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  targetId: ID  _targetId: ElementBaseInput
+  relationship: code  _relationship: ElementBaseInput
+  offsetDuration: DurationInput
+  offsetRange: RangeInput
+}
+
+input RequestGroupActionParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  typeReference: ReferenceInput
+  role: CodeableConceptInput
+  function: CodeableConceptInput
+  actor: ReferenceInput
+}
+
+type RequestGroupReadType {
+  RequestGroup(id: ID!): RequestGroup
+}
+
+type RequestGroupListType {
+  RequestGroupList(_filter: String
+    author: [reference]
+    authored: [date]
+    code: [token]
+    encounter: [reference]
+    group_identifier: [token]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    intent: [token]
+    participant: [reference]
+    patient: [reference]
+    priority: [token]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [RequestGroup]
+}
+
+type RequestGroupConnectionType {
+  RequestGroupConection(_filter: String
+    author: [reference]
+    authored: [date]
+    code: [token]
+    encounter: [reference]
+    group_identifier: [token]
+    identifier: [token]
+    instantiates_canonical: [reference]
+    instantiates_uri: [uri]
+    intent: [token]
+    participant: [reference]
+    patient: [reference]
+    priority: [token]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): RequestGroupConnection
+}
+
+type RequestGroupConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [RequestGroupEdge]
+}
+
+type RequestGroupEdge {
+  mode: String
+  score: Float
+  resource: RequestGroup
+}
+
+type RequestGroupCreateType {
+  RequestGroupCreate(resource: RequestGroupInput): RequestGroupCreation
+}
+
+type RequestGroupCreation {
+  location: String
+  resource: RequestGroup
+  information: OperationOutcome
+}
+
+type RequestGroupUpdateType {
+  RequestGroupUpdate(id: ID, resource: RequestGroupInput): RequestGroupUpdate
+}
+
+type RequestGroupUpdate {
+  resource: RequestGroup
+  information: OperationOutcome
+}
+
+type RequestGroupDeleteType {
+  RequestGroupDelete(id: ID): RequestGroupDelete
+}
+
+type RequestGroupDelete {
+  information: OperationOutcome
+}
+

@@ -1,0 +1,290 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type TestReport {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: Identifier
+  name: String  _name: ElementBase
+  status: code  _status: ElementBase
+  testScript: Reference!
+  result: code  _result: ElementBase
+  score: decimal  _score: ElementBase
+  tester: String  _tester: ElementBase
+  issued: dateTime  _issued: ElementBase
+  participant: [TestReportParticipant]
+  setup: TestReportSetup
+  test: [TestReportTest]
+  teardown: TestReportTeardown
+}
+
+type TestReportParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  uri: uri  _uri: ElementBase
+  display: String  _display: ElementBase
+}
+
+type TestReportSetup {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  action: [TestReportSetupAction]!
+}
+
+type TestReportSetupAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  operation: TestReportSetupActionOperation
+  assert: TestReportSetupActionAssert
+}
+
+type TestReportSetupActionOperation {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  result: code  _result: ElementBase
+  message: markdown  _message: ElementBase
+  detail: uri  _detail: ElementBase
+}
+
+type TestReportSetupActionAssert {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  result: code  _result: ElementBase
+  message: markdown  _message: ElementBase
+  detail: String  _detail: ElementBase
+}
+
+type TestReportTest {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  name: String  _name: ElementBase
+  description: String  _description: ElementBase
+  action: [TestReportTestAction]!
+}
+
+type TestReportTestAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  operation: TestReportSetupActionOperation
+  assert: TestReportSetupActionAssert
+}
+
+type TestReportTeardown {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  action: [TestReportTeardownAction]!
+}
+
+type TestReportTeardownAction {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  operation: TestReportSetupActionOperation!
+}
+
+input TestReportInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: IdentifierInput
+  name: String  _name: ElementBaseInput
+  status: code  _status: ElementBaseInput
+  testScript: ReferenceInput!
+  result: code  _result: ElementBaseInput
+  score: decimal  _score: ElementBaseInput
+  tester: String  _tester: ElementBaseInput
+  issued: dateTime  _issued: ElementBaseInput
+  participant: [TestReportParticipantInput]
+  setup: TestReportSetupInput
+  test: [TestReportTestInput]
+  teardown: TestReportTeardownInput
+}
+
+input TestReportParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  uri: uri  _uri: ElementBaseInput
+  display: String  _display: ElementBaseInput
+}
+
+input TestReportSetupInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  action: [TestReportSetupActionInput]!
+}
+
+input TestReportSetupActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  operation: TestReportSetupActionOperationInput
+  assert: TestReportSetupActionAssertInput
+}
+
+input TestReportSetupActionOperationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  result: code  _result: ElementBaseInput
+  message: markdown  _message: ElementBaseInput
+  detail: uri  _detail: ElementBaseInput
+}
+
+input TestReportSetupActionAssertInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  result: code  _result: ElementBaseInput
+  message: markdown  _message: ElementBaseInput
+  detail: String  _detail: ElementBaseInput
+}
+
+input TestReportTestInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  name: String  _name: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  action: [TestReportTestActionInput]!
+}
+
+input TestReportTestActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  operation: TestReportSetupActionOperation
+  assert: TestReportSetupActionAssert
+}
+
+input TestReportTeardownInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  action: [TestReportTeardownActionInput]!
+}
+
+input TestReportTeardownActionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  operation: TestReportSetupActionOperation!
+}
+
+type TestReportReadType {
+  TestReport(id: ID!): TestReport
+}
+
+type TestReportListType {
+  TestReportList(_filter: String
+    identifier: [token]
+    issued: [date]
+    participant: [uri]
+    result: [token]
+    tester: [String]
+    testscript: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [TestReport]
+}
+
+type TestReportConnectionType {
+  TestReportConection(_filter: String
+    identifier: [token]
+    issued: [date]
+    participant: [uri]
+    result: [token]
+    tester: [String]
+    testscript: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): TestReportConnection
+}
+
+type TestReportConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [TestReportEdge]
+}
+
+type TestReportEdge {
+  mode: String
+  score: Float
+  resource: TestReport
+}
+
+type TestReportCreateType {
+  TestReportCreate(resource: TestReportInput): TestReportCreation
+}
+
+type TestReportCreation {
+  location: String
+  resource: TestReport
+  information: OperationOutcome
+}
+
+type TestReportUpdateType {
+  TestReportUpdate(id: ID, resource: TestReportInput): TestReportUpdate
+}
+
+type TestReportUpdate {
+  resource: TestReport
+  information: OperationOutcome
+}
+
+type TestReportDeleteType {
+  TestReportDelete(id: ID): TestReportDelete
+}
+
+type TestReportDelete {
+  information: OperationOutcome
+}
+

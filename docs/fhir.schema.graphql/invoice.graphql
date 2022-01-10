@@ -1,0 +1,222 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Invoice {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  cancelledReason: String  _cancelledReason: ElementBase
+  type: CodeableConcept
+  subject: Reference
+  recipient: Reference
+  date: dateTime  _date: ElementBase
+  participant: [InvoiceParticipant]
+  issuer: Reference
+  account: Reference
+  lineItem: [InvoiceLineItem]
+  totalPriceComponent: [InvoiceLineItemPriceComponent]
+  totalNet: Money
+  totalGross: Money
+  paymentTerms: markdown  _paymentTerms: ElementBase
+  note: [Annotation]
+}
+
+type InvoiceParticipant {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  role: CodeableConcept
+  actor: Reference!
+}
+
+type InvoiceLineItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  chargeItemReference: Reference
+  chargeItemCodeableConcept: CodeableConcept
+  priceComponent: [InvoiceLineItemPriceComponent]
+}
+
+type InvoiceLineItemPriceComponent {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: code  _type: ElementBase
+  code: CodeableConcept
+  factor: decimal  _factor: ElementBase
+  amount: Money
+}
+
+input InvoiceInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  cancelledReason: String  _cancelledReason: ElementBaseInput
+  type: CodeableConceptInput
+  subject: ReferenceInput
+  recipient: ReferenceInput
+  date: dateTime  _date: ElementBaseInput
+  participant: [InvoiceParticipantInput]
+  issuer: ReferenceInput
+  account: ReferenceInput
+  lineItem: [InvoiceLineItemInput]
+  totalPriceComponent: [InvoiceLineItemPriceComponent]
+  totalNet: MoneyInput
+  totalGross: MoneyInput
+  paymentTerms: markdown  _paymentTerms: ElementBaseInput
+  note: [AnnotationInput]
+}
+
+input InvoiceParticipantInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  role: CodeableConceptInput
+  actor: ReferenceInput!
+}
+
+input InvoiceLineItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  chargeItemReference: ReferenceInput
+  chargeItemCodeableConcept: CodeableConceptInput
+  priceComponent: [InvoiceLineItemPriceComponentInput]
+}
+
+input InvoiceLineItemPriceComponentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: code  _type: ElementBaseInput
+  code: CodeableConceptInput
+  factor: decimal  _factor: ElementBaseInput
+  amount: MoneyInput
+}
+
+type InvoiceReadType {
+  Invoice(id: ID!): Invoice
+}
+
+type InvoiceListType {
+  InvoiceList(_filter: String
+    account: [reference]
+    date: [date]
+    identifier: [token]
+    issuer: [reference]
+    participant: [reference]
+    participant_role: [token]
+    patient: [reference]
+    recipient: [reference]
+    status: [token]
+    subject: [reference]
+    totalgross: [quantity]
+    totalnet: [quantity]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Invoice]
+}
+
+type InvoiceConnectionType {
+  InvoiceConection(_filter: String
+    account: [reference]
+    date: [date]
+    identifier: [token]
+    issuer: [reference]
+    participant: [reference]
+    participant_role: [token]
+    patient: [reference]
+    recipient: [reference]
+    status: [token]
+    subject: [reference]
+    totalgross: [quantity]
+    totalnet: [quantity]
+    type: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): InvoiceConnection
+}
+
+type InvoiceConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [InvoiceEdge]
+}
+
+type InvoiceEdge {
+  mode: String
+  score: Float
+  resource: Invoice
+}
+
+type InvoiceCreateType {
+  InvoiceCreate(resource: InvoiceInput): InvoiceCreation
+}
+
+type InvoiceCreation {
+  location: String
+  resource: Invoice
+  information: OperationOutcome
+}
+
+type InvoiceUpdateType {
+  InvoiceUpdate(id: ID, resource: InvoiceInput): InvoiceUpdate
+}
+
+type InvoiceUpdate {
+  resource: Invoice
+  information: OperationOutcome
+}
+
+type InvoiceDeleteType {
+  InvoiceDelete(id: ID): InvoiceDelete
+}
+
+type InvoiceDelete {
+  information: OperationOutcome
+}
+

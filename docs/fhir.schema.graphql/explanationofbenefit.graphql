@@ -1,0 +1,790 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type ExplanationOfBenefit {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  status: code  _status: ElementBase
+  type: CodeableConcept!
+  subType: CodeableConcept
+  use: code  _use: ElementBase
+  patient: Reference!
+  billablePeriod: Period
+  created: dateTime  _created: ElementBase
+  enterer: Reference
+  insurer: Reference!
+  provider: Reference!
+  priority: CodeableConcept
+  fundsReserveRequested: CodeableConcept
+  fundsReserve: CodeableConcept
+  related: [ExplanationOfBenefitRelated]
+  prescription: Reference
+  originalPrescription: Reference
+  payee: ExplanationOfBenefitPayee
+  referral: Reference
+  facility: Reference
+  claim: Reference
+  claimResponse: Reference
+  outcome: code  _outcome: ElementBase
+  disposition: String  _disposition: ElementBase
+  preAuthRef: String  _preAuthRef: [ElementBase]
+  preAuthRefPeriod: [Period]
+  careTeam: [ExplanationOfBenefitCareTeam]
+  supportingInfo: [ExplanationOfBenefitSupportingInfo]
+  diagnosis: [ExplanationOfBenefitDiagnosis]
+  procedure: [ExplanationOfBenefitProcedure]
+  precedence: positiveInt  _precedence: ElementBase
+  insurance: [ExplanationOfBenefitInsurance]!
+  accident: ExplanationOfBenefitAccident
+  item: [ExplanationOfBenefitItem]
+  addItem: [ExplanationOfBenefitAddItem]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  total: [ExplanationOfBenefitTotal]
+  payment: ExplanationOfBenefitPayment
+  formCode: CodeableConcept
+  form: Attachment
+  processNote: [ExplanationOfBenefitProcessNote]
+  benefitPeriod: Period
+  benefitBalance: [ExplanationOfBenefitBenefitBalance]
+}
+
+type ExplanationOfBenefitRelated {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  claim: Reference
+  relationship: CodeableConcept
+  reference: Identifier
+}
+
+type ExplanationOfBenefitPayee {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  party: Reference
+}
+
+type ExplanationOfBenefitCareTeam {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  provider: Reference!
+  responsible: Boolean  _responsible: ElementBase
+  role: CodeableConcept
+  qualification: CodeableConcept
+}
+
+type ExplanationOfBenefitSupportingInfo {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  category: CodeableConcept!
+  code: CodeableConcept
+  timingDate: date  _timingDate: ElementBase
+  timingPeriod: Period
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueQuantity: Quantity
+  valueAttachment: Attachment
+  valueReference: Reference
+  reason: Coding
+}
+
+type ExplanationOfBenefitDiagnosis {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  diagnosisCodeableConcept: CodeableConcept
+  diagnosisReference: Reference
+  type: [CodeableConcept]
+  onAdmission: CodeableConcept
+  packageCode: CodeableConcept
+}
+
+type ExplanationOfBenefitProcedure {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  type: [CodeableConcept]
+  date: dateTime  _date: ElementBase
+  procedureCodeableConcept: CodeableConcept
+  procedureReference: Reference
+  udi: [Reference]
+}
+
+type ExplanationOfBenefitInsurance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  focal: Boolean  _focal: ElementBase
+  coverage: Reference!
+  preAuthRef: String  _preAuthRef: [ElementBase]
+}
+
+type ExplanationOfBenefitAccident {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  date: date  _date: ElementBase
+  type: CodeableConcept
+  locationAddress: Address
+  locationReference: Reference
+}
+
+type ExplanationOfBenefitItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  careTeamSequence: positiveInt  _careTeamSequence: [ElementBase]
+  diagnosisSequence: positiveInt  _diagnosisSequence: [ElementBase]
+  procedureSequence: positiveInt  _procedureSequence: [ElementBase]
+  informationSequence: positiveInt  _informationSequence: [ElementBase]
+  revenue: CodeableConcept
+  category: CodeableConcept
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  servicedDate: date  _servicedDate: ElementBase
+  servicedPeriod: Period
+  locationCodeableConcept: CodeableConcept
+  locationAddress: Address
+  locationReference: Reference
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  udi: [Reference]
+  bodySite: CodeableConcept
+  subSite: [CodeableConcept]
+  encounter: [Reference]
+  noteNumber: positiveInt  _noteNumber: [ElementBase]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  detail: [ExplanationOfBenefitItemDetail]
+}
+
+type ExplanationOfBenefitItemAdjudication {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  category: CodeableConcept!
+  reason: CodeableConcept
+  amount: Money
+  value: decimal  _value: ElementBase
+}
+
+type ExplanationOfBenefitItemDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  revenue: CodeableConcept
+  category: CodeableConcept
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  udi: [Reference]
+  noteNumber: positiveInt  _noteNumber: [ElementBase]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  subDetail: [ExplanationOfBenefitItemDetailSubDetail]
+}
+
+type ExplanationOfBenefitItemDetailSubDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  sequence: positiveInt  _sequence: ElementBase
+  revenue: CodeableConcept
+  category: CodeableConcept
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  udi: [Reference]
+  noteNumber: positiveInt  _noteNumber: [ElementBase]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+}
+
+type ExplanationOfBenefitAddItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  itemSequence: positiveInt  _itemSequence: [ElementBase]
+  detailSequence: positiveInt  _detailSequence: [ElementBase]
+  subDetailSequence: positiveInt  _subDetailSequence: [ElementBase]
+  provider: [Reference]
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  programCode: [CodeableConcept]
+  servicedDate: date  _servicedDate: ElementBase
+  servicedPeriod: Period
+  locationCodeableConcept: CodeableConcept
+  locationAddress: Address
+  locationReference: Reference
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  bodySite: CodeableConcept
+  subSite: [CodeableConcept]
+  noteNumber: positiveInt  _noteNumber: [ElementBase]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  detail: [ExplanationOfBenefitAddItemDetail]
+}
+
+type ExplanationOfBenefitAddItemDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  noteNumber: positiveInt  _noteNumber: [ElementBase]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  subDetail: [ExplanationOfBenefitAddItemDetailSubDetail]
+}
+
+type ExplanationOfBenefitAddItemDetailSubDetail {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  productOrService: CodeableConcept!
+  modifier: [CodeableConcept]
+  quantity: Quantity
+  unitPrice: Money
+  factor: decimal  _factor: ElementBase
+  net: Money
+  noteNumber: positiveInt  _noteNumber: [ElementBase]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+}
+
+type ExplanationOfBenefitTotal {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  category: CodeableConcept!
+  amount: Money!
+}
+
+type ExplanationOfBenefitPayment {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept
+  adjustment: Money
+  adjustmentReason: CodeableConcept
+  date: date  _date: ElementBase
+  amount: Money
+  identifier: Identifier
+}
+
+type ExplanationOfBenefitProcessNote {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  number: positiveInt  _number: ElementBase
+  type: code  _type: ElementBase
+  text: String  _text: ElementBase
+  language: CodeableConcept
+}
+
+type ExplanationOfBenefitBenefitBalance {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  category: CodeableConcept!
+  excluded: Boolean  _excluded: ElementBase
+  name: String  _name: ElementBase
+  description: String  _description: ElementBase
+  network: CodeableConcept
+  unit: CodeableConcept
+  term: CodeableConcept
+  financial: [ExplanationOfBenefitBenefitBalanceFinancial]
+}
+
+type ExplanationOfBenefitBenefitBalanceFinancial {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  type: CodeableConcept!
+  allowedUnsignedInt: unsignedInt  _allowedUnsignedInt: ElementBase
+  allowedString: String  _allowedString: ElementBase
+  allowedMoney: Money
+  usedUnsignedInt: unsignedInt  _usedUnsignedInt: ElementBase
+  usedMoney: Money
+}
+
+input ExplanationOfBenefitInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  status: code  _status: ElementBaseInput
+  type: CodeableConceptInput!
+  subType: CodeableConceptInput
+  use: code  _use: ElementBaseInput
+  patient: ReferenceInput!
+  billablePeriod: PeriodInput
+  created: dateTime  _created: ElementBaseInput
+  enterer: ReferenceInput
+  insurer: ReferenceInput!
+  provider: ReferenceInput!
+  priority: CodeableConceptInput
+  fundsReserveRequested: CodeableConceptInput
+  fundsReserve: CodeableConceptInput
+  related: [ExplanationOfBenefitRelatedInput]
+  prescription: ReferenceInput
+  originalPrescription: ReferenceInput
+  payee: ExplanationOfBenefitPayeeInput
+  referral: ReferenceInput
+  facility: ReferenceInput
+  claim: ReferenceInput
+  claimResponse: ReferenceInput
+  outcome: code  _outcome: ElementBaseInput
+  disposition: String  _disposition: ElementBaseInput
+  preAuthRef: String  _preAuthRef: [ElementBaseInput]
+  preAuthRefPeriod: [PeriodInput]
+  careTeam: [ExplanationOfBenefitCareTeamInput]
+  supportingInfo: [ExplanationOfBenefitSupportingInfoInput]
+  diagnosis: [ExplanationOfBenefitDiagnosisInput]
+  procedure: [ExplanationOfBenefitProcedureInput]
+  precedence: positiveInt  _precedence: ElementBaseInput
+  insurance: [ExplanationOfBenefitInsuranceInput]!
+  accident: ExplanationOfBenefitAccidentInput
+  item: [ExplanationOfBenefitItemInput]
+  addItem: [ExplanationOfBenefitAddItemInput]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  total: [ExplanationOfBenefitTotalInput]
+  payment: ExplanationOfBenefitPaymentInput
+  formCode: CodeableConceptInput
+  form: AttachmentInput
+  processNote: [ExplanationOfBenefitProcessNoteInput]
+  benefitPeriod: PeriodInput
+  benefitBalance: [ExplanationOfBenefitBenefitBalanceInput]
+}
+
+input ExplanationOfBenefitRelatedInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  claim: ReferenceInput
+  relationship: CodeableConceptInput
+  reference: IdentifierInput
+}
+
+input ExplanationOfBenefitPayeeInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  party: ReferenceInput
+}
+
+input ExplanationOfBenefitCareTeamInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  provider: ReferenceInput!
+  responsible: Boolean  _responsible: ElementBaseInput
+  role: CodeableConceptInput
+  qualification: CodeableConceptInput
+}
+
+input ExplanationOfBenefitSupportingInfoInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  category: CodeableConceptInput!
+  code: CodeableConceptInput
+  timingDate: date  _timingDate: ElementBaseInput
+  timingPeriod: PeriodInput
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueQuantity: QuantityInput
+  valueAttachment: AttachmentInput
+  valueReference: ReferenceInput
+  reason: CodingInput
+}
+
+input ExplanationOfBenefitDiagnosisInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  diagnosisCodeableConcept: CodeableConceptInput
+  diagnosisReference: ReferenceInput
+  type: [CodeableConceptInput]
+  onAdmission: CodeableConceptInput
+  packageCode: CodeableConceptInput
+}
+
+input ExplanationOfBenefitProcedureInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  type: [CodeableConceptInput]
+  date: dateTime  _date: ElementBaseInput
+  procedureCodeableConcept: CodeableConceptInput
+  procedureReference: ReferenceInput
+  udi: [ReferenceInput]
+}
+
+input ExplanationOfBenefitInsuranceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  focal: Boolean  _focal: ElementBaseInput
+  coverage: ReferenceInput!
+  preAuthRef: String  _preAuthRef: [ElementBaseInput]
+}
+
+input ExplanationOfBenefitAccidentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  date: date  _date: ElementBaseInput
+  type: CodeableConceptInput
+  locationAddress: AddressInput
+  locationReference: ReferenceInput
+}
+
+input ExplanationOfBenefitItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  careTeamSequence: positiveInt  _careTeamSequence: [ElementBaseInput]
+  diagnosisSequence: positiveInt  _diagnosisSequence: [ElementBaseInput]
+  procedureSequence: positiveInt  _procedureSequence: [ElementBaseInput]
+  informationSequence: positiveInt  _informationSequence: [ElementBaseInput]
+  revenue: CodeableConceptInput
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  servicedDate: date  _servicedDate: ElementBaseInput
+  servicedPeriod: PeriodInput
+  locationCodeableConcept: CodeableConceptInput
+  locationAddress: AddressInput
+  locationReference: ReferenceInput
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  udi: [ReferenceInput]
+  bodySite: CodeableConceptInput
+  subSite: [CodeableConceptInput]
+  encounter: [ReferenceInput]
+  noteNumber: positiveInt  _noteNumber: [ElementBaseInput]
+  adjudication: [ExplanationOfBenefitItemAdjudicationInput]
+  detail: [ExplanationOfBenefitItemDetailInput]
+}
+
+input ExplanationOfBenefitItemAdjudicationInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  category: CodeableConceptInput!
+  reason: CodeableConceptInput
+  amount: MoneyInput
+  value: decimal  _value: ElementBaseInput
+}
+
+input ExplanationOfBenefitItemDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  revenue: CodeableConceptInput
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  udi: [ReferenceInput]
+  noteNumber: positiveInt  _noteNumber: [ElementBaseInput]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  subDetail: [ExplanationOfBenefitItemDetailSubDetailInput]
+}
+
+input ExplanationOfBenefitItemDetailSubDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  sequence: positiveInt  _sequence: ElementBaseInput
+  revenue: CodeableConceptInput
+  category: CodeableConceptInput
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  udi: [ReferenceInput]
+  noteNumber: positiveInt  _noteNumber: [ElementBaseInput]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+}
+
+input ExplanationOfBenefitAddItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  itemSequence: positiveInt  _itemSequence: [ElementBaseInput]
+  detailSequence: positiveInt  _detailSequence: [ElementBaseInput]
+  subDetailSequence: positiveInt  _subDetailSequence: [ElementBaseInput]
+  provider: [ReferenceInput]
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  programCode: [CodeableConceptInput]
+  servicedDate: date  _servicedDate: ElementBaseInput
+  servicedPeriod: PeriodInput
+  locationCodeableConcept: CodeableConceptInput
+  locationAddress: AddressInput
+  locationReference: ReferenceInput
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  bodySite: CodeableConceptInput
+  subSite: [CodeableConceptInput]
+  noteNumber: positiveInt  _noteNumber: [ElementBaseInput]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  detail: [ExplanationOfBenefitAddItemDetailInput]
+}
+
+input ExplanationOfBenefitAddItemDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  noteNumber: positiveInt  _noteNumber: [ElementBaseInput]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+  subDetail: [ExplanationOfBenefitAddItemDetailSubDetailInput]
+}
+
+input ExplanationOfBenefitAddItemDetailSubDetailInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  productOrService: CodeableConceptInput!
+  modifier: [CodeableConceptInput]
+  quantity: QuantityInput
+  unitPrice: MoneyInput
+  factor: decimal  _factor: ElementBaseInput
+  net: MoneyInput
+  noteNumber: positiveInt  _noteNumber: [ElementBaseInput]
+  adjudication: [ExplanationOfBenefitItemAdjudication]
+}
+
+input ExplanationOfBenefitTotalInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  category: CodeableConceptInput!
+  amount: MoneyInput!
+}
+
+input ExplanationOfBenefitPaymentInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput
+  adjustment: MoneyInput
+  adjustmentReason: CodeableConceptInput
+  date: date  _date: ElementBaseInput
+  amount: MoneyInput
+  identifier: IdentifierInput
+}
+
+input ExplanationOfBenefitProcessNoteInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  number: positiveInt  _number: ElementBaseInput
+  type: code  _type: ElementBaseInput
+  text: String  _text: ElementBaseInput
+  language: CodeableConceptInput
+}
+
+input ExplanationOfBenefitBenefitBalanceInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  category: CodeableConceptInput!
+  excluded: Boolean  _excluded: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  description: String  _description: ElementBaseInput
+  network: CodeableConceptInput
+  unit: CodeableConceptInput
+  term: CodeableConceptInput
+  financial: [ExplanationOfBenefitBenefitBalanceFinancialInput]
+}
+
+input ExplanationOfBenefitBenefitBalanceFinancialInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  type: CodeableConceptInput!
+  allowedUnsignedInt: unsignedInt  _allowedUnsignedInt: ElementBaseInput
+  allowedString: String  _allowedString: ElementBaseInput
+  allowedMoney: MoneyInput
+  usedUnsignedInt: unsignedInt  _usedUnsignedInt: ElementBaseInput
+  usedMoney: MoneyInput
+}
+
+type ExplanationOfBenefitReadType {
+  ExplanationOfBenefit(id: ID!): ExplanationOfBenefit
+}
+
+type ExplanationOfBenefitListType {
+  ExplanationOfBenefitList(_filter: String
+    care_team: [reference]
+    claim: [reference]
+    coverage: [reference]
+    created: [date]
+    detail_udi: [reference]
+    disposition: [String]
+    encounter: [reference]
+    enterer: [reference]
+    facility: [reference]
+    identifier: [token]
+    item_udi: [reference]
+    patient: [reference]
+    payee: [reference]
+    procedure_udi: [reference]
+    provider: [reference]
+    status: [token]
+    subdetail_udi: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [ExplanationOfBenefit]
+}
+
+type ExplanationOfBenefitConnectionType {
+  ExplanationOfBenefitConection(_filter: String
+    care_team: [reference]
+    claim: [reference]
+    coverage: [reference]
+    created: [date]
+    detail_udi: [reference]
+    disposition: [String]
+    encounter: [reference]
+    enterer: [reference]
+    facility: [reference]
+    identifier: [token]
+    item_udi: [reference]
+    patient: [reference]
+    payee: [reference]
+    procedure_udi: [reference]
+    provider: [reference]
+    status: [token]
+    subdetail_udi: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): ExplanationOfBenefitConnection
+}
+
+type ExplanationOfBenefitConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [ExplanationOfBenefitEdge]
+}
+
+type ExplanationOfBenefitEdge {
+  mode: String
+  score: Float
+  resource: ExplanationOfBenefit
+}
+
+type ExplanationOfBenefitCreateType {
+  ExplanationOfBenefitCreate(resource: ExplanationOfBenefitInput): ExplanationOfBenefitCreation
+}
+
+type ExplanationOfBenefitCreation {
+  location: String
+  resource: ExplanationOfBenefit
+  information: OperationOutcome
+}
+
+type ExplanationOfBenefitUpdateType {
+  ExplanationOfBenefitUpdate(id: ID, resource: ExplanationOfBenefitInput): ExplanationOfBenefitUpdate
+}
+
+type ExplanationOfBenefitUpdate {
+  resource: ExplanationOfBenefit
+  information: OperationOutcome
+}
+
+type ExplanationOfBenefitDeleteType {
+  ExplanationOfBenefitDelete(id: ID): ExplanationOfBenefitDelete
+}
+
+type ExplanationOfBenefitDelete {
+  information: OperationOutcome
+}
+

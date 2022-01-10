@@ -1,0 +1,176 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type RegulatedAuthorization {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: [Identifier]
+  subject: [Reference]
+  type: CodeableConcept
+  description: markdown  _description: ElementBase
+  region: [CodeableConcept]
+  status: CodeableConcept
+  statusDate: dateTime  _statusDate: ElementBase
+  validityPeriod: Period
+  indication: CodeableReference
+  intendedUse: CodeableConcept
+  basis: [CodeableConcept]
+  holder: Reference
+  regulator: Reference
+  attachedDocument: [Reference]
+  case: RegulatedAuthorizationCase
+}
+
+type RegulatedAuthorizationCase {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  identifier: Identifier
+  type: CodeableConcept
+  status: CodeableConcept
+  datePeriod: Period
+  dateDateTime: dateTime  _dateDateTime: ElementBase
+  application: [RegulatedAuthorizationCase]
+}
+
+input RegulatedAuthorizationInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: [IdentifierInput]
+  subject: [ReferenceInput]
+  type: CodeableConceptInput
+  description: markdown  _description: ElementBaseInput
+  region: [CodeableConceptInput]
+  status: CodeableConceptInput
+  statusDate: dateTime  _statusDate: ElementBaseInput
+  validityPeriod: PeriodInput
+  indication: CodeableReferenceInput
+  intendedUse: CodeableConceptInput
+  basis: [CodeableConceptInput]
+  holder: ReferenceInput
+  regulator: ReferenceInput
+  attachedDocument: [ReferenceInput]
+  case: RegulatedAuthorizationCaseInput
+}
+
+input RegulatedAuthorizationCaseInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  identifier: IdentifierInput
+  type: CodeableConceptInput
+  status: CodeableConceptInput
+  datePeriod: PeriodInput
+  dateDateTime: dateTime  _dateDateTime: ElementBaseInput
+  application: [RegulatedAuthorizationCase]
+}
+
+type RegulatedAuthorizationReadType {
+  RegulatedAuthorization(id: ID!): RegulatedAuthorization
+}
+
+type RegulatedAuthorizationListType {
+  RegulatedAuthorizationList(_filter: String
+    case: [token]
+    case_type: [token]
+    holder: [reference]
+    identifier: [token]
+    region: [token]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [RegulatedAuthorization]
+}
+
+type RegulatedAuthorizationConnectionType {
+  RegulatedAuthorizationConection(_filter: String
+    case: [token]
+    case_type: [token]
+    holder: [reference]
+    identifier: [token]
+    region: [token]
+    status: [token]
+    subject: [reference]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): RegulatedAuthorizationConnection
+}
+
+type RegulatedAuthorizationConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [RegulatedAuthorizationEdge]
+}
+
+type RegulatedAuthorizationEdge {
+  mode: String
+  score: Float
+  resource: RegulatedAuthorization
+}
+
+type RegulatedAuthorizationCreateType {
+  RegulatedAuthorizationCreate(resource: RegulatedAuthorizationInput): RegulatedAuthorizationCreation
+}
+
+type RegulatedAuthorizationCreation {
+  location: String
+  resource: RegulatedAuthorization
+  information: OperationOutcome
+}
+
+type RegulatedAuthorizationUpdateType {
+  RegulatedAuthorizationUpdate(id: ID, resource: RegulatedAuthorizationInput): RegulatedAuthorizationUpdate
+}
+
+type RegulatedAuthorizationUpdate {
+  resource: RegulatedAuthorization
+  information: OperationOutcome
+}
+
+type RegulatedAuthorizationDeleteType {
+  RegulatedAuthorizationDelete(id: ID): RegulatedAuthorizationDelete
+}
+
+type RegulatedAuthorizationDelete {
+  information: OperationOutcome
+}
+

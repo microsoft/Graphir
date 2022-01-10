@@ -1,0 +1,384 @@
+# FHIR GraphQL Schema. Version 4.6.0
+
+# import * from 'types.graphql'
+
+type Questionnaire {
+  id: ID
+  meta: Meta
+  implicitRules: uri  _implicitRules: ElementBase
+  language: code  _language: ElementBase
+  text: Narrative
+  contained: [Resource]
+  extension: [Extension]
+  modifierExtension: [Extension]
+  url: uri  _url: ElementBase
+  identifier: [Identifier]
+  version: String  _version: ElementBase
+  name: String  _name: ElementBase
+  title: String  _title: ElementBase
+  derivedFrom: canonical  _derivedFrom: [ElementBase]
+  status: code  _status: ElementBase
+  experimental: Boolean  _experimental: ElementBase
+  subjectType: code  _subjectType: [ElementBase]
+  date: dateTime  _date: ElementBase
+  publisher: String  _publisher: ElementBase
+  contact: [ContactDetail]
+  description: markdown  _description: ElementBase
+  useContext: [UsageContext]
+  jurisdiction: [CodeableConcept]
+  purpose: markdown  _purpose: ElementBase
+  copyright: markdown  _copyright: ElementBase
+  approvalDate: date  _approvalDate: ElementBase
+  lastReviewDate: date  _lastReviewDate: ElementBase
+  effectivePeriod: Period
+  code: [Coding]
+  item: [QuestionnaireItem]
+}
+
+type QuestionnaireItem {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  linkId: String  _linkId: ElementBase
+  definition: uri  _definition: ElementBase
+  code: [Coding]
+  prefix: String  _prefix: ElementBase
+  text: markdown  _text: ElementBase
+  type: code  _type: ElementBase
+  enableWhen: [QuestionnaireItemEnableWhen]
+  enableBehavior: code  _enableBehavior: ElementBase
+  disabledDisplay: code  _disabledDisplay: ElementBase
+  required: Boolean  _required: ElementBase
+  repeats: Boolean  _repeats: ElementBase
+  readOnly: Boolean  _readOnly: ElementBase
+  maxLength: Int  _maxLength: ElementBase
+  answerConstraint: code  _answerConstraint: ElementBase
+  answerValueSet: canonical  _answerValueSet: ElementBase
+  answerOption: [QuestionnaireItemAnswerOption]
+  initial: [QuestionnaireItemInitial]
+  item: [QuestionnaireItem]
+}
+
+type QuestionnaireItemEnableWhen {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  question: String  _question: ElementBase
+  operator: code  _operator: ElementBase
+  answerBoolean: Boolean  _answerBoolean: ElementBase
+  answerDecimal: decimal  _answerDecimal: ElementBase
+  answerInteger: Int  _answerInteger: ElementBase
+  answerDate: date  _answerDate: ElementBase
+  answerDateTime: dateTime  _answerDateTime: ElementBase
+  answerTime: time  _answerTime: ElementBase
+  answerString: String  _answerString: ElementBase
+  answerCoding: Coding
+  answerQuantity: Quantity
+  answerReference: Reference
+}
+
+type QuestionnaireItemAnswerOption {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  valueInteger: Int  _valueInteger: ElementBase
+  valueDate: date  _valueDate: ElementBase
+  valueTime: time  _valueTime: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueCoding: Coding
+  valueReference: Reference
+  initialSelected: Boolean  _initialSelected: ElementBase
+}
+
+type QuestionnaireItemInitial {
+  id: ID
+  extension: [Extension]
+  modifierExtension: [Extension]
+  valueBoolean: Boolean  _valueBoolean: ElementBase
+  valueDecimal: decimal  _valueDecimal: ElementBase
+  valueInteger: Int  _valueInteger: ElementBase
+  valueDate: date  _valueDate: ElementBase
+  valueDateTime: dateTime  _valueDateTime: ElementBase
+  valueTime: time  _valueTime: ElementBase
+  valueString: String  _valueString: ElementBase
+  valueUri: uri  _valueUri: ElementBase
+  valueAttachment: Attachment
+  valueCoding: Coding
+  valueQuantity: Quantity
+  valueReference: Reference
+}
+
+input QuestionnaireInput {
+  id: ID
+  meta: MetaInput
+  implicitRules: uri  _implicitRules: ElementBaseInput
+  language: code  _language: ElementBaseInput
+  text: NarrativeInput
+  contained: [ResourceInput]
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  url: uri  _url: ElementBaseInput
+  identifier: [IdentifierInput]
+  version: String  _version: ElementBaseInput
+  name: String  _name: ElementBaseInput
+  title: String  _title: ElementBaseInput
+  derivedFrom: canonical  _derivedFrom: [ElementBaseInput]
+  status: code  _status: ElementBaseInput
+  experimental: Boolean  _experimental: ElementBaseInput
+  subjectType: code  _subjectType: [ElementBaseInput]
+  date: dateTime  _date: ElementBaseInput
+  publisher: String  _publisher: ElementBaseInput
+  contact: [ContactDetailInput]
+  description: markdown  _description: ElementBaseInput
+  useContext: [UsageContextInput]
+  jurisdiction: [CodeableConceptInput]
+  purpose: markdown  _purpose: ElementBaseInput
+  copyright: markdown  _copyright: ElementBaseInput
+  approvalDate: date  _approvalDate: ElementBaseInput
+  lastReviewDate: date  _lastReviewDate: ElementBaseInput
+  effectivePeriod: PeriodInput
+  code: [CodingInput]
+  item: [QuestionnaireItemInput]
+}
+
+input QuestionnaireItemInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  linkId: String  _linkId: ElementBaseInput
+  definition: uri  _definition: ElementBaseInput
+  code: [CodingInput]
+  prefix: String  _prefix: ElementBaseInput
+  text: markdown  _text: ElementBaseInput
+  type: code  _type: ElementBaseInput
+  enableWhen: [QuestionnaireItemEnableWhenInput]
+  enableBehavior: code  _enableBehavior: ElementBaseInput
+  disabledDisplay: code  _disabledDisplay: ElementBaseInput
+  required: Boolean  _required: ElementBaseInput
+  repeats: Boolean  _repeats: ElementBaseInput
+  readOnly: Boolean  _readOnly: ElementBaseInput
+  maxLength: Int  _maxLength: ElementBaseInput
+  answerConstraint: code  _answerConstraint: ElementBaseInput
+  answerValueSet: canonical  _answerValueSet: ElementBaseInput
+  answerOption: [QuestionnaireItemAnswerOptionInput]
+  initial: [QuestionnaireItemInitialInput]
+  item: [QuestionnaireItem]
+}
+
+input QuestionnaireItemEnableWhenInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  question: String  _question: ElementBaseInput
+  operator: code  _operator: ElementBaseInput
+  answerBoolean: Boolean  _answerBoolean: ElementBaseInput
+  answerDecimal: decimal  _answerDecimal: ElementBaseInput
+  answerInteger: Int  _answerInteger: ElementBaseInput
+  answerDate: date  _answerDate: ElementBaseInput
+  answerDateTime: dateTime  _answerDateTime: ElementBaseInput
+  answerTime: time  _answerTime: ElementBaseInput
+  answerString: String  _answerString: ElementBaseInput
+  answerCoding: CodingInput
+  answerQuantity: QuantityInput
+  answerReference: ReferenceInput
+}
+
+input QuestionnaireItemAnswerOptionInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueTime: time  _valueTime: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueCoding: CodingInput
+  valueReference: ReferenceInput
+  initialSelected: Boolean  _initialSelected: ElementBaseInput
+}
+
+input QuestionnaireItemInitialInput {
+  id: ID
+  extension: [ExtensionInput]
+  modifierExtension: [ExtensionInput]
+  valueBoolean: Boolean  _valueBoolean: ElementBaseInput
+  valueDecimal: decimal  _valueDecimal: ElementBaseInput
+  valueInteger: Int  _valueInteger: ElementBaseInput
+  valueDate: date  _valueDate: ElementBaseInput
+  valueDateTime: dateTime  _valueDateTime: ElementBaseInput
+  valueTime: time  _valueTime: ElementBaseInput
+  valueString: String  _valueString: ElementBaseInput
+  valueUri: uri  _valueUri: ElementBaseInput
+  valueAttachment: AttachmentInput
+  valueCoding: CodingInput
+  valueQuantity: QuantityInput
+  valueReference: ReferenceInput
+}
+
+type QuestionnaireReadType {
+  Questionnaire(id: ID!): Questionnaire
+}
+
+type QuestionnaireListType {
+  QuestionnaireList(_filter: String
+    combo_code: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    definition: [uri]
+    description: [String]
+    effective: [date]
+    identifier: [token]
+    item_code: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    questionnaire_code: [token]
+    status: [token]
+    subject_type: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): [Questionnaire]
+}
+
+type QuestionnaireConnectionType {
+  QuestionnaireConection(_filter: String
+    combo_code: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    definition: [uri]
+    description: [String]
+    effective: [date]
+    identifier: [token]
+    item_code: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    questionnaire_code: [token]
+    status: [token]
+    subject_type: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    composed_of: [reference]
+    depends_on: [reference]
+    derived_from: [reference]
+    effective: [date]
+    predecessor: [reference]
+    successor: [reference]
+    topic: [token]
+    context: [token]
+    context_quantity: [quantity]
+    context_type: [token]
+    context_type_quantity: [composite]
+    context_type_value: [composite]
+    date: [date]
+    description: [String]
+    identifier: [token]
+    jurisdiction: [token]
+    name: [String]
+    publisher: [String]
+    status: [token]
+    title: [String]
+    url: [uri]
+    version: [token]
+    _text: [special]
+    _content: [special]
+    _id: [token]
+    _lastUpdated: [date]
+    _list: [special]
+    _profile: [reference]
+    _query: [special]
+    _security: [token]
+    _source: [uri]
+    _tag: [token]
+    _sort: String
+    _count: Int
+    _cursor: String): QuestionnaireConnection
+}
+
+type QuestionnaireConnection {
+  count: Int
+  offset: Int
+  pagesize: Int
+  first: ID
+  previous: ID
+  next: ID
+  last: ID
+  edges: [QuestionnaireEdge]
+}
+
+type QuestionnaireEdge {
+  mode: String
+  score: Float
+  resource: Questionnaire
+}
+
+type QuestionnaireCreateType {
+  QuestionnaireCreate(resource: QuestionnaireInput): QuestionnaireCreation
+}
+
+type QuestionnaireCreation {
+  location: String
+  resource: Questionnaire
+  information: OperationOutcome
+}
+
+type QuestionnaireUpdateType {
+  QuestionnaireUpdate(id: ID, resource: QuestionnaireInput): QuestionnaireUpdate
+}
+
+type QuestionnaireUpdate {
+  resource: Questionnaire
+  information: OperationOutcome
+}
+
+type QuestionnaireDeleteType {
+  QuestionnaireDelete(id: ID): QuestionnaireDelete
+}
+
+type QuestionnaireDelete {
+  information: OperationOutcome
+}
+
