@@ -26,6 +26,24 @@ namespace Graphir.API.Utils
             return result;
         }
 
+        public static Practitioner ToPractitioner(PractitionerInput practitioner)
+        {
+            var result = new Practitioner
+            {
+                Id = practitioner.Id ?? string.Empty,
+                Identifier = practitioner.Identifier?.Select(i => ToIdentifier(i)).ToList(),
+                Active = practitioner.Active ?? true,
+                Name = practitioner.Name?.Select(n => ToHumanName(n)).ToList(),
+                Language = practitioner.Language ?? string.Empty,
+                Gender = (practitioner.Gender != null) ? ToEnum<AdministrativeGender>(practitioner.Gender) : null,
+                BirthDate = practitioner.BirthDate ?? string.Empty,
+                Telecom = practitioner.Telecom?.Select(t => ToContactPoint(t)).ToList(),
+                Address = practitioner.Address?.Select(a => ToAddress(a)).ToList(),
+                Communication = practitioner.Communication?.Select(c => ToCodeableConcept(c)).ToList()                
+            };
+            return result;
+        }
+
         public static Identifier ToIdentifier(IdentifierInput identifier)
         {
             var result = new Identifier

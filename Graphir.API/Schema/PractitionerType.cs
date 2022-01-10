@@ -82,7 +82,7 @@ namespace Graphir.API.Schema
         string? Gender,
         string? BirthDate,
         AddressInput[]? Address,
-        PractitionerCommunicationInput[]? Communication,
+        CodeableConceptInput[]? Communication,
         PractitionerQualificationInput[]? Qualification
     );
 
@@ -93,11 +93,6 @@ namespace Graphir.API.Schema
         AddressInput? Address,
         string? Gender,
         PeriodInput? Period
-    );
-
-    public record PractitionerCommunicationInput(
-        CodeableConceptInput? Language,
-        bool? Preferred
     );
 
     public record PractitionerQualificationInput(
