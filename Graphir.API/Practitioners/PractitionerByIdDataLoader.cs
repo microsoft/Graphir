@@ -24,14 +24,12 @@ namespace Graphir.API.Practitioners
         protected override async Task<IReadOnlyDictionary<string, Practitioner>> LoadBatchAsync(IReadOnlyList<string> keys, CancellationToken cancellationToken)
         {
             var results = new List<Practitioner>();
-            foreach (var id in keys)
+            var searchStr = string.Join(",", keys.Select(k => k));
+            var response = await _fhirService.SearchAsync<Practitioner>(new[] { $"_id={searchStr}" });
+            if (response != null)
             {
-                var bundle = await _fhirService.SearchByIdAsync<Practitioner>(id);
-                if (bundle != null)
-                {
-                    results.Add(bundle.Entry.Select(p => (Practitioner)p.Resource).First());
-                }
-            }
+                results = response.Entry.Select(p => (Practitioner)p.Resource).ToList();
+            }            
 
             return results.ToDictionary(p => p.Id);
         }
