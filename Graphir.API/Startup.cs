@@ -1,5 +1,6 @@
 using Graphir.API.Extensions;
-using Graphir.API.Schema;
+using Graphir.API.Patients;
+using Graphir.API.Practitioners;
 using Graphir.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

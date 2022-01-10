@@ -1,6 +1,11 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.Practitioners;
+using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Graphir.API.Schema
 {
@@ -24,7 +29,10 @@ namespace Graphir.API.Schema
             descriptor.Field(p => p.Photo);
             //descriptor.Field(p => p.Contact); #TODO: use resolver to get related resource
             descriptor.Field(p => p.Communication);
-            //descriptor.Field(p => p.GeneralPractitioner); #TODO: use resolver to get related resource
+
+            descriptor.Field(p => p.GeneralPractitioner)
+                .ResolveWith<PatientResolvers>(t => t.GetPractitionerAsync(default!, default!, default));
+
             //descriptor.Field(p => p.ManagingOrganization); #TODO: use resolver to get related resource
 
             /*
@@ -48,7 +56,24 @@ namespace Graphir.API.Schema
             var patient = new Patient();
             return patient;
         }
+
+        private class PatientResolvers
+        {
+            public async Task<IReadOnlyList<Practitioner>> GetPractitionerAsync(
+                [Parent] Patient patient,
+                PractitionerByIdDataLoader practitionerById,
+                CancellationToken cancellationToken
+            )
+            {   
+                var refs = patient.GeneralPractitioner.Select(p => p.Reference.Split('/').LastOrDefault());
+                var results = await practitionerById.LoadAsync(refs.ToArray(), cancellationToken);
+
+                return results;
+            }
+        }
     }
+
+    
 
     public class PatientContactType : ObjectType<Patient.ContactComponent>
     {
@@ -108,7 +133,8 @@ namespace Graphir.API.Schema
         string? BirthDate,
         AddressInput[]? Address,
         CodeableConceptInput? MaritalStatus,
-        PatientCommunicationInput[]? Communication
+        PatientCommunicationInput[]? Communication,
+        ResourceReferenceInput[]? GeneralPractitioner
     );
 
     public record PatientContactInput(

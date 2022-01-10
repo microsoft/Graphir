@@ -1,3 +1,4 @@
+using Graphir.API.Practitioners;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ namespace Graphir.API.Extensions
         this IRequestExecutorBuilder graphBuilder)
         {
             graphBuilder
+                .AddDataLoader<PractitionerByIdDataLoader>()
                 .AddType<PractitionerQualificationType>()
                 .AddType<PractitionerType>()
             ;

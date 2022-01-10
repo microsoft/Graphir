@@ -1,17 +1,13 @@
-﻿using Graphir.API.Services;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 using HotChocolate.Types.Pagination;
-using Microsoft.Extensions.Options;
-using Microsoft.Identity.Web;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Graphir.API.Schema
+namespace Graphir.API.Patients
 {
     [ExtendObjectType(OperationTypeNames.Query)]
 
@@ -36,6 +32,25 @@ namespace Graphir.API.Schema
             return result;
         }
 
+        /// <summary>
+        /// Gets a single page list of patients with ability to search by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <example>
+        /// query PatientListByName {
+        ///     PatientList(name: "hulk")
+        ///     {
+        ///         id
+        ///         name { given, family}
+        ///         generalPractitioner {
+        ///             name {
+        ///                 family given
+        ///             }
+        ///         }
+        ///     }
+        /// }
+        /// </example>
         [GraphQLName("PatientList")]
         public async Task<IList<Patient>> GetPatientList(string name = "")
         {

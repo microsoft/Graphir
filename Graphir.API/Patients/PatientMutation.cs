@@ -1,14 +1,13 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.Schema;
+using Graphir.API.Utils;
+using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
-using Hl7.Fhir.Support;
-using HotChocolate;
 using HotChocolate.Types;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Graphir.API.Utils;
 
-namespace Graphir.API.Schema
+namespace Graphir.API.Patients
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class PatientMutation
@@ -46,6 +45,33 @@ namespace Graphir.API.Schema
 
         }
 
+        /// <summary>
+        /// Updates a patient record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="patient"></param>
+        /// <returns></returns>
+        /// <example>
+        /// mutation patientUpdate {
+        ///   updatePatient(id: "c6fa00c3-e4ec-4e40-91ae-5a04e0a4f223", patient: {
+        ///   generalPractitioner:
+        ///       [{
+        ///       reference: "Practitioner/00000174-0823-dc8d-0000-00000000e876"
+        ///   }]
+        /// }) {
+        ///     information {
+        ///      errors
+        ///     }
+        ///     resource {
+        ///      id
+        ///      name
+        ///     {
+        ///         family given
+        ///     }
+        ///     }
+        ///   }
+        /// }
+        /// </example>
         public async Task<PatientUpdate> UpdatePatient(string id, PatientInput patient)
         {
             try
@@ -70,6 +96,7 @@ namespace Graphir.API.Schema
                 existingPatient.Address = (updatePatient.Address.Count > 0) ? updatePatient.Address : existingPatient.Address;
                 existingPatient.MaritalStatus = updatePatient.MaritalStatus ?? existingPatient.MaritalStatus;
                 existingPatient.Communication = (updatePatient.Communication.Count > 0) ? updatePatient.Communication : existingPatient.Communication;
+                existingPatient.GeneralPractitioner = (updatePatient.GeneralPractitioner.Count > 0) ? updatePatient.GeneralPractitioner : existingPatient.GeneralPractitioner;
 
                 var result = await _fhirClient.UpdateAsync(existingPatient);
                 return new PatientUpdate
