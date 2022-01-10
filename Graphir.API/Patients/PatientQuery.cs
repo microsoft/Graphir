@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.Practitioners;
+using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
@@ -22,15 +23,7 @@ namespace Graphir.API.Patients
         }
 
         [GraphQLName("Patient")]
-        public async Task<Patient> GetPatient(string id)
-        {
-            var bundle = await _fhirService.SearchByIdAsync<Patient>(id);
-            var result =
-                (bundle != null) ? bundle.Entry.Select(p => (Patient)p.Resource).First()
-                : new Patient();
-
-            return result;
-        }
+        public async Task<Patient> GetPatient(string id, PatientByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
 
         /// <summary>
         /// Gets a single page list of patients with ability to search by name

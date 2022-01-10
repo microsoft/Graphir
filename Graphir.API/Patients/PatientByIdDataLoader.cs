@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace Graphir.API.Practitioners
 {
-    public class PractitionerByIdDataLoader : BatchDataLoader<string, Practitioner>
+    public class PatientByIdDataLoader : BatchDataLoader<string, Patient>
     {
         private readonly FhirClient _fhirService;
 
-        public PractitionerByIdDataLoader(
+        public PatientByIdDataLoader(
             IBatchScheduler scheduler,
             FhirClient fhirService,
             DataLoaderOptions options)
             : base(scheduler, options)
         {
             _fhirService = fhirService;
-        }        
+        }
 
-        protected override async Task<IReadOnlyDictionary<string, Practitioner>> LoadBatchAsync(IReadOnlyList<string> keys, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyDictionary<string, Patient>> LoadBatchAsync(IReadOnlyList<string> keys, CancellationToken cancellationToken)
         {
-            var results = new List<Practitioner>();
+            var results = new List<Patient>();
             var searchStr = string.Join(",", keys.Select(k => k));
-            var response = await _fhirService.SearchAsync<Practitioner>(new[] { $"_id={searchStr}" });
+            var response = await _fhirService.SearchAsync<Patient>(new[] { $"_id={searchStr}" });
             if (response != null)
             {
-                results = response.Entry.Select(p => (Practitioner)p.Resource).ToList();
-            }            
+                results = response.Entry.Select(p => (Patient)p.Resource).ToList();
+            }
 
             return results.ToDictionary(p => p.Id);
         }
