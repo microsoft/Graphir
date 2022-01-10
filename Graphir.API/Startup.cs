@@ -55,6 +55,7 @@ namespace Graphir.API
             services.AddScoped<PatientQuery>();
             services.AddScoped<PractitionerQuery>();
             services.AddScoped<PatientMutation>();
+            services.AddScoped<PractitionerMutation>();
 
             // Register all HotChocolate types with DI
             services
