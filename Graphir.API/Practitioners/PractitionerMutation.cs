@@ -7,8 +7,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Graphir.API.Utils;
+using Graphir.API.Schema;
 
-namespace Graphir.API.Schema
+namespace Graphir.API.Practitioners
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class PractitionerMutation
