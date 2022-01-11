@@ -29,6 +29,7 @@ resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
         }
       ]
     }
+    httpsOnly: true
   }
 }
 
