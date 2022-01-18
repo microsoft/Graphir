@@ -22,6 +22,28 @@ namespace Graphir.API.Patients
             _fhirService = fhirService;
         }
 
+        /// <summary>
+        /// Gets a single patient by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dataLoader"></param>
+        /// <returns></returns>
+        /// <example>
+        /// query Patient {
+        ///    Patient(id: "c6fa00c3-e4ec-4e40-91ae-5a04e0a4f223")
+        ///    {
+        ///        id
+        ///        name {
+        ///            family given
+        ///        }
+        ///        generalPractitioner {
+        ///            name {
+        ///                given family
+        ///            }
+        ///        }
+        ///    }
+        ///}
+        /// </example>
         [GraphQLName("Patient")]
         public async Task<Patient> GetPatient(string id, PatientByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
 
@@ -68,6 +90,22 @@ namespace Graphir.API.Patients
         /// <param name="after">Only fetch items after this cursor (Patient.Id)</param>
         /// <param name="first">Number of items to fetch</param>
         /// <returns></returns>
+        /// <example>
+        /// query PatientConnect {
+        ///    PatientConnection(after: "34de5f7d-5965-4745-8653-1a3d991b9961")
+        ///    {
+        ///        pageInfo {
+        ///            hasNextPage
+        ///            hasPreviousPage
+        ///          endCursor
+        ///        }
+        ///        nodes {
+        ///            id
+        ///            name { given family }
+        ///        }
+        ///    }
+        ///}
+        /// </example>
         [UsePaging]
         [GraphQLName("PatientConnection")]
         public async Task<Connection<Patient>> GetPatientConnection(string? after, int? first)
