@@ -19,13 +19,38 @@ namespace Graphir.API.Patients
             _fhirClient = fhirClient;
         }
 
+        /// <summary>
+        /// Create a patient record
+        /// </summary>
+        /// <param name="patient"></param>
+        /// <returns></returns>
+        /// <example>
+        /// mutation create {
+        ///    createPatient(patient: {
+        ///        active: true
+        ///        name:
+        ///        {
+        ///          family: "TestCreate"
+        ///          given:["Patient"]
+        ///        }
+        ///        gender: "male"
+        ///          birthDate: "1970-01-01"
+        ///        }){
+        ///    information { success
+        ///    }
+        ///    resource {
+        ///      id
+        ///    }
+        ///  }
+        ///}
+        /// </example>
         public async Task<PatientCreation> CreatePatient(PatientInput patient)
         {
             try
             {
                 var newPatient = InputConvert.ToPatient(patient);
                 var result = await _fhirClient.CreateAsync(newPatient);
-                                                
+
                 return new PatientCreation
                 {
                     Location = $"Patient(id:\"{result.Id}\")",
@@ -84,7 +109,7 @@ namespace Graphir.API.Patients
                 }
                 var existingPatient = find.Entry.Select(p => (Patient)p.Resource).First();
                 var updatePatient = InputConvert.ToPatient(patient);
-                
+
                 // set only updated props
                 existingPatient.Identifier = (updatePatient.Identifier.Count > 0) ? updatePatient.Identifier : existingPatient.Identifier;
                 existingPatient.Language = updatePatient.Language ?? existingPatient.Language;
@@ -115,6 +140,21 @@ namespace Graphir.API.Patients
             }
         }
 
+        /// <summary>
+        /// Delete a patient record.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <example>
+        /// mutation patientDelete {
+        ///    deletePatient(id: "c6fa00c3-e4ec-4e40-91ae-5a04e0a4f223")
+        ///    {
+        ///        information {
+        ///            success
+        ///        }
+        ///    }
+        ///}
+        /// </example>
         public async Task<PatientDelete> DeletePatient(string id)
         {
             try
