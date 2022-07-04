@@ -28,7 +28,7 @@ The FHIR schema encompasses large objects that can be cumbersome to develop clie
 
 To follow this guide for running locally you will need the following
 
-* dotnet 5.0
+* dotnet 6.0 
 * Visual Studio 2022 (Professional or Enterprise)
 * [API app registration & client App Registration](https://github.com/microsoft/Graphir/blob/master/docs/Readme-Registering-Prerequisite-Apps.md)
 
@@ -72,8 +72,8 @@ query patientList {
 * In the Configure New Token section
   * select 'Authorization Code' for Grant Type (*if you have multi-factor enabled, select 'Authorization Code (with PKCE)')
   * Leave 'Authorize with browser' checked
-  * Auth URL: https://login.microsoftonline.com/<tenant>/oauth2/v2.0/authorize
-  * Access Token URL: https://login.microsoftonline.com/<tenant>/oauth2/v2.0/token
+  * Auth URL: https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/authorize
+  * Access Token URL: https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token
   * ClientId: <client id>
   * Scope: <insert scope from API app registration>
 * Click 'Get New Access Token'
