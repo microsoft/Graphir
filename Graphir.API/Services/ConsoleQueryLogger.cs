@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Instrumentation;
 using Microsoft.Extensions.Logging;
