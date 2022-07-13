@@ -66,18 +66,9 @@ namespace Graphir.API.Practitioners
         [GraphQLName("PractitionerList")]        
         public async Task<IList<Practitioner>> GetPractitionerList(string name = "")
         {
-            IList<Practitioner>? results;
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                results = await GetPractitionersAsync();
-            }
-            else
-            {
-                results = await SearchPractitionerByName(name);
-            }
-
-            return results;
+            return string.IsNullOrWhiteSpace(name)
+                ? await GetPractitionersAsync()
+                : await SearchPractitionerByName(name);
         }
 
         /// <summary>
@@ -103,9 +94,9 @@ namespace Graphir.API.Practitioners
 
             var edges = allPractitioners.Select(practitioner => new Edge<Practitioner>(practitioner, practitioner.Id)).Take(pageSize).ToList();
             bool hasNext = allPractitioners.Count() > pageSize;
-            bool hasPrevious = (string.IsNullOrEmpty(after) ? false : true);
-            string firstCursor = edges.FirstOrDefault().Node.Id;
-            string lastCursor = edges.LastOrDefault().Node.Id;
+            bool hasPrevious = !string.IsNullOrEmpty(after);
+            string firstCursor = edges.FirstOrDefault()?.Node.Id;
+            string lastCursor = edges.LastOrDefault()?.Node.Id;
             var pageInfo = new ConnectionPageInfo(hasNext, hasPrevious, firstCursor, lastCursor);
             var connection = new Connection<Practitioner>(edges, pageInfo, ct => ValueTask.FromResult(0));
 

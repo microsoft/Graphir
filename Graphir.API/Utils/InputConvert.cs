@@ -12,17 +12,17 @@ namespace Graphir.API.Utils
             var result = new Patient
             {
                 Id = patient.Id ?? string.Empty,
-                Identifier = patient.Identifier?.Select(i => ToIdentifier(i)).ToList(),
+                Identifier = patient.Identifier?.Select(ToIdentifier).ToList(),
                 Active = patient.Active ?? true,
-                Name = patient.Name?.Select(n => ToHumanName(n)).ToList(),
+                Name = patient.Name?.Select(ToHumanName).ToList(),
                 Language = patient.Language ?? string.Empty,
                 Gender = (patient.Gender != null) ? ToEnum<AdministrativeGender>(patient.Gender) : null,
                 BirthDate = patient.BirthDate ?? string.Empty,
-                Telecom = patient.Telecom?.Select(t => ToContactPoint(t)).ToList(),
-                Address = patient.Address?.Select(a => ToAddress(a)).ToList(),
+                Telecom = patient.Telecom?.Select(ToContactPoint).ToList(),
+                Address = patient.Address?.Select(ToAddress).ToList(),
                 MaritalStatus = (patient.MaritalStatus != null) ? ToCodeableConcept(patient.MaritalStatus) : null,
-                Communication = patient.Communication?.Select(c => ToCommunicationComponent(c)).ToList(),
-                GeneralPractitioner = patient.GeneralPractitioner?.Select(p => ToResourceReference(p)).ToList()
+                Communication = patient.Communication?.Select(ToCommunicationComponent).ToList(),
+                GeneralPractitioner = patient.GeneralPractitioner?.Select(ToResourceReference).ToList()
             };
             return result;
         }
@@ -32,15 +32,15 @@ namespace Graphir.API.Utils
             var result = new Practitioner
             {
                 Id = practitioner.Id ?? string.Empty,
-                Identifier = practitioner.Identifier?.Select(i => ToIdentifier(i)).ToList(),
+                Identifier = practitioner.Identifier?.Select(ToIdentifier).ToList(),
                 Active = practitioner.Active ?? true,
-                Name = practitioner.Name?.Select(n => ToHumanName(n)).ToList(),
+                Name = practitioner.Name?.Select(ToHumanName).ToList(),
                 Language = practitioner.Language ?? string.Empty,
                 Gender = (practitioner.Gender != null) ? ToEnum<AdministrativeGender>(practitioner.Gender) : null,
                 BirthDate = practitioner.BirthDate ?? string.Empty,
-                Telecom = practitioner.Telecom?.Select(t => ToContactPoint(t)).ToList(),
-                Address = practitioner.Address?.Select(a => ToAddress(a)).ToList(),
-                Communication = practitioner.Communication?.Select(c => ToCodeableConcept(c)).ToList()                
+                Telecom = practitioner.Telecom?.Select(ToContactPoint).ToList(),
+                Address = practitioner.Address?.Select(ToAddress).ToList(),
+                Communication = practitioner.Communication?.Select(ToCodeableConcept).ToList()                
             };
             return result;
         }
@@ -107,7 +107,7 @@ namespace Graphir.API.Utils
         {
             var result = new CodeableConcept
             {
-                Coding = (input.Coding != null) ? input.Coding.Select(c => ToCoding(c)).ToList() : null,
+                Coding = input.Coding?.Select(ToCoding).ToList(),
                 Text = input.Text ?? string.Empty
             };
             return result;

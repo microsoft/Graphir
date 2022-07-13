@@ -1,7 +1,5 @@
 ﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
-using Hl7.Fhir.Support;
-using HotChocolate;
 using HotChocolate.Types;
 using System;
 using System.Linq;

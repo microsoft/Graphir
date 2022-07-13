@@ -26,7 +26,7 @@ namespace Graphir.API.Practitioners
             var results = new List<Practitioner>();
             var searchStr = string.Join(",", keys.Select(k => k));
             var response = await _fhirService.SearchAsync<Practitioner>(new[] { $"_id={searchStr}" });
-            if (response != null)
+            if (response is not null)
             {
                 results = response.Entry.Select(p => (Practitioner)p.Resource).ToList();
             }            

@@ -1,6 +1,4 @@
 ﻿
-using System;
-
 namespace Graphir.API.Schema
 {
     public record AddressInput(
