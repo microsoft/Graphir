@@ -7,7 +7,7 @@ param clientsecret string
 
 resource serverFarms 'Microsoft.Web/serverfarms@2021-01-15' = {
   name: serverfarm_name
-  location: resourceGroup().location
+  location: location
   sku: {
     name: sku
   }
@@ -21,7 +21,7 @@ resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
   properties: {
     serverFarmId: serverFarms.id
     siteConfig: {
-      netFrameworkVersion: 'v5.0'
+      netFrameworkVersion: 'v6.0'
       appSettings: [
         {
           name: 'AzureAd:ClientSecret'
