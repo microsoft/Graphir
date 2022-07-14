@@ -7,6 +7,7 @@ global using System.Threading.Tasks;
 global using System.Security.Claims;
 global using System.Net.Http.Headers;
 global using System.Collections.Generic;
+global using static System.StringComparison;
 #endregion
 
 #region Microsoft
