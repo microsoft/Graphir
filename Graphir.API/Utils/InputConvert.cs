@@ -11,11 +11,11 @@
                 Active = patient.Active ?? true,
                 Name = patient.Name?.Select(ToHumanName).ToList(),
                 Language = patient.Language ?? string.Empty,
-                Gender = (patient.Gender != null) ? ToEnum<AdministrativeGender>(patient.Gender) : null,
+                Gender = patient.Gender != null ? ToEnum<AdministrativeGender>(patient.Gender) : null,
                 BirthDate = patient.BirthDate ?? string.Empty,
                 Telecom = patient.Telecom?.Select(ToContactPoint).ToList(),
                 Address = patient.Address?.Select(ToAddress).ToList(),
-                MaritalStatus = (patient.MaritalStatus != null) ? ToCodeableConcept(patient.MaritalStatus) : null,
+                MaritalStatus = patient.MaritalStatus != null ? ToCodeableConcept(patient.MaritalStatus) : null,
                 Communication = patient.Communication?.Select(ToCommunicationComponent).ToList(),
                 GeneralPractitioner = patient.GeneralPractitioner?.Select(ToResourceReference).ToList()
             };
@@ -31,7 +31,7 @@
                 Active = practitioner.Active ?? true,
                 Name = practitioner.Name?.Select(ToHumanName).ToList(),
                 Language = practitioner.Language ?? string.Empty,
-                Gender = (practitioner.Gender != null) ? ToEnum<AdministrativeGender>(practitioner.Gender) : null,
+                Gender = practitioner.Gender != null ? ToEnum<AdministrativeGender>(practitioner.Gender) : null,
                 BirthDate = practitioner.BirthDate ?? string.Empty,
                 Telecom = practitioner.Telecom?.Select(ToContactPoint).ToList(),
                 Address = practitioner.Address?.Select(ToAddress).ToList(),
@@ -44,10 +44,10 @@
         {
             var result = new Identifier
             {
-                Period = (identifier.Period != null) ? ToPeriod(identifier.Period) : null,
+                Period = identifier.Period != null ? ToPeriod(identifier.Period) : null,
                 System = identifier.System ?? string.Empty,
-                Type = (identifier.Type != null) ? ToCodeableConcept(identifier.Type) : null,
-                Use = (identifier.Use != null) ? ToEnum<Identifier.IdentifierUse>(identifier.Use) : null,
+                Type = identifier.Type != null ? ToCodeableConcept(identifier.Type) : null,
+                Use = identifier.Use != null ? ToEnum<Identifier.IdentifierUse>(identifier.Use) : null,
                 Value = identifier.Value ?? string.Empty
             };
             return result;
@@ -59,11 +59,11 @@
             {
                 Family = input.Family ?? string.Empty,
                 Given = input.Given ?? null,
-                Period = (input.Period != null) ? ToPeriod(input.Period) : null,
+                Period = input.Period != null ? ToPeriod(input.Period) : null,
                 Prefix = input.Prefix ?? null,
                 Suffix = input.Suffix ?? null,
                 Text = input.Text ?? string.Empty,
-                Use = (input.Use != null) ? ToEnum<HumanName.NameUse>(input.Use) : null
+                Use = input.Use != null ? ToEnum<HumanName.NameUse>(input.Use) : null
             };
             return result;
         }
@@ -72,10 +72,10 @@
         {
             var result = new ContactPoint
             {
-                Period = (input.Period != null) ? ToPeriod(input.Period) : null,
+                Period = input.Period != null ? ToPeriod(input.Period) : null,
                 Rank = input.Rank ?? null,
-                System = (input.System != null) ? ToEnum<ContactPoint.ContactPointSystem>(input.System) : null,
-                Use = (input.Use != null) ? ToEnum<ContactPoint.ContactPointUse>(input.Use) : null
+                System = input.System != null ? ToEnum<ContactPoint.ContactPointSystem>(input.System) : null,
+                Use = input.Use != null ? ToEnum<ContactPoint.ContactPointUse>(input.Use) : null
             };
             return result;
         }
@@ -88,12 +88,12 @@
                 Country = input.Country ?? string.Empty,
                 District = input.District ?? string.Empty,
                 Line = input.Line ?? null,
-                Period = (input.Period != null) ? ToPeriod(input.Period) : null,
+                Period = input.Period != null ? ToPeriod(input.Period) : null,
                 PostalCode = input.PostalCode ?? string.Empty,
                 State = input.State ?? string.Empty,
                 Text = input.Text ?? string.Empty,
-                Type = (input.Type != null) ? ToEnum<Address.AddressType>(input.Type) : null,
-                Use = (input.Use != null) ? ToEnum<Address.AddressUse>(input.Use) : null
+                Type = input.Type != null ? ToEnum<Address.AddressType>(input.Type) : null,
+                Use = input.Use != null ? ToEnum<Address.AddressUse>(input.Use) : null
             };
             return result;
         }
@@ -112,7 +112,7 @@
         {
             var result = new Patient.CommunicationComponent
             {
-                Language = (input.Language != null) ? ToCodeableConcept(input.Language) : null,
+                Language = input.Language != null ? ToCodeableConcept(input.Language) : null,
                 Preferred = input.Preferred ?? true
             };
             return result;
@@ -145,7 +145,7 @@
         {
             var result = new ResourceReference
             {
-                Identifier = (input.Identifier != null) ? ToIdentifier(input.Identifier) : null,
+                Identifier = input.Identifier != null ? ToIdentifier(input.Identifier) : null,
                 Display = input.Display ?? string.Empty,
                 Reference = input.Reference ?? string.Empty,
                 Type = input.Type ?? string.Empty

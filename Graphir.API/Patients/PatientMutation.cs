@@ -102,17 +102,17 @@
                 var updatePatient = InputConvert.ToPatient(patient);
 
                 // set only updated props
-                existingPatient.Identifier = (updatePatient.Identifier.Count > 0) ? updatePatient.Identifier : existingPatient.Identifier;
+                existingPatient.Identifier = updatePatient.Identifier.Count > 0 ? updatePatient.Identifier : existingPatient.Identifier;
                 existingPatient.Language = updatePatient.Language ?? existingPatient.Language;
                 existingPatient.Active = updatePatient.Active ?? existingPatient.Active;
-                existingPatient.Name = (updatePatient.Name.Count > 0) ? updatePatient.Name : existingPatient.Name;
-                existingPatient.Telecom = (updatePatient.Telecom.Count > 0) ? updatePatient.Telecom : existingPatient.Telecom;
+                existingPatient.Name = updatePatient.Name.Count > 0 ? updatePatient.Name : existingPatient.Name;
+                existingPatient.Telecom = updatePatient.Telecom.Count > 0 ? updatePatient.Telecom : existingPatient.Telecom;
                 existingPatient.Gender = updatePatient.Gender ?? existingPatient.Gender;
                 existingPatient.BirthDate = updatePatient.BirthDate ?? existingPatient.BirthDate;
-                existingPatient.Address = (updatePatient.Address.Count > 0) ? updatePatient.Address : existingPatient.Address;
+                existingPatient.Address = updatePatient.Address.Count > 0 ? updatePatient.Address : existingPatient.Address;
                 existingPatient.MaritalStatus = updatePatient.MaritalStatus ?? existingPatient.MaritalStatus;
-                existingPatient.Communication = (updatePatient.Communication.Count > 0) ? updatePatient.Communication : existingPatient.Communication;
-                existingPatient.GeneralPractitioner = (updatePatient.GeneralPractitioner.Count > 0) ? updatePatient.GeneralPractitioner : existingPatient.GeneralPractitioner;
+                existingPatient.Communication = updatePatient.Communication.Count > 0 ? updatePatient.Communication : existingPatient.Communication;
+                existingPatient.GeneralPractitioner = updatePatient.GeneralPractitioner.Count > 0 ? updatePatient.GeneralPractitioner : existingPatient.GeneralPractitioner;
 
                 var result = await _fhirClient.UpdateAsync(existingPatient);
                 return new PatientUpdate
