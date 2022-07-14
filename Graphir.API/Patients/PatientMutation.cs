@@ -1,13 +1,4 @@
-﻿using Graphir.API.Schema;
-using Graphir.API.Utils;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
-using HotChocolate.Types;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Graphir.API.Patients
+﻿namespace Graphir.API.Patients
 {
     [ExtendObjectType(OperationTypeNames.Mutation)]
     public class PatientMutation

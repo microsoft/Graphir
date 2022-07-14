@@ -1,9 +1,4 @@
-﻿using Graphir.API.Schema;
-using Hl7.Fhir.Model;
-using System;
-using System.Linq;
-
-namespace Graphir.API.Utils
+﻿namespace Graphir.API.Utils
 {
     public static class InputConvert
     {

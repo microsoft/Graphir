@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
-using Hl7.Fhir.Rest;
-using Graphir.API.Services;
-using System;
-using Microsoft.Identity.Web;
-
-internal static class FhirServiceExtensions
+﻿internal static class FhirServiceExtensions
 {
     public static IServiceCollection AddFhirService(
         this IServiceCollection services, Func<FhirDataConnection> connection)

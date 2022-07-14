@@ -1,9 +1,4 @@
-﻿using System;
-using HotChocolate.Execution;
-using HotChocolate.Execution.Instrumentation;
-using Microsoft.Extensions.Logging;
-
-namespace Graphir.API.Services
+﻿namespace Graphir.API.Services
 {
     public class ConsoleQueryLogger : ExecutionDiagnosticEventListener
     {

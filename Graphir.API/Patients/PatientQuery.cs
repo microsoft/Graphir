@@ -1,14 +1,4 @@
-﻿using Graphir.API.Practitioners;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
-using HotChocolate;
-using HotChocolate.Types;
-using HotChocolate.Types.Pagination;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Graphir.API.Patients
+﻿namespace Graphir.API.Patients
 {
     [ExtendObjectType(OperationTypeNames.Query)]
 

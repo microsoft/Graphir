@@ -1,11 +1,4 @@
-﻿using Graphir.API.Practitioners;
-using Hl7.Fhir.Model;
-using HotChocolate;
-using HotChocolate.Types;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Graphir.API.Schema
 {

@@ -1,8 +1,4 @@
-﻿using Graphir.API.Schema;
-using HotChocolate.Execution.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Graphir.API.Extensions
+﻿namespace Graphir.API.Extensions
 {
     internal static class FhirTypesStartup
     {

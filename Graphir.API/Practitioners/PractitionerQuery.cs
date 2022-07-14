@@ -1,17 +1,7 @@
-﻿using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
-using HotChocolate;
-using HotChocolate.Types;
-using HotChocolate.Types.Pagination;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Graphir.API.Practitioners
 {
     [ExtendObjectType(OperationTypeNames.Query)]
-
-
     public class PractitionerQuery
     {
         private readonly FhirClient _fhirService;
@@ -42,7 +32,8 @@ namespace Graphir.API.Practitioners
         /// 
         /// </example>
         [GraphQLName("Practitioner")]
-        public async Task<Practitioner> GetPractitioner(string id, PractitionerByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
+        public async Task<Practitioner> GetPractitioner(string id, PractitionerByIdDataLoader dataLoader) =>
+            await dataLoader.LoadAsync(id);
 
         /// <summary>
         /// Get List of Practitioners
@@ -63,7 +54,7 @@ namespace Graphir.API.Practitioners
         ///      }
         ///   }        
         /// </example>
-        [GraphQLName("PractitionerList")]        
+        [GraphQLName("PractitionerList")]
         public async Task<IList<Practitioner>> GetPractitionerList(string name = "")
         {
             return string.IsNullOrWhiteSpace(name)
@@ -89,10 +80,13 @@ namespace Graphir.API.Practitioners
 
             if (!string.IsNullOrEmpty(after))
             {
-                allPractitioners = allPractitioners.SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).Skip(1).ToList();
+                allPractitioners = allPractitioners
+                    .SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).Skip(1)
+                    .ToList();
             }
 
-            var edges = allPractitioners.Select(practitioner => new Edge<Practitioner>(practitioner, practitioner.Id)).Take(pageSize).ToList();
+            var edges = allPractitioners.Select(practitioner => new Edge<Practitioner>(practitioner, practitioner.Id))
+                .Take(pageSize).ToList();
             bool hasNext = allPractitioners.Count() > pageSize;
             bool hasPrevious = !string.IsNullOrEmpty(after);
             string firstCursor = edges.FirstOrDefault()?.Node.Id;
@@ -122,8 +116,8 @@ namespace Graphir.API.Practitioners
                 result.AddRange(bundle.Entry.Select(p => (Practitioner)p.Resource).ToList());
                 bundle = await _fhirService.ContinueAsync(bundle);
             }
+
             return result;
         }
-
     }
 }

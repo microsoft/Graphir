@@ -1,14 +1,3 @@
-using Graphir.API.Extensions;
-using Graphir.API.Patients;
-using Graphir.API.Practitioners;
-using Graphir.API.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
-
 namespace Graphir.API
 {
     public class Startup

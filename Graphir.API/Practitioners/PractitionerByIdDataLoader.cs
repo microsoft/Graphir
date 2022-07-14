@@ -1,12 +1,4 @@
-﻿using GreenDonut;
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Graphir.API.Practitioners
+﻿namespace Graphir.API.Practitioners
 {
     public class PractitionerByIdDataLoader : BatchDataLoader<string, Practitioner>
     {

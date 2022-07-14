@@ -1,9 +1,4 @@
-﻿using Hl7.Fhir.Rest;
-using Newtonsoft.Json;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace Graphir.API
+﻿namespace Graphir.API
 {
     public class Query
     {
@@ -15,14 +10,13 @@ namespace Graphir.API
         }
 
         public async Task<string> Meta()
-        {            
+        {
             return JsonConvert.SerializeObject(await _fhirService.CapabilityStatementAsync());
         }
 
         public string? GetMe(ClaimsPrincipal principal)
         {
             return principal.Identity?.Name;
-        }               
-
-    }    
+        }
+    }
 }

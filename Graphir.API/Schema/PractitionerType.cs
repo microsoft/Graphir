@@ -1,8 +1,4 @@
-﻿using Hl7.Fhir.Model;
-using HotChocolate;
-using HotChocolate.Types;
-
-namespace Graphir.API.Schema
+﻿namespace Graphir.API.Schema
 {
     public class PractitionerType : ObjectType<Practitioner>
     {

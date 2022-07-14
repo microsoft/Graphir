@@ -1,11 +1,4 @@
-﻿using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
-using HotChocolate.Types;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Graphir.API.Utils;
-using Graphir.API.Schema;
+﻿using Graphir.API.Utils;
 
 namespace Graphir.API.Practitioners
 {
