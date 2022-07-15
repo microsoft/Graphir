@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 namespace Graphir.API.Patients
 {
     [ExtendObjectType(OperationTypeNames.Query)]
-
-
     public class PatientQuery
     {
         private readonly FhirClient _fhirService;
@@ -112,19 +110,19 @@ namespace Graphir.API.Patients
         {
             // TODO: get list of patients based on params
             var allPatients = await GetPatientsAsync();
-            var totalCount = allPatients.Count();
+            var totalCount = allPatients.Count;
             int pageSize = first ?? 10;
 
             if (!string.IsNullOrEmpty(after))
             {
                 allPatients = allPatients.SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).Skip(1).ToList();
             }
-            
+
             var edges = allPatients.Select(patient => new Edge<Patient>(patient, patient.Id)).Take(pageSize).ToList();
-            bool hasNext = allPatients.Count() > pageSize;
-            bool hasPrevious = (string.IsNullOrEmpty(after) ? false : true);
-            string firstCursor = edges.FirstOrDefault().Node.Id;
-            string lastCursor = edges.LastOrDefault().Node.Id;
+            bool hasNext = allPatients.Count > pageSize;
+            bool hasPrevious = !string.IsNullOrEmpty(after);
+            string firstCursor = edges.FirstOrDefault()?.Node.Id!;
+            string lastCursor = edges.LastOrDefault()?.Node.Id!;
             var pageInfo = new ConnectionPageInfo(hasNext, hasPrevious, firstCursor, lastCursor);
             var connection = new Connection<Patient>(edges, pageInfo, ct => ValueTask.FromResult(0));
 
@@ -152,7 +150,6 @@ namespace Graphir.API.Patients
             }
             return result;
         }
-
 
 
     }

@@ -50,7 +50,7 @@ namespace Graphir.API
                 Configuration.Bind("FhirConnection", fhir);
                 return fhir;
             });
-            
+
             // Need to register query and mutation types here for constructor scoped-service DI
             services.AddScoped<Query>();
             services.AddScoped<PatientQuery>();
@@ -67,7 +67,7 @@ namespace Graphir.API
                     .AddTypeExtension<PractitionerQuery>()
                 .AddMutationType()
                     .AddTypeExtension<PatientMutation>()
-                    .AddTypeExtension<PractitionerMutation>()              
+                    .AddTypeExtension<PractitionerMutation>()
                 .AddFhirTypes()
                 .AddPatient()
                 .AddPractitioner()
@@ -88,7 +88,7 @@ namespace Graphir.API
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGraphQL();                 
+                endpoints.MapGraphQL();
             });
         }
     }

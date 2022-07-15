@@ -15,14 +15,14 @@ namespace Graphir.API
         }
 
         public async Task<string> Meta()
-        {            
+        {
             return JsonConvert.SerializeObject(await _fhirService.CapabilityStatementAsync());
         }
 
         public string? GetMe(ClaimsPrincipal principal)
         {
             return principal.Identity?.Name;
-        }               
+        }
 
-    }    
+    }
 }
