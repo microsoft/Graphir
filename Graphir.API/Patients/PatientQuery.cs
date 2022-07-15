@@ -122,7 +122,7 @@ namespace Graphir.API.Patients
             
             var edges = allPatients.Select(patient => new Edge<Patient>(patient, patient.Id)).Take(pageSize).ToList();
             bool hasNext = allPatients.Count() > pageSize;
-            bool hasPrevious = (string.IsNullOrEmpty(after) ? false : true);
+            bool hasPrevious = !string.IsNullOrEmpty(after);
             string firstCursor = edges.FirstOrDefault().Node.Id;
             string lastCursor = edges.LastOrDefault().Node.Id;
             var pageInfo = new ConnectionPageInfo(hasNext, hasPrevious, firstCursor, lastCursor);
@@ -152,7 +152,6 @@ namespace Graphir.API.Patients
             }
             return result;
         }
-
 
 
     }
