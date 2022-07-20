@@ -7,7 +7,7 @@ global using System.Threading.Tasks;
 global using System.Security.Claims;
 global using System.Net.Http.Headers;
 global using System.Collections.Generic;
-global using static System.StringComparison;
+
 #endregion
 
 #region Microsoft
@@ -49,20 +49,19 @@ global using GreenDonut;
 #endregion
 
 
-namespace Graphir.API
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+namespace Graphir.API;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
     }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }

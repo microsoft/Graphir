@@ -1,8 +1,7 @@
-﻿namespace Graphir.API.Services
+﻿namespace Graphir.API.Services;
+
+public class FhirDataConnection
 {
-    public class FhirDataConnection
-    {
-        public string BaseUrl { get; set; }
-        public string Scopes { get; set; }
-    }
+    public string BaseUrl { get; set; }
+    public string Scopes { get; set; }
 }

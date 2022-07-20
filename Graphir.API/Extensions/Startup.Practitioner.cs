@@ -1,17 +1,15 @@
-namespace Graphir.API.Extensions
+namespace Graphir.API.Extensions;
+
+internal static class PractitionerStartup
 {
-    internal static class PractitionerStartup
-    {
-        public static IRequestExecutorBuilder AddPractitioner(
+    public static IRequestExecutorBuilder AddPractitioner(
         this IRequestExecutorBuilder graphBuilder)
-        {
-            graphBuilder
-                .AddDataLoader<PractitionerByIdDataLoader>()
-                .AddType<PractitionerQualificationType>()
-                .AddType<PractitionerType>()
-            ;
+    {
+        graphBuilder
+            .AddDataLoader<PractitionerByIdDataLoader>()
+            .AddType<PractitionerQualificationType>()
+            .AddType<PractitionerType>();
             
-            return graphBuilder;
-        }
+        return graphBuilder;
     }
 }
