@@ -1,8 +1,3 @@
-using Hl7.Fhir.Utility;
-using Microsoft.IdentityModel.Logging;
-using static Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults;
-using static Microsoft.Identity.Web.Constants;
-
 namespace Graphir.API;
 
 public class Startup

@@ -7,7 +7,6 @@ global using System.Threading.Tasks;
 global using System.Security.Claims;
 global using System.Net.Http.Headers;
 global using System.Collections.Generic;
-
 #endregion
 
 #region Microsoft
@@ -15,9 +14,12 @@ global using Microsoft.Identity.Web;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.AspNetCore.Builder;
-global using Microsoft.Extensions.Configuration;
-global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
+global using Microsoft.IdentityModel.Logging;
+global using Microsoft.Extensions.Configuration;
+global using static Microsoft.Identity.Web.Constants;
+global using Microsoft.Extensions.DependencyInjection;
+global using static Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults;
 #endregion
 
 #region Grahpir
@@ -41,6 +43,7 @@ global using HotChocolate.Execution.Configuration;
 #region Hl7
 global using Hl7.Fhir.Rest;
 global using Hl7.Fhir.Model;
+global using Hl7.Fhir.Utility;
 #endregion
 
 #region Others
