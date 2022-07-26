@@ -17,7 +17,7 @@
             handler.InnerHandler = new HttpClientHandler();
 
             FhirClient client = new(fhirData.BaseUrl, settings, handler);
-                        
+            
             return client;
         });
 

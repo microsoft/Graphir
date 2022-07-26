@@ -4,9 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UserSecretsId>ec15c71b-620a-4186-aa44-53f511572277</UserSecretsId>
+    <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="civica-xw360-gql-fix" Version="0.0.2" />
     <PackageReference Include="Hl7.Fhir.R4" Version="4.1.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.12.1" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.12.1" />

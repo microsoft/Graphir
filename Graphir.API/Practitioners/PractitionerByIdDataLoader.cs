@@ -15,8 +15,8 @@ public class PractitionerByIdDataLoader : BatchDataLoader<string, Practitioner>
 
     protected override async Task<IReadOnlyDictionary<string, Practitioner>> LoadBatchAsync(IReadOnlyList<string> keys, CancellationToken cancellationToken)
     {
-        var results = new List<Practitioner>();
-        string? searchStr = string.Join(",", keys.Select(k => k));
+        List<Practitioner> results = new();
+        string searchStr = string.Join(",", keys.Select(k => k));
         Bundle? response = await _fhirService.SearchAsync<Practitioner>(new[] { $"_id={searchStr}" });
         if (response is not null)
         {

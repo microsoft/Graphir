@@ -1,10 +1,9 @@
 ﻿namespace Graphir.API.Services;
 
-public class ConsoleQueryLogger : ExecutionDiagnosticEventListener
+public class ConsoleQueryLogger<T> : ExecutionDiagnosticEventListener
 {
-    private readonly ILogger<ConsoleQueryLogger> _logger;
-
-    public ConsoleQueryLogger(ILogger<ConsoleQueryLogger> logger) => _logger = logger;
+    private readonly ILogger<ConsoleQueryLogger<T>> _logger;
+    public ConsoleQueryLogger(ILogger<ConsoleQueryLogger<T>> logger) => _logger = logger;
         
     // this is invoked at the start of the `ExecuteRequest` operation
     public override IDisposable ExecuteRequest(IRequestContext context)
@@ -14,7 +13,8 @@ public class ConsoleQueryLogger : ExecutionDiagnosticEventListener
         return new RequestScope(start, _logger);
     }
 }
-    
+
+
 public class RequestScope : IDisposable
 {
     private readonly ILogger _logger;

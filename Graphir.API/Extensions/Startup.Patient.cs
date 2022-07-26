@@ -5,7 +5,7 @@ internal static class PatientStartup
     public static IRequestExecutorBuilder AddPatient(
         this IRequestExecutorBuilder graphBuilder)
     {
-        graphBuilder
+        return graphBuilder
             .AddDataLoader<PatientByIdDataLoader>()
             .AddType<PatientCommunicationType>()
             .AddType<PatientContactType>()
@@ -13,7 +13,5 @@ internal static class PatientStartup
             .AddType<PatientUpdate>()
             .AddType<PatientDelete>()
             .AddType<PatientType>();
-
-        return graphBuilder;
     }
 }

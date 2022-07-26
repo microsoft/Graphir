@@ -59,87 +59,9 @@ public class PatientType : ObjectType<Patient>
         )
         {   
             var refs = patient.GeneralPractitioner.Select(p => p.Reference.Split('/').LastOrDefault());
-            var results = await practitionerById.LoadAsync(refs.ToArray(), cancellationToken);
+            var results = await practitionerById.LoadAsync(refs.ToArray()!, cancellationToken);
 
             return results;
         }
     }
 }
-
-    
-
-public class PatientContactType : ObjectType<Patient.ContactComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<Patient.ContactComponent> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(c => c.Address);
-        descriptor.Field(c => c.Gender);
-        descriptor.Field(c => c.Name);
-        descriptor.Field(c => c.Organization.Url)
-            .Name("organization");
-        descriptor.Field(c => c.Period);
-        descriptor.Field(c => c.Relationship);
-        descriptor.Field(c => c.Telecom);
-    }
-}
-
-public class PatientCommunicationType : ObjectType<Patient.CommunicationComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<Patient.CommunicationComponent> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(c => c.Language);
-        descriptor.Field(c => c.Preferred);
-    }
-}
-
-public class PatientCreation : IResourceCreation<Patient>
-{
-    public string Location { get; set; }
-    public Patient Resource { get; set; }
-    public OperationOutcome Information { get; set; }
-}
-
-public class PatientUpdate : IResourceUpdate<Patient>
-{
-    public Patient Resource { get; set; }
-    public OperationOutcome Information { get; set; }
-}
-
-public class PatientDelete : IResourceDelete<Patient>
-{
-    public OperationOutcome Information { get; set; }
-}    
-
-public record PatientInput
-(
-    string? Id,
-    IdentifierInput[]? Identifier,
-    string? Language,
-    bool? Active,
-    HumanNameInput[]? Name,
-    ContactPointInput[]? Telecom,
-    string? Gender,
-    string? BirthDate,
-    AddressInput[]? Address,
-    CodeableConceptInput? MaritalStatus,
-    PatientCommunicationInput[]? Communication,
-    ResourceReferenceInput[]? GeneralPractitioner
-);
-
-public record PatientContactInput(
-    CodeableConceptInput[]? Relationship,
-    HumanNameInput? Name,
-    ContactPointInput[]? Telecom,
-    AddressInput? Address,
-    string? Gender,
-    PeriodInput? Period
-);
-
-public record PatientCommunicationInput(
-    CodeableConceptInput? Language,
-    bool? Preferred
-);

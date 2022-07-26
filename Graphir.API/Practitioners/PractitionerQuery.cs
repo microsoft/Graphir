@@ -85,21 +85,20 @@ public class PractitionerQuery
                 .ToList();
         }
 
-        var edges = allPractitioners.Select(practitioner => new Edge<Practitioner>(practitioner, practitioner.Id))
+        List<Edge<Practitioner>> edges = allPractitioners
+            .Select(practitioner => new Edge<Practitioner>(practitioner, practitioner.Id))
             .Take(pageSize).ToList();
-        bool hasNext = allPractitioners.Count() > pageSize;
+        bool hasNext = allPractitioners.Count > pageSize;
         bool hasPrevious = !string.IsNullOrEmpty(after);
-        string firstCursor = edges.FirstOrDefault()?.Node.Id;
-        string lastCursor = edges.LastOrDefault()?.Node.Id;
+        string? firstCursor = edges.FirstOrDefault()?.Node.Id;
+        string? lastCursor = edges.LastOrDefault()?.Node.Id;
         ConnectionPageInfo pageInfo = new(hasNext, hasPrevious, firstCursor, lastCursor);
-        var connection = new Connection<Practitioner>(edges, pageInfo, ct => ValueTask.FromResult(0));
-
-        return connection;
+        return  new Connection<Practitioner>(edges, pageInfo, ct => ValueTask.FromResult(0));
     }
 
     private async Task<List<Practitioner>> SearchPractitionerByName(string name)
     {
-        var searchResults = new List<Practitioner>();
+        List<Practitioner> searchResults = new();
         string filterString = $"name:contains={name}";
         Bundle bundle = await _fhirService.SearchAsync<Practitioner>(criteria: new[] { filterString });
         if (bundle != null)
@@ -110,7 +109,7 @@ public class PractitionerQuery
     private async Task<List<Practitioner>> GetPractitionersAsync()
     {
         Bundle? bundle = await _fhirService.SearchAsync<Practitioner>(pageSize: 50);
-        var result = new List<Practitioner>();
+        List<Practitioner> result = new();
         while (bundle != null)
         {
             result.AddRange(bundle.Entry.Select(p => (Practitioner)p.Resource).ToList());
