@@ -80,7 +80,7 @@ query patientList {
 
 ## In Banana Cake Pop UI
 
-* You will need to fist complete the section "With Postman" so that you can generate a valid access token.
+* You will need to complete the section "With Postman" so that you can generate a valid access token.
 
 # How It Works
 
