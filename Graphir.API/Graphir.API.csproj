@@ -9,7 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="civica-xw360-gql-fix" Version="0.0.2" />
-    <PackageReference Include="Hl7.Fhir.R4" Version="4.1.0" />
+  <!--  always make sure to check compatibility with FHIR resources version -->
+    <PackageReference Include="Hl7.Fhir.R4" Version="3.8.3" /> 
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.12.1" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.12.1" />
     <PackageReference Include="HotChocolate.Data" Version="12.12.1" />

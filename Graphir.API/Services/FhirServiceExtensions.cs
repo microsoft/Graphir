@@ -13,7 +13,8 @@
                 PreferredReturn = Prefer.ReturnMinimal
             };
 
-            FhirAuthenticatedHttpMessageHandler handler = new(o.GetRequiredService<ITokenAcquisition>(), fhirData);
+           // FhirAuthenticatedHttpMessageHandler handler = new(o.GetRequiredService<ITokenAcquisition>(), fhirData);
+            FhirAuthenticatedHttpMessageHandler handler = new(fhirData);
             handler.InnerHandler = new HttpClientHandler();
 
             FhirClient client = new(fhirData.BaseUrl, settings, handler);

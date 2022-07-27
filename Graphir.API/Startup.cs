@@ -47,7 +47,10 @@ public class Startup
         
         //Default Settings 
         services.AddMicrosoftIdentityWebApiAuthentication(_configuration)
-            .EnableTokenAcquisitionToCallDownstreamApi()
+            .EnableTokenAcquisitionToCallDownstreamApi(options =>
+                {
+                    options.EnablePiiLogging = true;
+                })
             .AddDownstreamWebApi("GraphirAPI-Dev", FhirConnection)
             .AddInMemoryTokenCaches(o =>
             {

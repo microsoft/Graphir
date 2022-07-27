@@ -21,7 +21,9 @@ public class PractitionerType : ObjectType<Practitioner>
         descriptor.Field(p => p.Address);            
         descriptor.Field(p => p.Photo);            
         descriptor.Field(p => p.Communication);
-        descriptor.Field(p => p.Qualification); //#TODO: use resolver to get related resource
+        descriptor.Field(p => p.Qualification);
+        //#TODO: use resolver to get related resource
+                
     }
 
     /// <summary>
