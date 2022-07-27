@@ -43,6 +43,7 @@ global using HotChocolate.Execution.Configuration;
 #region Hl7
 global using Hl7.Fhir.Rest;
 global using Hl7.Fhir.Model;
+global using static Hl7.Fhir.Model.OperationOutcome;
 global using Hl7.Fhir.Utility;
 #endregion
 

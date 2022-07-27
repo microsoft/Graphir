@@ -1,6 +1,4 @@
-﻿using Graphir.API.Utils;
-
-namespace Graphir.API.Practitioners;
+﻿namespace Graphir.API.Practitioners;
 
 [ExtendObjectType(OperationTypeNames.Mutation)]
 public class PractitionerMutation
