@@ -1,3 +1,4 @@
+using Alachisoft.NCache.Caching.Distributed;
 using GraphQL.Server.Ui.Voyager;
 
 namespace Graphir.API;
@@ -39,6 +40,19 @@ public class Startup
             Console.WriteLine("Domain : {0}", _configuration.GetSection("AzureAd:Domain").Value);
         }
         
+        services.AddMemoryCache(o =>
+        {
+            o.SizeLimit = 1024 * 1024 * 1024; // 1GB
+            o.CompactionPercentage = 50;
+            o.ExpirationScanFrequency = TimeSpan.FromMinutes(1);
+        });
+
+        services.AddNCacheDistributedCache(_configuration.GetSection("NCacheSettings"));
+        services.AddResponseCaching(o =>
+        {
+            o.SizeLimit = 1024 * 1024 * 1024; // 1GB
+            o.MaximumBodySize = Int64.MaxValue;
+        });
         // API Bearer token auth config
         // 1. Register an application with AAD and grant it the following API permission:
         // - https://fhir.azurehealthcareapis.com/user_impersonation
@@ -50,6 +64,8 @@ public class Startup
             .EnableTokenAcquisitionToCallDownstreamApi(options =>
                 {
                     options.EnablePiiLogging = true;
+                    options.EnableCacheSynchronization = true;
+                    options.DebuggerDisplayString();
                 })
             .AddDownstreamWebApi("GraphirAPI-Dev", FhirConnection)
             .AddInMemoryTokenCaches(o =>

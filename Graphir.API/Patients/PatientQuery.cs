@@ -8,6 +8,7 @@ using HotChocolate.Types.Pagination;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Graphir.API.Patients;
 
@@ -45,6 +46,9 @@ public class PatientQuery
     ///    }
     ///}
     /// </example>
+    
+    //[UsePaging]
+    [ResponseCache(Duration = 60)]
     [GraphQLName("Patient")]
     public async Task<Patient> GetPatient(string id, PatientByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
 
@@ -67,6 +71,7 @@ public class PatientQuery
     ///     }
     /// }
     /// </example>
+    [ResponseCache]
     [GraphQLName("PatientList")]
     public async Task<IList<Patient>> GetPatientList(string name = "")
     {
@@ -108,21 +113,22 @@ public class PatientQuery
     ///}
     /// </example>
     [UsePaging]
+    [ResponseCache]
     [GraphQLName("PatientConnection")]
     public async Task<Connection<Patient>> GetPatientConnection(string? after, int? first)
     {
         // TODO: get list of patients based on params
         var allPatients = await GetPatientsAsync();
-        int totalCount = allPatients.Count();
+        int totalCount = allPatients.Count;
         int pageSize = first ?? 10;
 
         if (!string.IsNullOrEmpty(after))
         {
-            allPatients = allPatients.SkipWhile(p => !p.Id.Equals(after, System.StringComparison.InvariantCultureIgnoreCase)).Skip(1).ToList();
+            allPatients = allPatients.SkipWhile(p => !p.Id.Equals(after, StringComparison.InvariantCultureIgnoreCase)).Skip(1).ToList();
         }
             
         var edges = allPatients.Select(patient => new Edge<Patient>(patient, patient.Id)).Take(pageSize).ToList();
-        bool hasNext = allPatients.Count() > pageSize;
+        bool hasNext = allPatients.Count > pageSize;
         bool hasPrevious = !string.IsNullOrEmpty(after);
         string firstCursor = edges.FirstOrDefault()?.Node.Id!;
         string lastCursor = edges.LastOrDefault()?.Node.Id!;

@@ -32,7 +32,7 @@ public class RequestScope : IDisposable
         DateTime end = DateTime.UtcNow;
         TimeSpan elapsed = end - _start;
 
-        _logger.LogInformation("Request finished after {Ticks} ticks",
-            elapsed.Ticks);
+        _logger.LogInformation("Request finished after {Ticks} ticks / {Milliseconds} milliseconds / {Seconds} seconds", 
+            elapsed.Ticks, elapsed.TotalMilliseconds, elapsed.TotalSeconds);
     }
 }

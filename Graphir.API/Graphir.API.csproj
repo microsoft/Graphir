@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Alachisoft.NCache.SDK" Version="5.3.0" />
     <PackageReference Include="civica-xw360-gql-fix" Version="0.0.2" />
   <!--  always make sure to check compatibility with FHIR resources version -->
     <PackageReference Include="Hl7.Fhir.R4" Version="3.8.3" /> 
@@ -17,6 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.7" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.25.1" />
     <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="1.25.1" />
+    <PackageReference Include="NCache.Microsoft.Extensions.Caching" Version="5.3.0" />
   </ItemGroup>
 
 </Project>
