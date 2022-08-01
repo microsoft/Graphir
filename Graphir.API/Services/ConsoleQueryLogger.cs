@@ -35,7 +35,7 @@ public class RequestScope : IDisposable
         var end = DateTime.UtcNow;
         var elapsed = end - _start;
 
-        _logger.LogInformation("Request finished after {Ticks} ticks and {Milliseconds} milliseconds", 
+        _logger.LogInformation("Request finished after {Ticks} ticks / {Milliseconds} milliseconds", 
             elapsed.Ticks, elapsed.TotalMilliseconds);
     }
 }
