@@ -3,20 +3,16 @@ using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Graphir.API.Extensions
+namespace Graphir.API.Extensions;
+
+internal static class PractitionerStartup
 {
-    internal static class PractitionerStartup
-    {
-        public static IRequestExecutorBuilder AddPractitioner(
+    public static IRequestExecutorBuilder AddPractitioner(
         this IRequestExecutorBuilder graphBuilder)
-        {
-            graphBuilder
-                .AddDataLoader<PractitionerByIdDataLoader>()
-                .AddType<PractitionerQualificationType>()
-                .AddType<PractitionerType>()
-            ;
-            
-            return graphBuilder;
-        }
+    {
+       return graphBuilder.AddDataLoader<PractitionerByIdDataLoader>()
+            .AddType<PractitionerQualificationType>()
+            .AddType<PractitionerType>();
+       
     }
 }
