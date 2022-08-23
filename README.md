@@ -30,7 +30,7 @@ To follow this guide for running locally you will need the following
 
 * dotnet 6.0 
 * Visual Studio 2022 (Professional or Enterprise)
-* [API app registration & client App Registration](https://github.com/microsoft/Graphir/blob/master/docs/Readme-Registering-Prerequisite-Apps.md)
+* Prerequisites [API app registration & client App Registration](./docs/authentication.md)
 
 ## Running Locally
 * Open Solution with Visual Studio
