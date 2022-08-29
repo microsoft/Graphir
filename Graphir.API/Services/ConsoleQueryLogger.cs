@@ -3,8 +3,6 @@ using HotChocolate.Execution;
 using HotChocolate.Execution.Instrumentation;
 using Microsoft.Extensions.Logging;
 
-using static System.DateTime;
-
 namespace Graphir.API.Services;
 
 public class ConsoleQueryLogger : ExecutionDiagnosticEventListener
@@ -13,7 +11,11 @@ public class ConsoleQueryLogger : ExecutionDiagnosticEventListener
     public ConsoleQueryLogger(ILogger<ConsoleQueryLogger> logger) => _logger = logger;
         
     // this is invoked at the start of the `ExecuteRequest` operation
-    public override IDisposable ExecuteRequest(IRequestContext context) => new RequestScope(UtcNow, _logger);
+    public override IDisposable ExecuteRequest(IRequestContext context)
+    {
+        var start = DateTime.UtcNow;
+        return new RequestScope(start, _logger);
+    }
 }
     
 public class RequestScope : IDisposable
@@ -30,7 +32,8 @@ public class RequestScope : IDisposable
     // this is invoked at the end of the `ExecuteRequest` operation
     public void Dispose()
     {
-        var elapsed = UtcNow - _start;
+        var end = DateTime.UtcNow;
+        var elapsed = end - _start;
 
         _logger.LogInformation("Request finished after {Ticks} ticks / {Milliseconds} milliseconds", 
             elapsed.Ticks, elapsed.TotalMilliseconds);
