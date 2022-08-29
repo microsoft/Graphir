@@ -1,6 +1,4 @@
 using Graphir.API.Extensions;
-using Graphir.API.Patients;
-using Graphir.API.Practitioners;
 using Graphir.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,24 +50,10 @@ public class Startup
         });
 
         // Need to register query and mutation types here for constructor scoped-service DI
-        services.AddScoped<Query>();
-        services.AddScoped<PatientQuery>();
-        services.AddScoped<PractitionerQuery>();
-        services.AddScoped<PatientMutation>();
-        services.AddScoped<PractitionerMutation>();
+        services.AddScopedServices();
 
         // Register all HotChocolate types with DI
-        services.AddGraphQLServer()
-            .AddAuthorization()
-            .AddQueryType<Query>()
-            .AddTypeExtension<PatientQuery>()
-            .AddTypeExtension<PractitionerQuery>()
-            .AddMutationType()
-            .AddTypeExtension<PatientMutation>()
-            .AddTypeExtension<PractitionerMutation>()
-            .AddFhirTypes()
-            .AddPatient()
-            .AddPractitioner();
+        services.AddGraphQLServices();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
