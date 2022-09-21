@@ -19,7 +19,7 @@ public class AppointmentQuery
     }
     
     [GraphQLName("AppointmentById")]
-    public async Task<Appointment> GetAppointment(string id)
+    public async Task<Appointment> GetAppointmentById(string id)
     {
         var bundle = await _client.SearchByIdAsync<Appointment>(id);
         return bundle.Entry.Select(e=>(Appointment) e.Resource).FirstOrDefault()!;
