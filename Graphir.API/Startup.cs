@@ -5,6 +5,7 @@ using Graphir.API.Medications;
 using Graphir.API.Organizations;
 using Graphir.API.Patients;
 using Graphir.API.Practitioners;
+using Graphir.API.Schedules;
 using Graphir.API.Services;
 
 using Microsoft.AspNetCore.Builder;
@@ -64,6 +65,7 @@ public class Startup
         services.AddScoped<LocationQuery>();
         services.AddScoped<MedicationQuery>();
         services.AddScoped<AppointmentQuery>();
+        services.AddScoped<ScheduleQuery>();
 
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
@@ -78,6 +80,7 @@ public class Startup
             .AddTypeExtension<LocationQuery>()
             .AddTypeExtension<MedicationQuery>()
             .AddTypeExtension<OrganizationQuery>()
+            .AddTypeExtension<ScheduleQuery>()
             .AddMutationType()
             .AddTypeExtension<PatientMutation>()
             .AddTypeExtension<PractitionerMutation>()
@@ -87,7 +90,8 @@ public class Startup
             .AddAppointment()
             .AddLocation()
             .AddMedication()
-            .AddOrganization();
+            .AddOrganization()
+            .AddSchedule();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
