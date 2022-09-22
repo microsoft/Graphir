@@ -6,6 +6,7 @@ using Graphir.API.Organizations;
 using Graphir.API.Patients;
 using Graphir.API.Practitioners;
 using Graphir.API.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -59,11 +60,11 @@ public class Startup
         services.AddScoped<Query>();
         services.AddScoped<PatientQuery>();
         services.AddScoped<PractitionerQuery>();
-                services.AddScoped<OrganizationQuery>();
-                services.AddScoped<LocationQuery>();
-                services.AddScoped<MedicationQuery>();
-                services.AddScoped<AppointmentQuery>();
-        
+        services.AddScoped<OrganizationQuery>();
+        services.AddScoped<LocationQuery>();
+        services.AddScoped<MedicationQuery>();
+        services.AddScoped<AppointmentQuery>();
+
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
 
@@ -101,9 +102,6 @@ public class Startup
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapGraphQL();
-        });
+        app.UseEndpoints(endpoints => { endpoints.MapGraphQL(); });
     }
 }
