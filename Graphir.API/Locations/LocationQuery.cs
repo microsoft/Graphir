@@ -20,7 +20,7 @@ public class LocationQuery
     {
         _client = client;
     }
-    
+
     [GraphQLName("Locations")]
     public async Task<List<Location>> GetLocations()
     {
@@ -28,12 +28,20 @@ public class LocationQuery
         var locationList = bundle.Entry.Select(x => (Location)x.Resource).ToList();
         return locationList;
     }
-    
+
     [GraphQLName("LocationById")]
     public async Task<Location> GetLocationById(string id)
     {
         var bundle = await _client.SearchByIdAsync<Location>(id);
         var location = bundle.Entry.Select(x => (Location)x.Resource).FirstOrDefault();
+        return location!;
+    }
+
+    [GraphQLName("LocationByName")]
+    public async Task<List<Location>> GetLocationByName(string name)
+    {
+        var bundle = await _client.SearchAsync<Location>(new[] { $"name={name}" });
+        var location = bundle.Entry.Select(x => (Location)x.Resource).ToList();
         return location!;
     }
 }
