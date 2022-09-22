@@ -16,6 +16,30 @@ public class IdentifierType : ObjectType<Identifier>
     }
 }
 
+public class MetaType : ObjectType<Meta>
+{
+    protected override void Configure(IObjectTypeDescriptor<Meta> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        
+        descriptor.Field(m => m.VersionId);
+        descriptor.Field(m => m.LastUpdated);
+        descriptor.Field(m => m.Source);
+        descriptor.Field(m => m.Profile);
+        descriptor.Field(m => m.Security);
+        descriptor.Field(m => m.Tag);
+    }
+}
+
+public class FhirStringType : ObjectType<FhirString>
+{
+    protected override void Configure(IObjectTypeDescriptor<FhirString> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Value).Type<NonNullType<StringType>>();
+    }
+}
+
 public class CodeableConceptType : ObjectType<CodeableConcept>
 {
     protected override void Configure(IObjectTypeDescriptor<CodeableConcept> descriptor)
