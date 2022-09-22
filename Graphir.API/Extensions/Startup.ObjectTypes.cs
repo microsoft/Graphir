@@ -19,6 +19,7 @@ internal static class FhirTypesStartup
             .AddType<HumanNameType>()
             .AddType<CodingType>()
             .AddType<CodeableConceptType>()
-            .AddType<IdentifierType>();
+            .AddType<IdentifierType>()
+            .AddType<ExtensionType>();
     }
 }
