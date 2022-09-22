@@ -59,6 +59,11 @@ public class Startup
         services.AddScoped<Query>();
         services.AddScoped<PatientQuery>();
         services.AddScoped<PractitionerQuery>();
+                services.AddScoped<OrganizationQuery>();
+                services.AddScoped<LocationQuery>();
+                services.AddScoped<MedicationQuery>();
+                services.AddScoped<AppointmentQuery>();
+        
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
 
