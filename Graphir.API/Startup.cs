@@ -1,5 +1,6 @@
 using Graphir.API.Appointments;
 using Graphir.API.Extensions;
+using Graphir.API.Locations;
 using Graphir.API.Patients;
 using Graphir.API.Practitioners;
 using Graphir.API.Services;
@@ -66,13 +67,15 @@ public class Startup
             .AddTypeExtension<PatientQuery>()
             .AddTypeExtension<PractitionerQuery>()
             .AddTypeExtension<AppointmentQuery>()
+            .AddTypeExtension<LocationQuery>()
             .AddMutationType()
             .AddTypeExtension<PatientMutation>()
             .AddTypeExtension<PractitionerMutation>()
             .AddFhirTypes()
             .AddPatient()
             .AddPractitioner()
-            .AddAppointment();
+            .AddAppointment()
+            .AddLocation();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
