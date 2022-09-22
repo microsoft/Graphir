@@ -12,7 +12,8 @@ internal static class OrganizationStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddType<OrganizationType>();
+            .AddType<OrganizationType>()
+            .AddType<ExtensionType>();
     }
 
 }
