@@ -1,4 +1,5 @@
-﻿using Graphir.API.Practitioners;
+﻿using Graphir.API.Patients;
+using Graphir.API.Practitioners;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
