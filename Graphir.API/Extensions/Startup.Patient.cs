@@ -1,7 +1,9 @@
 ﻿using Graphir.API.Patients;
 using Graphir.API.Practitioners;
 using Graphir.API.Schema;
+
 using HotChocolate.Execution.Configuration;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Graphir.API.Extensions;
@@ -12,12 +14,14 @@ internal static class PatientStartup
         this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddDataLoader<PatientByIdDataLoader>()
-            .AddType<PatientCommunicationType>()
-            .AddType<PatientContactType>()
-            .AddType<PatientCreation>()
-            .AddType<PatientUpdate>()
-            .AddType<PatientDelete>()
-            .AddType<PatientType>();
+                .AddDataLoader<PatientByIdDataLoader>()
+                .AddTypeExtension<PatientMutation>()
+                .AddTypeExtension<PatientQuery>()
+                .AddType<PatientCommunicationType>()
+                .AddType<PatientContactType>()
+                .AddType<PatientCreation>()
+                .AddType<PatientUpdate>()
+                .AddType<PatientDelete>()
+                .AddType<PatientType>();
     }
 }

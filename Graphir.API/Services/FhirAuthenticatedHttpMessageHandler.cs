@@ -19,9 +19,9 @@ public class FhirAuthenticatedHttpMessageHandler : DelegatingHandler
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        var token = await _tokenService.GetAccessTokenForUserAsync(new[] { _fhirOptions.Scopes });
+       var token = await _tokenService.GetAccessTokenForUserAsync(new[] { _fhirOptions.Scopes });
 
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+       request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         return await base.SendAsync(request, cancellationToken);
     }
