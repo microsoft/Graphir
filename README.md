@@ -87,7 +87,19 @@ query patientList {
 ## Application Startup and App Registrations
 See [Graphir API Authentication and Authorization](./docs/authentication.md)
 
-## Lifecycle of a Request
+# Capabilities
+
+## Supported FHIR Resources
+- Patient
+- Practitioner
+- Organizations
+- Locations
+- Appointments
+- Schedules
+- Medications
+- MedicationRequests
+- MedicationAdministrations
+- HealthcareServices
 
 # Contributing
 
