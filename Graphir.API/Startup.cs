@@ -1,14 +1,3 @@
-using Graphir.API.Appointments;
-using Graphir.API.Extensions;
-using Graphir.API.HealthcareServices;
-using Graphir.API.Locations;
-using Graphir.API.MedicationAdministrations;
-using Graphir.API.MedicationRequests;
-using Graphir.API.Medications;
-using Graphir.API.Organizations;
-using Graphir.API.Patients;
-using Graphir.API.Practitioners;
-using Graphir.API.Schedules;
 using Graphir.API.Services;
 
 using Microsoft.AspNetCore.Builder;

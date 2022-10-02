@@ -1,5 +1,4 @@
-﻿using Graphir.API.Practitioners;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
