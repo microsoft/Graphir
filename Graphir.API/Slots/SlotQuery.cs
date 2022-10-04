@@ -19,24 +19,21 @@ public class SlotQuery
     {
         _client = client;
     }
-
-    // Get all existing slots
+    
     [GraphQLName("Slots")]
     public async Task<IEnumerable<Slot>> GetSlots()
     {
         var bundle = await _client.SearchAsync<Slot>();
         return bundle.Entry.Select(e => (Slot)e.Resource).ToList();
     }
-
-    // Get slot by id
+    
     [GraphQLName("SlotById")]
     public async Task<Slot> GetSlotById(string id)
     {
         var bundle = await _client.SearchByIdAsync<Slot>(id);
         return (Slot)bundle.Entry.First().Resource;
     }
-
-    // Get slots by status 
+    
     [GraphQLName("SlotsByStatus")]
     public async Task<IEnumerable<Slot>> GetSlotsByStatus(string status)
     {
