@@ -1,14 +1,3 @@
-using Graphir.API.Appointments;
-using Graphir.API.Extensions;
-using Graphir.API.HealthcareServices;
-using Graphir.API.Locations;
-using Graphir.API.MedicationAdministrations;
-using Graphir.API.MedicationRequests;
-using Graphir.API.Medications;
-using Graphir.API.Organizations;
-using Graphir.API.Patients;
-using Graphir.API.Practitioners;
-using Graphir.API.Schedules;
 using Graphir.API.Services;
 
 using Microsoft.AspNetCore.Builder;
@@ -61,49 +50,10 @@ public class Startup
         });
 
         // Need to register query and mutation types here for constructor scoped-service DI
-        services.AddScoped<Query>();
-        services.AddScoped<PatientQuery>();
-        services.AddScoped<PractitionerQuery>();
-        services.AddScoped<OrganizationQuery>();
-        services.AddScoped<LocationQuery>();
-        services.AddScoped<MedicationQuery>();
-        services.AddScoped<AppointmentQuery>();
-        services.AddScoped<ScheduleQuery>();
-        services.AddScoped<HealthcareServiceQuery>();
-        services.AddScoped<MedicationRequestQuery>();
-        services.AddScoped<MedicationAdministrationQuery>();
-
-        services.AddScoped<PatientMutation>();
-        services.AddScoped<PractitionerMutation>();
-
+        services.AddScopedServices();
+        
         // Register all HotChocolate types with DI
-        services.AddGraphQLServer()
-            .AddAuthorization()
-            .AddQueryType<Query>()
-            .AddTypeExtension<PatientQuery>()
-            .AddTypeExtension<PractitionerQuery>()
-            .AddTypeExtension<AppointmentQuery>()
-            .AddTypeExtension<LocationQuery>()
-            .AddTypeExtension<MedicationQuery>()
-            .AddTypeExtension<OrganizationQuery>()
-            .AddTypeExtension<ScheduleQuery>()
-            .AddTypeExtension<HealthcareServiceQuery>()
-            .AddTypeExtension<MedicationRequestQuery>()
-            .AddTypeExtension<MedicationAdministrationQuery>()
-            .AddMutationType()
-            .AddTypeExtension<PatientMutation>()
-            .AddTypeExtension<PractitionerMutation>()
-            .AddFhirTypes()
-            .AddPatient()
-            .AddPractitioner()
-            .AddAppointment()
-            .AddLocation()
-            .AddMedication()
-            .AddOrganization()
-            .AddSchedule()
-            .AddHealthcareService()
-            .AddMedicationRequest()
-            .AddMedicationAdministration();
+        services.AddGraphQlServices();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
