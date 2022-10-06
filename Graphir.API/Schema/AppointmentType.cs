@@ -35,10 +35,47 @@ public class AppointmentType : ObjectType<Appointment>
         descriptor.Field(x => x.CommentElement).Type<FhirStringType>();
         descriptor.Field(x => x.ServiceCategory).Type<ListType<CodeableConceptType>>();
       
-        //TODO: need to add participant resolvers 
-        //descriptor.Field(x => x.Participant);
+        descriptor.Field(x => x.Participant).Type<ListType<AppointmentParticipantType>>();
+    }
+ 
+}
+
+
+// type AppointmentParticipant {
+public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComponent>
+{
+
+    protected override void Configure(IObjectTypeDescriptor<Appointment.ParticipantComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Type).Type<CodeableConceptType>();
+        descriptor.Field(x => x.Period).Type<PeriodType>();
+        descriptor.Field(x => x.Required).Type<BooleanType>();
+        descriptor.Field(x => x.Status).Type<CodeType>();
+
+        descriptor.Field(x => x.Actor).Type<ActorType>()
+            .ResolveWith<AppointmentResolvers>(t => t.GetActorAsync(default!, default));
+
+        // WIP, commenting out for now to preserve compilation
+        // actor: Reference
+        // status: code  _status: ElementBase
     }
 
+    private class AppointmentResolvers
+    {
+        public async Task<object> GetActorAsync(
+            [Parent] Appointment.ParticipantComponent participant,
+            
+            CancellationToken cancellationToken)
+        {
+            var refTokens = participant.Actor.Reference.Split('/');
+            var idToken = refTokens.LastOrDefault();
+
+
+
+        }
+    }
     //private class PatientResolvers
     //{
     //    public async Task<IReadOnlyList<Practitioner>> GetApppointmentAsync(
@@ -56,95 +93,29 @@ public class AppointmentType : ObjectType<Appointment>
     //}
 }
 
-// type AppointmentParticipant {
-public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComponent> // ???
+public class ActorType : UnionType
 {
-
-    protected override void Configure(IObjectTypeDescriptor<Appointment.ParticipantComponent> descriptor)
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.ElementId).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Extension).Type<ExtensionType>();
-        descriptor.Field(x => x.ModifierExtension).Type<ExtensionType>();
-        descriptor.Field(x => x.Type).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Period).Type<PeriodType>();
-        descriptor.Field(x => x.Status).Type<CodeType>();
-
-        // WIP, commenting out for now to preserve compilation
-        // actor: Reference
-        //descriptor.Field(x => x.Actor).Type<ActorType>();
-        //descriptor.Field(x => x.Required).Type<BooleanType>();
-        // status: code  _status: ElementBase
+        descriptor.Name("Actor");
+        descriptor.Type<PatientType>();
+        descriptor.Type<PractitionerType>();
+        //descriptor.Type<PractitionerRoleType>();
+        //descriptor.Type<RelatedPersonType>();
+        //descriptor.Type<DeviceType>();
+        descriptor.Type<HealthcareServiceType>();
+        descriptor.Type<LocationType>();
     }
+    
 }
 
-// todo: finish implementing
-public class ActorType // : ObjectType<> // ???
+public class CodeType : ObjectType<Code<ParticipationStatus>>
 {
-
-    //protected override void Configure(IObjectTypeDescriptor<> descriptor)
-    //{
-    //    descriptor.BindFieldsExplicitly();
-
-    //    // todo: add other descriptors
-    //}
-
-    /*
-     
-            // Summary:
-            //     Person, Location/HealthcareService or Device
-            [FhirElement("actor", InSummary = true, Order = 50)]
-            [CLSCompliant(false)]
-            [References(new string[] { "Patient", "Practitioner", "PractitionerRole", "RelatedPerson", "Device", "HealthcareService", "Location" })]
-            [DataMember]
-            public ResourceReference Actor
-            {
-                get
-                {
-                    return _Actor;
-                }
-                set
-                {
-                    _Actor = value;
-                    OnPropertyChanged("Actor");
-                }
-            }
-     
-     */
-}
-
-
-// todo: finish implementing
-public class CodeType : ObjectType<Code<ParticipationStatus>> // ???
-{
-
     protected override void Configure(IObjectTypeDescriptor<Code<ParticipationStatus>> descriptor)
     {
         descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Value);
 
-        // todo: add other descriptors
     }
 
-    /*
-     
-           // Summary:
-            //     accepted | declined | tentative | needs-action
-            [FhirElement("status", InSummary = true, Order = 70)]
-            [DeclaredType(Type = typeof(Code))]
-            [Cardinality(Min = 1, Max = 1)]
-            [DataMember]
-            public Code<ParticipationStatus> StatusElement
-            {
-                get
-                {
-                    return _StatusElement;
-                }
-                set
-                {
-                    _StatusElement = value;
-                    OnPropertyChanged("StatusElement");
-                }
-            }
-     
-     */
 }

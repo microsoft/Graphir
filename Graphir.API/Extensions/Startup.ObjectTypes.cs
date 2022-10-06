@@ -10,16 +10,17 @@ internal static class FhirTypesStartup
         this IRequestExecutorBuilder graphBuilder)
     {
        return  graphBuilder
+            .AddType<AddressType>()
+            .AddType<AttachmentType>()
+            .AddType<CodeableConceptType>()
+            .AddType<CodingType>()
+            .AddType<ContactPointType>()
+            .AddType<ExtensionType>()
+            .AddType<HumanNameType>()
+            .AddType<IdentifierType>()
             .AddType<OperationOutcomeIssueComponentType>()
             .AddType<OperationOutcomeType>()
-            .AddType<AttachmentType>()
-            .AddType<AddressType>()
-            .AddType<ContactPointType>()
             .AddType<PeriodType>()
-            .AddType<HumanNameType>()
-            .AddType<CodingType>()
-            .AddType<CodeableConceptType>()
-            .AddType<IdentifierType>()
-            .AddType<ExtensionType>();
+            ;
     }
 }

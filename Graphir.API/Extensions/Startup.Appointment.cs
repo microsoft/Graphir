@@ -8,7 +8,10 @@ internal static class AppointmentStartup
 {
     public static IRequestExecutorBuilder AddAppointment(this IRequestExecutorBuilder graphBuilder)
     {
-        return graphBuilder.AddType<AppointmentType>();
+        return graphBuilder
+            .AddType<AppointmentType>()
+            .AddType<AppointmentParticipantType>()
+            .AddType<ActorType>();
     }
     
 }

@@ -14,7 +14,7 @@ public class PatientType : ObjectType<Patient>
     protected override void Configure(IObjectTypeDescriptor<Patient> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-
+        
         descriptor.Field(p => p.Id);
         //descriptor.Field(p => p.Meta);
         descriptor.Field(p => p.Identifier);
