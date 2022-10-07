@@ -1,4 +1,5 @@
-﻿using Graphir.API.Patients;
+﻿using Graphir.API.DataLoaders;
+using Graphir.API.Patients;
 using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
@@ -199,20 +200,25 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
     {
         public async Task<Resource?> GetResourceAsync(
             [Parent] ResourceReference parent,
-            PatientByIdDataLoader loader,
+            [Service ]DataLoaderFactory factory,
             CancellationToken cancellationToken)
         {
-            if (parent.Reference is null)
+            var refString = parent.Reference;
+
+            if (refString is null)
             {
                 // return 'psuedo-reference' type
                 return null;
             }
-            else
+
+            var resourceType = refString.Split('/').First();
+            var resourceId = refString.Split('/').Last();
+
+            switch (resourceType)
             {
-                var patId = parent.Reference.Split('/').LastOrDefault();
-                var results = await loader.LoadAsync(patId, cancellationToken);
-                //var results = await loader.LoadAsync(participant.Actor.Reference, cancellationToken);
-                return results;
+                case "Patient":
+                default:
+                    return await factory.PatientByIdDataLoader.LoadAsync(resourceId, cancellationToken);
             }
         }
     }

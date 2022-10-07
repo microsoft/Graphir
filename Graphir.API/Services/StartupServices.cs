@@ -1,4 +1,5 @@
 ﻿using Graphir.API.Appointments;
+using Graphir.API.DataLoaders;
 using Graphir.API.Extensions;
 using Graphir.API.HealthcareServices;
 using Graphir.API.Locations;
@@ -34,6 +35,7 @@ public static class StartupServices
 
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
+        services.AddScoped<DataLoaderFactory>();
     }
 
 
@@ -57,7 +59,6 @@ public static class StartupServices
             .AddMutationType()
             .AddTypeExtension<PatientMutation>()
             .AddTypeExtension<PractitionerMutation>()
-            .AddDataLoader<ResourceReferenceByIdDataLoader>()
             .AddFhirTypes()
             .AddPatient()
             .AddPractitioner()
