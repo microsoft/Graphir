@@ -1,5 +1,10 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.Patients;
+using Hl7.Fhir.Model;
+using HotChocolate;
 using HotChocolate.Types;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Graphir.API.Schema;
 
@@ -176,16 +181,40 @@ public class OperationOutcomeIssueComponentType : ObjectType<OperationOutcome.Is
     }
 }
 
-public class ResourceReferenceType : ObjectType<ResourceReference>
+
+public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : UnionType
 {
     protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(r => r.Identifier);
-        descriptor.Field(r => r.Reference);
+        descriptor.Field(r => r.Reference).Type<T>()
+            .ResolveWith<ResourceReferenceResolvers>(r => r.GetResourceAsync(default!, default!, default));
         descriptor.Field(r => r.Display);
         descriptor.Field(r => r.Type);
+    }
+
+    private class ResourceReferenceResolvers
+    {
+        public async Task<Resource?> GetResourceAsync(
+            [Parent] ResourceReference parent,
+            PatientByIdDataLoader loader,
+            CancellationToken cancellationToken)
+        {
+            if (parent.Reference is null)
+            {
+                // return 'psuedo-reference' type
+                return null;
+            }
+            else
+            {
+                var patId = parent.Reference.Split('/').LastOrDefault();
+                var results = await loader.LoadAsync(patId, cancellationToken);
+                //var results = await loader.LoadAsync(participant.Actor.Reference, cancellationToken);
+                return results;
+            }
+        }
     }
 }
 

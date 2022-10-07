@@ -21,19 +21,19 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.DoNotPerform).Type<BooleanType>();
         descriptor.Field(x => x.Reported).Type<StringType>();
 
-        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType>>();
+        //descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType>>();
         descriptor.Field(x => x.AuthoredOn).Type<StringType>();
         
-        descriptor.Field(x => x.Performer).Type<ResourceReferenceType>();
+        //descriptor.Field(x => x.Performer).Type<ResourceReferenceType>();
         descriptor.Field(x => x.PerformerType).Type<CodeableConceptType>();
         descriptor.Field(x => x.Recorder).Type<PractitionerType>();
         descriptor.Field(x => x.ReasonCode).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType>>();
+        //descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType>>();
         descriptor.Field(x => x.InstantiatesCanonical).Type<ListType<StringType>>();
         descriptor.Field(x => x.InstantiatesUri).Type<ListType<StringType>>();
         descriptor.Field(x => x.GroupIdentifier).Type<IdentifierType>();
         descriptor.Field(x => x.CourseOfTherapyType).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType>>();
+        //descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType>>();
         descriptor.Field(x => x.DosageInstruction).Type<ListType<DosageType>>();
         
         // descriptor.Field(x => x.Requester); //TODO:Resolvers

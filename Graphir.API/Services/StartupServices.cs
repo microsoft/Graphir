@@ -57,6 +57,7 @@ public static class StartupServices
             .AddMutationType()
             .AddTypeExtension<PatientMutation>()
             .AddTypeExtension<PractitionerMutation>()
+            .AddDataLoader<ResourceReferenceByIdDataLoader>()
             .AddFhirTypes()
             .AddPatient()
             .AddPractitioner()

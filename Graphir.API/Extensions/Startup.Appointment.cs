@@ -11,7 +11,7 @@ internal static class AppointmentStartup
         return graphBuilder
             .AddType<AppointmentType>()
             .AddType<AppointmentParticipantType>()
-            .AddType<ActorType>();
+            .AddType<ActorReferenceType>();
     }
     
 }

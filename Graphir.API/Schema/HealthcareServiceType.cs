@@ -27,7 +27,7 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.Characteristic).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.ReferralMethod).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.AppointmentRequired).Type<BooleanType>();
-        descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType>>();
+        //descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType>>();
         descriptor.Field(x => x.NotAvailable).Type<ListType<HealthcareServiceNotAvailableType>>();
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
         

@@ -36,9 +36,10 @@ public class ResourceReferenceByIdDataLoader : BatchDataLoader<string, Resource>
         //var response = await _fhirService.SearchAsync<Patient>(new[] { $"_id={searchStr}" });
         if (response is not null)
         {
-            results.Add(response);
+            results.Add((Patient)response);
         }
 
         return results.ToDictionary(p => p.Id);
     }
+    
 }

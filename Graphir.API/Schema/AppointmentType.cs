@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Graphir.API.Patients;
 
 namespace Graphir.API.Schema;
 
@@ -52,10 +53,9 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
         descriptor.Field(x => x.Type).Type<CodeableConceptType>();
         descriptor.Field(x => x.Period).Type<PeriodType>();
         descriptor.Field(x => x.Required).Type<BooleanType>();
-        descriptor.Field(x => x.Status).Type<CodeType>();
+        descriptor.Field(x => x.Status).Type<StringType>().ResolveWith<AppointmentResolvers>(t => t.GetStatus(default!, default));
 
-        descriptor.Field(x => x.Actor).Type<ActorType>()
-            .ResolveWith<AppointmentResolvers>(t => t.GetActorAsync(default!, default));
+        descriptor.Field(x => x.Actor).Type<ResourceReferenceType<ActorReferenceType>>();
 
         // WIP, commenting out for now to preserve compilation
         // actor: Reference
@@ -64,36 +64,38 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
 
     private class AppointmentResolvers
     {
-        public async Task<object> GetActorAsync(
+        public async Task<object?> GetActorReferenceAsync(
             [Parent] Appointment.ParticipantComponent participant,
-            
+            //ResourceReferenceByIdDataLoader loader,
+            PatientByIdDataLoader loader,
             CancellationToken cancellationToken)
         {
-            var refTokens = participant.Actor.Reference.Split('/');
-            var idToken = refTokens.LastOrDefault();
+            if (participant.Actor.Reference is null)
+            {
+                // return 'psuedo-reference' type
+            }
+            else
+            {
+                var patId = participant.Actor.Reference.Split('/').LastOrDefault();
+                var results = await loader.LoadAsync(patId, cancellationToken);
+                //var results = await loader.LoadAsync(participant.Actor.Reference, cancellationToken);
+                return results;
+            }
+            return null;
+        }
 
-
-
+        public string GetStatus(
+            [Parent] Appointment.ParticipantComponent participant,
+            CancellationToken cancellationToken)
+        {
+            return participant.Status.Value.ToString();
         }
     }
-    //private class PatientResolvers
-    //{
-    //    public async Task<IReadOnlyList<Practitioner>> GetApppointmentAsync(
-    //        [Parent] Appointment patient,
-    //        PractitionerByIdDataLoader practitionerById,
-    //        CancellationToken cancellationToken
-    //    )
-    //    {
-    //        var refs = patient.GeneralPractitioner.Select(p => p.Reference.Split('/').LastOrDefault());
-
-    //        var results = await practitionerById.LoadAsync(refs.ToArray(), cancellationToken);
-
-    //        return results;
-    //    }
-    //}
+    
 }
 
-public class ActorType : UnionType
+
+public class ActorReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
@@ -106,16 +108,4 @@ public class ActorType : UnionType
         descriptor.Type<HealthcareServiceType>();
         descriptor.Type<LocationType>();
     }
-    
-}
-
-public class CodeType : ObjectType<Code<ParticipationStatus>>
-{
-    protected override void Configure(IObjectTypeDescriptor<Code<ParticipationStatus>> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Value);
-
-    }
-
 }
