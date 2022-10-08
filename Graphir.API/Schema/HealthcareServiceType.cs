@@ -27,7 +27,7 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.Characteristic).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.ReferralMethod).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.AppointmentRequired).Type<BooleanType>();
-        //descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType>>();
+        descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType<CoverageAreaType>>>();
         descriptor.Field(x => x.NotAvailable).Type<ListType<HealthcareServiceNotAvailableType>>();
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
         
@@ -93,5 +93,14 @@ public class ContainedResourceType : ObjectType<Resource>
         descriptor.Field(x => x.Meta).Type<MetaType>();
         descriptor.Field(x => x.IdElement).Type<NonNullType<IdType>>();
         descriptor.Field(x => x.Language).Type<StringType>();
+    }
+}
+
+public class CoverageAreaType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("CoverageArea");
+        descriptor.Type<LocationType>();
     }
 }

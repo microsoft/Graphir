@@ -1,4 +1,5 @@
-﻿using Graphir.API.Practitioners;
+﻿using Graphir.API.DataLoaders;
+using Graphir.API.Practitioners;
 using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
@@ -61,7 +62,7 @@ public class PatientType : ObjectType<Patient>
     {
         public async Task<IReadOnlyList<Practitioner>> GetPractitionerAsync(
             [Parent] Patient patient,
-            PractitionerByIdDataLoader practitionerById,
+            ResourceByIdDataLoader<Practitioner> practitionerById,
             CancellationToken cancellationToken
         )
         {   

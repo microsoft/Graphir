@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Graphir.API.DataLoaders;
 using Hl7.Fhir.Rest;
 
 using HotChocolate;
@@ -30,12 +30,7 @@ public class LocationQuery
     }
 
     [GraphQLName("LocationById")]
-    public async Task<Location> GetLocationById(string id)
-    {
-        var bundle = await _client.SearchByIdAsync<Location>(id);
-        var location = bundle.Entry.Select(x => (Location)x.Resource).FirstOrDefault();
-        return location!;
-    }
+    public async Task<Location> GetLocationById(string id, ResourceByIdDataLoader<Location> loader) => await loader.LoadAsync(id);
 
     [GraphQLName("LocationByName")]
     public async Task<List<Location>> GetLocationByName(string name)

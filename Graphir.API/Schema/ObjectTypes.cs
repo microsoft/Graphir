@@ -187,6 +187,8 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
 {
     protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
     {
+        descriptor.Name(dep => dep.Name + "ResourceReference").DependsOn<T>();
+
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(r => r.Identifier);
@@ -203,22 +205,21 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
             [Service ]DataLoaderFactory factory,
             CancellationToken cancellationToken)
         {
-            var refString = parent.Reference;
+            var refString = parent.Reference;            
 
-            if (refString is null)
-            {
-                // return 'psuedo-reference' type
-                return null;
-            }
-
-            var resourceType = refString.Split('/').First();
-            var resourceId = refString.Split('/').Last();
+            var resourceType = refString?.Split('/').FirstOrDefault();
+            var resourceId = refString?.Split('/').LastOrDefault();
 
             switch (resourceType)
             {
                 case "Patient":
-                default:
                     return await factory.PatientByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Practitioner":
+                    return await factory.PractitionerByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Location":
+                    return null;
+                default:
+                    return null;
             }
         }
     }

@@ -1,23 +1,26 @@
-﻿using Graphir.API.Patients;
-using Graphir.API.Practitioners;
+﻿using Hl7.Fhir.Model;
 
 namespace Graphir.API.DataLoaders
 {
     public class DataLoaderFactory
     {
-        private readonly PatientByIdDataLoader patientByIdDataLoader;
-        private readonly PractitionerByIdDataLoader practitionerByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Patient> patientByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Practitioner> practitionerByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Location> locationByIdDataLoader;
 
         public DataLoaderFactory(
-            PatientByIdDataLoader patientByIdDataLoader,
-            PractitionerByIdDataLoader practitionerByIdDataLoader
+            ResourceByIdDataLoader<Patient> patientByIdDataLoader,
+            ResourceByIdDataLoader<Practitioner> practitionerByIdDataLoader,
+            ResourceByIdDataLoader<Location> locationByIdDataLoader
             )
         {
             this.patientByIdDataLoader = patientByIdDataLoader;
             this.practitionerByIdDataLoader = practitionerByIdDataLoader;
+            this.locationByIdDataLoader = locationByIdDataLoader;
         }
 
-        public PatientByIdDataLoader PatientByIdDataLoader => patientByIdDataLoader;
-        public PractitionerByIdDataLoader PractitionerByIdDataLoader => practitionerByIdDataLoader;
+        public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
+        public ResourceByIdDataLoader<Practitioner> PractitionerByIdDataLoader => practitionerByIdDataLoader;
+        public ResourceByIdDataLoader<Location> LocationByIdDataLoader => locationByIdDataLoader;
     }
 }

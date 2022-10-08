@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
@@ -42,7 +43,7 @@ public class PractitionerQuery
     /// 
     /// </example>
     [GraphQLName("Practitioner")]
-    public async Task<Practitioner> GetPractitioner(string id, PractitionerByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
+    public async Task<Practitioner> GetPractitioner(string id, ResourceByIdDataLoader<Hl7.Fhir.Model.Practitioner> dataLoader) => await dataLoader.LoadAsync(id);
 
     /// <summary>
     /// Get List of Practitioners
