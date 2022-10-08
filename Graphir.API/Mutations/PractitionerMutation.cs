@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Graphir.API.Utils;
 using Graphir.API.Schema;
 
-namespace Graphir.API.Practitioners;
+namespace Graphir.API.Mutations;
 
 [ExtendObjectType(OperationTypeNames.Mutation)]
 public class PractitionerMutation
@@ -106,15 +106,15 @@ public class PractitionerMutation
             var updatePractitioner = InputConvert.ToPractitioner(practitioner);
 
             // set only updated props
-            existingPractitioner.Identifier = (updatePractitioner.Identifier.Count > 0) ? updatePractitioner.Identifier : existingPractitioner.Identifier;
+            existingPractitioner.Identifier = updatePractitioner.Identifier.Count > 0 ? updatePractitioner.Identifier : existingPractitioner.Identifier;
             existingPractitioner.Language = updatePractitioner.Language ?? existingPractitioner.Language;
             existingPractitioner.Active = updatePractitioner.Active ?? existingPractitioner.Active;
-            existingPractitioner.Name = (updatePractitioner.Name.Count > 0) ? updatePractitioner.Name : existingPractitioner.Name;
-            existingPractitioner.Telecom = (updatePractitioner.Telecom.Count > 0) ? updatePractitioner.Telecom : existingPractitioner.Telecom;
+            existingPractitioner.Name = updatePractitioner.Name.Count > 0 ? updatePractitioner.Name : existingPractitioner.Name;
+            existingPractitioner.Telecom = updatePractitioner.Telecom.Count > 0 ? updatePractitioner.Telecom : existingPractitioner.Telecom;
             existingPractitioner.Gender = updatePractitioner.Gender ?? existingPractitioner.Gender;
             existingPractitioner.BirthDate = updatePractitioner.BirthDate ?? existingPractitioner.BirthDate;
-            existingPractitioner.Address = (updatePractitioner.Address.Count > 0) ? updatePractitioner.Address : existingPractitioner.Address;                
-            existingPractitioner.Communication = (updatePractitioner.Communication.Count > 0) ? updatePractitioner.Communication : existingPractitioner.Communication;
+            existingPractitioner.Address = updatePractitioner.Address.Count > 0 ? updatePractitioner.Address : existingPractitioner.Address;
+            existingPractitioner.Communication = updatePractitioner.Communication.Count > 0 ? updatePractitioner.Communication : existingPractitioner.Communication;
 
             var result = await _fhirClient.UpdateAsync(existingPractitioner);
             return new PractitionerUpdate

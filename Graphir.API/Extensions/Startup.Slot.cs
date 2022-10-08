@@ -1,5 +1,6 @@
+using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
-using Graphir.API.Slots;
 
 using HotChocolate.Execution.Configuration;
 
@@ -13,7 +14,8 @@ internal static class SlotStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddDataLoader<SlotDataLoaders>()
+            .AddTypeExtension<SlotQuery>()
+            .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Slot>>()
             .AddType<SlotType>();
     }
 }

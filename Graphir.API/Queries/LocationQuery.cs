@@ -9,7 +9,7 @@ using HotChocolate.Types;
 
 using Location = Hl7.Fhir.Model.Location;
 
-namespace Graphir.API.Locations;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 public class LocationQuery

@@ -1,5 +1,6 @@
 using Graphir.API.DataLoaders;
-using Graphir.API.Practitioners;
+using Graphir.API.Mutations;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
 
 using HotChocolate.Execution.Configuration;

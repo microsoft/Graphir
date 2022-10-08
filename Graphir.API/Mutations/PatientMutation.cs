@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Graphir.API.Patients;
+namespace Graphir.API.Mutations;
 
 [ExtendObjectType(OperationTypeNames.Mutation)]
 public class PatientMutation

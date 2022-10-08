@@ -8,7 +8,7 @@ using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace Graphir.API.Slots;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 public class SlotQuery

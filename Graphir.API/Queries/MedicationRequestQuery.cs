@@ -8,7 +8,7 @@ using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace Graphir.API.MedicationRequests;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType("Query")]
 public class MedicationRequestQuery
@@ -19,7 +19,7 @@ public class MedicationRequestQuery
     {
         _client = client;
     }
-    
+
     //Get all MedicationRequests as a list
     [GraphQLName("MedicationRequests")]
     public async Task<List<MedicationRequest>> GetMedicationRequests()
@@ -27,13 +27,13 @@ public class MedicationRequestQuery
         var bundle = await _client.SearchAsync<MedicationRequest>(new string[] { });
         return bundle.Entry.Select(x => (MedicationRequest)x.Resource).ToList();
     }
-    
+
     //Get a MedicationRequest by id
     [GraphQLName("MedicationRequestById")]
     public async Task<MedicationRequest> GetMedicationRequestById(string id)
     {
         var bundle = await _client.SearchByIdAsync<MedicationRequest>(id);
-        return bundle.Entry.Select(x =>(MedicationRequest) x.Resource).FirstOrDefault()!;
+        return bundle.Entry.Select(x => (MedicationRequest)x.Resource).FirstOrDefault()!;
     }
-    
+
 }

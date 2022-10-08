@@ -8,7 +8,7 @@ using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace Graphir.API.Organizations;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 public class OrganizationQuery
@@ -19,8 +19,8 @@ public class OrganizationQuery
     {
         _fhirClient = fhirClient;
     }
-    
-    
+
+
     [GraphQLName("OrganizationList")]
     public async Task<IList<Organization>> GetOrganizationList()
     {
@@ -28,7 +28,7 @@ public class OrganizationQuery
         var result = bundle.Entry.Select(entry => (entry.Resource as Organization)!).ToList();
         return result.ToList();
     }
-    
+
     [GraphQLName("OrganizationByName")]
     public async Task<IList<Organization>> GetOrganizationListByNameAsync(string name)
     {
@@ -37,5 +37,5 @@ public class OrganizationQuery
         var organizations = searchResults.Entry.Select(e => (Organization)e.Resource).ToList();
         return organizations;
     }
-    
+
 }

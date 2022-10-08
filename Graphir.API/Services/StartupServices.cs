@@ -1,16 +1,7 @@
-﻿using Graphir.API.Appointments;
-using Graphir.API.DataLoaders;
+﻿using Graphir.API.DataLoaders;
 using Graphir.API.Extensions;
-using Graphir.API.HealthcareServices;
-using Graphir.API.Locations;
-using Graphir.API.MedicationAdministrations;
-using Graphir.API.MedicationRequests;
-using Graphir.API.Medications;
-using Graphir.API.Organizations;
-using Graphir.API.Patients;
-using Graphir.API.Practitioners;
-using Graphir.API.Schedules;
-using Graphir.API.Slots;
+using Graphir.API.Mutations;
+using Graphir.API.Queries;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -45,17 +36,6 @@ public static class StartupServices
         services.AddGraphQLServer()
             .AddAuthorization()
             .AddQueryType<Query>()
-            .AddTypeExtension<PatientQuery>()
-            .AddTypeExtension<PractitionerQuery>()
-            .AddTypeExtension<OrganizationQuery>()
-            .AddTypeExtension<AppointmentQuery>()
-            .AddTypeExtension<MedicationQuery>()
-            .AddTypeExtension<LocationQuery>()
-            .AddTypeExtension<ScheduleQuery>()
-            .AddTypeExtension<HealthcareServiceQuery>()
-            .AddTypeExtension<SlotQuery>()
-            .AddTypeExtension<MedicationRequestQuery>()
-            .AddTypeExtension<MedicationAdministrationQuery>()
             .AddMutationType()
             .AddTypeExtension<PatientMutation>()
             .AddTypeExtension<PractitionerMutation>()

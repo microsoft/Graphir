@@ -1,12 +1,9 @@
-﻿using Graphir.API.Practitioners;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
-using Graphir.API.Patients;
 
 namespace Graphir.API.Schema;
 
@@ -56,34 +53,10 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
         descriptor.Field(x => x.Status).Type<StringType>().ResolveWith<AppointmentResolvers>(t => t.GetStatus(default!, default));
 
         descriptor.Field(x => x.Actor).Type<ResourceReferenceType<ActorReferenceType>>();
-
-        // WIP, commenting out for now to preserve compilation
-        // actor: Reference
-        // status: code  _status: ElementBase
     }
 
     private class AppointmentResolvers
     {
-        public async Task<object?> GetActorReferenceAsync(
-            [Parent] Appointment.ParticipantComponent participant,
-            //ResourceReferenceByIdDataLoader loader,
-            PatientByIdDataLoader loader,
-            CancellationToken cancellationToken)
-        {
-            if (participant.Actor.Reference is null)
-            {
-                // return 'psuedo-reference' type
-            }
-            else
-            {
-                var patId = participant.Actor.Reference.Split('/').LastOrDefault();
-                var results = await loader.LoadAsync(patId, cancellationToken);
-                //var results = await loader.LoadAsync(participant.Actor.Reference, cancellationToken);
-                return results;
-            }
-            return null;
-        }
-
         public string GetStatus(
             [Parent] Appointment.ParticipantComponent participant,
             CancellationToken cancellationToken)

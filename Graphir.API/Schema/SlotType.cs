@@ -1,12 +1,4 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Graphir.API.Slots;
-
 using Hl7.Fhir.Model;
-
-using HotChocolate;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -28,17 +20,15 @@ public class SlotType : ObjectType<Slot>
         descriptor.Field(x => x.Comment).Type<StringType>();
         descriptor.Field(x => x.Overbooked).Type<BooleanType>();
         descriptor.Field(x => x.TypeName).Type<StringType>();
-        descriptor.Field(x => x.Schedule).ResolveWith<SlotResolver>
-            (c => SlotResolver.GetSchedule(default!, default!, default));
+        descriptor.Field(x => x.Schedule).Type<ResourceReferenceType<SlotScheduleReferenceType>>();
     }
+}
 
-    protected sealed class SlotResolver
+public class SlotScheduleReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        public static async Task<Schedule> GetSchedule([Parent] Slot slot,
-            SlotDataLoaders loadScheduleById, CancellationToken cancellationToken)
-        {
-            var scheduleReference = slot.Schedule.Reference.Split('/').LastOrDefault();
-            return await loadScheduleById.LoadAsync(scheduleReference!, cancellationToken);
-        }
+        descriptor.Name("SlotScheduleReference");
+        descriptor.Type<ScheduleType>();
     }
 }

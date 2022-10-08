@@ -1,4 +1,5 @@
-﻿using Graphir.API.Schema;
+﻿using Graphir.API.Queries;
+using Graphir.API.Schema;
 
 using HotChocolate.Execution.Configuration;
 
@@ -12,6 +13,7 @@ internal static class MedicationRequestStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
+            .AddTypeExtension<MedicationRequestQuery>()
             .AddType<MedicationRequestType>()
             .AddType<DosageType>()
             .AddType<DoseAndRateType>()

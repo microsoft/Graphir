@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Graphir.API.Practitioners;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 
@@ -43,7 +43,7 @@ public class PractitionerQuery
     /// 
     /// </example>
     [GraphQLName("Practitioner")]
-    public async Task<Practitioner> GetPractitioner(string id, ResourceByIdDataLoader<Hl7.Fhir.Model.Practitioner> dataLoader) => await dataLoader.LoadAsync(id);
+    public async Task<Practitioner> GetPractitioner(string id, ResourceByIdDataLoader<Practitioner> dataLoader) => await dataLoader.LoadAsync(id);
 
     /// <summary>
     /// Get List of Practitioners
@@ -64,7 +64,7 @@ public class PractitionerQuery
     ///      }
     ///   }        
     /// </example>
-    [GraphQLName("PractitionerList")]        
+    [GraphQLName("PractitionerList")]
     public async Task<IList<Practitioner>> GetPractitionerList(string name = "")
     {
         return string.IsNullOrWhiteSpace(name)

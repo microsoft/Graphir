@@ -25,19 +25,8 @@ public class PractitionerType : ObjectType<Practitioner>
         descriptor.Field(p => p.Address);            
         descriptor.Field(p => p.Photo);            
         descriptor.Field(p => p.Communication);
-        descriptor.Field(p => p.Qualification); //#TODO: use resolver to get related resource
-    }
-
-    /// <summary>
-    /// Convert PractitionerObject back to FHIR Practitioner
-    /// </summary>
-    /// <returns>Practitioner</returns>
-    [GraphQLIgnore]
-    public Practitioner ToPractitioner()
-    {
-        var practitioner = new Practitioner();
-        return practitioner;
-    }
+        descriptor.Field(p => p.Qualification);
+    }  
 }
 
 public class PractitionerQualificationType : ObjectType<Practitioner.QualificationComponent>

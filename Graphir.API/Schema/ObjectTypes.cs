@@ -1,5 +1,4 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Patients;
 using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
@@ -9,13 +8,70 @@ using System.Threading.Tasks;
 
 namespace Graphir.API.Schema;
 
-public class ResourceType: ObjectType<Resource>
+public class ResourceType : ObjectType<Resource>
 {
     protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(r => r.Id);
+    }
+}
+
+public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : UnionType
+{
+    protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
+    {
+        descriptor.Name(dep => dep.Name + "Resolver").DependsOn<T>();
+
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(r => r.Identifier);        
+        descriptor.Field(r => r.Display);
+        descriptor.Field(r => r.Type);
+        descriptor.Field(r => r.Reference);
+        descriptor.Field("resource").Type<T>()
+            .ResolveWith<ResourceReferenceResolvers>(r => r.GetResourceAsync(default!, default!, default));
+    }
+
+    private class ResourceReferenceResolvers
+    {
+        public async Task<Resource?> GetResourceAsync(
+            [Parent] ResourceReference parent,
+            [Service] DataLoaderFactory factory,
+            CancellationToken cancellationToken)
+        {
+            var refString = parent.Reference;
+
+            var resourceType = refString?.Split('/').FirstOrDefault();
+            var resourceId = refString?.Split('/').LastOrDefault();
+
+            switch (resourceType)
+            {
+                case "Patient":
+                    return await factory.PatientByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Practitioner":
+                    return await factory.PractitionerByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Location":
+                    return await factory.LocationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Condition":
+                    return await factory.ConditionByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Coverage":
+                    return await factory.CoverageByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Device":
+                    return await factory.DeviceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Provenance":
+                    return await factory.ProvenanceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Slot":
+                    return await factory.SlotByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Medication":
+                    return await factory.MedicationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "MedicationAdministration":
+                    return await factory.MedicationAdministrationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                default:
+                    return null;
+            }
+        }
     }
 }
 
@@ -193,55 +249,7 @@ public class OperationOutcomeIssueComponentType : ObjectType<OperationOutcome.Is
 }
 
 
-public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : UnionType
-{
-    protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
-    {
-        descriptor.Name(dep => dep.Name + "Resolver").DependsOn<T>();
 
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(r => r.Identifier);
-        descriptor.Field(r => r.Reference).Type<T>()
-            .ResolveWith<ResourceReferenceResolvers>(r => r.GetResourceAsync(default!, default!, default));
-        descriptor.Field(r => r.Display);
-        descriptor.Field(r => r.Type);
-    }
-
-    private class ResourceReferenceResolvers
-    {
-        public async Task<Resource?> GetResourceAsync(
-            [Parent] ResourceReference parent,
-            [Service] DataLoaderFactory factory,
-            CancellationToken cancellationToken)
-        {
-            var refString = parent.Reference;            
-
-            var resourceType = refString?.Split('/').FirstOrDefault();
-            var resourceId = refString?.Split('/').LastOrDefault();
-
-            switch (resourceType)
-            {
-                case "Patient":
-                    return await factory.PatientByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Practitioner":
-                    return await factory.PractitionerByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Location":
-                    return await factory.LocationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Condition":
-                    return await factory.ConditionByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Coverage":
-                    return await factory.CoverageByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Device":
-                    return await factory.DeviceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Provenance":
-                    return await factory.ProvenanceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                default:
-                    return null;
-            }
-        }
-    }
-}
 
 [InterfaceType("ResourceCreation")]
 public interface IResourceCreation<T> where T : Resource

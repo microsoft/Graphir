@@ -21,23 +21,31 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.ExtraDetails).Type<MarkDownType>();
         descriptor.Field(x => x.Photo).Type<AttachmentType>();
         descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        // TODO: descriptor.Field(x => x.Contained).Type<ListType<ContainedResourceType>>();
         descriptor.Field(x => x.ServiceProvisionCode).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.Eligibility).Type<ListType<EligibilityComponentType>>();
         descriptor.Field(x => x.Characteristic).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.ReferralMethod).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.AppointmentRequired).Type<BooleanType>();
-        descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType<CoverageAreaType>>>();
+        descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType<CoverageAreaReferenceType>>>();
         descriptor.Field(x => x.NotAvailable).Type<ListType<HealthcareServiceNotAvailableType>>();
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
         
-        // descriptor.Field(x => x.ProvidedBy).Type<OrganizationReferenceType>(); //#TODO: Resolvers
-        descriptor.Field(x => x.Location).Type<ListType<ResourceReferenceType<HealthCareServiceLocationReferenceType>>>();
+        descriptor.Field(x => x.ProvidedBy).Type<ResourceReferenceType<HealthcareServiceProvidedByReferenceType>>();
+        descriptor.Field(x => x.Location).Type<ListType<ResourceReferenceType<HealthcareServiceLocationReferenceType>>>();
     }
     
 }
 
-public class HealthCareServiceLocationReferenceType : UnionType
+public class HealthcareServiceProvidedByReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("HealthcareServiceProvidedByReference");
+        descriptor.Type<OrganizationType>();
+    }
+}
+
+public class HealthcareServiceLocationReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
@@ -91,25 +99,11 @@ public class MarkDownType : ObjectType<Markdown>
     }
 }
 
-//public class ContainedResourceType : ObjectType<Resource>
-//{
-//    protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
-//    {
-//        descriptor.BindFieldsExplicitly();
-//        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-//        descriptor.Field(x => x.ResourceBase).Type<UrlType>();
-//        descriptor.Field(x => x.TypeName).Type<StringType>();
-//        descriptor.Field(x => x.Meta).Type<MetaType>();
-//        descriptor.Field(x => x.IdElement).Type<NonNullType<IdType>>();
-//        descriptor.Field(x => x.Language).Type<StringType>();
-//    }
-//}
-
-public class CoverageAreaType : UnionType
+public class CoverageAreaReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.Name("CoverageArea");
+        descriptor.Name("CoverageAreaReference");
         descriptor.Type<LocationType>();
     }
 }

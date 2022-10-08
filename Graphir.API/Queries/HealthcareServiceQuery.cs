@@ -6,7 +6,7 @@ using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace Graphir.API.HealthcareServices;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 public class HealthcareServiceQuery
@@ -17,14 +17,14 @@ public class HealthcareServiceQuery
     {
         _client = client;
     }
-    
+
     [GraphQLName("HealthcareServiceById")]
     public async Task<HealthcareService> GetHealthCareService(string id)
     {
         var bundle = await _client.SearchByIdAsync<HealthcareService>(id);
         return (HealthcareService)bundle.Entry.First().Resource;
     }
-    
+
     [GraphQLName("HealthcareServices")]
     public async Task<IEnumerable<HealthcareService>> GetHealthCareServices()
     {

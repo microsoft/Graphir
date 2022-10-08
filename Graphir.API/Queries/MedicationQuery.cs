@@ -8,10 +8,10 @@ using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace Graphir.API.Medications;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
-public class MedicationQuery 
+public class MedicationQuery
 {
     private readonly FhirClient _client;
 
@@ -19,15 +19,15 @@ public class MedicationQuery
     {
         _client = client;
     }
-    
+
     //Get list of medications  
     [GraphQLName("Medications")]
     public async Task<List<Medication>> GetMedications()
     {
-        var bundle =  await _client.SearchAsync<Medication>();
+        var bundle = await _client.SearchAsync<Medication>();
         return bundle.Entry.Select(e => (Medication)e.Resource).ToList();
     }
-    
+
     //Get a medication detail by id
     [GraphQLName("MedicationById")]
     public async Task<Medication> GetMedicationById(string id)
@@ -35,7 +35,7 @@ public class MedicationQuery
         var bundle = await _client.SearchByIdAsync<Medication>(id);
         return bundle.Entry.Select(e => (Medication)e.Resource).FirstOrDefault()!;
     }
-    
+
     //Filter medication list by name
     [GraphQLName("MedicationByName")]
     public async Task<List<Medication>> GetMedicationByName(string name)
@@ -45,7 +45,7 @@ public class MedicationQuery
         var filteredMedicationListByName = medicationList.Where(m => m.Text.Div.Contains(name)).ToList();
         return filteredMedicationListByName;
     }
-    
+
     //Filter medication list by code
     [GraphQLName("MedicationByCode")]
     public async Task<List<Medication>> GetMedicationByCode(string code)
@@ -54,5 +54,5 @@ public class MedicationQuery
         var filteredMedicationListByCode = bundle.Entry.Select(e => (Medication)e.Resource).ToList();
         return filteredMedicationListByCode;
     }
-    
+
 }

@@ -21,7 +21,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.DoNotPerform).Type<BooleanType>();
         descriptor.Field(x => x.Reported).Type<StringType>();
 
-        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<SupportingInformationReferenceType>>>();
+        //descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<SupportingInformationReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn).Type<StringType>();
         
         descriptor.Field(x => x.Performer).Type<ResourceReferenceType<PerformerReferenceType>>();

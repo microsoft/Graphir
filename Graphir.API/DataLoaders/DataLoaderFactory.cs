@@ -11,6 +11,9 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Coverage> coverageByIdDataLoader;
         private readonly ResourceByIdDataLoader<Device> deviceByIdDataLoader;
         private readonly ResourceByIdDataLoader<Provenance> provenanceByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Slot> slotByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Medication> medicationByIdDataLoader;
+        private readonly ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
@@ -19,7 +22,10 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Condition> conditionByIdDataLoader,
             ResourceByIdDataLoader<Coverage> coverageByIdDataLoader,
             ResourceByIdDataLoader<Device> deviceByIdDataLoader,
-            ResourceByIdDataLoader<Provenance> provenanceByIdDataLoader
+            ResourceByIdDataLoader<Provenance> provenanceByIdDataLoader,
+            ResourceByIdDataLoader<Slot> slotByIdDataLoader,
+            ResourceByIdDataLoader<Medication> medicationByIdDataLoader,
+            ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader
             )
         {
             this.patientByIdDataLoader = patientByIdDataLoader;
@@ -29,6 +35,9 @@ namespace Graphir.API.DataLoaders
             this.coverageByIdDataLoader = coverageByIdDataLoader;
             this.deviceByIdDataLoader = deviceByIdDataLoader;
             this.provenanceByIdDataLoader = provenanceByIdDataLoader;
+            this.slotByIdDataLoader = slotByIdDataLoader;
+            this.medicationByIdDataLoader = medicationByIdDataLoader;
+            this.medicationAdministrationByIdDataLoader = medicationAdministrationByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
@@ -38,5 +47,8 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Coverage> CoverageByIdDataLoader => coverageByIdDataLoader;
         public ResourceByIdDataLoader<Device> DeviceByIdDataLoader => deviceByIdDataLoader;
         public ResourceByIdDataLoader<Provenance> ProvenanceByIdDataLoader => provenanceByIdDataLoader;
+        public ResourceByIdDataLoader<Slot> SlotByIdDataLoader => slotByIdDataLoader;
+        public ResourceByIdDataLoader<Medication> MedicationByIdDataLoader => medicationByIdDataLoader;
+        public ResourceByIdDataLoader<MedicationAdministration> MedicationAdministrationByIdDataLoader => medicationAdministrationByIdDataLoader;
     }
 }

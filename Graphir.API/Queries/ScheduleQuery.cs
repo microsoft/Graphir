@@ -8,7 +8,7 @@ using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace Graphir.API.Schedules;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 public class ScheduleQuery
@@ -19,16 +19,16 @@ public class ScheduleQuery
     {
         _client = client;
     }
-    
+
     //Get all schedules
     [GraphQLName("Schedules")]
     public async Task<List<Schedule>> GetSchedules()
     {
         var bundle = await _client.SearchAsync<Schedule>(new string[] { });
-        var schedules =  bundle.Entry.Select(e => (Schedule)e.Resource).ToList();
+        var schedules = bundle.Entry.Select(e => (Schedule)e.Resource).ToList();
         return schedules;
     }
-    
+
     //Get schedule by id
     [GraphQLName("ScheduleById")]
     public async Task<Schedule> GetScheduleById(string id)

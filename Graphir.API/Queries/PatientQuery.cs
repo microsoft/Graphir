@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using HotChocolate;
 using HotChocolate.Types;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using static System.String;
 using static System.StringComparison;
 
-namespace Graphir.API.Patients;
+namespace Graphir.API.Queries;
 
 [ExtendObjectType(OperationTypeNames.Query)]
 public class PatientQuery
@@ -44,7 +45,7 @@ public class PatientQuery
     ///}
     /// </example>
     [GraphQLName("Patient")]
-    public async Task<Patient> GetPatient(string id, PatientByIdDataLoader dataLoader) => await dataLoader.LoadAsync(id);
+    public async Task<Patient> GetPatient(string id, ResourceByIdDataLoader<Hl7.Fhir.Model.Patient> dataLoader) => await dataLoader.LoadAsync(id);
 
     /// <summary>
     /// Gets a single page list of patients with ability to search by name

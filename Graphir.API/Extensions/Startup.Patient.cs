@@ -1,5 +1,6 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Patients;
+using Graphir.API.Mutations;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 
@@ -18,6 +19,7 @@ internal static class PatientStartup
                 .AddTypeExtension<PatientQuery>()
                 .AddType<PatientCommunicationType>()
                 .AddType<PatientContactType>()
+                .AddType<PatientLinkType>()
                 .AddType<PatientCreation>()
                 .AddType<PatientUpdate>()
                 .AddType<PatientDelete>()
