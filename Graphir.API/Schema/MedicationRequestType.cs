@@ -21,19 +21,19 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.DoNotPerform).Type<BooleanType>();
         descriptor.Field(x => x.Reported).Type<StringType>();
 
-        //descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType>>();
+        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<SupportingInformationReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn).Type<StringType>();
         
-        //descriptor.Field(x => x.Performer).Type<ResourceReferenceType>();
+        descriptor.Field(x => x.Performer).Type<ResourceReferenceType<PerformerReferenceType>>();
         descriptor.Field(x => x.PerformerType).Type<CodeableConceptType>();
         descriptor.Field(x => x.Recorder).Type<PractitionerType>();
         descriptor.Field(x => x.ReasonCode).Type<ListType<CodeableConceptType>>();
-        //descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType>>();
+        descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType<ReasonReferenceType>>>();
         descriptor.Field(x => x.InstantiatesCanonical).Type<ListType<StringType>>();
         descriptor.Field(x => x.InstantiatesUri).Type<ListType<StringType>>();
         descriptor.Field(x => x.GroupIdentifier).Type<IdentifierType>();
         descriptor.Field(x => x.CourseOfTherapyType).Type<CodeableConceptType>();
-        //descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType>>();
+        descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<InsuranceReferenceType>>>();
         descriptor.Field(x => x.DosageInstruction).Type<ListType<DosageType>>();
         
         // descriptor.Field(x => x.Requester); //TODO:Resolvers
@@ -47,6 +47,50 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         // descriptor.Field(x => x.DetectedIssue).Type<ListType<ReferenceType>>();
         // descriptor.Field(x => x.EventHistory).Type<ListType<ReferenceType>>();
         
+    }
+}
+
+public class InsuranceReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("InsuranceReference");
+        descriptor.Type<CoverageType>();
+        // TODO: descriptor.Type<ClaimResponseType>();
+    }
+}
+
+public class ReasonReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("ReasonReference");
+        descriptor.Type<ConditionType>();
+        // TODO: descriptor.Type<ObservationType>();
+    }
+}
+
+public class SupportingInformationReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("SupportingInformationReference");
+        descriptor.Type<ResourceType>();
+    }
+}
+
+public class PerformerReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("PerformerReference");
+        descriptor.Type<PatientType>();
+        descriptor.Type<PractitionerType>();
+        //descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<OrganizationType>();
+        descriptor.Type<DeviceType>();
+        //descriptor.Type<RelatedPersonType>();
+        //descriptor.Type<CareTeamType>();
     }
 }
 

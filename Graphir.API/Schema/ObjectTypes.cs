@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 
 namespace Graphir.API.Schema;
 
+public class ResourceType: ObjectType<Resource>
+{
+    protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(r => r.Id);
+    }
+}
+
 public class IdentifierType : ObjectType<Identifier>
 {
     protected override void Configure(IObjectTypeDescriptor<Identifier> descriptor)
@@ -187,7 +197,7 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
 {
     protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
     {
-        descriptor.Name(dep => dep.Name + "ResourceReference").DependsOn<T>();
+        descriptor.Name(dep => dep.Name + "Resolver").DependsOn<T>();
 
         descriptor.BindFieldsExplicitly();
 
@@ -202,7 +212,7 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
     {
         public async Task<Resource?> GetResourceAsync(
             [Parent] ResourceReference parent,
-            [Service ]DataLoaderFactory factory,
+            [Service] DataLoaderFactory factory,
             CancellationToken cancellationToken)
         {
             var refString = parent.Reference;            
@@ -217,7 +227,15 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
                 case "Practitioner":
                     return await factory.PractitionerByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case "Location":
-                    return null;
+                    return await factory.LocationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Condition":
+                    return await factory.ConditionByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Coverage":
+                    return await factory.CoverageByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Device":
+                    return await factory.DeviceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Provenance":
+                    return await factory.ProvenanceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 default:
                     return null;
             }

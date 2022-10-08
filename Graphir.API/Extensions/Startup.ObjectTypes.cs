@@ -10,6 +10,7 @@ internal static class FhirTypesStartup
         this IRequestExecutorBuilder graphBuilder)
     {
        return  graphBuilder
+            .AddType<ResourceType>()
             .AddType<AddressType>()
             .AddType<AttachmentType>()
             .AddType<CodeableConceptType>()

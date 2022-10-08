@@ -21,7 +21,7 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.ExtraDetails).Type<MarkDownType>();
         descriptor.Field(x => x.Photo).Type<AttachmentType>();
         descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(x => x.Contained).Type<ListType<ContainedResourceType>>();
+        // TODO: descriptor.Field(x => x.Contained).Type<ListType<ContainedResourceType>>();
         descriptor.Field(x => x.ServiceProvisionCode).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.Eligibility).Type<ListType<EligibilityComponentType>>();
         descriptor.Field(x => x.Characteristic).Type<ListType<CodeableConceptType>>();
@@ -32,9 +32,18 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
         
         // descriptor.Field(x => x.ProvidedBy).Type<OrganizationReferenceType>(); //#TODO: Resolvers
-        // descriptor.Field(x => x.Location).Type<ListType<ReferenceType>>();   //#TODO: Resolvers
+        descriptor.Field(x => x.Location).Type<ListType<ResourceReferenceType<HealthCareServiceLocationReferenceType>>>();
     }
     
+}
+
+public class HealthCareServiceLocationReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("HealthCareServiceLocationReference");
+        descriptor.Type<LocationType>();
+    }
 }
 
 public class HealthcareServiceNotAvailableType : ObjectType<NotAvailableComponent>
@@ -82,19 +91,19 @@ public class MarkDownType : ObjectType<Markdown>
     }
 }
 
-public class ContainedResourceType : ObjectType<Resource>
-{
-    protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.ResourceBase).Type<UrlType>();
-        descriptor.Field(x => x.TypeName).Type<StringType>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.IdElement).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Language).Type<StringType>();
-    }
-}
+//public class ContainedResourceType : ObjectType<Resource>
+//{
+//    protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
+//    {
+//        descriptor.BindFieldsExplicitly();
+//        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
+//        descriptor.Field(x => x.ResourceBase).Type<UrlType>();
+//        descriptor.Field(x => x.TypeName).Type<StringType>();
+//        descriptor.Field(x => x.Meta).Type<MetaType>();
+//        descriptor.Field(x => x.IdElement).Type<NonNullType<IdType>>();
+//        descriptor.Field(x => x.Language).Type<StringType>();
+//    }
+//}
 
 public class CoverageAreaType : UnionType
 {

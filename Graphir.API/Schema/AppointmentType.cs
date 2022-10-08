@@ -99,12 +99,12 @@ public class ActorReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.Name("Actor");
+        descriptor.Name("ActorReference");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
         //descriptor.Type<PractitionerRoleType>();
         //descriptor.Type<RelatedPersonType>();
-        //descriptor.Type<DeviceType>();
+        descriptor.Type<DeviceType>();
         descriptor.Type<HealthcareServiceType>();
         descriptor.Type<LocationType>();
     }

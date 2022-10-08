@@ -66,10 +66,14 @@ public static class StartupServices
             .AddAppointment()
             .AddMedication()
             .AddLocation()
+            .AddDevice()
             .AddSchedule()
             .AddHealthcareService()
             .AddSlots()
             .AddMedicationRequest()
-            .AddMedicationAdministration();
+            .AddMedicationAdministration()
+            .AddProvenance()
+            .AddCoverage()
+            .AddCondition();
     }
 }

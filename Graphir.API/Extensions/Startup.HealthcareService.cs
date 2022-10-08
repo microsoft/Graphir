@@ -13,7 +13,6 @@ internal static class HealthcareServiceStartup
             .AddType<HealthcareServiceNotAvailableType>()
             .AddType<HealthcareServiceAvailableTimeType>()
             .AddType<EligibilityComponentType>()
-            .AddType<ContainedResourceType>()
             .AddType<MarkDownType>()
             .AddType<HealthcareServiceType>();
     }

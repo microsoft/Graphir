@@ -37,8 +37,8 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                  c=>c
                      .GetRequestAsync(default!, default!, default!));
         // descriptor.Field(x => x.Request).Type<MedicationRequestType>();
-        // descriptor.Field(x => x.Device).Type<ResourceReferenceType>();
-        // descriptor.Field(x => x.EventHistory).Type<ListType<ResourceReferenceType>>();
+        descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
+        descriptor.Field(x => x.EventHistory).Type<ListType<ResourceReferenceType<EventHistoryReferenceType>>>();
     }
 
     protected sealed class MedicationAdministrationResolvers
@@ -58,7 +58,14 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
     }
 }
 
-
+public class EventHistoryReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EventHistoryReference");
+        descriptor.Type<ProvenanceType>();
+    }
+}
 
 public class PerformerComponentType : ObjectType<MedicationAdministration.PerformerComponent>
 {
