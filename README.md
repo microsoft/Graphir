@@ -58,7 +58,7 @@ To follow this guide for running locally you will need the following
 * Add a new POST request
 * Add the URI https://localhost:5001/GraphQL
 * Add the body of your request in the "Body" tab e.g. 
-```JSON
+```
 query patientList {
   PatientList {
     id
@@ -87,7 +87,19 @@ query patientList {
 ## Application Startup and App Registrations
 See [Graphir API Authentication and Authorization](./docs/authentication.md)
 
-## Lifecycle of a Request
+# Capabilities
+
+## Supported FHIR Resources
+- Patient
+- Practitioner
+- Organizations
+- Locations
+- Appointments
+- Schedules
+- Medications
+- MedicationRequests
+- MedicationAdministrations
+- HealthcareServices
 
 # Contributing
 
