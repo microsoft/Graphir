@@ -1,5 +1,4 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.MedicationAdministrations;
 using Graphir.API.Queries;
 using Graphir.API.Schema;
 
@@ -17,8 +16,6 @@ internal static class MedicationAdministrationStartup
         return graphBuilder
             .AddTypeExtension<MedicationAdministrationQuery>()
             .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.MedicationAdministration>>()
-            .AddDataLoader<MedicationSubjectDataLoader>()
-            .AddDataLoader<PerformerComponentPractitionerDataLoader>()
             .AddType<PerformerComponentType>()
             .AddType<MedicationAdministrationType>();
     }

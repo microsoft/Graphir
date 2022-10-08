@@ -1,12 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Graphir.API.MedicationAdministrations;
-
-using Hl7.Fhir.Model;
-
-using HotChocolate;
+﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -29,32 +21,23 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.Note).Type<StringType>();
         descriptor.Field(x => x.Performer).Type<ListType<PerformerComponentType>>();
 
-        //#TODO: Resolvers for below fields
-        // descriptor.Field(x => x.Medication)
+        descriptor.Field(x => x.Medication);
         //     .Type<CodeableConceptType>().Name("medicationCodeableConcept");
-         descriptor.Field(x => x.Subject).
-             ResolveWith<MedicationAdministrationResolvers>(
-                 c=>c
-                     .GetRequestAsync(default!, default!, default!));
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationSubjectReferenceType>>();
         // descriptor.Field(x => x.Request).Type<MedicationRequestType>();
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.EventHistory).Type<ListType<ResourceReferenceType<EventHistoryReferenceType>>>();
     }
+    
+}
 
-    protected sealed class MedicationAdministrationResolvers
+public class MedicationSubjectReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        public async Task<Patient> GetRequestAsync(
-            [Parent] MedicationAdministration medicationAdministration,
-            MedicationSubjectDataLoader dataLoader,
-            CancellationToken cancellationToken)
-        {
-            var refs = medicationAdministration
-                .Subject
-                .Reference.Split('/').LastOrDefault();
-            
-            var result = await dataLoader.LoadAsync(refs!, cancellationToken);
-            return result;
-        }
+        descriptor.Name("MedicationSubjectReference");
+        descriptor.Type<PatientType>();
+        // TODO: descriptor.Type<GroupType>();
     }
 }
 
@@ -73,24 +56,23 @@ public class PerformerComponentType : ObjectType<MedicationAdministration.Perfor
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.Actor)
-            .ResolveWith<PerformerComponentResolver>
-                (c => c.GetActorAsync(default!, default!, default));
+        descriptor.Field(x => x.Actor).Type<ResourceReferenceType<PerformerComponentActorReferenceType>>();
         descriptor.Field(x => x.TypeName).Type<CodeableConceptType>();
         descriptor.Field(x => x.Function).Type<CodeableConceptType>();
         descriptor.Field(x => x.Extension).Type<ListType<ExtensionType>>();
-    }
+    }    
+}
 
-    protected sealed class PerformerComponentResolver
+public class PerformerComponentActorReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        public async Task<Practitioner> GetActorAsync(
-            [Parent] MedicationAdministration.PerformerComponent performerComponent,
-            PerformerComponentPractitionerDataLoader dataLoader,
-            CancellationToken cancellationToken)
-        {
-            var refs = performerComponent.Actor.Reference.Split('/').LastOrDefault();
-            var result = await dataLoader.LoadAsync(refs!, cancellationToken);
-            return result;
-        }
+        descriptor.Name("PerformerComponentActorReference");
+        descriptor.Type<PractitionerType>();
+        //descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<PatientType>();
+        //descriptor.Type<RelatedPersonType>();
+        descriptor.Type<DeviceType>();
+        // TODO: build out missing types
     }
 }
