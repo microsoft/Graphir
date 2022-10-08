@@ -14,6 +14,7 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Slot> slotByIdDataLoader;
         private readonly ResourceByIdDataLoader<Medication> medicationByIdDataLoader;
         private readonly ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader;
+        private readonly ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
@@ -25,7 +26,8 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Provenance> provenanceByIdDataLoader,
             ResourceByIdDataLoader<Slot> slotByIdDataLoader,
             ResourceByIdDataLoader<Medication> medicationByIdDataLoader,
-            ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader
+            ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader,
+            ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader
             )
         {
             this.patientByIdDataLoader = patientByIdDataLoader;
@@ -38,6 +40,7 @@ namespace Graphir.API.DataLoaders
             this.slotByIdDataLoader = slotByIdDataLoader;
             this.medicationByIdDataLoader = medicationByIdDataLoader;
             this.medicationAdministrationByIdDataLoader = medicationAdministrationByIdDataLoader;
+            this.medicationRequestByIdDataLoader = medicationRequestByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
@@ -50,5 +53,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Slot> SlotByIdDataLoader => slotByIdDataLoader;
         public ResourceByIdDataLoader<Medication> MedicationByIdDataLoader => medicationByIdDataLoader;
         public ResourceByIdDataLoader<MedicationAdministration> MedicationAdministrationByIdDataLoader => medicationAdministrationByIdDataLoader;
+        public ResourceByIdDataLoader<MedicationRequest> MedicationRequestByIdDataLoader => medicationRequestByIdDataLoader;
     }
 }

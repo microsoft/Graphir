@@ -68,6 +68,8 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
                     return await factory.MedicationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case "MedicationAdministration":
                     return await factory.MedicationAdministrationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "MedicationRequest":
+                    return await factory.MedicationRequestByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 default:
                     return null;
             }
@@ -120,6 +122,18 @@ public class CodeableConceptType : ObjectType<CodeableConcept>
 
         descriptor.Field(c => c.Coding);
         descriptor.Field(c => c.Text);
+    }
+}
+
+public class CodeableReferenceType<T> : ObjectType<CodeableReference> where T : UnionType
+{
+    protected override void Configure(IObjectTypeDescriptor<CodeableReference> descriptor)
+    {
+        descriptor.Name(d => d.Name + "CodeableReference").DependsOn<T>();
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(c => c.Concept).Type<CodeableConceptType>();
+        descriptor.Field(c => c.Reference).Type<ResourceReferenceType<T>>();
     }
 }
 

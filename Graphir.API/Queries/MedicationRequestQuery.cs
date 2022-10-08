@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Graphir.API.DataLoaders;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 
@@ -30,10 +30,6 @@ public class MedicationRequestQuery
 
     //Get a MedicationRequest by id
     [GraphQLName("MedicationRequestById")]
-    public async Task<MedicationRequest> GetMedicationRequestById(string id)
-    {
-        var bundle = await _client.SearchByIdAsync<MedicationRequest>(id);
-        return bundle.Entry.Select(x => (MedicationRequest)x.Resource).FirstOrDefault()!;
-    }
+    public async Task<MedicationRequest> GetMedicationRequestById(string id, ResourceByIdDataLoader<MedicationRequest> loader) => await loader.LoadAsync(id);
 
 }
