@@ -43,7 +43,6 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                 }
                 return null;
             });
-        //    .Type<CodeableReferenceType<MedicationAdministrationMedicationReferenceType>>();
         
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationAdministrationSubjectReferenceType>>();
         descriptor.Field(x => x.Request).Type<ResourceReferenceType<MedicationAdministrationRequestReferenceType>>();
