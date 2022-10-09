@@ -14,8 +14,8 @@ internal static class MedicationAdministrationStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddTypeExtension<MedicationAdministrationQuery>()
             .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.MedicationAdministration>>()
+            .AddTypeExtension<MedicationAdministrationQuery>()
             .AddType<PerformerComponentType>()
             .AddType<MedicationAdministrationType>();
     }

@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -77,34 +78,19 @@ public class QuantityType : ObjectType<Quantity>
     }
 }
 
-/*public class ReferenceType : ObjectType<Organization>
+#region QueryExtensions
+public class MedicationQuery : ObjectTypeExtension<Query>
 {
-    protected override void Configure(IObjectTypeDescriptor<Organization> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.Identifier).Type<ListType<IdentifierType>>();
-        descriptor.Field(x => x.Active).Type<BooleanType>();
-        descriptor.Field(x => x.Type).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Name).Type<StringType>();
-        descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(x => x.Address).Type<ListType<AddressType>>();
-        descriptor.Field(x => x.PartOf).Type<ReferenceType>();
-        descriptor.Field(x => x.Contact).Type<ListType<OrganizationContactType>>();
-        descriptor.Field(x => x.Endpoint).Type<ListType<ReferenceType>>();
+        descriptor.Field("Medication")
+            .Type<MedicationType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<Medication>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("MedicationList")
+            .Type<ListType<MedicationType>>()
+            .ResolveWith<ResourceResolvers<Medication>>(r => r.GetResources());
     }
 }
-
-public class OrganizationContactType : ObjectType<Organization.ContactComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<Organization.ContactComponent> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Purpose).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Name).Type<HumanNameType>();
-        descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(x => x.Address).Type<AddressType>();
-    }
-}*/
-
+#endregion

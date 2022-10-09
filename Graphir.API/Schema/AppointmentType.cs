@@ -4,6 +4,7 @@ using HotChocolate.Types;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Graphir.API.DataLoaders;
 
 namespace Graphir.API.Schema;
 
@@ -82,3 +83,20 @@ public class ActorReferenceType : UnionType
         descriptor.Type<LocationType>();
     }
 }
+
+#region QueryExtensions
+public class AppointmentQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("Appointment")
+            .Type<AppointmentType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("AppointmentList")
+            .Type<ListType<AppointmentType>>()
+            .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResources());
+    }
+}
+#endregion

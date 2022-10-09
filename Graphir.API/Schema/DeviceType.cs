@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema
@@ -67,4 +68,21 @@ namespace Graphir.API.Schema
             descriptor.Type<DeviceType>();
         }
     }
+
+    #region QueryExtensions
+    public class DeviceQuery : ObjectTypeExtension<Query>
+    {
+        protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+        {            
+            descriptor.Field("Device")
+                .Type<DeviceType>()
+                .Argument("id", a => a.Type<NonNullType<StringType>>())
+                .ResolveWith<ResourceResolvers<Device>>(r => r.GetResource(default!, default!));
+
+            descriptor.Field("DeviceList")
+                .Type<ListType<DeviceType>>()
+                .ResolveWith<ResourceResolvers<Device>>(r => r.GetResources());
+        }
+    }
+    #endregion
 }

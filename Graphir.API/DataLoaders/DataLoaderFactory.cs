@@ -15,6 +15,8 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Medication> medicationByIdDataLoader;
         private readonly ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader;
         private readonly ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Group> groupByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
@@ -27,7 +29,9 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Slot> slotByIdDataLoader,
             ResourceByIdDataLoader<Medication> medicationByIdDataLoader,
             ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader,
-            ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader
+            ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader,
+            ResourceByIdDataLoader<Group> groupByIdDataLoader,
+            ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader
             )
         {
             this.patientByIdDataLoader = patientByIdDataLoader;
@@ -41,6 +45,8 @@ namespace Graphir.API.DataLoaders
             this.medicationByIdDataLoader = medicationByIdDataLoader;
             this.medicationAdministrationByIdDataLoader = medicationAdministrationByIdDataLoader;
             this.medicationRequestByIdDataLoader = medicationRequestByIdDataLoader;
+            this.groupByIdDataLoader = groupByIdDataLoader;
+            this.scheduleByIdDataLoader = scheduleByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
@@ -54,5 +60,7 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Medication> MedicationByIdDataLoader => medicationByIdDataLoader;
         public ResourceByIdDataLoader<MedicationAdministration> MedicationAdministrationByIdDataLoader => medicationAdministrationByIdDataLoader;
         public ResourceByIdDataLoader<MedicationRequest> MedicationRequestByIdDataLoader => medicationRequestByIdDataLoader;
+        public ResourceByIdDataLoader<Group> GroupByIdDataLoader => groupByIdDataLoader;
+        public ResourceByIdDataLoader<Schedule> ScheduleByIdDataLoader => scheduleByIdDataLoader;
     }
 }

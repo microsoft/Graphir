@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -37,3 +38,20 @@ public class LocationPositionType : ObjectType<Location.PositionComponent>
         descriptor.Field(x => x.Altitude).Type<DecimalType>();
     }
 }
+
+#region QueryExtentions
+public class LocationQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("Location")
+            .Type<LocationType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<Location>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("LocationList")
+            .Type<ListType<LocationType>>()
+            .ResolveWith<ResourceResolvers<Location>>(r => r.GetResources());
+    }
+}
+#endregion

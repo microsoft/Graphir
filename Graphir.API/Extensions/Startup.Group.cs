@@ -5,15 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Graphir.API.Extensions
 {
-    internal static class DeviceStartup
+    internal static class GroupStartup
     {
-        public static IRequestExecutorBuilder AddDevice
+        public static IRequestExecutorBuilder AddGroup
             (this IRequestExecutorBuilder graphBuilder)
         {
             return graphBuilder
-                .AddTypeExtension<DeviceQuery>()
-                .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Device>>()
-                .AddType<DeviceType>();
+                .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Group>>()
+                .AddType<GroupType>();
         }
     }
 }

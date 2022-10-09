@@ -1,3 +1,4 @@
+using Graphir.API.DataLoaders;
 using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
@@ -32,3 +33,20 @@ public class SlotScheduleReferenceType : UnionType
         descriptor.Type<ScheduleType>();
     }
 }
+
+#region QueryExtensions
+public class SlotQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("Slot")
+            .Type<SlotType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<Slot>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("SlotList")
+            .Type<ListType<SlotType>>()
+            .ResolveWith<ResourceResolvers<Slot>>(r => r.GetResources());
+    }
+}
+#endregion

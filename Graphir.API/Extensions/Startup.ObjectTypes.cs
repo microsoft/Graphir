@@ -22,6 +22,7 @@ internal static class FhirTypesStartup
             .AddType<OperationOutcomeIssueComponentType>()
             .AddType<OperationOutcomeType>()
             .AddType<PeriodType>()
+            .AddType<AnnotationType>()
             ;
     }
 }

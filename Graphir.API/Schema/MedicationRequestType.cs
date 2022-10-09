@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -6,6 +7,7 @@ namespace Graphir.API.Schema;
 
 public class MedicationRequestType : ObjectType<MedicationRequest>
 {
+    // TODO: validate with graphQL FHIR spec document
     protected override void Configure(IObjectTypeDescriptor<MedicationRequest> descriptor)
     {
         descriptor.BindFieldsExplicitly();
@@ -147,32 +149,36 @@ public class RepeatComponentType : ObjectType<Timing.RepeatComponent>
         descriptor.BindFieldsExplicitly();
         
         //descriptor.Field(x => x.Bounds).Type<DurationType>(); TODO:Resolvers
-        descriptor.Field(x => x.Count).Type<IntType>();
-        descriptor.Field(x => x.CountMax).Type<IntType>();
-        descriptor.Field(x => x.Duration).Type<DecimalType>();
-        descriptor.Field(x => x.DurationMax).Type<DecimalType>();
-        descriptor.Field(x => x.DurationUnit).Type<StringType>();
-        descriptor.Field(x => x.Frequency).Type<IntType>();
-        descriptor.Field(x => x.FrequencyMax).Type<IntType>();
-        descriptor.Field(x => x.Period).Type<DecimalType>();
-        descriptor.Field(x => x.PeriodMax).Type<DecimalType>();
-        descriptor.Field(x => x.PeriodUnit).Type<StringType>();
-        descriptor.Field(x => x.DayOfWeek).Type<ListType<StringType>>();
-        descriptor.Field(x => x.TimeOfDay).Type<ListType<StringType>>();
-        descriptor.Field(x => x.When).Type<ListType<StringType>>();
-        descriptor.Field(x => x.Offset).Type<IntType>();
+        descriptor.Field(x => x.Count);
+        descriptor.Field(x => x.CountMax);
+        descriptor.Field(x => x.Duration);
+        descriptor.Field(x => x.DurationMax);
+        descriptor.Field(x => x.DurationUnit);
+        descriptor.Field(x => x.Frequency);
+        descriptor.Field(x => x.FrequencyMax);
+        descriptor.Field(x => x.Period);
+        descriptor.Field(x => x.PeriodMax);
+        descriptor.Field(x => x.PeriodUnit);
+        descriptor.Field(x => x.DayOfWeek);
+        descriptor.Field(x => x.TimeOfDay);
+        descriptor.Field(x => x.When);
+        descriptor.Field(x => x.Offset);
     }
 }
 
-public class AnnotationType : ObjectType<Annotation>
+#region QueryExtensions
+public class MedicationRequestQuery : ObjectTypeExtension<Query>
 {
-    protected override void Configure(IObjectTypeDescriptor<Annotation> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
     {
-        descriptor.BindFieldsExplicitly();
-        
-        //descriptor.Field(x => x.Author).Type<PractitionerType>(); //TODO: resolver
-        descriptor.Field(x => x.Time).Type<StringType>();
-        descriptor.Field(x => x.Text).Type<MarkDownType>();
-        
+        descriptor.Field("MedicationRequest")
+            .Type<MedicationRequestType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<MedicationRequest>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("MedicationRequestList")
+            .Type<ListType<MedicationRequestType>>()
+            .ResolveWith<ResourceResolvers<MedicationRequest>>(r => r.GetResources());
     }
 }
+#endregion

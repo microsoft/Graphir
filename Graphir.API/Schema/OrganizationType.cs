@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -39,3 +40,20 @@ public class ExtensionType : ObjectType<Extension>
         descriptor.Field(x => x.Value).Type<StringType>();
     }
 }
+
+#region QueryExtensions
+public class OrganizationQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("Organization")
+            .Type<OrganizationType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<Organization>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("OrganizationList")
+            .Type<ListType<OrganizationType>>()
+            .ResolveWith<ResourceResolvers<Organization>>(r => r.GetResources());
+    }
+}
+#endregion

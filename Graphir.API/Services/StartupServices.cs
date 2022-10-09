@@ -14,15 +14,6 @@ public static class StartupServices
         services.AddScoped<Query>();
         services.AddScoped<PatientQuery>();
         services.AddScoped<PractitionerQuery>();
-        services.AddScoped<OrganizationQuery>();
-        services.AddScoped<LocationQuery>();
-        services.AddScoped<MedicationQuery>();
-        services.AddScoped<ScheduleQuery>();
-        services.AddScoped<AppointmentQuery>();
-        services.AddScoped<HealthcareServiceQuery>();
-        services.AddScoped<SlotQuery>();
-        services.AddScoped<MedicationRequestQuery>();
-        services.AddScoped<MedicationAdministrationQuery>();
 
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
@@ -37,8 +28,6 @@ public static class StartupServices
             .AddAuthorization()
             .AddQueryType<Query>()
             .AddMutationType()
-            .AddTypeExtension<PatientMutation>()
-            .AddTypeExtension<PractitionerMutation>()
             .AddFhirTypes()
             .AddPatient()
             .AddPractitioner()
@@ -54,6 +43,7 @@ public static class StartupServices
             .AddMedicationAdministration()
             .AddProvenance()
             .AddCoverage()
-            .AddCondition();
+            .AddCondition()
+            .AddGroup();
     }
 }

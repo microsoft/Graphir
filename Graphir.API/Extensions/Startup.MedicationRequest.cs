@@ -1,5 +1,4 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Queries;
 using Graphir.API.Schema;
 
 using HotChocolate.Execution.Configuration;
@@ -21,6 +20,6 @@ internal static class MedicationRequestStartup
             .AddType<DoseAndRateType>()
             .AddType<TimingType>()
             .AddType<RepeatComponentType>()
-            .AddType<AnnotationType>();
+            ;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -130,3 +131,20 @@ public class PerformerComponentActorReferenceType : UnionType
         // TODO: build out missing types
     }
 }
+
+#region QueryExtensions
+public class MedicationAdministrationQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("MedicationAdministration")
+            .Type<MedicationAdministrationType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<MedicationAdministration>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("MedicationAdministrationList")
+            .Type<ListType<MedicationAdministrationType>>()
+            .ResolveWith<ResourceResolvers<MedicationAdministration>>(r => r.GetResources());
+    }
+}
+#endregion

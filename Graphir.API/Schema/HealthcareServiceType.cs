@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 using static Hl7.Fhir.Model.HealthcareService;
 
@@ -6,6 +7,7 @@ namespace Graphir.API.Schema;
 
 public class HealthcareServiceType : ObjectType<HealthcareService>
 {
+    // TODO: validate with fhir graphql schema docs
     protected override void Configure(IObjectTypeDescriptor<HealthcareService> descriptor)
     {
         descriptor.BindFieldsExplicitly();
@@ -107,3 +109,20 @@ public class CoverageAreaReferenceType : UnionType
         descriptor.Type<LocationType>();
     }
 }
+
+#region QueryExtensions
+public class HealthcareServiceQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("HealthcareService")
+            .Type<HealthcareServiceType>()
+            .Argument("id", a => a.Type<NonNullType<StringType>>())
+            .ResolveWith<ResourceResolvers<HealthcareService>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("HealthcareServiceList")
+            .Type<ListType<HealthcareServiceType>>()
+            .ResolveWith<ResourceResolvers<HealthcareService>>(r => r.GetResources());
+    }
+}
+#endregion
