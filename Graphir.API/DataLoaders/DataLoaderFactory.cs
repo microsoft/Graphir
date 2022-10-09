@@ -18,6 +18,7 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Group> groupByIdDataLoader;
         private readonly ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader;
         private readonly ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Organization> organizationByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
@@ -33,7 +34,8 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader,
             ResourceByIdDataLoader<Group> groupByIdDataLoader,
             ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader,
-            ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader
+            ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader,
+            ResourceByIdDataLoader<Organization> organizationByIdDataLoader
             )
         {
             this.patientByIdDataLoader = patientByIdDataLoader;
@@ -50,6 +52,7 @@ namespace Graphir.API.DataLoaders
             this.groupByIdDataLoader = groupByIdDataLoader;
             this.scheduleByIdDataLoader = scheduleByIdDataLoader;
             this.healthServiceByIdDataLoader = healthServiceByIdDataLoader;
+            this.organizationByIdDataLoader = organizationByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
@@ -66,5 +69,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Group> GroupByIdDataLoader => groupByIdDataLoader;
         public ResourceByIdDataLoader<Schedule> ScheduleByIdDataLoader => scheduleByIdDataLoader;
         public ResourceByIdDataLoader<HealthcareService> HealthServiceByIdDataLoader => healthServiceByIdDataLoader;
+        public ResourceByIdDataLoader<Organization> OrganizationByIdDataLoader => organizationByIdDataLoader;
     }
 }

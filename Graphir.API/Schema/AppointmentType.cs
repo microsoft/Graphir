@@ -1,8 +1,6 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Threading;
 using Graphir.API.DataLoaders;
 
@@ -39,8 +37,6 @@ public class AppointmentType : ObjectType<Appointment>
  
 }
 
-
-// type AppointmentParticipant {
 public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComponent>
 {
 
@@ -53,7 +49,7 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
         descriptor.Field(x => x.Required).Type<BooleanType>();
         descriptor.Field(x => x.Status).Type<StringType>().ResolveWith<AppointmentResolvers>(t => t.GetStatus(default!, default));
 
-        descriptor.Field(x => x.Actor).Type<ResourceReferenceType<ActorReferenceType>>();
+        descriptor.Field(x => x.Actor).Type<ResourceReferenceType<AppointmentParticipantActorReferenceType>>();
     }
 
     private class AppointmentResolvers
@@ -69,11 +65,11 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
 }
 
 
-public class ActorReferenceType : UnionType
+public class AppointmentParticipantActorReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.Name("ActorReference");
+        descriptor.Name("AppointmentParticipantActorReference");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
         //descriptor.Type<PractitionerRoleType>();

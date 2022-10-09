@@ -57,6 +57,10 @@ namespace Graphir.API.DataLoaders
                     return await factory.ScheduleByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case "HealthService":
                     return await factory.HealthServiceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Group":
+                    return await factory.GroupByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "Organization":
+                    return await factory.OrganizationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 default:
                     return null;
             }

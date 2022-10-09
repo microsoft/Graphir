@@ -10,21 +10,21 @@ public class LocationType : ObjectType<Location>
     protected override void Configure(IObjectTypeDescriptor<Location> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.Identifier).Type<ListType<IdentifierType>>();
-        descriptor.Field(x => x.Status).Type<StringType>();
-        descriptor.Field(x => x.Name).Type<StringType>();
-        descriptor.Field(x => x.Alias).Type<ListType<StringType>>();
-        descriptor.Field(x => x.Description).Type<StringType>();
-        descriptor.Field(x => x.Mode).Type<StringType>();
-        descriptor.Field(x => x.Type).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(x => x.Address).Type<AddressType>();
-        descriptor.Field(x => x.PhysicalType).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Position).Type<LocationPositionType>();
-        descriptor.Field(x => x.AvailabilityExceptionsElement).Type<FhirStringType>();
-        descriptor.Field(x => x.AvailabilityExceptions).Type<StringType>();
+        descriptor.Field(x => x.Id);
+        descriptor.Field(x => x.Meta);
+        descriptor.Field(x => x.Identifier);
+        descriptor.Field(x => x.Status);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Alias);
+        descriptor.Field(x => x.Description);
+        descriptor.Field(x => x.Mode);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Telecom);
+        descriptor.Field(x => x.Address);
+        descriptor.Field(x => x.PhysicalType);
+        descriptor.Field(x => x.Position);
+        descriptor.Field(x => x.AvailabilityExceptionsElement);
+        descriptor.Field(x => x.AvailabilityExceptions);
     }
 }
 
