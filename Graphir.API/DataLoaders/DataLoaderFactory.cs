@@ -17,6 +17,7 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader;
         private readonly ResourceByIdDataLoader<Group> groupByIdDataLoader;
         private readonly ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader;
+        private readonly ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
@@ -31,7 +32,8 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<MedicationAdministration> medicationAdministrationByIdDataLoader,
             ResourceByIdDataLoader<MedicationRequest> medicationRequestByIdDataLoader,
             ResourceByIdDataLoader<Group> groupByIdDataLoader,
-            ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader
+            ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader,
+            ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader
             )
         {
             this.patientByIdDataLoader = patientByIdDataLoader;
@@ -47,6 +49,7 @@ namespace Graphir.API.DataLoaders
             this.medicationRequestByIdDataLoader = medicationRequestByIdDataLoader;
             this.groupByIdDataLoader = groupByIdDataLoader;
             this.scheduleByIdDataLoader = scheduleByIdDataLoader;
+            this.healthServiceByIdDataLoader = healthServiceByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
@@ -62,5 +65,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<MedicationRequest> MedicationRequestByIdDataLoader => medicationRequestByIdDataLoader;
         public ResourceByIdDataLoader<Group> GroupByIdDataLoader => groupByIdDataLoader;
         public ResourceByIdDataLoader<Schedule> ScheduleByIdDataLoader => scheduleByIdDataLoader;
+        public ResourceByIdDataLoader<HealthcareService> HealthServiceByIdDataLoader => healthServiceByIdDataLoader;
     }
 }

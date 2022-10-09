@@ -10,7 +10,10 @@ namespace Graphir.API.DataLoaders
     {
         /// <summary>
         /// Fetches referenced resources based on relative Url of 'reference' property.
-        /// * only supports relative links at this time
+        /// * only relative links supported at this time
+        /// <example>
+        /// 'Patient/1234'
+        /// </example>
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="factory"></param>
@@ -52,6 +55,8 @@ namespace Graphir.API.DataLoaders
                     return await factory.MedicationRequestByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case "Schedule":
                     return await factory.ScheduleByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case "HealthService":
+                    return await factory.HealthServiceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 default:
                     return null;
             }
