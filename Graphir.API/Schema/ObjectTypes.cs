@@ -268,6 +268,28 @@ public class MoneyType : ObjectType<Money>
     }
 }
 
+public class NarrativeType : ObjectType<Narrative>
+{
+    protected override void Configure(IObjectTypeDescriptor<Narrative> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Status);
+        descriptor.Field(x => x.Div);
+    }
+}
+
+public class RatioType : ObjectType<Ratio>
+{
+    protected override void Configure(IObjectTypeDescriptor<Ratio> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Numerator).Type<QuantityType>();
+        descriptor.Field(x => x.Denominator).Type<QuantityType>();
+    }
+}
+
+#region Interfaces
+
 [InterfaceType("ResourceCreation")]
 public interface IResourceCreation<T> where T : Resource
 {
@@ -288,3 +310,5 @@ public interface IResourceDelete<T> where T : Resource
 {
     public OperationOutcome Information { get; set; }
 }
+
+#endregion

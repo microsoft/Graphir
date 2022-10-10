@@ -16,10 +16,6 @@ internal static class MedicationStartup
             .AddTypeExtension<MedicationQuery>()
             .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Medication>>()
             .AddType<MedicationType>()
-            .AddType<NarrativeType>()
-            .AddType<MedicationIngredientType>()
-            .AddType<RatioType>()
-            .AddType<MedicationBatchType>()
             ;
 
     }

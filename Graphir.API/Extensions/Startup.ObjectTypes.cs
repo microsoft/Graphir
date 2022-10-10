@@ -25,6 +25,8 @@ internal static class FhirTypesStartup
             .AddType<AnnotationType>()
             .AddType<QuantityType>()
             .AddType<MoneyType>()
+            .AddType<NarrativeType>()
+            .AddType<RatioType>()
             ;
     }
 }

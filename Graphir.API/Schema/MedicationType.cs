@@ -10,27 +10,20 @@ public class MedicationType : ObjectType<Medication>
     protected override void Configure(IObjectTypeDescriptor<Medication> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.Identifier).Type<ListType<IdentifierType>>();
-        descriptor.Field(x => x.Code).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Status).Type<StringType>();
-        descriptor.Field(x => x.Text).Type<NarrativeType>();
-        descriptor.Field(x => x.Form).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Amount).Type<RatioType>();
+        descriptor.Field(x => x.Id);
+        descriptor.Field(x => x.Meta);
+        descriptor.Field(x => x.Language);
+        descriptor.Field(x => x.Text);
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Identifier);
+        descriptor.Field(x => x.Code);
+        descriptor.Field(x => x.Status);
+        descriptor.Field(x => x.Manufacturer).Type<ResourceReferenceType<MedicationManufacturerReferenceType>>();
+        descriptor.Field(x => x.Amount);
+        descriptor.Field(x => x.Form);
         descriptor.Field(x => x.Ingredient).Type<ListType<MedicationIngredientType>>();
         descriptor.Field(x => x.Batch).Type<MedicationBatchType>();
-        //descriptor.Field(x => x.Manufacturer); #TODO: use resolver to get related resource
-    }
-}
-
-public class NarrativeType : ObjectType<Narrative>
-{
-    protected override void Configure(IObjectTypeDescriptor<Narrative> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Status).Type<StringType>();
-        descriptor.Field(x => x.Div).Type<StringType>();
     }
 }
 
@@ -39,8 +32,10 @@ public class MedicationBatchType : ObjectType<Medication.BatchComponent>
     protected override void Configure(IObjectTypeDescriptor<Medication.BatchComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.LotNumber).Type<StringType>();
-        descriptor.Field(x => x.ExpirationDate).Type<DateType>();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.LotNumber);
+        descriptor.Field(x => x.ExpirationDate);
     }
 }
 
@@ -49,19 +44,55 @@ public class MedicationIngredientType : ObjectType<Medication.IngredientComponen
     protected override void Configure(IObjectTypeDescriptor<Medication.IngredientComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Item).Type<StringType>();
-        descriptor.Field(x => x.IsActive).Type<BooleanType>();
-        descriptor.Field(x => x.Strength).Type<RatioType>();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Item)
+            .Type<CodeableReferenceType<MedicationIngredientItemReferenceType>>()
+            .Resolve(context =>
+            {
+                var parent = context.Parent<Medication.IngredientComponent>();
+                if (parent.Item is null)
+                    return null;
+
+                if (parent.Item.TypeName == "CodeableConcept")
+                {
+                    return new CodeableReference
+                    {
+                        Concept = (CodeableConcept)parent.Item
+                    };
+                }
+                if (parent.Item.TypeName == "Reference")
+                {
+                    return new CodeableReference
+                    {
+                        Reference = (ResourceReference)parent.Item
+                    };
+                }
+                return null;
+            }); ;
+        descriptor.Field(x => x.IsActive);
+        descriptor.Field(x => x.Strength);
     }
 }
 
-public class RatioType : ObjectType<Ratio>
+public class MedicationManufacturerReferenceType : UnionType
 {
-    protected override void Configure(IObjectTypeDescriptor<Ratio> descriptor)
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Numerator).Type<QuantityType>();
-        descriptor.Field(x => x.Denominator).Type<QuantityType>();
+        descriptor.Name("MedicationManufacturerReference");
+        descriptor.Description("Reference(Organization)");
+        descriptor.Type<OrganizationType>();
+    }
+}
+
+public class MedicationIngredientItemReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("MedicationIngredientItemReference");
+        descriptor.Description("Reference(Substance | Medication)");
+        //descriptor.Type<SubstanceType>();
+        descriptor.Type<MedicationType>();
     }
 }
 
