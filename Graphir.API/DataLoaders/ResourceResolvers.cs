@@ -8,14 +8,7 @@ using System.Threading.Tasks;
 namespace Graphir.API.DataLoaders
 {
     public class ResourceResolvers<T> where T : Resource
-    {
-        private readonly FhirClient _client;
-
-        public ResourceResolvers(FhirClient fhirClient)
-        {
-            _client = fhirClient;
-        }
-
+    {        
         /// <summary>
         /// Get single resource by id
         /// </summary>
@@ -28,9 +21,9 @@ namespace Graphir.API.DataLoaders
         /// Get list of resources
         /// </summary>
         /// <returns></returns>
-        public async Task<List<T>> GetResources()
+        public async Task<List<T>> GetResources([Service] FhirClient client)
         {
-            var bundle = await _client.SearchAsync(typeof(T).Name);
+            var bundle = await client.SearchAsync(typeof(T).Name);
             var results = bundle.Entry.Select(x => (T)x.Resource).ToList();
             return results;
         }
