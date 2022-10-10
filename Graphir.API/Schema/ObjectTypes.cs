@@ -36,6 +36,17 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
 
 }
 
+public class ExtensionType : ObjectType<Extension>
+{
+    protected override void Configure(IObjectTypeDescriptor<Extension> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Url);
+        descriptor.Field(x => x.Value).Type<StringType>();
+    }
+}
+
 public class IdentifierType : ObjectType<Identifier>
 {
     protected override void Configure(IObjectTypeDescriptor<Identifier> descriptor)
@@ -234,6 +245,28 @@ public class AnnotationType : ObjectType<Annotation>
     }
 }
 
+public class QuantityType : ObjectType<Quantity>
+{
+    protected override void Configure(IObjectTypeDescriptor<Quantity> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class MoneyType : ObjectType<Money>
+{
+    protected override void Configure(IObjectTypeDescriptor<Money> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(m => m.Currency);
+        descriptor.Field(m => m.Value);
+    }
+}
 
 [InterfaceType("ResourceCreation")]
 public interface IResourceCreation<T> where T : Resource

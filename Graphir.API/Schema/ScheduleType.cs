@@ -39,7 +39,7 @@ public class ScheduleQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("ScheduleList")
             .Type<ListType<ScheduleType>>()
-            .ResolveWith<ResourceResolvers<Schedule>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<Schedule>>(r => r.GetResources(default!));
     }
 }
 #endregion

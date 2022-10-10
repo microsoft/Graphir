@@ -1,5 +1,4 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Queries;
 using Graphir.API.Schema;
 
 using HotChocolate.Execution.Configuration;
@@ -17,7 +16,7 @@ internal static class OrganizationStartup
             .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Organization>>()
             .AddTypeExtension<OrganizationQuery>()
             .AddType<OrganizationType>()
-            .AddType<ExtensionType>();
+            ;
     }
 
 }

@@ -144,7 +144,7 @@ public class MedicationAdministrationQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("MedicationAdministrationList")
             .Type<ListType<MedicationAdministrationType>>()
-            .ResolveWith<ResourceResolvers<MedicationAdministration>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<MedicationAdministration>>(r => r.GetResources(default!));
     }
 }
 #endregion

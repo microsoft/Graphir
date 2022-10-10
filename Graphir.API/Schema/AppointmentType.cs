@@ -92,7 +92,7 @@ public class AppointmentQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("AppointmentList")
             .Type<ListType<AppointmentType>>()
-            .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResources(default!));
     }
 }
 #endregion

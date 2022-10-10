@@ -12,8 +12,7 @@ internal static class AppointmentStartup
         return graphBuilder
             .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Appointment>>()
             .AddTypeExtension<AppointmentQuery>()
-            .AddType<AppointmentType>()
-            .AddType<AppointmentParticipantType>();
+            .AddType<AppointmentType>();
     }
     
 }

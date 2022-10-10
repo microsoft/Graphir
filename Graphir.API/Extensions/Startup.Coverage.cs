@@ -12,7 +12,9 @@ namespace Graphir.API.Extensions
         {
             return graphBuilder
                 .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Coverage>>()
-                .AddType<CoverageType>();
+                .AddTypeExtension<CoverageQuery>()
+                .AddType<CoverageType>()
+                ;
         }
     }
 }

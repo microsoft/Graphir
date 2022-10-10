@@ -120,8 +120,8 @@ public class PatientContactType : ObjectType<Patient.ContactComponent>
 {
     protected override void Configure(IObjectTypeDescriptor<Patient.ContactComponent> descriptor)
     {
+        descriptor.Name("PatientContact");
         descriptor.BindFieldsExplicitly();
-
         descriptor.Field(c => c.Address);
         descriptor.Field(c => c.Gender);
         descriptor.Field(c => c.Name);

@@ -81,7 +81,7 @@ namespace Graphir.API.Schema
 
             descriptor.Field("DeviceList")
                 .Type<ListType<DeviceType>>()
-                .ResolveWith<ResourceResolvers<Device>>(r => r.GetResources());
+                .ResolveWith<ResourceResolvers<Device>>(r => r.GetResources(default!));
         }
     }
     #endregion

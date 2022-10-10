@@ -1,11 +1,9 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Extensions;
 using Graphir.API.Mutations;
 using Graphir.API.Queries;
-
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Graphir.API.Services;
+namespace Graphir.API.Extensions;
 
 public static class StartupServices
 {
@@ -17,7 +15,8 @@ public static class StartupServices
 
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
-        services.AddScoped<DataLoaderFactory>();
+        
+        services.AddScoped<DataLoaderFactory>();        
     }
 
 
@@ -44,6 +43,8 @@ public static class StartupServices
             .AddProvenance()
             .AddCoverage()
             .AddCondition()
-            .AddGroup();
+            .AddGroup()
+            .AddEndpoint()
+            ;
     }
 }

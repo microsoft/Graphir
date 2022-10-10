@@ -1,5 +1,4 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Queries;
 using Graphir.API.Schema;
 
 using HotChocolate.Execution.Configuration;
@@ -21,7 +20,7 @@ internal static class MedicationStartup
             .AddType<MedicationIngredientType>()
             .AddType<RatioType>()
             .AddType<MedicationBatchType>()
-            .AddType<QuantityType>();
+            ;
 
     }
 }

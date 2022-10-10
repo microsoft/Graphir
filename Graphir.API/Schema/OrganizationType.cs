@@ -11,33 +11,57 @@ public class OrganizationType : ObjectType<Organization>
     {
         descriptor.BindFieldsExplicitly();
         
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.Identifier).Type<ListType<IdentifierType>>();
-        descriptor.Field(x => x.Name).Type<StringType>();
-        descriptor.Field(x => x.TypeName).Type<StringType>();;
-        descriptor.Field(x => x.Address).Type<ListType<AddressType>>();
-        descriptor.Field(x => x.Active).Type<BooleanType>();
-        descriptor.Field(x => x.Type).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(x => x.Alias).Type<ListType<StringType>>();
-        descriptor.Field(x => x.Extension).Type<ListType<ExtensionType>>();
-        
-        // TODO: below fields has to be fetch via resolvers    
-        // descriptor.Field(x => x.PartOf).Type<ReferenceType>();
-        // descriptor.Field(x => x.Contact).Type<ListType<OrganizationContactType>>();
-        // descriptor.Field(x => x.Endpoint).Type<ListType<ReferenceType>>();
+        descriptor.Field(x => x.Id);
+        descriptor.Field(x => x.Meta);
+        descriptor.Field(x => x.Language);
+        descriptor.Field(x => x.Text);
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Identifier);
+        descriptor.Field(x => x.Active);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Alias);
+        descriptor.Field(x => x.Telecom);
+        descriptor.Field(x => x.Address);
+        descriptor.Field(x => x.PartOf).Type<ResourceReferenceType<OrganizationPartOfReferenceType>>();
+        descriptor.Field(x => x.Contact).Type<OrganizationContact>();
+        descriptor.Field(x => x.Endpoint).Type<ListType<ResourceReferenceType<OrganizationEndpointReferenceType>>>();
     }
 }
 
-public class ExtensionType : ObjectType<Extension>
+public class OrganizationContact : ObjectType<Organization.ContactComponent>
 {
-    protected override void Configure(IObjectTypeDescriptor<Extension> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Organization.ContactComponent> descriptor)
     {
+        descriptor.Name("OrganizationContact");
         descriptor.BindFieldsExplicitly();
-        
-        descriptor.Field(x => x.Url).Type<StringType>();
-        descriptor.Field(x => x.Value).Type<StringType>();
+        descriptor.Field(c => c.Extension);
+        descriptor.Field(c => c.ModifierExtension);
+        descriptor.Field(c => c.Purpose);
+        descriptor.Field(c => c.Name);
+        descriptor.Field(c => c.Telecom);
+        descriptor.Field(c => c.Address);
+    }
+}
+
+public class OrganizationPartOfReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("OrganizationPartOfReference");
+        descriptor.Description("Reference(Organization)");
+        descriptor.Type<OrganizationType>();
+    }
+}
+
+public class OrganizationEndpointReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("OrganizationEndpointReference");
+        descriptor.Description("Reference(Endpoint)");
+        descriptor.Type<EndpointType>();
     }
 }
 
@@ -53,7 +77,7 @@ public class OrganizationQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("OrganizationList")
             .Type<ListType<OrganizationType>>()
-            .ResolveWith<ResourceResolvers<Organization>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<Organization>>(r => r.GetResources(default!));
     }
 }
 #endregion

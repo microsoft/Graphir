@@ -23,6 +23,8 @@ internal static class FhirTypesStartup
             .AddType<OperationOutcomeType>()
             .AddType<PeriodType>()
             .AddType<AnnotationType>()
+            .AddType<QuantityType>()
+            .AddType<MoneyType>()
             ;
     }
 }

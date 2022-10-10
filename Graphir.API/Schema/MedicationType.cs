@@ -65,19 +65,6 @@ public class RatioType : ObjectType<Ratio>
     }
 }
 
-public class QuantityType : ObjectType<Quantity>
-{
-    protected override void Configure(IObjectTypeDescriptor<Quantity> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Value).Type<DecimalType>();
-        descriptor.Field(x => x.Comparator).Type<StringType>();
-        descriptor.Field(x => x.Unit).Type<StringType>();
-        descriptor.Field(x => x.System).Type<StringType>();
-        descriptor.Field(x => x.Code).Type<StringType>();
-    }
-}
-
 #region QueryExtensions
 public class MedicationQuery : ObjectTypeExtension<Query>
 {
@@ -90,7 +77,7 @@ public class MedicationQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("MedicationList")
             .Type<ListType<MedicationType>>()
-            .ResolveWith<ResourceResolvers<Medication>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<Medication>>(r => r.GetResources(default!));
     }
 }
 #endregion

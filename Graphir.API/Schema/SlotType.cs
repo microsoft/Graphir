@@ -46,7 +46,7 @@ public class SlotQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("SlotList")
             .Type<ListType<SlotType>>()
-            .ResolveWith<ResourceResolvers<Slot>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<Slot>>(r => r.GetResources(default!));
     }
 }
 #endregion

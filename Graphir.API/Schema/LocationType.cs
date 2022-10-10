@@ -51,7 +51,7 @@ public class LocationQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("LocationList")
             .Type<ListType<LocationType>>()
-            .ResolveWith<ResourceResolvers<Location>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<Location>>(r => r.GetResources(default!));
     }
 }
 #endregion

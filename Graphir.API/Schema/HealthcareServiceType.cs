@@ -122,7 +122,7 @@ public class HealthcareServiceQuery : ObjectTypeExtension<Query>
 
         descriptor.Field("HealthcareServiceList")
             .Type<ListType<HealthcareServiceType>>()
-            .ResolveWith<ResourceResolvers<HealthcareService>>(r => r.GetResources());
+            .ResolveWith<ResourceResolvers<HealthcareService>>(r => r.GetResources(default!));
     }
 }
 #endregion
