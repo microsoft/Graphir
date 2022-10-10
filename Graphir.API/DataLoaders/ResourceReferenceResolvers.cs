@@ -31,6 +31,8 @@ namespace Graphir.API.DataLoaders
 
             switch (resourceType)
             {
+                case "Appointment":
+                    return await factory.AppointmentByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case "Patient":
                     return await factory.PatientByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case "Practitioner":

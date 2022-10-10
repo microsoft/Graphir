@@ -4,6 +4,7 @@ namespace Graphir.API.DataLoaders
 {
     public class DataLoaderFactory
     {
+        private readonly ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader;
         private readonly ResourceByIdDataLoader<Patient> patientByIdDataLoader;
         private readonly ResourceByIdDataLoader<Practitioner> practitionerByIdDataLoader;
         private readonly ResourceByIdDataLoader<Location> locationByIdDataLoader;
@@ -22,6 +23,7 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader;
 
         public DataLoaderFactory(
+            ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader,
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
             ResourceByIdDataLoader<Practitioner> practitionerByIdDataLoader,
             ResourceByIdDataLoader<Location> locationByIdDataLoader,
@@ -40,6 +42,7 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader
             )
         {
+            this.appointmentByIdDataLoader = appointmentByIdDataLoader;
             this.patientByIdDataLoader = patientByIdDataLoader;
             this.practitionerByIdDataLoader = practitionerByIdDataLoader;
             this.locationByIdDataLoader = locationByIdDataLoader;
@@ -58,6 +61,7 @@ namespace Graphir.API.DataLoaders
             this.endpointByIdDataLoader = endpointByIdDataLoader;
         }
 
+        public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader => appointmentByIdDataLoader;
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader => patientByIdDataLoader;
         public ResourceByIdDataLoader<Practitioner> PractitionerByIdDataLoader => practitionerByIdDataLoader;
         public ResourceByIdDataLoader<Location> LocationByIdDataLoader => locationByIdDataLoader;
