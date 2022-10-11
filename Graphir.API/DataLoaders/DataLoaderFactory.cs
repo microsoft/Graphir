@@ -22,6 +22,8 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Organization> organizationByIdDataLoader;
         private readonly ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader;
         private readonly ResourceByIdDataLoader<Encounter> encounterByIdDataLoader;
+        private readonly ResourceByIdDataLoader<PractitionerRole> practionerRoleByIdDataLoader;
+        private readonly ResourceByIdDataLoader<RelatedPerson> relatedPersonByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader,
@@ -41,7 +43,9 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader,
             ResourceByIdDataLoader<Organization> organizationByIdDataLoader,
             ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader,
-            ResourceByIdDataLoader<Encounter> encounterByIdDataLoader
+            ResourceByIdDataLoader<Encounter> encounterByIdDataLoader,
+            ResourceByIdDataLoader<PractitionerRole> practionerRoleByIdDataLoader,
+            ResourceByIdDataLoader<RelatedPerson> relatedPersonByIdDataLoader
             )
         {
             this.appointmentByIdDataLoader = appointmentByIdDataLoader;
@@ -62,6 +66,8 @@ namespace Graphir.API.DataLoaders
             this.organizationByIdDataLoader = organizationByIdDataLoader;
             this.endpointByIdDataLoader = endpointByIdDataLoader;
             this.encounterByIdDataLoader = encounterByIdDataLoader;
+            this.practionerRoleByIdDataLoader = practionerRoleByIdDataLoader;
+            this.relatedPersonByIdDataLoader = relatedPersonByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader => appointmentByIdDataLoader;
@@ -82,5 +88,7 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Organization> OrganizationByIdDataLoader => organizationByIdDataLoader;
         public ResourceByIdDataLoader<Endpoint> EndpointByIdDataLoader => endpointByIdDataLoader;
         public ResourceByIdDataLoader<Encounter> EncounterByIdDataLoader => encounterByIdDataLoader;
+        public ResourceByIdDataLoader<PractitionerRole> PractionerRoleByIdDataLoader => practionerRoleByIdDataLoader;
+        public ResourceByIdDataLoader<RelatedPerson> RelatedPersonByIdDataLoader => relatedPersonByIdDataLoader;
     }
 }

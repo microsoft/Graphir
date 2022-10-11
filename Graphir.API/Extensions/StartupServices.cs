@@ -45,6 +45,9 @@ public static class StartupServices
             .AddCondition()
             .AddGroup()
             .AddEndpoint()
+            .AddEncounter()
+            .AddPractitionerRole()
+            .AddRelatedPerson()
             ;
     }
 }
