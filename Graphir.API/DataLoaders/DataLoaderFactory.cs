@@ -21,6 +21,7 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader;
         private readonly ResourceByIdDataLoader<Organization> organizationByIdDataLoader;
         private readonly ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader;
+        private readonly ResourceByIdDataLoader<Encounter> encounterByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader,
@@ -39,7 +40,8 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Schedule> scheduleByIdDataLoader,
             ResourceByIdDataLoader<HealthcareService> healthServiceByIdDataLoader,
             ResourceByIdDataLoader<Organization> organizationByIdDataLoader,
-            ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader
+            ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader,
+            ResourceByIdDataLoader<Encounter> encounterByIdDataLoader
             )
         {
             this.appointmentByIdDataLoader = appointmentByIdDataLoader;
@@ -59,6 +61,7 @@ namespace Graphir.API.DataLoaders
             this.healthServiceByIdDataLoader = healthServiceByIdDataLoader;
             this.organizationByIdDataLoader = organizationByIdDataLoader;
             this.endpointByIdDataLoader = endpointByIdDataLoader;
+            this.encounterByIdDataLoader = encounterByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader => appointmentByIdDataLoader;
@@ -78,5 +81,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<HealthcareService> HealthServiceByIdDataLoader => healthServiceByIdDataLoader;
         public ResourceByIdDataLoader<Organization> OrganizationByIdDataLoader => organizationByIdDataLoader;
         public ResourceByIdDataLoader<Endpoint> EndpointByIdDataLoader => endpointByIdDataLoader;
+        public ResourceByIdDataLoader<Encounter> EncounterByIdDataLoader => encounterByIdDataLoader;
     }
 }

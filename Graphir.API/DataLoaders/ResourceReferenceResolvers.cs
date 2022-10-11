@@ -31,40 +31,42 @@ namespace Graphir.API.DataLoaders
 
             switch (resourceType)
             {
-                case "Appointment":
+                case nameof(Appointment):
                     return await factory.AppointmentByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Patient":
+                case nameof(Patient):
                     return await factory.PatientByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Practitioner":
+                case nameof(Practitioner):
                     return await factory.PractitionerByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Location":
+                case nameof(Hl7.Fhir.Model.Location):
                     return await factory.LocationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Condition":
+                case nameof(Condition):
                     return await factory.ConditionByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Coverage":
+                case nameof(Coverage):
                     return await factory.CoverageByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Device":
+                case nameof(Device):
                     return await factory.DeviceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Provenance":
+                case nameof(Provenance):
                     return await factory.ProvenanceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Slot":
+                case nameof(Slot):
                     return await factory.SlotByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Medication":
+                case nameof(Medication):
                     return await factory.MedicationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "MedicationAdministration":
+                case nameof(MedicationAdministration):
                     return await factory.MedicationAdministrationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "MedicationRequest":
+                case nameof(MedicationRequest):
                     return await factory.MedicationRequestByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Schedule":
+                case nameof(Schedule):
                     return await factory.ScheduleByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "HealthService":
+                case nameof(HealthcareService):
                     return await factory.HealthServiceByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Group":
+                case nameof(Group):
                     return await factory.GroupByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Organization":
+                case nameof(Organization):
                     return await factory.OrganizationByIdDataLoader.LoadAsync(resourceId, cancellationToken);
-                case "Endpoint":
+                case nameof(Endpoint):
                     return await factory.EndpointByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                case nameof(Encounter):
+                    return await factory.EncounterByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 default:
                     return null;
             }
