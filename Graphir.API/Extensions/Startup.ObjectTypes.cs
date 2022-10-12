@@ -34,6 +34,7 @@ internal static class FhirTypesStartup
             .AddType<TimingRepeatType>()
             .AddType<DurationType>()
             .AddType<MarkDownType>()
+            .AddType<AgeType>()
             ;
     }
 }

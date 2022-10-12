@@ -1,5 +1,4 @@
 ﻿using Graphir.API.DataLoaders;
-using Graphir.API.Schema;
 using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
@@ -11,12 +10,12 @@ namespace Graphir.API.Queries
     {
         protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
         {
-            descriptor.Field(nameof(T))
+            descriptor.Field(typeof(T).Name)
                 .Type<E>()
                 .Argument("id", a => a.Type<NonNullType<StringType>>())
                 .ResolveWith<ResourceResolvers<T>>(r => r.GetResource(default!, default!));
 
-            descriptor.Field($"{nameof(T)}List")
+            descriptor.Field($"{typeof(T).Name}List")
                 .Type<ListType<E>>()
                 .ResolveWith<ResourceResolvers<T>>(r => r.GetResources(default!));
         }

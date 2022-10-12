@@ -3,6 +3,7 @@ using Graphir.API.Queries;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Encounter = Hl7.Fhir.Model.Encounter;
 
 namespace Graphir.API.Extensions
 {
@@ -12,8 +13,8 @@ namespace Graphir.API.Extensions
         this IRequestExecutorBuilder graphBuilder)
         {
             return graphBuilder
-                .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Encounter>>()
-                .AddTypeExtension<ResourceQuery<Hl7.Fhir.Model.Encounter, EncounterType>>()
+                .AddDataLoader<ResourceByIdDataLoader<Encounter>>()
+                .AddTypeExtension<ResourceQuery<Encounter, EncounterType>>()
                 .AddType<EncounterType>()
                 ;
         }
