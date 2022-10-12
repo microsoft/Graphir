@@ -73,7 +73,7 @@ public class CoveragePolicyHolderReferenceType : UnionType
         descriptor.Name("CoveragePolicyHolderReference");
         descriptor.Description("Reference(Patient | RelatedPerson)");
         descriptor.Type<PatientType>();
-        //descriptor.Type<RelatedPersonType>();
+        descriptor.Type<RelatedPersonType>();
         descriptor.Type<OrganizationType>();
     }
 }
@@ -84,7 +84,7 @@ public class CoverageSubscriberReferenceType : UnionType
     {
         descriptor.Name("CoverageSubscriberReference");
         descriptor.Type<PatientType>();
-        //descriptor.Type<RelatedPersonType>();
+        descriptor.Type<RelatedPersonType>();
     }
 }
 
@@ -105,7 +105,7 @@ public class CoveragePayorReferenceType : UnionType
         descriptor.Description("Reference(Organization | Patient | RelatedPerson)");
         descriptor.Type<OrganizationType>();
         descriptor.Type<PatientType>();
-        //descriptor.Type<RelatedPersonType>();
+        descriptor.Type<RelatedPersonType>();
 
     }
 }
