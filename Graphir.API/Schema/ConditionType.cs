@@ -31,35 +31,35 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field(c => c.Evidence).Type<ListType<ConditionEvidenceType>>();
         descriptor.Field(c => c.Note);
 
-        descriptor.Field("onsetDateTime").Resolve(r =>
+        descriptor.Field("onsetDateTime").Type<DateTimeType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "dateTime")
                 ? (FhirDateTime)parent.Onset
                 : null;
         });
-        descriptor.Field("onsetAge").Resolve(r =>
+        descriptor.Field("onsetAge").Type<AgeType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "Age")
                 ? (Age)parent.Onset
                 : null;
         });
-        descriptor.Field("onsetPeriod").Resolve(r =>
+        descriptor.Field("onsetPeriod").Type<PeriodType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "Period")
                 ? (Period)parent.Onset
                 : null;
         });
-        descriptor.Field("onsetRange").Resolve(r =>
+        descriptor.Field("onsetRange").Type<RangeType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "Range")
                 ? (Range)parent.Onset
                 : null;
         });
-        descriptor.Field("onsetString").Resolve(r =>
+        descriptor.Field("onsetString").Type<StringType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "string")
@@ -67,36 +67,35 @@ public class ConditionType : ObjectType<Condition>
                 : null;
         });
 
-        descriptor.Field(c => c.Abatement); //dataType
-        descriptor.Field("abatementDateTime").Resolve(r =>
+        descriptor.Field("abatementDateTime").Type<DateTimeType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "dateTime")
                 ? (FhirDateTime)parent.Onset
                 : null;
         });
-        descriptor.Field("abatementAge").Resolve(r =>
+        descriptor.Field("abatementAge").Type<AgeType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "Age")
                 ? (Age)parent.Onset
                 : null;
         });
-        descriptor.Field("abatementPeriod").Resolve(r =>
+        descriptor.Field("abatementPeriod").Type<PeriodType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "Period")
                 ? (Period)parent.Onset
                 : null;
         });
-        descriptor.Field("abatementRange").Resolve(r =>
+        descriptor.Field("abatementRange").Type<RangeType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "Range")
                 ? (Range)parent.Onset
                 : null;
         });
-        descriptor.Field("abatementString").Resolve(r =>
+        descriptor.Field("abatementString").Type<StringType>().Resolve(r =>
         {
             var parent = r.Parent<Condition>();
             return (parent.Onset is not null && parent.Onset.TypeName == "string")

@@ -10,23 +10,23 @@ public class GroupType : ObjectType<Group>
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(g => g.Id);
-        //descriptor.Field(g => g.Meta);
-        //descriptor.Field(g => g.Language);
-        //descriptor.Field(g => g.Text);
-        //descriptor.Field(g => g.Identifier);
-        //descriptor.Field(g => g.Active);
-        //descriptor.Field(g => g.Type);
-        //descriptor.Field(g => g.Actual);
-        //descriptor.Field(g => g.Code);
-        //descriptor.Field(g => g.Name);
-        //descriptor.Field(g => g.Quantity);
-        //descriptor.Field(g => g.ManagingEntity);
-        //descriptor.Field(g => g.Characteristic);
-        //descriptor.Field(g => g.Member);
+        descriptor.Field(g => g.Meta);
+        descriptor.Field(g => g.Language);
+        descriptor.Field(g => g.Text);
+        descriptor.Field(g => g.Identifier);
+        descriptor.Field(g => g.Active);
+        descriptor.Field(g => g.Type);
+        descriptor.Field(g => g.Actual);
+        descriptor.Field(g => g.Code);
+        descriptor.Field(g => g.Name);
+        descriptor.Field(g => g.Quantity);
+        descriptor.Field(g => g.ManagingEntity).Type<ResourceReferenceType<GroupManagingEntityReferenceType>>();
+        descriptor.Field(g => g.Characteristic).Type<ListType<GroupCharacteristicType>>();
+        descriptor.Field(g => g.Member).Type<ListType<GroupMemberType>>();
     }
 }
 
-public class GroupCharacteristic : ObjectType<Group.CharacteristicComponent>
+public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
 {
     protected override void Configure(IObjectTypeDescriptor<Group.CharacteristicComponent> descriptor)
     {
@@ -36,7 +36,7 @@ public class GroupCharacteristic : ObjectType<Group.CharacteristicComponent>
         descriptor.Field(g => g.Exclude);
         descriptor.Field(g => g.Period);
 
-        descriptor.Field("valueCodeableConcept")
+        descriptor.Field("valueCodeableConcept").Type<CodeableConceptType>()
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
@@ -44,7 +44,7 @@ public class GroupCharacteristic : ObjectType<Group.CharacteristicComponent>
                     ? (CodeableConcept)parent.Value
                     : null;
             });
-        descriptor.Field("valueBoolean")
+        descriptor.Field("valueBoolean").Type<BooleanType>()
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
@@ -52,7 +52,7 @@ public class GroupCharacteristic : ObjectType<Group.CharacteristicComponent>
                     ? (FhirBoolean)parent.Value
                     : null;
             });
-        descriptor.Field("valueQuantity")
+        descriptor.Field("valueQuantity").Type<QuantityType>()
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
@@ -60,7 +60,7 @@ public class GroupCharacteristic : ObjectType<Group.CharacteristicComponent>
                     ? (Quantity)parent.Value
                     : null;
             });
-        descriptor.Field("valueRange")
+        descriptor.Field("valueRange").Type<RangeType>()
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
@@ -79,7 +79,7 @@ public class GroupCharacteristic : ObjectType<Group.CharacteristicComponent>
     }
 }
 
-public class GroupMember : ObjectType<Group.MemberComponent>
+public class GroupMemberType : ObjectType<Group.MemberComponent>
 {
     protected override void Configure(IObjectTypeDescriptor<Group.MemberComponent> descriptor)
     {
@@ -114,5 +114,19 @@ public class GroupCharacteristicValueReferenceType : UnionType
     {
         descriptor.Name("GroupCharacteristicValueReference");
         descriptor.Type<ResourceType>();
+    }
+}
+
+public class GroupManagingEntityReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("GroupManagingEntityReference");
+        descriptor.Description("Reference(Organization | RelatedPerson | Practitioner | PractitionerRole)");
+        descriptor.Type<OrganizationType>();
+        descriptor.Type<RelatedPersonType>();
+        descriptor.Type<PractitionerType>();
+        descriptor.Type<PractitionerRoleType>();
+
     }
 }

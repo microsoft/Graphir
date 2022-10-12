@@ -15,7 +15,7 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.StatusReason);
         descriptor.Field(x => x.ReasonCode);
         descriptor.Field(x => x.Category);
-        descriptor.Field(x => x.Dosage);
+        descriptor.Field(x => x.Dosage).Type<MedicationAdministrationDosageType>();
         descriptor.Field(x => x.Note);
         descriptor.Field(x => x.Performer).Type<ListType<MedicationAdministrationPerformerComponentType>>();
 
@@ -43,20 +43,20 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                 }
                 return null;
             });
-        
+
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationAdministrationSubjectReferenceType>>();
         descriptor.Field(x => x.Request).Type<ResourceReferenceType<MedicationAdministrationRequestReferenceType>>();
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.EventHistory).Type<ListType<ResourceReferenceType<MedicationAdministrationEventHistoryReferenceType>>>();
 
-        descriptor.Field("effectivePeriod").Resolve(context =>
+        descriptor.Field("effectivePeriod").Type<PeriodType>().Resolve(context =>
         {
             var parent = context.Parent<MedicationAdministration>();
             return (parent.Effective is not null && parent.Effective.TypeName == "Period")
                 ? ((Period)parent.Effective)
                 : null;
         });
-        descriptor.Field("effectiveDateTime").Resolve(context =>
+        descriptor.Field("effectiveDateTime").Type<DateTimeType>().Resolve(context =>
         {
             var parent = context.Parent<MedicationAdministration>();
             return (parent.Effective is not null && parent.Effective.TypeName == "dateTime")
@@ -77,6 +77,37 @@ public class MedicationAdministrationPerformerComponentType : ObjectType<Medicat
         descriptor.Field(x => x.TypeName).Type<CodeableConceptType>();
         descriptor.Field(x => x.Function).Type<CodeableConceptType>();
         descriptor.Field(x => x.Extension).Type<ListType<ExtensionType>>();
+    }
+}
+
+public class MedicationAdministrationDosageType : ObjectType<MedicationAdministration.DosageComponent>
+{
+    protected override void Configure(IObjectTypeDescriptor<MedicationAdministration.DosageComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Text);
+        descriptor.Field(x => x.Site);
+        descriptor.Field(x => x.Route);
+        descriptor.Field(x => x.Method);
+        descriptor.Field(x => x.Dose);
+        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
+        {
+            var parent = r.Parent<MedicationAdministration.DosageComponent>();
+            return (parent.Rate is not null && parent.Rate.TypeName == "Ratio")
+            ? (Ratio)parent.Rate
+            : null;
+        });
+
+        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
+        {
+            var parent = r.Parent<MedicationAdministration.DosageComponent>();
+            return (parent.Rate is not null && parent.Rate.TypeName == "Quantity")
+            ? (Quantity)parent.Rate
+            : null;
+        });
     }
 }
 

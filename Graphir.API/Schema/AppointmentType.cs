@@ -2,7 +2,6 @@
 using HotChocolate;
 using HotChocolate.Types;
 using System.Threading;
-using Graphir.API.DataLoaders;
 
 namespace Graphir.API.Schema;
 
@@ -12,7 +11,7 @@ public class AppointmentType : ObjectType<Appointment>
     {
         descriptor.BindFieldsExplicitly();
         
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
+        descriptor.Field(x => x.Id);
         descriptor.Field(x => x.Meta).Type<MetaType>();
         descriptor.Field(x => x.Identifier).Type<ListType<IdentifierType>>();
         descriptor.Field(x => x.Status).Type<EnumType<Appointment.AppointmentStatus>>();
@@ -20,7 +19,7 @@ public class AppointmentType : ObjectType<Appointment>
 
         descriptor.Field(x => x.Start).Type<DateTimeType>();
         descriptor.Field(x => x.End).Type<DateTimeType>();
-        
+
         descriptor.Field(x => x.Created).Type<StringType>();
         descriptor.Field(x => x.Comment).Type<StringType>();
         descriptor.Field(x => x.Description).Type<StringType>();
@@ -31,7 +30,7 @@ public class AppointmentType : ObjectType<Appointment>
 
         descriptor.Field(x => x.CommentElement).Type<FhirStringType>();
         descriptor.Field(x => x.ServiceCategory).Type<ListType<CodeableConceptType>>();
-      
+
         descriptor.Field(x => x.Participant).Type<ListType<AppointmentParticipantType>>();
     }
  

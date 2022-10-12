@@ -29,7 +29,7 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType<CoverageAreaReferenceType>>>();
         descriptor.Field(x => x.NotAvailable).Type<ListType<HealthcareServiceNotAvailableType>>();
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
-        
+
         descriptor.Field(x => x.ProvidedBy).Type<ResourceReferenceType<HealthcareServiceProvidedByReferenceType>>();
         descriptor.Field(x => x.Location).Type<ListType<ResourceReferenceType<HealthcareServiceLocationReferenceType>>>();
     }

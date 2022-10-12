@@ -465,6 +465,20 @@ public class MarkDownType : ObjectType<Markdown>
     }
 }
 
+public class AgeType : ObjectType<Age>
+{
+    protected override void Configure(IObjectTypeDescriptor<Age> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
 
 #region Interfaces
 

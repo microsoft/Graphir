@@ -27,7 +27,7 @@ public class PatientType : ObjectType<Patient>
             .Type<ListType<ResourceReferenceType<PatientGeneralPractitionerReferenceType>>>();
         descriptor.Field(p => p.ManagingOrganization).Type<ResourceReferenceType<PatientManagingOrganizationReferenceType>>();
         descriptor.Field(p => p.Link);
-        
+
         descriptor.Field("deceasedBoolean").Resolve(context =>
         {
             var patient = context.Parent<Patient>();
@@ -35,7 +35,7 @@ public class PatientType : ObjectType<Patient>
                 ? ((FhirBoolean)patient.Deceased).Value
                 : null;
         });
-        
+
         descriptor.Field("deceasedDateTime").Resolve(context =>
         {
             var patient = context.Parent<Patient>();
@@ -45,7 +45,7 @@ public class PatientType : ObjectType<Patient>
             }
             return null;
         });
-        
+
         descriptor.Field("multipleBirthBoolean").Resolve(context =>
         {
             var patient = context.Parent<Patient>();

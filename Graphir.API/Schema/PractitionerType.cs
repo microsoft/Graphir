@@ -21,8 +21,8 @@ public class PractitionerType : ObjectType<Practitioner>
         descriptor.Field(p => p.Gender);
         descriptor.Field(p => p.BirthDate);
         descriptor.Field(p => p.Telecom);
-        descriptor.Field(p => p.Address);            
-        descriptor.Field(p => p.Photo);            
+        descriptor.Field(p => p.Address);
+        descriptor.Field(p => p.Photo);
         descriptor.Field(p => p.Communication);
         descriptor.Field(p => p.Qualification);
     }  
@@ -36,7 +36,7 @@ public class PractitionerQualificationType : ObjectType<Practitioner.Qualificati
 
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.Period);
-        descriptor.Field(c => c.Issuer.Url)
+        descriptor.Field(c => c.Issuer.Url) // TODO: add reference
             .Name("issuer");            
     }
 }

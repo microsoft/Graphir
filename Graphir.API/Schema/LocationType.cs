@@ -21,8 +21,7 @@ public class LocationType : ObjectType<Location>
         descriptor.Field(x => x.Telecom);
         descriptor.Field(x => x.Address);
         descriptor.Field(x => x.PhysicalType);
-        descriptor.Field(x => x.Position);
-        descriptor.Field(x => x.AvailabilityExceptionsElement);
+        descriptor.Field(x => x.Position).Type<LocationPositionType>();
         descriptor.Field(x => x.AvailabilityExceptions);
     }
 }
@@ -32,8 +31,8 @@ public class LocationPositionType : ObjectType<Location.PositionComponent>
     protected override void Configure(IObjectTypeDescriptor<Location.PositionComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Longitude).Type<DecimalType>();
-        descriptor.Field(x => x.Latitude).Type<DecimalType>();
-        descriptor.Field(x => x.Altitude).Type<DecimalType>();
+        descriptor.Field(x => x.Longitude);
+        descriptor.Field(x => x.Latitude);
+        descriptor.Field(x => x.Altitude);
     }
 }

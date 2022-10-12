@@ -5,6 +5,7 @@ namespace Graphir.API.Schema;
 
 public class ProvenanceType : ObjectType<Provenance>
 {
+    // TODO: finish Provenance
     protected override void Configure(IObjectTypeDescriptor<Provenance> descriptor)
     {
         descriptor.BindFieldsExplicitly();
