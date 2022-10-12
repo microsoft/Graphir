@@ -1,12 +1,4 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Graphir.API.Slots;
-
 using Hl7.Fhir.Model;
-
-using HotChocolate;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -17,28 +9,26 @@ public class SlotType : ObjectType<Slot>
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Start).Type<DateTimeType>();
-        descriptor.Field(x => x.End).Type<DateTimeType>();
-        descriptor.Field(x => x.Status).Type<StringType>();
-        descriptor.Field(x => x.ServiceCategory).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.ServiceType).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Specialty).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.AppointmentType).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Comment).Type<StringType>();
-        descriptor.Field(x => x.Overbooked).Type<BooleanType>();
-        descriptor.Field(x => x.TypeName).Type<StringType>();
-        descriptor.Field(x => x.Schedule).ResolveWith<SlotResolver>
-            (c => SlotResolver.GetSchedule(default!, default!, default));
+        descriptor.Field(x => x.Id);
+        descriptor.Field(x => x.Start);
+        descriptor.Field(x => x.End);
+        descriptor.Field(x => x.Status);
+        descriptor.Field(x => x.ServiceCategory);
+        descriptor.Field(x => x.ServiceType);
+        descriptor.Field(x => x.Specialty);
+        descriptor.Field(x => x.AppointmentType);
+        descriptor.Field(x => x.Comment);
+        descriptor.Field(x => x.Overbooked);
+        descriptor.Field(x => x.TypeName);
+        descriptor.Field(x => x.Schedule).Type<ResourceReferenceType<SlotScheduleReferenceType>>();
     }
+}
 
-    protected sealed class SlotResolver
+public class SlotScheduleReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        public static async Task<Schedule> GetSchedule([Parent] Slot slot,
-            SlotDataLoaders loadScheduleById, CancellationToken cancellationToken)
-        {
-            var scheduleReference = slot.Schedule.Reference.Split('/').LastOrDefault();
-            return await loadScheduleById.LoadAsync(scheduleReference!, cancellationToken);
-        }
+        descriptor.Name("SlotScheduleReference");
+        descriptor.Type<ScheduleType>();
     }
 }

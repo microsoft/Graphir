@@ -1,8 +1,9 @@
-﻿using Graphir.API.Schema;
-
+﻿using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
+using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
-
 using Microsoft.Extensions.DependencyInjection;
+using Location = Hl7.Fhir.Model.Location;
 
 namespace Graphir.API.Extensions;
 
@@ -12,7 +13,8 @@ internal static class LocationStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddType<LocationType>()
-            .AddType<LocationPositionType>();
+            .AddTypeExtension<ResourceQuery<Location, LocationType>>()
+            .AddDataLoader<ResourceByIdDataLoader<Location>>()
+            .AddType<LocationType>();
     }
 }

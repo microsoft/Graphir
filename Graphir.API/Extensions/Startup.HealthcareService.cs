@@ -1,6 +1,9 @@
-﻿using Graphir.API.Schema;
+﻿using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
+using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using HealthcareService = Hl7.Fhir.Model.HealthcareService;
 
 namespace Graphir.API.Extensions;
 
@@ -10,11 +13,8 @@ internal static class HealthcareServiceStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddType<HealthcareServiceNotAvailableType>()
-            .AddType<HealthcareServiceAvailableTimeType>()
-            .AddType<EligibilityComponentType>()
-            .AddType<ContainedResourceType>()
-            .AddType<MarkDownType>()
+            .AddDataLoader<ResourceByIdDataLoader<HealthcareService>>()
+            .AddTypeExtension<ResourceQuery<HealthcareService, HealthcareServiceType>>()
             .AddType<HealthcareServiceType>();
     }
 }

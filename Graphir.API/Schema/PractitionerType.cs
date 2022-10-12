@@ -1,5 +1,4 @@
 ﻿using Hl7.Fhir.Model;
-using HotChocolate;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -22,22 +21,11 @@ public class PractitionerType : ObjectType<Practitioner>
         descriptor.Field(p => p.Gender);
         descriptor.Field(p => p.BirthDate);
         descriptor.Field(p => p.Telecom);
-        descriptor.Field(p => p.Address);            
-        descriptor.Field(p => p.Photo);            
+        descriptor.Field(p => p.Address);
+        descriptor.Field(p => p.Photo);
         descriptor.Field(p => p.Communication);
-        descriptor.Field(p => p.Qualification); //#TODO: use resolver to get related resource
-    }
-
-    /// <summary>
-    /// Convert PractitionerObject back to FHIR Practitioner
-    /// </summary>
-    /// <returns>Practitioner</returns>
-    [GraphQLIgnore]
-    public Practitioner ToPractitioner()
-    {
-        var practitioner = new Practitioner();
-        return practitioner;
-    }
+        descriptor.Field(p => p.Qualification);
+    }  
 }
 
 public class PractitionerQualificationType : ObjectType<Practitioner.QualificationComponent>
@@ -48,7 +36,7 @@ public class PractitionerQualificationType : ObjectType<Practitioner.Qualificati
 
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.Period);
-        descriptor.Field(c => c.Issuer.Url)
+        descriptor.Field(c => c.Issuer.Url) // TODO: add reference
             .Name("issuer");            
     }
 }

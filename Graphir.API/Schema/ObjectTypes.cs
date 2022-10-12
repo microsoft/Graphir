@@ -1,7 +1,47 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
+
+public class ResourceType : ObjectType<Resource>
+{
+    protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(r => r.Id);
+    }
+}
+
+public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : UnionType
+{
+    protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
+    {
+        descriptor.Name(dep => dep.Name + "Resolver").DependsOn<T>();
+
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(r => r.Identifier);        
+        descriptor.Field(r => r.Display);
+        descriptor.Field(r => r.Type);
+        descriptor.Field(r => r.Reference);
+        descriptor.Field("resource").Type<T>()
+            .ResolveWith<ResourceReferenceResolvers>(r => r.GetResourceAsync(default!, default!, default));
+    }
+
+}
+
+public class ExtensionType : ObjectType<Extension>
+{
+    protected override void Configure(IObjectTypeDescriptor<Extension> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Url);
+        //descriptor.Field(x => x.Value).Type<StringType>();
+    }
+}
 
 public class IdentifierType : ObjectType<Identifier>
 {
@@ -48,6 +88,18 @@ public class CodeableConceptType : ObjectType<CodeableConcept>
 
         descriptor.Field(c => c.Coding);
         descriptor.Field(c => c.Text);
+    }
+}
+
+public class CodeableReferenceType<T> : ObjectType<CodeableReference> where T : UnionType
+{
+    protected override void Configure(IObjectTypeDescriptor<CodeableReference> descriptor)
+    {
+        descriptor.Name(d => d.Name + "CodeableReference").DependsOn<T>();
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(c => c.Concept).Type<CodeableConceptType>();
+        descriptor.Field(c => c.Reference).Type<ResourceReferenceType<T>>();
     }
 }
 
@@ -176,18 +228,259 @@ public class OperationOutcomeIssueComponentType : ObjectType<OperationOutcome.Is
     }
 }
 
-public class ResourceReferenceType : ObjectType<ResourceReference>
+public class AnnotationType : ObjectType<Annotation>
 {
-    protected override void Configure(IObjectTypeDescriptor<ResourceReference> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Annotation> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(r => r.Identifier);
-        descriptor.Field(r => r.Reference);
-        descriptor.Field(r => r.Display);
-        descriptor.Field(r => r.Type);
+        //descriptor.Field(x => x.Author).Type<PractitionerType>(); //TODO: resolver
+        descriptor.Field(x => x.Time);
+        descriptor.Field(x => x.Text).Type<MarkDownType>();
+
     }
 }
+
+public class QuantityType : ObjectType<Quantity>
+{
+    protected override void Configure(IObjectTypeDescriptor<Quantity> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class MoneyType : ObjectType<Money>
+{
+    protected override void Configure(IObjectTypeDescriptor<Money> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(m => m.Currency);
+        descriptor.Field(m => m.Value);
+    }
+}
+
+public class NarrativeType : ObjectType<Narrative>
+{
+    protected override void Configure(IObjectTypeDescriptor<Narrative> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Status);
+        descriptor.Field(x => x.Div);
+    }
+}
+
+public class RatioType : ObjectType<Ratio>
+{
+    protected override void Configure(IObjectTypeDescriptor<Ratio> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Numerator);
+        descriptor.Field(x => x.Denominator);
+    }
+}
+
+public class DosageType : ObjectType<Dosage>
+{
+    protected override void Configure(IObjectTypeDescriptor<Dosage> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Sequence);
+        descriptor.Field(x => x.Text);
+        descriptor.Field(x => x.AdditionalInstruction);
+        descriptor.Field(x => x.PatientInstruction);
+        descriptor.Field(x => x.Timing);
+        descriptor.Field(x => x.Site);
+        descriptor.Field(x => x.Route);
+        descriptor.Field(x => x.Method);
+        descriptor.Field(x => x.DoseAndRate);
+        descriptor.Field(x => x.MaxDosePerPeriod);
+        descriptor.Field(x => x.MaxDosePerAdministration);
+        descriptor.Field(x => x.MaxDosePerLifetime);
+        descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage>();
+            return (parent.AsNeeded is not null && parent.AsNeeded.TypeName == "boolean")
+            ? (FhirBoolean)parent.AsNeeded
+            : null;
+        });
+        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage>();
+            return (parent.AsNeeded is not null && parent.AsNeeded.TypeName == "CodeableConcept")
+            ? (CodeableConcept)parent.AsNeeded
+            : null;
+        });
+    }
+}
+
+public class DoseAndRateType : ObjectType<Dosage.DoseAndRateComponent>
+{
+    protected override void Configure(IObjectTypeDescriptor<Dosage.DoseAndRateComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field("doseRange").Type<RangeType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage.DoseAndRateComponent>();
+            return (parent.Dose is not null && parent.Dose.TypeName == "Range")
+            ? (Range)parent.Dose
+            : null;
+        });
+        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage.DoseAndRateComponent>();
+            return (parent.Dose is not null && parent.Dose.TypeName == "SimpleQuantity")
+            ? (Quantity)parent.Dose
+            : null;
+        });
+        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage.DoseAndRateComponent>();
+            return (parent.Rate is not null && parent.Dose.TypeName == "Ratio")
+            ? (Ratio)parent.Rate
+            : null;
+        });
+        descriptor.Field("rateRange").Type<RangeType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage.DoseAndRateComponent>();
+            return (parent.Rate is not null && parent.Dose.TypeName == "Range")
+            ? (Range)parent.Rate
+            : null;
+        });
+        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
+        {
+            var parent = r.Parent<Dosage.DoseAndRateComponent>();
+            return (parent.Rate is not null && parent.Dose.TypeName == "SimpleQuantity")
+            ? (Quantity)parent.Rate
+            : null;
+        });
+
+    }
+}
+
+public class RangeType : ObjectType<Range>
+{
+    protected override void Configure(IObjectTypeDescriptor<Range> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Low);
+        descriptor.Field(x => x.High);
+    }
+}
+
+public class TimingType : ObjectType<Timing>
+{
+    protected override void Configure(IObjectTypeDescriptor<Timing> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Event).Type<ListType<DateTimeType>>(); // possible bug, leave type extension declaration
+        descriptor.Field(x => x.Repeat);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class TimingRepeatType : ObjectType<Timing.RepeatComponent>
+{
+    protected override void Configure(IObjectTypeDescriptor<Timing.RepeatComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Count);
+        descriptor.Field(x => x.CountMax);
+        descriptor.Field(x => x.Duration);
+        descriptor.Field(x => x.DurationMax);
+        descriptor.Field(x => x.DurationUnit);
+        descriptor.Field(x => x.Frequency);
+        descriptor.Field(x => x.FrequencyMax);
+        descriptor.Field(x => x.Period);
+        descriptor.Field(x => x.PeriodMax);
+        descriptor.Field(x => x.PeriodUnit);
+        descriptor.Field(x => x.DayOfWeek);
+        descriptor.Field(x => x.TimeOfDay);
+        descriptor.Field(x => x.When);
+        descriptor.Field(x => x.Offset);
+
+        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r =>
+        {
+            var parent = r.Parent<Timing.RepeatComponent>();
+            return (parent.Bounds is not null && parent.Bounds.TypeName == "Duration")
+            ? (Duration)parent.Bounds
+            : null;
+        });
+        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r =>
+        {
+            var parent = r.Parent<Timing.RepeatComponent>();
+            return (parent.Bounds is not null && parent.Bounds.TypeName == "Range")
+            ? (Range)parent.Bounds
+            : null;
+        });
+        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r =>
+        {
+            var parent = r.Parent<Timing.RepeatComponent>();
+            return (parent.Bounds is not null && parent.Bounds.TypeName == "Period")
+            ? (Period)parent.Bounds
+            : null;
+        });
+    }
+}
+
+public class DurationType : ObjectType<Duration>
+{
+    protected override void Configure(IObjectTypeDescriptor<Duration> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class MarkDownType : ObjectType<Markdown>
+{
+    protected override void Configure(IObjectTypeDescriptor<Markdown> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Extension);
+    }
+}
+
+public class AgeType : ObjectType<Age>
+{
+    protected override void Configure(IObjectTypeDescriptor<Age> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+
+#region Interfaces
 
 [InterfaceType("ResourceCreation")]
 public interface IResourceCreation<T> where T : Resource
@@ -209,3 +502,5 @@ public interface IResourceDelete<T> where T : Resource
 {
     public OperationOutcome Information { get; set; }
 }
+
+#endregion

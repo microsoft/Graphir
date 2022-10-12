@@ -1,97 +1,98 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
-using static Hl7.Fhir.Model.HealthcareService;
 
 namespace Graphir.API.Schema;
 
 public class HealthcareServiceType : ObjectType<HealthcareService>
 {
+    // TODO: validate with fhir graphql schema docs
     protected override void Configure(IObjectTypeDescriptor<HealthcareService> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Identifier).Type<ListType<IdentifierType>>();
-        descriptor.Field(x => x.Active).Type<BooleanType>();
-        descriptor.Field(x => x.Category).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Type).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Specialty).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Name).Type<StringType>();
-        descriptor.Field(x => x.Comment).Type<StringType>();
-        descriptor.Field(x => x.ExtraDetails).Type<MarkDownType>();
-        descriptor.Field(x => x.Photo).Type<AttachmentType>();
-        descriptor.Field(x => x.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(x => x.Contained).Type<ListType<ContainedResourceType>>();
-        descriptor.Field(x => x.ServiceProvisionCode).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Eligibility).Type<ListType<EligibilityComponentType>>();
-        descriptor.Field(x => x.Characteristic).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.ReferralMethod).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.AppointmentRequired).Type<BooleanType>();
-        descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType>>();
+        descriptor.Field(x => x.Id);
+        descriptor.Field(x => x.Identifier);
+        descriptor.Field(x => x.Active);
+        descriptor.Field(x => x.Category);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Specialty);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Comment);
+        descriptor.Field(x => x.ExtraDetails);
+        descriptor.Field(x => x.Photo);
+        descriptor.Field(x => x.Telecom);
+        descriptor.Field(x => x.ServiceProvisionCode);
+        descriptor.Field(x => x.Eligibility).Type<ListType<HealthcareServiceEligibilityComponentType>>();
+        descriptor.Field(x => x.Characteristic);
+        descriptor.Field(x => x.ReferralMethod);
+        descriptor.Field(x => x.AppointmentRequired);
+        descriptor.Field(x => x.CoverageArea).Type<ListType<ResourceReferenceType<CoverageAreaReferenceType>>>();
         descriptor.Field(x => x.NotAvailable).Type<ListType<HealthcareServiceNotAvailableType>>();
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
-        
-        // descriptor.Field(x => x.ProvidedBy).Type<OrganizationReferenceType>(); //#TODO: Resolvers
-        // descriptor.Field(x => x.Location).Type<ListType<ReferenceType>>();   //#TODO: Resolvers
+
+        descriptor.Field(x => x.ProvidedBy).Type<ResourceReferenceType<HealthcareServiceProvidedByReferenceType>>();
+        descriptor.Field(x => x.Location).Type<ListType<ResourceReferenceType<HealthcareServiceLocationReferenceType>>>();
     }
     
 }
 
-public class HealthcareServiceNotAvailableType : ObjectType<NotAvailableComponent>
+public class HealthcareServiceNotAvailableType : ObjectType<HealthcareService.NotAvailableComponent>
 {
-    protected override void Configure(IObjectTypeDescriptor<NotAvailableComponent> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<HealthcareService.NotAvailableComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.Description).Type<StringType>();
-        descriptor.Field(x => x.During).Type<PeriodType>();
+        descriptor.Field(x => x.Description);
+        descriptor.Field(x => x.During);
     }
 }
 
-public class HealthcareServiceAvailableTimeType : ObjectType<AvailableTimeComponent>
+public class HealthcareServiceAvailableTimeType : ObjectType<HealthcareService.AvailableTimeComponent>
 {
-    protected override void Configure(IObjectTypeDescriptor<AvailableTimeComponent> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<HealthcareService.AvailableTimeComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.DaysOfWeek).Type<ListType<StringType>>();
-        descriptor.Field(x => x.AllDay).Type<BooleanType>();
-        descriptor.Field(x => x.AvailableStartTime).Type<StringType>();
-        descriptor.Field(x => x.AvailableEndTime).Type<StringType>();
+        descriptor.Field(x => x.DaysOfWeek);
+        descriptor.Field(x => x.AllDay);
+        descriptor.Field(x => x.AvailableStartTime);
+        descriptor.Field(x => x.AvailableEndTime);
     }
 }
 
-public class EligibilityComponentType : ObjectType<EligibilityComponent>
+public class HealthcareServiceEligibilityComponentType : ObjectType<HealthcareService.EligibilityComponent>
 {
-    protected override void Configure(IObjectTypeDescriptor<EligibilityComponent> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<HealthcareService.EligibilityComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Code).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Comment).Type<MarkDownType>();
+        descriptor.Field(x => x.Code);
+        descriptor.Field(x => x.Comment);
     }
 }
 
-public class MarkDownType : ObjectType<Markdown>
+public class HealthcareServiceProvidedByReferenceType : UnionType
 {
-    protected override void Configure(IObjectTypeDescriptor<Markdown> descriptor)
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Value).Type<StringType>();
-        descriptor.Field(x => x.Extension).Type<ListType<ExtensionType>>();
-        descriptor.Field(x => x.TypeName).Type<StringType>();
+        descriptor.Name("HealthcareServiceProvidedByReference");
+        descriptor.Type<OrganizationType>();
     }
 }
 
-public class ContainedResourceType : ObjectType<Resource>
+public class HealthcareServiceLocationReferenceType : UnionType
 {
-    protected override void Configure(IObjectTypeDescriptor<Resource> descriptor)
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.ResourceBase).Type<UrlType>();
-        descriptor.Field(x => x.TypeName).Type<StringType>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.IdElement).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Language).Type<StringType>();
+        descriptor.Name("HealthCareServiceLocationReference");
+        descriptor.Type<LocationType>();
+    }
+}
+
+public class CoverageAreaReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("CoverageAreaReference");
+        descriptor.Type<LocationType>();
     }
 }
