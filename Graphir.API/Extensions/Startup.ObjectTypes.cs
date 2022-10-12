@@ -30,7 +30,9 @@ internal static class FhirTypesStartup
             .AddType<DosageType>()
             .AddType<DoseAndRateType>()
             .AddType<TimingType>()
-            .AddType<RepeatComponentType>()
+            .AddType<RangeType>()
+            .AddType<TimingRepeatType>()
+            .AddType<DurationType>()
             .AddType<MarkDownType>()
             ;
     }
