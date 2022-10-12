@@ -14,7 +14,7 @@ internal static class LocationStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddTypeExtension<LocationQuery>()
+            .AddTypeExtension<ResourceQuery<Location, LocationType>>()
             .AddDataLoader<ResourceByIdDataLoader<Location>>()
             .AddType<LocationType>()
             .AddType<LocationPositionType>();

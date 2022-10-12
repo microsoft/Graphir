@@ -72,27 +72,10 @@ public class AppointmentParticipantActorReferenceType : UnionType
         descriptor.Name("AppointmentParticipantActorReference");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
-        //descriptor.Type<PractitionerRoleType>();
-        //descriptor.Type<RelatedPersonType>();
+        descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<RelatedPersonType>();
         descriptor.Type<DeviceType>();
         descriptor.Type<HealthcareServiceType>();
         descriptor.Type<LocationType>();
     }
 }
-
-#region QueryExtensions
-public class AppointmentQuery : ObjectTypeExtension<Query>
-{
-    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
-    {
-        descriptor.Field("Appointment")
-            .Type<AppointmentType>()
-            .Argument("id", a => a.Type<NonNullType<StringType>>())
-            .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResource(default!, default!));
-
-        descriptor.Field("AppointmentList")
-            .Type<ListType<AppointmentType>>()
-            .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResources(default!));
-    }
-}
-#endregion

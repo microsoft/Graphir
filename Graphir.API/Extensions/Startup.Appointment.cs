@@ -1,4 +1,5 @@
 ﻿using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ internal static class AppointmentStartup
     {
         return graphBuilder
             .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Appointment>>()
-            .AddTypeExtension<AppointmentQuery>()
+            .AddTypeExtension<ResourceQuery<Hl7.Fhir.Model.Appointment, AppointmentType>>()
             .AddType<AppointmentType>();
     }
     

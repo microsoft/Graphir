@@ -48,6 +48,7 @@ public static class StartupServices
             .AddEncounter()
             .AddPractitionerRole()
             .AddRelatedPerson()
+            .AddDetectedIssue()
             ;
     }
 }

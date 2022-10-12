@@ -1,5 +1,4 @@
-﻿using Graphir.API.DataLoaders;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -95,20 +94,3 @@ public class MedicationIngredientItemReferenceType : UnionType
         descriptor.Type<MedicationType>();
     }
 }
-
-#region QueryExtensions
-public class MedicationQuery : ObjectTypeExtension<Query>
-{
-    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
-    {
-        descriptor.Field("Medication")
-            .Type<MedicationType>()
-            .Argument("id", a => a.Type<NonNullType<StringType>>())
-            .ResolveWith<ResourceResolvers<Medication>>(r => r.GetResource(default!, default!));
-
-        descriptor.Field("MedicationList")
-            .Type<ListType<MedicationType>>()
-            .ResolveWith<ResourceResolvers<Medication>>(r => r.GetResources(default!));
-    }
-}
-#endregion

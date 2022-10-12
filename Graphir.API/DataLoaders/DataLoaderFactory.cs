@@ -24,6 +24,7 @@ namespace Graphir.API.DataLoaders
         private readonly ResourceByIdDataLoader<Encounter> encounterByIdDataLoader;
         private readonly ResourceByIdDataLoader<PractitionerRole> practionerRoleByIdDataLoader;
         private readonly ResourceByIdDataLoader<RelatedPerson> relatedPersonByIdDataLoader;
+        private readonly ResourceByIdDataLoader<DetectedIssue> detectedIssueByIdDataLoader;
 
         public DataLoaderFactory(
             ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader,
@@ -45,7 +46,8 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Endpoint> endpointByIdDataLoader,
             ResourceByIdDataLoader<Encounter> encounterByIdDataLoader,
             ResourceByIdDataLoader<PractitionerRole> practionerRoleByIdDataLoader,
-            ResourceByIdDataLoader<RelatedPerson> relatedPersonByIdDataLoader
+            ResourceByIdDataLoader<RelatedPerson> relatedPersonByIdDataLoader,
+            ResourceByIdDataLoader<DetectedIssue> detectedIssueByIdDataLoader
             )
         {
             this.appointmentByIdDataLoader = appointmentByIdDataLoader;
@@ -68,6 +70,7 @@ namespace Graphir.API.DataLoaders
             this.encounterByIdDataLoader = encounterByIdDataLoader;
             this.practionerRoleByIdDataLoader = practionerRoleByIdDataLoader;
             this.relatedPersonByIdDataLoader = relatedPersonByIdDataLoader;
+            this.detectedIssueByIdDataLoader = detectedIssueByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader => appointmentByIdDataLoader;
@@ -90,5 +93,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Encounter> EncounterByIdDataLoader => encounterByIdDataLoader;
         public ResourceByIdDataLoader<PractitionerRole> PractionerRoleByIdDataLoader => practionerRoleByIdDataLoader;
         public ResourceByIdDataLoader<RelatedPerson> RelatedPersonByIdDataLoader => relatedPersonByIdDataLoader;
+        public ResourceByIdDataLoader<DetectedIssue> DetectedIssueByIdDataLoader => detectedIssueByIdDataLoader;
     }
 }

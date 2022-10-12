@@ -1,9 +1,9 @@
 ﻿using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
-
 using HotChocolate.Execution.Configuration;
-
 using Microsoft.Extensions.DependencyInjection;
+using Medication = Hl7.Fhir.Model.Medication;
 
 namespace Graphir.API.Extensions;
 
@@ -13,8 +13,8 @@ internal static class MedicationStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddTypeExtension<MedicationQuery>()
-            .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Medication>>()
+            .AddTypeExtension<ResourceQuery<Medication, MedicationType>>()
+            .AddDataLoader<ResourceByIdDataLoader<Medication>>()
             .AddType<MedicationType>()
             ;
 

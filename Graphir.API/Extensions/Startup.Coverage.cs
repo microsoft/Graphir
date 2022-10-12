@@ -1,4 +1,5 @@
 ﻿using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,7 @@ namespace Graphir.API.Extensions
         {
             return graphBuilder
                 .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Coverage>>()
-                .AddTypeExtension<CoverageQuery>()
+                .AddTypeExtension<ResourceQuery<Hl7.Fhir.Model.Coverage, CoverageType>>()
                 .AddType<CoverageType>()
                 ;
         }

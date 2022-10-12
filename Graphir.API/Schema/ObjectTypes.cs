@@ -283,10 +283,92 @@ public class RatioType : ObjectType<Ratio>
     protected override void Configure(IObjectTypeDescriptor<Ratio> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Numerator).Type<QuantityType>();
-        descriptor.Field(x => x.Denominator).Type<QuantityType>();
+        descriptor.Field(x => x.Numerator);
+        descriptor.Field(x => x.Denominator);
     }
 }
+
+public class DosageType : ObjectType<Dosage>
+{
+    protected override void Configure(IObjectTypeDescriptor<Dosage> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Sequence);
+        descriptor.Field(x => x.Text);
+        descriptor.Field(x => x.AdditionalInstruction);
+        descriptor.Field(x => x.PatientInstruction);
+        descriptor.Field(x => x.Timing);
+        descriptor.Field(x => x.Site);
+        descriptor.Field(x => x.Route);
+        descriptor.Field(x => x.Method);
+        descriptor.Field(x => x.DoseAndRate);
+        descriptor.Field(x => x.MaxDosePerPeriod);
+        descriptor.Field(x => x.MaxDosePerAdministration);
+        descriptor.Field(x => x.MaxDosePerLifetime);
+        descriptor.Field(x => x.AsNeeded);
+    }
+}
+
+public class DoseAndRateType : ObjectType<Dosage.DoseAndRateComponent>
+{
+    protected override void Configure(IObjectTypeDescriptor<Dosage.DoseAndRateComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Dose);
+        descriptor.Field(x => x.Rate);
+    }
+}
+
+public class TimingType : ObjectType<Timing>
+{
+    protected override void Configure(IObjectTypeDescriptor<Timing> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Event);
+        descriptor.Field(x => x.Repeat);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class RepeatComponentType : ObjectType<Timing.RepeatComponent>
+{
+    protected override void Configure(IObjectTypeDescriptor<Timing.RepeatComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        //descriptor.Field(x => x.Bounds).Type<DurationType>(); TODO:Resolvers
+        descriptor.Field(x => x.Count);
+        descriptor.Field(x => x.CountMax);
+        descriptor.Field(x => x.Duration);
+        descriptor.Field(x => x.DurationMax);
+        descriptor.Field(x => x.DurationUnit);
+        descriptor.Field(x => x.Frequency);
+        descriptor.Field(x => x.FrequencyMax);
+        descriptor.Field(x => x.Period);
+        descriptor.Field(x => x.PeriodMax);
+        descriptor.Field(x => x.PeriodUnit);
+        descriptor.Field(x => x.DayOfWeek);
+        descriptor.Field(x => x.TimeOfDay);
+        descriptor.Field(x => x.When);
+        descriptor.Field(x => x.Offset);
+    }
+}
+
+public class MarkDownType : ObjectType<Markdown>
+{
+    protected override void Configure(IObjectTypeDescriptor<Markdown> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.TypeName);
+    }
+}
+
 
 #region Interfaces
 

@@ -1,5 +1,4 @@
-﻿using Graphir.API.DataLoaders;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -10,15 +9,15 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
     {
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.Id).Type<NonNullType<IdType>>();
-        descriptor.Field(x => x.Meta).Type<MetaType>();
-        descriptor.Field(x => x.Status).Type<StringType>();
-        descriptor.Field(x => x.StatusReason).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.ReasonCode).Type<ListType<CodeableConceptType>>();
-        descriptor.Field(x => x.Category).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Dosage).Type<DosageType>();
-        descriptor.Field(x => x.Note).Type<StringType>();
-        descriptor.Field(x => x.Performer).Type<ListType<PerformerComponentType>>();
+        descriptor.Field(x => x.Id);
+        descriptor.Field(x => x.Meta);
+        descriptor.Field(x => x.Status);
+        descriptor.Field(x => x.StatusReason);
+        descriptor.Field(x => x.ReasonCode);
+        descriptor.Field(x => x.Category);
+        descriptor.Field(x => x.Dosage);
+        descriptor.Field(x => x.Note);
+        descriptor.Field(x => x.Performer).Type<ListType<MedicationAdministrationPerformerComponentType>>();
 
         descriptor.Field(x => x.Medication)
             .Type<CodeableReferenceType<MedicationAdministrationMedicationReferenceType>>()
@@ -68,6 +67,19 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
     
 }
 
+public class MedicationAdministrationPerformerComponentType : ObjectType<MedicationAdministration.PerformerComponent>
+{
+    protected override void Configure(IObjectTypeDescriptor<MedicationAdministration.PerformerComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.Actor).Type<ResourceReferenceType<PerformerComponentActorReferenceType>>();
+        descriptor.Field(x => x.TypeName).Type<CodeableConceptType>();
+        descriptor.Field(x => x.Function).Type<CodeableConceptType>();
+        descriptor.Field(x => x.Extension).Type<ListType<ExtensionType>>();
+    }
+}
+
 public class MedicationAdministrationRequestReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
@@ -92,7 +104,7 @@ public class MedicationAdministrationSubjectReferenceType : UnionType
     {
         descriptor.Name("MedicationAdministrationSubjectReference");
         descriptor.Type<PatientType>();
-        // TODO: descriptor.Type<GroupType>();
+        descriptor.Type<GroupType>();
     }
 }
 
@@ -105,46 +117,15 @@ public class MedicationAdministrationEventHistoryReferenceType : UnionType
     }
 }
 
-public class PerformerComponentType : ObjectType<MedicationAdministration.PerformerComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<MedicationAdministration.PerformerComponent> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(x => x.Actor).Type<ResourceReferenceType<PerformerComponentActorReferenceType>>();
-        descriptor.Field(x => x.TypeName).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Function).Type<CodeableConceptType>();
-        descriptor.Field(x => x.Extension).Type<ListType<ExtensionType>>();
-    }    
-}
-
 public class PerformerComponentActorReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("PerformerComponentActorReference");
         descriptor.Type<PractitionerType>();
-        //descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<PractitionerRoleType>();
         descriptor.Type<PatientType>();
-        //descriptor.Type<RelatedPersonType>();
+        descriptor.Type<RelatedPersonType>();
         descriptor.Type<DeviceType>();
-        // TODO: build out missing types
     }
 }
-
-#region QueryExtensions
-public class MedicationAdministrationQuery : ObjectTypeExtension<Query>
-{
-    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
-    {
-        descriptor.Field("MedicationAdministration")
-            .Type<MedicationAdministrationType>()
-            .Argument("id", a => a.Type<NonNullType<StringType>>())
-            .ResolveWith<ResourceResolvers<MedicationAdministration>>(r => r.GetResource(default!, default!));
-
-        descriptor.Field("MedicationAdministrationList")
-            .Type<ListType<MedicationAdministrationType>>()
-            .ResolveWith<ResourceResolvers<MedicationAdministration>>(r => r.GetResources(default!));
-    }
-}
-#endregion

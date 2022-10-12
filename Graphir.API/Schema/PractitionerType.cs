@@ -1,5 +1,4 @@
 ﻿using Hl7.Fhir.Model;
-using HotChocolate;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;

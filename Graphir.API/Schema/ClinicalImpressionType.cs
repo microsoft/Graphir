@@ -13,20 +13,3 @@ public class ClinicalImpressionType : ObjectType<ClinicalImpression>
         descriptor.Field(c => c.Id);
     }
 }
-
-#region QueryExtensions
-public class ClinicalImpressionQuery : ObjectTypeExtension<Query>
-{
-    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
-    {
-        descriptor.Field(nameof(ClinicalImpression))
-            .Type<ClinicalImpressionType>()
-            .Argument("id", a => a.Type<NonNullType<StringType>>())
-            .ResolveWith<ResourceResolvers<ClinicalImpression>>(r => r.GetResource(default!, default!));
-
-        descriptor.Field($"{nameof(ClinicalImpression)}List")
-            .Type<ListType<ConditionType>>()
-            .ResolveWith<ResourceResolvers<ClinicalImpression>>(r => r.GetResources(default!));
-    }
-}
-#endregion

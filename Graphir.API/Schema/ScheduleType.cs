@@ -1,6 +1,4 @@
-﻿using Graphir.API.DataLoaders;
-using Hl7.Fhir.Model;
-
+﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -20,26 +18,24 @@ public class ScheduleType : ObjectType<Schedule>
         descriptor.Field(x => x.ServiceCategory).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.ServiceType).Type<ListType<CodeableConceptType>>();
         descriptor.Field(x => x.Specialty).Type<ListType<CodeableConceptType>>();
-        // TODO: descriptor.Field(x => x.Actor).Type<ListType<ReferenceType>>(); //TODO: Resolver
+        descriptor.Field(x => x.Actor).Type<ListType<ResourceReferenceType<ScheduleActorReferenceType>>>();
         descriptor.Field(x => x.PlanningHorizon).Type<PeriodType>();
-        descriptor.Field(x => x.Comment).Type<StringType>();
-        
+        descriptor.Field(x => x.Comment).Type<StringType>();        
     }
 }
 
-#region QueryExtensions
-public class ScheduleQuery : ObjectTypeExtension<Query>
+public class ScheduleActorReferenceType : UnionType
 {
-    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.Field("Schedule")
-            .Type<ScheduleType>()
-            .Argument("id", a => a.Type<NonNullType<StringType>>())
-            .ResolveWith<ResourceResolvers<Schedule>>(r => r.GetResource(default!, default!));
-
-        descriptor.Field("ScheduleList")
-            .Type<ListType<ScheduleType>>()
-            .ResolveWith<ResourceResolvers<Schedule>>(r => r.GetResources(default!));
+        descriptor.Name("ScheduleActorReference");
+        descriptor.Description("Reference(Patient | Practitioner | PractitionerRole | RelatedPerson | Device | HealthcareService | Location)");
+        descriptor.Type<PatientType>();
+        descriptor.Type<PractitionerType>();
+        descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<RelatedPersonType>();
+        descriptor.Type<DeviceType>();
+        descriptor.Type<HealthcareServiceType>();
+        descriptor.Type<LocationType>();
     }
 }
-#endregion

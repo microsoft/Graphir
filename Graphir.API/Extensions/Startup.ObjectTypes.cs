@@ -27,6 +27,11 @@ internal static class FhirTypesStartup
             .AddType<MoneyType>()
             .AddType<NarrativeType>()
             .AddType<RatioType>()
+            .AddType<DosageType>()
+            .AddType<DoseAndRateType>()
+            .AddType<TimingType>()
+            .AddType<RepeatComponentType>()
+            .AddType<MarkDownType>()
             ;
     }
 }

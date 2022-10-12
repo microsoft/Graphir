@@ -1,4 +1,5 @@
 ﻿using Graphir.API.DataLoaders;
+using Graphir.API.Queries;
 using Graphir.API.Schema;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace Graphir.API.Extensions
             (this IRequestExecutorBuilder graphBuilder)
         {
             return graphBuilder
-                .AddTypeExtension<EndpointQuery>()
+                .AddTypeExtension<ResourceQuery<Hl7.Fhir.Model.Endpoint, EndpointType>>()
                 .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Endpoint>>()
                 .AddType<EndpointType>();
         }

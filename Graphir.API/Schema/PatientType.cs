@@ -1,11 +1,5 @@
-﻿using Graphir.API.DataLoaders;
-using Hl7.Fhir.Model;
-using HotChocolate;
+﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Graphir.API.Schema;
 

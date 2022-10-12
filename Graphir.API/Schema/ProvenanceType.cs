@@ -1,15 +1,14 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
-namespace Graphir.API.Schema
-{
-    public class ProvenanceType : ObjectType<Provenance>
-    {
-        protected override void Configure(IObjectTypeDescriptor<Provenance> descriptor)
-        {
-            descriptor.BindFieldsExplicitly();
+namespace Graphir.API.Schema;
 
-            descriptor.Field(p => p.Id);
-        }
+public class ProvenanceType : ObjectType<Provenance>
+{
+    protected override void Configure(IObjectTypeDescriptor<Provenance> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(p => p.Id);
     }
 }
