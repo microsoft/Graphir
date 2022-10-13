@@ -69,6 +69,7 @@ public class AppointmentParticipantActorReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("AppointmentParticipantActorReference");
+        descriptor.Description("The type of actor (Person, Location/HealthcareService or Device) that is participating in the appointment");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();

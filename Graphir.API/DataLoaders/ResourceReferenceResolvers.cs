@@ -68,7 +68,7 @@ namespace Graphir.API.DataLoaders
                 case nameof(Encounter):
                     return await factory.EncounterByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case nameof(PractitionerRole):
-                    return await factory.PractionerRoleByIdDataLoader.LoadAsync(resourceId, cancellationToken);
+                    return await factory.PractitionerRoleByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case nameof(RelatedPerson):
                     return await factory.RelatedPersonByIdDataLoader.LoadAsync(resourceId, cancellationToken);
                 case nameof(DetectedIssue):
