@@ -307,14 +307,14 @@ public class DosageType : ObjectType<Dosage>
         descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage>();
-            return (parent.AsNeeded is not null && parent.AsNeeded.TypeName == "boolean")
+            return parent.AsNeeded is not null && parent.AsNeeded.TypeName == "boolean"
             ? (FhirBoolean)parent.AsNeeded
             : null;
         });
         descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage>();
-            return (parent.AsNeeded is not null && parent.AsNeeded.TypeName == "CodeableConcept")
+            return parent.AsNeeded is not null && parent.AsNeeded.TypeName == "CodeableConcept"
             ? (CodeableConcept)parent.AsNeeded
             : null;
         });
@@ -332,35 +332,35 @@ public class DoseAndRateType : ObjectType<Dosage.DoseAndRateComponent>
         descriptor.Field("doseRange").Type<RangeType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return (parent.Dose is not null && parent.Dose.TypeName == "Range")
+            return parent.Dose is not null && parent.Dose.TypeName == "Range"
             ? (Range)parent.Dose
             : null;
         });
         descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return (parent.Dose is not null && parent.Dose.TypeName == "SimpleQuantity")
+            return parent.Dose is not null && parent.Dose.TypeName == "SimpleQuantity"
             ? (Quantity)parent.Dose
             : null;
         });
         descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return (parent.Rate is not null && parent.Dose.TypeName == "Ratio")
+            return parent.Rate is not null && parent.Dose.TypeName == "Ratio"
             ? (Ratio)parent.Rate
             : null;
         });
         descriptor.Field("rateRange").Type<RangeType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return (parent.Rate is not null && parent.Dose.TypeName == "Range")
+            return parent.Rate is not null && parent.Dose.TypeName == "Range"
             ? (Range)parent.Rate
             : null;
         });
         descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
         {
             var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return (parent.Rate is not null && parent.Dose.TypeName == "SimpleQuantity")
+            return parent.Rate is not null && parent.Dose.TypeName == "SimpleQuantity"
             ? (Quantity)parent.Rate
             : null;
         });
@@ -419,21 +419,21 @@ public class TimingRepeatType : ObjectType<Timing.RepeatComponent>
         descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r =>
         {
             var parent = r.Parent<Timing.RepeatComponent>();
-            return (parent.Bounds is not null && parent.Bounds.TypeName == "Duration")
+            return parent.Bounds is not null && parent.Bounds.TypeName == "Duration"
             ? (Duration)parent.Bounds
             : null;
         });
         descriptor.Field("boundsRange").Type<RangeType>().Resolve(r =>
         {
             var parent = r.Parent<Timing.RepeatComponent>();
-            return (parent.Bounds is not null && parent.Bounds.TypeName == "Range")
+            return parent.Bounds is not null && parent.Bounds.TypeName == "Range"
             ? (Range)parent.Bounds
             : null;
         });
         descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r =>
         {
             var parent = r.Parent<Timing.RepeatComponent>();
-            return (parent.Bounds is not null && parent.Bounds.TypeName == "Period")
+            return parent.Bounds is not null && parent.Bounds.TypeName == "Period"
             ? (Period)parent.Bounds
             : null;
         });

@@ -1,6 +1,5 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
-using System.Collections.Generic;
 
 namespace Graphir.API.Schema;
 
@@ -61,7 +60,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.Reported).Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest>();
-            return (parent.Reported is not null && parent.Reported.TypeName == "boolean")
+            return parent.Reported is not null && parent.Reported.TypeName == "boolean"
                 ? (FhirBoolean)parent.Reported
                 : null;
         });
@@ -119,14 +118,14 @@ public class MedicationRequestSubstitutionType : ObjectType<MedicationRequest.Su
         descriptor.Field("allowedBoolean").Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest.SubstitutionComponent>();
-            return (parent.Allowed is not null && parent.Allowed.TypeName == "boolean")
+            return parent.Allowed is not null && parent.Allowed.TypeName == "boolean"
                 ? (FhirBoolean)parent.Allowed
                 : null;
         });
         descriptor.Field("allowedCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest.SubstitutionComponent>();
-            return (parent.Allowed is not null && parent.Allowed.TypeName == "CodeableConcept")
+            return parent.Allowed is not null && parent.Allowed.TypeName == "CodeableConcept"
                 ? (CodeableConcept)parent.Allowed
                 : null;
         });

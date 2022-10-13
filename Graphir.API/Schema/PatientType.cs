@@ -31,7 +31,7 @@ public class PatientType : ObjectType<Patient>
         descriptor.Field("deceasedBoolean").Resolve(context =>
         {
             var patient = context.Parent<Patient>();
-            return (patient.Deceased is not null && patient.Deceased.TypeName == "boolean")
+            return patient.Deceased is not null && patient.Deceased.TypeName == "boolean"
                 ? ((FhirBoolean)patient.Deceased).Value
                 : null;
         });
@@ -49,7 +49,7 @@ public class PatientType : ObjectType<Patient>
         descriptor.Field("multipleBirthBoolean").Resolve(context =>
         {
             var patient = context.Parent<Patient>();
-            return (patient.MultipleBirth is not null && patient.MultipleBirth.TypeName == "boolean")
+            return patient.MultipleBirth is not null && patient.MultipleBirth.TypeName == "boolean"
                 ? ((FhirBoolean)patient.MultipleBirth).Value
                 : null;
         });
@@ -57,7 +57,7 @@ public class PatientType : ObjectType<Patient>
         descriptor.Field("multipleBirthInteger").Resolve(context =>
         {
             var patient = context.Parent<Patient>();
-            return (patient.MultipleBirth is not null && patient.MultipleBirth.TypeName == "integer")
+            return patient.MultipleBirth is not null && patient.MultipleBirth.TypeName == "integer"
                 ? ((Integer)patient.MultipleBirth).Value
                 : null;
         });

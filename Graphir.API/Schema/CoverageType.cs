@@ -51,7 +51,7 @@ public class CoverageCostToBeneficiaryType : ObjectType<Coverage.CostToBeneficia
             .Resolve(r =>
             {
                 var parent = r.Parent<Coverage.CostToBeneficiaryComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "SimpleQuantity")
+                return parent.Value is not null && parent.Value.TypeName == "SimpleQuantity"
                     ? (Quantity)parent.Value
                     : null;
             });
@@ -59,7 +59,7 @@ public class CoverageCostToBeneficiaryType : ObjectType<Coverage.CostToBeneficia
             .Resolve(r =>
             {
                 var parent = r.Parent<Coverage.CostToBeneficiaryComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "Money")
+                return parent.Value is not null && parent.Value.TypeName == "Money"
                     ? (Money)parent.Value
                     : null;
             });

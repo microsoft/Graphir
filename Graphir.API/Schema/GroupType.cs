@@ -40,7 +40,7 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "CodeableConcept")
+                return parent.Value is not null && parent.Value.TypeName == "CodeableConcept"
                     ? (CodeableConcept)parent.Value
                     : null;
             });
@@ -48,7 +48,7 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "boolean")
+                return parent.Value is not null && parent.Value.TypeName == "boolean"
                     ? (FhirBoolean)parent.Value
                     : null;
             });
@@ -56,7 +56,7 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "Quantity")
+                return parent.Value is not null && parent.Value.TypeName == "Quantity"
                     ? (Quantity)parent.Value
                     : null;
             });
@@ -64,7 +64,7 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "Range")
+                return parent.Value is not null && parent.Value.TypeName == "Range"
                     ? (Range)parent.Value
                     : null;
             });
@@ -72,7 +72,7 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
             .Resolve(context =>
             {
                 var parent = context.Parent<Group.CharacteristicComponent>();
-                return (parent.Value is not null && parent.Value.TypeName == "Reference")
+                return parent.Value is not null && parent.Value.TypeName == "Reference"
                     ? (ResourceReference)parent.Value
                     : null;
             });
