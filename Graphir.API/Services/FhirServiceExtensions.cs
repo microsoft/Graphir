@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
 using System.Net.Http;
+
 using Hl7.Fhir.Rest;
-using Graphir.API.Services;
-using System;
+
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
+
+namespace Graphir.API.Services;
 
 internal static class FhirServiceExtensions
 {
