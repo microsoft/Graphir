@@ -14,19 +14,20 @@ public class DeviceType : ObjectType<Device>
         descriptor.Field(d => d.Identifier);
         descriptor.Field(d => d.Language);
         descriptor.Field(x => x.UdiCarrier).Type<ListType<UdiCarrierComponentType>>();
-        descriptor.Field(x => x.Status).Type<StringType>();
+        descriptor.Field(x => x.Status);
         descriptor.Field(x => x.DistinctIdentifier);
         descriptor.Field(x => x.ManufactureDate);
         descriptor.Field(x => x.ExpirationDate);
         descriptor.Field(x => x.LotNumber);
-        descriptor.Field(x => x.SerialNumber); descriptor.Field(x => x.DeviceName).Type<ListType<DeviceNameComponentType>>();
-        descriptor.Field(x => x.Type).Type<CodeableConceptType>();
+        descriptor.Field(x => x.SerialNumber); 
+        descriptor.Field(x => x.DeviceName).Type<ListType<DeviceNameComponentType>>();
+        descriptor.Field(x => x.Type);
         descriptor.Field(x => x.Manufacturer);
         
         descriptor.Field(d => d.Version).Type<ListType<VersionComponentType>>();
         descriptor.Field(d => d.Patient).Type<ResourceReferenceType<DevicePatientReferenceType>>();
         descriptor.Field(d => d.Owner).Type<ResourceReferenceType<DeviceOwnerReferenceType>>();
-        descriptor.Field(d => d.Contact).Type<ListType<ContactPointType>>();
+        descriptor.Field(d => d.Contact);
         descriptor.Field(d => d.Location).Type<ResourceReferenceType<DeviceLocationType>>();
         descriptor.Field(d => d.Url);
         descriptor.Field(d => d.Note);
@@ -41,7 +42,7 @@ public class VersionComponentType : ObjectType<Device.VersionComponent>
     {
         descriptor.BindFieldsExplicitly();
         
-        descriptor.Field(x => x.Type).Type<CodeableConceptType>();
+        descriptor.Field(x => x.Type);
         descriptor.Field(x => x.Component);
         descriptor.Field(x => x.Value);
     }
@@ -94,7 +95,7 @@ public class DeviceNameComponentType : ObjectType<Device.DeviceNameComponent>
         descriptor.BindFieldsExplicitly();
         
         descriptor.Field(x => x.Name);
-        descriptor.Field(x => x.Type).Type<StringType>();
+        descriptor.Field(x => x.Type);
     }
 }
 
@@ -109,7 +110,7 @@ public class UdiCarrierComponentType : ObjectType<Device.UdiCarrierComponent>
         descriptor.Field(x => x.Jurisdiction);
         descriptor.Field(x => x.CarrierAIDC);
         descriptor.Field(x => x.CarrierHRF);
-        descriptor.Field(x => x.EntryType).Type<StringType>();
+        descriptor.Field(x => x.EntryType);
     }
 }
 

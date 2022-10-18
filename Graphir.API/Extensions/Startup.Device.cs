@@ -14,14 +14,6 @@ namespace Graphir.API.Extensions
             return graphBuilder
                 .AddTypeExtension<ResourceQuery<Hl7.Fhir.Model.Device, DeviceType>>()
                 .AddDataLoader<ResourceByIdDataLoader<Hl7.Fhir.Model.Device>>()
-                .AddType<DeviceParentType>()
-                .AddType<DeviceLocationType>()
-                .AddType<DeviceOwnerReferenceType>()
-                .AddType<DevicePatientReferenceType>()
-                .AddType<DeviceNameComponentType>()
-                .AddType<UdiCarrierComponentType>()
-                .AddType<DeviceReferenceType>()
-                .AddType<VersionComponentType>()
                 .AddType<DeviceType>();
         }
     }
