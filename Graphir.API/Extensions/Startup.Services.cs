@@ -1,6 +1,8 @@
 ﻿using Graphir.API.DataLoaders;
 using Graphir.API.Mutations;
 using Graphir.API.Queries;
+using Graphir.API.Services;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Graphir.API.Extensions;
@@ -24,6 +26,7 @@ public static class StartupServices
         (this IServiceCollection services)
     {
         services.AddGraphQLServer()
+            .AddDiagnosticEventListener<ConsoleQueryLogger>()
             .AddAuthorization()
             .AddQueryType<Query>()
             .AddMutationType()
@@ -49,6 +52,7 @@ public static class StartupServices
             .AddPractitionerRole()
             .AddRelatedPerson()
             .AddDetectedIssue()
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true); //Remove this line in Production
             ;
     }
 }
