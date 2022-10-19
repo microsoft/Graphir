@@ -52,7 +52,7 @@ public static class StartupServices
             .AddPractitionerRole()
             .AddRelatedPerson()
             .AddDetectedIssue()
-            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true); //Remove this line in Production
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true) //Remove this line in Production
             ;
     }
 }
