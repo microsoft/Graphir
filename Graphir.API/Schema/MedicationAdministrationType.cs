@@ -52,14 +52,14 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field("effectivePeriod").Type<PeriodType>().Resolve(context =>
         {
             var parent = context.Parent<MedicationAdministration>();
-            return (parent.Effective is not null && parent.Effective.TypeName == "Period")
-                ? ((Period)parent.Effective)
+            return parent.Effective is not null && parent.Effective.TypeName == "Period"
+                ? (Period)parent.Effective
                 : null;
         });
         descriptor.Field("effectiveDateTime").Type<DateTimeType>().Resolve(context =>
         {
             var parent = context.Parent<MedicationAdministration>();
-            return (parent.Effective is not null && parent.Effective.TypeName == "dateTime")
+            return parent.Effective is not null && parent.Effective.TypeName == "dateTime"
                 ? ((FhirDateTime)parent.Effective).Value
                 : null;
         });
@@ -96,7 +96,7 @@ public class MedicationAdministrationDosageType : ObjectType<MedicationAdministr
         descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationAdministration.DosageComponent>();
-            return (parent.Rate is not null && parent.Rate.TypeName == "Ratio")
+            return parent.Rate is not null && parent.Rate.TypeName == "Ratio"
             ? (Ratio)parent.Rate
             : null;
         });
@@ -104,7 +104,7 @@ public class MedicationAdministrationDosageType : ObjectType<MedicationAdministr
         descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationAdministration.DosageComponent>();
-            return (parent.Rate is not null && parent.Rate.TypeName == "Quantity")
+            return parent.Rate is not null && parent.Rate.TypeName == "Quantity"
             ? (Quantity)parent.Rate
             : null;
         });

@@ -1,6 +1,5 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
-using System.Collections.Generic;
 
 namespace Graphir.API.Schema;
 
@@ -54,14 +53,14 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
             return null;
         });
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationRequestSubjectReferenceType>>();
-        descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationReqeustEncounterReferenceType>>();
+        descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
         descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<MedicationRequestSupportingInformationReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn);
         descriptor.Field(x => x.Requester).Type<ResourceReferenceType<MedicationRequestRequesterReferenceType>>();
         descriptor.Field(x => x.Reported).Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest>();
-            return (parent.Reported is not null && parent.Reported.TypeName == "boolean")
+            return parent.Reported is not null && parent.Reported.TypeName == "boolean"
                 ? (FhirBoolean)parent.Reported
                 : null;
         });
@@ -119,14 +118,14 @@ public class MedicationRequestSubstitutionType : ObjectType<MedicationRequest.Su
         descriptor.Field("allowedBoolean").Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest.SubstitutionComponent>();
-            return (parent.Allowed is not null && parent.Allowed.TypeName == "boolean")
+            return parent.Allowed is not null && parent.Allowed.TypeName == "boolean"
                 ? (FhirBoolean)parent.Allowed
                 : null;
         });
         descriptor.Field("allowedCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest.SubstitutionComponent>();
-            return (parent.Allowed is not null && parent.Allowed.TypeName == "CodeableConcept")
+            return parent.Allowed is not null && parent.Allowed.TypeName == "CodeableConcept"
                 ? (CodeableConcept)parent.Allowed
                 : null;
         });
@@ -167,11 +166,11 @@ public class MedicationRequestSubjectReferenceType : UnionType
     }
 }
 
-public class MedicationReqeustEncounterReferenceType : UnionType
+public class MedicationRequestEncounterReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.Name("MedicationReqeustEncounterReference");
+        descriptor.Name("MedicationRequestEncounterReference");
         descriptor.Description("Reference(Encounter)");
         descriptor.Type<EncounterType>();
     }
