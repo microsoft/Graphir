@@ -151,7 +151,7 @@ type NutritionProductListType {
 }
 
 type NutritionProductConnectionType {
-  NutritionProductConection(_filter: String
+  NutritionProductConnection(_filter: String
     identifier: [token]
     status: [token]
     type: [token]

@@ -76,7 +76,7 @@ type SlotListType {
 }
 
 type SlotConnectionType {
-  SlotConection(_filter: String
+  SlotConnection(_filter: String
     appointment_type: [token]
     identifier: [token]
     schedule: [reference]

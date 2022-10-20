@@ -176,7 +176,7 @@ type SubstancePolymerListType {
 }
 
 type SubstancePolymerConnectionType {
-  SubstancePolymerConection(_filter: String
+  SubstancePolymerConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

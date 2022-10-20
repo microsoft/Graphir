@@ -140,7 +140,7 @@ type QuestionnaireResponseListType {
 }
 
 type QuestionnaireResponseConnectionType {
-  QuestionnaireResponseConection(_filter: String
+  QuestionnaireResponseConnection(_filter: String
     author: [reference]
     authored: [date]
     based_on: [reference]

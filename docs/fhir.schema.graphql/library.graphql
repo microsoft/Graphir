@@ -156,7 +156,7 @@ type LibraryListType {
 }
 
 type LibraryConnectionType {
-  LibraryConection(_filter: String
+  LibraryConnection(_filter: String
     composed_of: [reference]
     content_type: [token]
     context: [token]

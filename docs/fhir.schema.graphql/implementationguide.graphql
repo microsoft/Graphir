@@ -333,7 +333,7 @@ type ImplementationGuideListType {
 }
 
 type ImplementationGuideConnectionType {
-  ImplementationGuideConection(_filter: String
+  ImplementationGuideConnection(_filter: String
     context: [token]
     context_quantity: [quantity]
     context_type: [token]

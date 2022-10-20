@@ -109,7 +109,7 @@ type MedicationListType {
 }
 
 type MedicationConnectionType {
-  MedicationConection(_filter: String
+  MedicationConnection(_filter: String
     code: [token]
     expiration_date: [date]
     form: [token]

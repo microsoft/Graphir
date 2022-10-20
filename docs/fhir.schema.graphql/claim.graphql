@@ -431,7 +431,7 @@ type ClaimListType {
 }
 
 type ClaimConnectionType {
-  ClaimConection(_filter: String
+  ClaimConnection(_filter: String
     care_team: [reference]
     created: [date]
     detail_udi: [reference]

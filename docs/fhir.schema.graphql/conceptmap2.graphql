@@ -243,7 +243,7 @@ type ConceptMap2ListType {
 }
 
 type ConceptMap2ConnectionType {
-  ConceptMap2Conection(_filter: String
+  ConceptMap2Connection(_filter: String
     context: [token]
     context_quantity: [quantity]
     context_type: [token]

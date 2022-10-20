@@ -109,7 +109,7 @@ type PractitionerListType {
 }
 
 type PractitionerConnectionType {
-  PractitionerConection(_filter: String
+  PractitionerConnection(_filter: String
     active: [token]
     address: [String]
     address_city: [String]

@@ -220,7 +220,7 @@ type NutritionOrderListType {
 }
 
 type NutritionOrderConnectionType {
-  NutritionOrderConection(_filter: String
+  NutritionOrderConnection(_filter: String
     additive: [token]
     datetime: [date]
     encounter: [reference]

@@ -86,7 +86,7 @@ type DeviceUsageListType {
 }
 
 type DeviceUsageConnectionType {
-  DeviceUsageConection(_filter: String
+  DeviceUsageConnection(_filter: String
     device: [token]
     identifier: [token]
     patient: [reference]

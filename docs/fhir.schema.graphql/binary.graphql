@@ -43,7 +43,7 @@ type BinaryListType {
 }
 
 type BinaryConnectionType {
-  BinaryConection(_filter: String
+  BinaryConnection(_filter: String
     _content: [special]
     _id: [token]
     _lastUpdated: [date]

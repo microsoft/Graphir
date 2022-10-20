@@ -158,7 +158,7 @@ type BundleListType {
 }
 
 type BundleConnectionType {
-  BundleConection(_filter: String
+  BundleConnection(_filter: String
     composition: [reference]
     identifier: [token]
     message: [reference]

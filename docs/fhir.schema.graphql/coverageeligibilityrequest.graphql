@@ -167,7 +167,7 @@ type CoverageEligibilityRequestListType {
 }
 
 type CoverageEligibilityRequestConnectionType {
-  CoverageEligibilityRequestConection(_filter: String
+  CoverageEligibilityRequestConnection(_filter: String
     created: [date]
     enterer: [reference]
     facility: [reference]

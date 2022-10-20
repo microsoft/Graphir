@@ -234,7 +234,7 @@ type EncounterListType {
 }
 
 type EncounterConnectionType {
-  EncounterConection(_filter: String
+  EncounterConnection(_filter: String
     account: [reference]
     appointment: [reference]
     based_on: [reference]

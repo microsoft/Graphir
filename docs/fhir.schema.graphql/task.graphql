@@ -373,7 +373,7 @@ type TaskListType {
 }
 
 type TaskConnectionType {
-  TaskConection(_filter: String
+  TaskConnection(_filter: String
     authored_on: [date]
     based_on: [reference]
     business_status: [token]

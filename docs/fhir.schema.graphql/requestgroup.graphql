@@ -220,7 +220,7 @@ type RequestGroupListType {
 }
 
 type RequestGroupConnectionType {
-  RequestGroupConection(_filter: String
+  RequestGroupConnection(_filter: String
     author: [reference]
     authored: [date]
     code: [token]

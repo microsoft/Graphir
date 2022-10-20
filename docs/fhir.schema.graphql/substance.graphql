@@ -90,7 +90,7 @@ type SubstanceListType {
 }
 
 type SubstanceConnectionType {
-  SubstanceConection(_filter: String
+  SubstanceConnection(_filter: String
     category: [token]
     code: [token]
     code_reference: [reference]

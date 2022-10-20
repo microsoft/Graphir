@@ -244,7 +244,7 @@ type MedicinalProductDefinitionListType {
 }
 
 type MedicinalProductDefinitionConnectionType {
-  MedicinalProductDefinitionConection(_filter: String
+  MedicinalProductDefinitionConnection(_filter: String
     characteristic: [token]
     characteristic_type: [token]
     contact: [reference]

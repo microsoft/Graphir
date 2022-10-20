@@ -124,7 +124,7 @@ type CommunicationListType {
 }
 
 type CommunicationConnectionType {
-  CommunicationConection(_filter: String
+  CommunicationConnection(_filter: String
     based_on: [reference]
     category: [token]
     encounter: [reference]

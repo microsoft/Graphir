@@ -104,7 +104,7 @@ type BodyStructureListType {
 }
 
 type BodyStructureConnectionType {
-  BodyStructureConection(_filter: String
+  BodyStructureConnection(_filter: String
     identifier: [token]
     location: [token]
     morphology: [token]

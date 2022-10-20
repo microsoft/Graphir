@@ -165,7 +165,7 @@ type FamilyMemberHistoryListType {
 }
 
 type FamilyMemberHistoryConnectionType {
-  FamilyMemberHistoryConection(_filter: String
+  FamilyMemberHistoryConnection(_filter: String
     code: [token]
     date: [date]
     identifier: [token]

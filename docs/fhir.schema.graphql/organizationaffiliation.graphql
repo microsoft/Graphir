@@ -84,7 +84,7 @@ type OrganizationAffiliationListType {
 }
 
 type OrganizationAffiliationConnectionType {
-  OrganizationAffiliationConection(_filter: String
+  OrganizationAffiliationConnection(_filter: String
     active: [token]
     date: [date]
     email: [token]

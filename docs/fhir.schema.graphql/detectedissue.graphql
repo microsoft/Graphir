@@ -113,7 +113,7 @@ type DetectedIssueListType {
 }
 
 type DetectedIssueConnectionType {
-  DetectedIssueConection(_filter: String
+  DetectedIssueConnection(_filter: String
     author: [reference]
     code: [token]
     identified: [date]

@@ -146,7 +146,7 @@ type MedicationAdministrationListType {
 }
 
 type MedicationAdministrationConnectionType {
-  MedicationAdministrationConection(_filter: String
+  MedicationAdministrationConnection(_filter: String
     code: [token]
     date: [date]
     device: [reference]

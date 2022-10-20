@@ -104,7 +104,7 @@ type ListListType {
 }
 
 type ListConnectionType {
-  ListConection(_filter: String
+  ListConnection(_filter: String
     code: [token]
     date: [date]
     empty_reason: [token]

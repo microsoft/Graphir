@@ -215,7 +215,7 @@ type ClinicalUseDefinitionListType {
 }
 
 type ClinicalUseDefinitionConnectionType {
-  ClinicalUseDefinitionConection(_filter: String
+  ClinicalUseDefinitionConnection(_filter: String
     contraindication: [token]
     contraindication_reference: [reference]
     effect: [token]

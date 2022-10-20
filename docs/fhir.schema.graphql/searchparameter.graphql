@@ -148,7 +148,7 @@ type SearchParameterListType {
 }
 
 type SearchParameterConnectionType {
-  SearchParameterConection(_filter: String
+  SearchParameterConnection(_filter: String
     base: [token]
     code: [token]
     component: [reference]

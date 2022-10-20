@@ -166,7 +166,7 @@ type MessageDefinitionListType {
 }
 
 type MessageDefinitionConnectionType {
-  MessageDefinitionConection(_filter: String
+  MessageDefinitionConnection(_filter: String
     category: [token]
     context: [token]
     context_quantity: [quantity]

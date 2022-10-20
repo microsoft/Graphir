@@ -139,7 +139,7 @@ type ServiceRequestListType {
 }
 
 type ServiceRequestConnectionType {
-  ServiceRequestConection(_filter: String
+  ServiceRequestConnection(_filter: String
     authored: [date]
     based_on: [reference]
     body_site: [token]

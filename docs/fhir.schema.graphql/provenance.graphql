@@ -123,7 +123,7 @@ type ProvenanceListType {
 }
 
 type ProvenanceConnectionType {
-  ProvenanceConection(_filter: String
+  ProvenanceConnection(_filter: String
     activity: [token]
     agent: [reference]
     agent_role: [token]

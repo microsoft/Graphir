@@ -215,7 +215,7 @@ type AuditEventListType {
 }
 
 type AuditEventConnectionType {
-  AuditEventConection(_filter: String
+  AuditEventConnection(_filter: String
     action: [token]
     agent: [reference]
     agent_role: [token]

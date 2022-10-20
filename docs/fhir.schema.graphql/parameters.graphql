@@ -157,7 +157,7 @@ type ParametersListType {
 }
 
 type ParametersConnectionType {
-  ParametersConection(_filter: String
+  ParametersConnection(_filter: String
     _content: [special]
     _id: [token]
     _lastUpdated: [date]

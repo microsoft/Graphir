@@ -158,7 +158,7 @@ type HealthcareServiceListType {
 }
 
 type HealthcareServiceConnectionType {
-  HealthcareServiceConection(_filter: String
+  HealthcareServiceConnection(_filter: String
     active: [token]
     characteristic: [token]
     coverage_area: [reference]

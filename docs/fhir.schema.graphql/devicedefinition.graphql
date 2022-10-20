@@ -403,7 +403,7 @@ type DeviceDefinitionListType {
 }
 
 type DeviceDefinitionConnectionType {
-  DeviceDefinitionConection(_filter: String
+  DeviceDefinitionConnection(_filter: String
     identifier: [token]
     parent: [reference]
     type: [token]

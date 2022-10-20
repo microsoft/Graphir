@@ -98,7 +98,7 @@ type CareTeamListType {
 }
 
 type CareTeamConnectionType {
-  CareTeamConection(_filter: String
+  CareTeamConnection(_filter: String
     category: [token]
     date: [date]
     identifier: [token]

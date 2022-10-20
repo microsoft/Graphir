@@ -279,7 +279,7 @@ type QuestionnaireListType {
 }
 
 type QuestionnaireConnectionType {
-  QuestionnaireConection(_filter: String
+  QuestionnaireConnection(_filter: String
     combo_code: [token]
     context: [token]
     context_quantity: [quantity]

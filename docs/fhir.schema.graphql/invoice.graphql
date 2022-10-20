@@ -147,7 +147,7 @@ type InvoiceListType {
 }
 
 type InvoiceConnectionType {
-  InvoiceConection(_filter: String
+  InvoiceConnection(_filter: String
     account: [reference]
     date: [date]
     identifier: [token]

@@ -398,7 +398,7 @@ type MedicationKnowledgeListType {
 }
 
 type MedicationKnowledgeConnectionType {
-  MedicationKnowledgeConection(_filter: String
+  MedicationKnowledgeConnection(_filter: String
     classification: [token]
     classification_type: [token]
     code: [token]

@@ -141,7 +141,7 @@ type ImagingSelectionListType {
 }
 
 type ImagingSelectionConnectionType {
-  ImagingSelectionConection(_filter: String
+  ImagingSelectionConnection(_filter: String
     based_on: [reference]
     body_site: [token]
     code: [token]

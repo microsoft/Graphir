@@ -65,7 +65,7 @@ type EnrollmentResponseListType {
 }
 
 type EnrollmentResponseConnectionType {
-  EnrollmentResponseConection(_filter: String
+  EnrollmentResponseConnection(_filter: String
     identifier: [token]
     request: [reference]
     status: [token]

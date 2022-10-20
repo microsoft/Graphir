@@ -69,7 +69,7 @@ type ScheduleListType {
 }
 
 type ScheduleConnectionType {
-  ScheduleConection(_filter: String
+  ScheduleConnection(_filter: String
     active: [token]
     actor: [reference]
     date: [date]

@@ -190,7 +190,7 @@ type SubstanceSourceMaterialListType {
 }
 
 type SubstanceSourceMaterialConnectionType {
-  SubstanceSourceMaterialConection(_filter: String
+  SubstanceSourceMaterialConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

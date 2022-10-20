@@ -256,7 +256,7 @@ type InsurancePlanListType {
 }
 
 type InsurancePlanConnectionType {
-  InsurancePlanConection(_filter: String
+  InsurancePlanConnection(_filter: String
     address: [String]
     address_city: [String]
     address_country: [String]

@@ -95,7 +95,7 @@ type ResearchSubjectListType {
 }
 
 type ResearchSubjectConnectionType {
-  ResearchSubjectConection(_filter: String
+  ResearchSubjectConnection(_filter: String
     date: [date]
     identifier: [token]
     patient: [reference]

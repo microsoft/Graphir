@@ -87,7 +87,7 @@ type ManufacturedItemDefinitionListType {
 }
 
 type ManufacturedItemDefinitionConnectionType {
-  ManufacturedItemDefinitionConection(_filter: String
+  ManufacturedItemDefinitionConnection(_filter: String
     dose_form: [token]
     identifier: [token]
     ingredient: [token]

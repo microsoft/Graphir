@@ -62,7 +62,7 @@ type BasicListType {
 }
 
 type BasicConnectionType {
-  BasicConection(_filter: String
+  BasicConnection(_filter: String
     author: [reference]
     code: [token]
     created: [date]

@@ -46,7 +46,8 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
         descriptor.Field(x => x.Type).Type<CodeableConceptType>();
         descriptor.Field(x => x.Period).Type<PeriodType>();
         descriptor.Field(x => x.Required).Type<BooleanType>();
-        descriptor.Field(x => x.Status).Type<StringType>().ResolveWith<AppointmentResolvers>(t => t.GetStatus(default!, default));
+        descriptor.Field(x => x.Status).Type<StringType>()
+            .ResolveWith<AppointmentResolvers>(t => t.GetStatus(default!, default));
 
         descriptor.Field(x => x.Actor).Type<ResourceReferenceType<AppointmentParticipantActorReferenceType>>();
     }
@@ -57,7 +58,7 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
             [Parent] Appointment.ParticipantComponent participant,
             CancellationToken cancellationToken)
         {
-            return participant.Status.Value.ToString();
+            return participant.Status!.Value.ToString();
         }
     }
     
@@ -69,7 +70,7 @@ public class AppointmentParticipantActorReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("AppointmentParticipantActorReference");
-        descriptor.Description("The type of actor (Person, Location/HealthcareService or Device) that is participating in the appointment");
+        descriptor.Description("The type of actor Reference(Person | Location | HealthcareService | Device) that is participating in the appointment");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();

@@ -105,7 +105,7 @@ type RelatedPersonListType {
 }
 
 type RelatedPersonConnectionType {
-  RelatedPersonConection(_filter: String
+  RelatedPersonConnection(_filter: String
     active: [token]
     address: [String]
     address_city: [String]

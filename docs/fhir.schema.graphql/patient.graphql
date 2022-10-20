@@ -163,7 +163,7 @@ type PatientListType {
 }
 
 type PatientConnectionType {
-  PatientConection(_filter: String
+  PatientConnection(_filter: String
     active: [token]
     address: [String]
     address_city: [String]

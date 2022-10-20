@@ -202,7 +202,7 @@ type ImmunizationListType {
 }
 
 type ImmunizationConnectionType {
-  ImmunizationConection(_filter: String
+  ImmunizationConnection(_filter: String
     date: [date]
     identifier: [token]
     location: [reference]

@@ -711,7 +711,7 @@ type ExplanationOfBenefitListType {
 }
 
 type ExplanationOfBenefitConnectionType {
-  ExplanationOfBenefitConection(_filter: String
+  ExplanationOfBenefitConnection(_filter: String
     care_team: [reference]
     claim: [reference]
     coverage: [reference]

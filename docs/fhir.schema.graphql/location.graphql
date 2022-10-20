@@ -133,7 +133,7 @@ type LocationListType {
 }
 
 type LocationConnectionType {
-  LocationConection(_filter: String
+  LocationConnection(_filter: String
     address: [String]
     address_city: [String]
     address_country: [String]

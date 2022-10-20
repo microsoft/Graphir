@@ -77,7 +77,7 @@ type PaymentNoticeListType {
 }
 
 type PaymentNoticeConnectionType {
-  PaymentNoticeConection(_filter: String
+  PaymentNoticeConnection(_filter: String
     created: [date]
     identifier: [token]
     payment_status: [token]

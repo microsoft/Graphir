@@ -82,7 +82,7 @@ type SubscriptionStatusListType {
 }
 
 type SubscriptionStatusConnectionType {
-  SubscriptionStatusConection(_filter: String
+  SubscriptionStatusConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

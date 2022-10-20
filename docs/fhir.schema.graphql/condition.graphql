@@ -151,7 +151,7 @@ type ConditionListType {
 }
 
 type ConditionConnectionType {
-  ConditionConection(_filter: String
+  ConditionConnection(_filter: String
     abatement_age: [quantity]
     abatement_date: [date]
     abatement_string: [String]

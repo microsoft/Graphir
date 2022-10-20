@@ -440,7 +440,7 @@ type PlanDefinitionListType {
 }
 
 type PlanDefinitionConnectionType {
-  PlanDefinitionConection(_filter: String
+  PlanDefinitionConnection(_filter: String
     composed_of: [reference]
     context: [token]
     context_quantity: [quantity]

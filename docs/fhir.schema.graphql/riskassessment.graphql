@@ -118,7 +118,7 @@ type RiskAssessmentListType {
 }
 
 type RiskAssessmentConnectionType {
-  RiskAssessmentConection(_filter: String
+  RiskAssessmentConnection(_filter: String
     condition: [reference]
     date: [date]
     encounter: [reference]

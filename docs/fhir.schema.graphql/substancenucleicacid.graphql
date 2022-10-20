@@ -122,7 +122,7 @@ type SubstanceNucleicAcidListType {
 }
 
 type SubstanceNucleicAcidConnectionType {
-  SubstanceNucleicAcidConection(_filter: String
+  SubstanceNucleicAcidConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

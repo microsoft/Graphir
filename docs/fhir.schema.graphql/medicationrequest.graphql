@@ -210,7 +210,7 @@ type MedicationRequestListType {
 }
 
 type MedicationRequestConnectionType {
-  MedicationRequestConection(_filter: String
+  MedicationRequestConnection(_filter: String
     authoredon: [date]
     category: [token]
     code: [token]

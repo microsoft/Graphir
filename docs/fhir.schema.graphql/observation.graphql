@@ -230,7 +230,7 @@ type ObservationListType {
 }
 
 type ObservationConnectionType {
-  ObservationConection(_filter: String
+  ObservationConnection(_filter: String
     based_on: [reference]
     category: [token]
     code: [token]

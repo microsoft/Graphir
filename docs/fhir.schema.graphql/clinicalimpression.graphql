@@ -112,7 +112,7 @@ type ClinicalImpressionListType {
 }
 
 type ClinicalImpressionConnectionType {
-  ClinicalImpressionConection(_filter: String
+  ClinicalImpressionConnection(_filter: String
     date: [date]
     encounter: [reference]
     finding_code: [token]

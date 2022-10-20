@@ -122,7 +122,7 @@ type SubstanceReferenceInformationListType {
 }
 
 type SubstanceReferenceInformationConnectionType {
-  SubstanceReferenceInformationConection(_filter: String
+  SubstanceReferenceInformationConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

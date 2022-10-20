@@ -70,7 +70,7 @@ type AppointmentResponseListType {
 }
 
 type AppointmentResponseConnectionType {
-  AppointmentResponseConection(_filter: String
+  AppointmentResponseConnection(_filter: String
     actor: [reference]
     appointment: [reference]
     group: [reference]

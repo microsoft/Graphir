@@ -104,7 +104,7 @@ type DeviceDispenseListType {
 }
 
 type DeviceDispenseConnectionType {
-  DeviceDispenseConection(_filter: String
+  DeviceDispenseConnection(_filter: String
     code: [token]
     subject: [reference]
     _text: [special]

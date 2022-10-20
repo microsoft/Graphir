@@ -145,7 +145,7 @@ type CoverageListType {
 }
 
 type CoverageConnectionType {
-  CoverageConection(_filter: String
+  CoverageConnection(_filter: String
     beneficiary: [reference]
     class_type: [token]
     class_value: [String]

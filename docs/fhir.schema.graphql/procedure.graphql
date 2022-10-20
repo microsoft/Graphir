@@ -165,7 +165,7 @@ type ProcedureListType {
 }
 
 type ProcedureConnectionType {
-  ProcedureConection(_filter: String
+  ProcedureConnection(_filter: String
     based_on: [reference]
     category: [token]
     code: [token]

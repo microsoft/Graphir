@@ -217,7 +217,7 @@ type OperationDefinitionListType {
 }
 
 type OperationDefinitionConnectionType {
-  OperationDefinitionConection(_filter: String
+  OperationDefinitionConnection(_filter: String
     base: [reference]
     code: [token]
     context: [token]

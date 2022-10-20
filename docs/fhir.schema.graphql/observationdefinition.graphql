@@ -200,7 +200,7 @@ type ObservationDefinitionListType {
 }
 
 type ObservationDefinitionConnectionType {
-  ObservationDefinitionConection(_filter: String
+  ObservationDefinitionConnection(_filter: String
     category: [token]
     code: [token]
     experimental: [token]

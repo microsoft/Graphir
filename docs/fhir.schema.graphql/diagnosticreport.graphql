@@ -120,7 +120,7 @@ type DiagnosticReportListType {
 }
 
 type DiagnosticReportConnectionType {
-  DiagnosticReportConection(_filter: String
+  DiagnosticReportConnection(_filter: String
     based_on: [reference]
     category: [token]
     code: [token]

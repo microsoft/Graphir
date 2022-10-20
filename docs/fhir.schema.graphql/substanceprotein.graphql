@@ -82,7 +82,7 @@ type SubstanceProteinListType {
 }
 
 type SubstanceProteinConnectionType {
-  SubstanceProteinConection(_filter: String
+  SubstanceProteinConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

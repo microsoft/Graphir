@@ -113,7 +113,7 @@ type AccountListType {
 }
 
 type AccountConnectionType {
-  AccountConection(_filter: String
+  AccountConnection(_filter: String
     guarantor: [reference]
     identifier: [token]
     name: [String]

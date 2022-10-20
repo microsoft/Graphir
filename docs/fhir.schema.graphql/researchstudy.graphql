@@ -324,7 +324,7 @@ type ResearchStudyListType {
 }
 
 type ResearchStudyConnectionType {
-  ResearchStudyConection(_filter: String
+  ResearchStudyConnection(_filter: String
     category: [token]
     condition: [token]
     date: [date]

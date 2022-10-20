@@ -69,7 +69,7 @@ type FlagListType {
 }
 
 type FlagConnectionType {
-  FlagConection(_filter: String
+  FlagConnection(_filter: String
     author: [reference]
     date: [date]
     encounter: [reference]

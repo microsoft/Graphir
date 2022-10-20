@@ -64,7 +64,7 @@ type EnrollmentRequestListType {
 }
 
 type EnrollmentRequestConnectionType {
-  EnrollmentRequestConection(_filter: String
+  EnrollmentRequestConnection(_filter: String
     identifier: [token]
     patient: [reference]
     status: [token]

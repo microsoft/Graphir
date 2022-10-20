@@ -74,7 +74,7 @@ type EndpointListType {
 }
 
 type EndpointConnectionType {
-  EndpointConection(_filter: String
+  EndpointConnection(_filter: String
     connection_type: [token]
     identifier: [token]
     name: [String]

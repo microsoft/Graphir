@@ -175,7 +175,7 @@ type PackagedProductDefinitionListType {
 }
 
 type PackagedProductDefinitionConnectionType {
-  PackagedProductDefinitionConection(_filter: String
+  PackagedProductDefinitionConnection(_filter: String
     biological: [reference]
     contained_item: [reference]
     device: [reference]
