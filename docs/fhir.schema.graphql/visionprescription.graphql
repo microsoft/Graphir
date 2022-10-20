@@ -124,7 +124,7 @@ type VisionPrescriptionListType {
 }
 
 type VisionPrescriptionConnectionType {
-  VisionPrescriptionConection(_filter: String
+  VisionPrescriptionConnection(_filter: String
     datewritten: [date]
     encounter: [reference]
     identifier: [token]

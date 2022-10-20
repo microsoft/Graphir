@@ -205,7 +205,7 @@ type SpecimenDefinitionListType {
 }
 
 type SpecimenDefinitionConnectionType {
-  SpecimenDefinitionConection(_filter: String
+  SpecimenDefinitionConnection(_filter: String
     container: [token]
     experimental: [token]
     identifier: [token]

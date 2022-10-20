@@ -363,7 +363,7 @@ type ValueSetListType {
 }
 
 type ValueSetConnectionType {
-  ValueSetConection(_filter: String
+  ValueSetConnection(_filter: String
     code: [token]
     context: [token]
     context_quantity: [quantity]

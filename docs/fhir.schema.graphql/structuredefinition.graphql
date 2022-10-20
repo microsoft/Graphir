@@ -205,7 +205,7 @@ type StructureDefinitionListType {
 }
 
 type StructureDefinitionConnectionType {
-  StructureDefinitionConection(_filter: String
+  StructureDefinitionConnection(_filter: String
     abstract: [token]
     base: [reference]
     base_path: [token]

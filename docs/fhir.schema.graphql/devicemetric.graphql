@@ -89,7 +89,7 @@ type DeviceMetricListType {
 }
 
 type DeviceMetricConnectionType {
-  DeviceMetricConection(_filter: String
+  DeviceMetricConnection(_filter: String
     category: [token]
     identifier: [token]
     parent: [reference]

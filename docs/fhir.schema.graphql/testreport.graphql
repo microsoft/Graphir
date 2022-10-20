@@ -222,7 +222,7 @@ type TestReportListType {
 }
 
 type TestReportConnectionType {
-  TestReportConection(_filter: String
+  TestReportConnection(_filter: String
     identifier: [token]
     issued: [date]
     participant: [uri]

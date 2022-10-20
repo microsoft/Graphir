@@ -113,7 +113,7 @@ type EpisodeOfCareListType {
 }
 
 type EpisodeOfCareConnectionType {
-  EpisodeOfCareConection(_filter: String
+  EpisodeOfCareConnection(_filter: String
     care_manager: [reference]
     condition: [reference]
     date: [date]

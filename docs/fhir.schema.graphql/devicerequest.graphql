@@ -140,7 +140,7 @@ type DeviceRequestListType {
 }
 
 type DeviceRequestConnectionType {
-  DeviceRequestConection(_filter: String
+  DeviceRequestConnection(_filter: String
     authored_on: [date]
     based_on: [reference]
     code: [token]

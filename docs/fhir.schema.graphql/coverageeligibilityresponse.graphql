@@ -187,7 +187,7 @@ type CoverageEligibilityResponseListType {
 }
 
 type CoverageEligibilityResponseConnectionType {
-  CoverageEligibilityResponseConection(_filter: String
+  CoverageEligibilityResponseConnection(_filter: String
     created: [date]
     disposition: [String]
     identifier: [token]

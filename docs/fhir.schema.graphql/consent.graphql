@@ -201,7 +201,7 @@ type ConsentListType {
 }
 
 type ConsentConnectionType {
-  ConsentConection(_filter: String
+  ConsentConnection(_filter: String
     action: [token]
     actor: [reference]
     category: [token]

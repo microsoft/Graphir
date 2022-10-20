@@ -155,7 +155,7 @@ type MedicationDispenseListType {
 }
 
 type MedicationDispenseConnectionType {
-  MedicationDispenseConection(_filter: String
+  MedicationDispenseConnection(_filter: String
     code: [token]
     destination: [reference]
     encounter: [reference]

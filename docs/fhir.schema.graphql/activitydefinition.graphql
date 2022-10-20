@@ -229,7 +229,7 @@ type ActivityDefinitionListType {
 }
 
 type ActivityDefinitionConnectionType {
-  ActivityDefinitionConection(_filter: String
+  ActivityDefinitionConnection(_filter: String
     composed_of: [reference]
     context: [token]
     context_quantity: [quantity]

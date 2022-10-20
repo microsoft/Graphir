@@ -121,7 +121,7 @@ type CompartmentDefinitionListType {
 }
 
 type CompartmentDefinitionConnectionType {
-  CompartmentDefinitionConection(_filter: String
+  CompartmentDefinitionConnection(_filter: String
     code: [token]
     context: [token]
     context_quantity: [quantity]

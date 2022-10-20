@@ -128,7 +128,7 @@ type AllergyIntoleranceListType {
 }
 
 type AllergyIntoleranceConnectionType {
-  AllergyIntoleranceConection(_filter: String
+  AllergyIntoleranceConnection(_filter: String
     asserter: [reference]
     category: [token]
     clinical_status: [token]

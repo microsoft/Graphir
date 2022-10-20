@@ -147,7 +147,7 @@ type VerificationResultListType {
 }
 
 type VerificationResultConnectionType {
-  VerificationResultConection(_filter: String
+  VerificationResultConnection(_filter: String
     target: [reference]
     _text: [special]
     _content: [special]

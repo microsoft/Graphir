@@ -121,7 +121,7 @@ type BiologicallyDerivedProductListType {
 }
 
 type BiologicallyDerivedProductConnectionType {
-  BiologicallyDerivedProductConection(_filter: String
+  BiologicallyDerivedProductConnection(_filter: String
     type: [token]
     _text: [special]
     _content: [special]

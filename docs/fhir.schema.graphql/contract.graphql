@@ -530,7 +530,7 @@ type ContractListType {
 }
 
 type ContractConnectionType {
-  ContractConection(_filter: String
+  ContractConnection(_filter: String
     authority: [reference]
     domain: [reference]
     identifier: [token]

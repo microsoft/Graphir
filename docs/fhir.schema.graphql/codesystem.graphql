@@ -243,7 +243,7 @@ type CodeSystemListType {
 }
 
 type CodeSystemConnectionType {
-  CodeSystemConection(_filter: String
+  CodeSystemConnection(_filter: String
     code: [token]
     content_mode: [token]
     context: [token]

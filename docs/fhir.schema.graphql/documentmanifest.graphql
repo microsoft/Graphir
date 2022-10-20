@@ -99,7 +99,7 @@ type DocumentManifestListType {
 }
 
 type DocumentManifestConnectionType {
-  DocumentManifestConection(_filter: String
+  DocumentManifestConnection(_filter: String
     author: [reference]
     created: [date]
     description: [String]

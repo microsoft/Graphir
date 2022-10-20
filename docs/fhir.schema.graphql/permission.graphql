@@ -101,7 +101,7 @@ type PermissionListType {
 }
 
 type PermissionConnectionType {
-  PermissionConection(_filter: String
+  PermissionConnection(_filter: String
     status: [token]
     _text: [special]
     _content: [special]

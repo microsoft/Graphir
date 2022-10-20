@@ -120,7 +120,7 @@ type GoalListType {
 }
 
 type GoalConnectionType {
-  GoalConection(_filter: String
+  GoalConnection(_filter: String
     achievement_status: [token]
     category: [token]
     identifier: [token]

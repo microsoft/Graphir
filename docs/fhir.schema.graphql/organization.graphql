@@ -99,7 +99,7 @@ type OrganizationListType {
 }
 
 type OrganizationConnectionType {
-  OrganizationConection(_filter: String
+  OrganizationConnection(_filter: String
     active: [token]
     address: [String]
     address_city: [String]

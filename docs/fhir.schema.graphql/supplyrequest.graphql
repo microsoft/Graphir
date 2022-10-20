@@ -107,7 +107,7 @@ type SupplyRequestListType {
 }
 
 type SupplyRequestConnectionType {
-  SupplyRequestConection(_filter: String
+  SupplyRequestConnection(_filter: String
     category: [token]
     date: [date]
     identifier: [token]

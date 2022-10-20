@@ -158,7 +158,7 @@ type NutritionIntakeListType {
 }
 
 type NutritionIntakeConnectionType {
-  NutritionIntakeConection(_filter: String
+  NutritionIntakeConnection(_filter: String
     code: [token]
     date: [date]
     encounter: [reference]

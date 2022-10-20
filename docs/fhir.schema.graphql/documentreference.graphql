@@ -170,7 +170,7 @@ type DocumentReferenceListType {
 }
 
 type DocumentReferenceConnectionType {
-  DocumentReferenceConection(_filter: String
+  DocumentReferenceConnection(_filter: String
     attester: [reference]
     author: [reference]
     based_on: [reference]

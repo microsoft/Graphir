@@ -107,7 +107,7 @@ type RegulatedAuthorizationListType {
 }
 
 type RegulatedAuthorizationConnectionType {
-  RegulatedAuthorizationConection(_filter: String
+  RegulatedAuthorizationConnection(_filter: String
     case: [token]
     case_type: [token]
     holder: [reference]

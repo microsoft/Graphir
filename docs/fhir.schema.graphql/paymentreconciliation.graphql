@@ -132,7 +132,7 @@ type PaymentReconciliationListType {
 }
 
 type PaymentReconciliationConnectionType {
-  PaymentReconciliationConection(_filter: String
+  PaymentReconciliationConnection(_filter: String
     created: [date]
     disposition: [String]
     identifier: [token]

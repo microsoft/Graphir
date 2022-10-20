@@ -105,7 +105,7 @@ type MedicationUsageListType {
 }
 
 type MedicationUsageConnectionType {
-  MedicationUsageConection(_filter: String
+  MedicationUsageConnection(_filter: String
     adherence: [token]
     category: [token]
     code: [token]

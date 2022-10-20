@@ -135,7 +135,7 @@ type ChargeItemListType {
 }
 
 type ChargeItemConnectionType {
-  ChargeItemConection(_filter: String
+  ChargeItemConnection(_filter: String
     account: [reference]
     code: [token]
     context: [reference]

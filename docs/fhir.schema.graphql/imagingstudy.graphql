@@ -171,7 +171,7 @@ type ImagingStudyListType {
 }
 
 type ImagingStudyConnectionType {
-  ImagingStudyConection(_filter: String
+  ImagingStudyConnection(_filter: String
     basedon: [reference]
     bodysite: [token]
     dicom_class: [token]

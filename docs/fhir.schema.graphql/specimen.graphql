@@ -168,7 +168,7 @@ type SpecimenListType {
 }
 
 type SpecimenConnectionType {
-  SpecimenConection(_filter: String
+  SpecimenConnection(_filter: String
     accession: [token]
     bodysite: [reference]
     collected: [date]

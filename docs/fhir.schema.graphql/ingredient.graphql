@@ -168,7 +168,7 @@ type IngredientListType {
 }
 
 type IngredientConnectionType {
-  IngredientConection(_filter: String
+  IngredientConnection(_filter: String
     for: [reference]
     function: [token]
     identifier: [token]

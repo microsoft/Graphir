@@ -160,7 +160,7 @@ type AdministrableProductDefinitionListType {
 }
 
 type AdministrableProductDefinitionConnectionType {
-  AdministrableProductDefinitionConection(_filter: String
+  AdministrableProductDefinitionConnection(_filter: String
     device: [reference]
     dose_form: [token]
     form_of: [reference]

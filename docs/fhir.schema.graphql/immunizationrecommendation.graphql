@@ -120,7 +120,7 @@ type ImmunizationRecommendationListType {
 }
 
 type ImmunizationRecommendationConnectionType {
-  ImmunizationRecommendationConection(_filter: String
+  ImmunizationRecommendationConnection(_filter: String
     date: [date]
     identifier: [token]
     information: [reference]

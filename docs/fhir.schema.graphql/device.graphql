@@ -260,7 +260,7 @@ type DeviceListType {
 }
 
 type DeviceConnectionType {
-  DeviceConection(_filter: String
+  DeviceConnection(_filter: String
     definition: [reference]
     device_name: [String]
     expiration_date: [date]

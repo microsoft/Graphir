@@ -345,7 +345,7 @@ type SubstanceDefinitionListType {
 }
 
 type SubstanceDefinitionConnectionType {
-  SubstanceDefinitionConection(_filter: String
+  SubstanceDefinitionConnection(_filter: String
     classification: [token]
     code: [token]
     domain: [token]

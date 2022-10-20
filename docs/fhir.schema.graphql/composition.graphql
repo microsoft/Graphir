@@ -161,7 +161,7 @@ type CompositionListType {
 }
 
 type CompositionConnectionType {
-  CompositionConection(_filter: String
+  CompositionConnection(_filter: String
     attester: [reference]
     author: [reference]
     category: [token]

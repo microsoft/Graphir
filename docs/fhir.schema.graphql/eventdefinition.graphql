@@ -148,7 +148,7 @@ type EventDefinitionListType {
 }
 
 type EventDefinitionConnectionType {
-  EventDefinitionConection(_filter: String
+  EventDefinitionConnection(_filter: String
     composed_of: [reference]
     context: [token]
     context_quantity: [quantity]

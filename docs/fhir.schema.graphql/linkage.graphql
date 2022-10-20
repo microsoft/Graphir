@@ -71,7 +71,7 @@ type LinkageListType {
 }
 
 type LinkageConnectionType {
-  LinkageConection(_filter: String
+  LinkageConnection(_filter: String
     author: [reference]
     item: [reference]
     source: [reference]

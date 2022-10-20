@@ -112,7 +112,7 @@ type InventoryReportListType {
 }
 
 type InventoryReportConnectionType {
-  InventoryReportConection(_filter: String
+  InventoryReportConnection(_filter: String
     _text: [special]
     _content: [special]
     _id: [token]

@@ -79,7 +79,7 @@ type ImmunizationEvaluationListType {
 }
 
 type ImmunizationEvaluationConnectionType {
-  ImmunizationEvaluationConection(_filter: String
+  ImmunizationEvaluationConnection(_filter: String
     date: [date]
     dose_status: [token]
     identifier: [token]

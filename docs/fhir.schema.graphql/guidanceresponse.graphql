@@ -83,7 +83,7 @@ type GuidanceResponseListType {
 }
 
 type GuidanceResponseConnectionType {
-  GuidanceResponseConection(_filter: String
+  GuidanceResponseConnection(_filter: String
     identifier: [token]
     patient: [reference]
     request: [token]

@@ -95,7 +95,7 @@ type SupplyDeliveryListType {
 }
 
 type SupplyDeliveryConnectionType {
-  SupplyDeliveryConection(_filter: String
+  SupplyDeliveryConnection(_filter: String
     identifier: [token]
     patient: [reference]
     receiver: [reference]

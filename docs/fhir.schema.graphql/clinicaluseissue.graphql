@@ -199,7 +199,7 @@ type ClinicalUseIssueListType {
 }
 
 type ClinicalUseIssueConnectionType {
-  ClinicalUseIssueConection(_filter: String
+  ClinicalUseIssueConnection(_filter: String
     contraindication: [token]
     contraindication_reference: [reference]
     effect: [token]

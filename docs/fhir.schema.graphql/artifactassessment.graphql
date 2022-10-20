@@ -123,7 +123,7 @@ type ArtifactAssessmentListType {
 }
 
 type ArtifactAssessmentConnectionType {
-  ArtifactAssessmentConection(_filter: String
+  ArtifactAssessmentConnection(_filter: String
     date: [date]
     composed_of: [reference]
     depends_on: [reference]

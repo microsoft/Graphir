@@ -288,7 +288,7 @@ type MeasureListType {
 }
 
 type MeasureConnectionType {
-  MeasureConection(_filter: String
+  MeasureConnection(_filter: String
     composed_of: [reference]
     context: [token]
     context_quantity: [quantity]

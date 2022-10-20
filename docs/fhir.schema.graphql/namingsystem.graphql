@@ -138,7 +138,7 @@ type NamingSystemListType {
 }
 
 type NamingSystemConnectionType {
-  NamingSystemConection(_filter: String
+  NamingSystemConnection(_filter: String
     contact: [String]
     context: [token]
     context_quantity: [quantity]

@@ -291,7 +291,7 @@ type MolecularSequenceListType {
 }
 
 type MolecularSequenceConnectionType {
-  MolecularSequenceConection(_filter: String
+  MolecularSequenceConnection(_filter: String
     chromosome: [token]
     chromosome_variant_coordinate: [composite]
     chromosome_window_coordinate: [composite]

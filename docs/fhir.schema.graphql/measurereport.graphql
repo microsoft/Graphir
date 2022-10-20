@@ -227,7 +227,7 @@ type MeasureReportListType {
 }
 
 type MeasureReportConnectionType {
-  MeasureReportConection(_filter: String
+  MeasureReportConnection(_filter: String
     date: [date]
     evaluated_resource: [reference]
     identifier: [token]

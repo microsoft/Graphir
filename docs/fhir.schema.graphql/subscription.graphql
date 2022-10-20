@@ -106,7 +106,7 @@ type SubscriptionListType {
 }
 
 type SubscriptionConnectionType {
-  SubscriptionConection(_filter: String
+  SubscriptionConnection(_filter: String
     contact: [token]
     identifier: [token]
     payload: [token]

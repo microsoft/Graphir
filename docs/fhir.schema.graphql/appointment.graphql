@@ -136,7 +136,7 @@ type AppointmentListType {
 }
 
 type AppointmentConnectionType {
-  AppointmentConection(_filter: String
+  AppointmentConnection(_filter: String
     actor: [reference]
     appointment_type: [token]
     based_on: [reference]

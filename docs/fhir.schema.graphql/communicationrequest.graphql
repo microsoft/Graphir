@@ -126,7 +126,7 @@ type CommunicationRequestListType {
 }
 
 type CommunicationRequestConnectionType {
-  CommunicationRequestConection(_filter: String
+  CommunicationRequestConnection(_filter: String
     authored: [date]
     based_on: [reference]
     category: [token]

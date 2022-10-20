@@ -144,7 +144,7 @@ type MessageHeaderListType {
 }
 
 type MessageHeaderConnectionType {
-  MessageHeaderConection(_filter: String
+  MessageHeaderConnection(_filter: String
     author: [reference]
     code: [token]
     destination: [String]

@@ -403,7 +403,7 @@ type ClaimResponseListType {
 }
 
 type ClaimResponseConnectionType {
-  ClaimResponseConection(_filter: String
+  ClaimResponseConnection(_filter: String
     created: [date]
     disposition: [String]
     identifier: [token]

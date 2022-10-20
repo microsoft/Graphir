@@ -317,7 +317,7 @@ type CapabilityStatement2ListType {
 }
 
 type CapabilityStatement2ConnectionType {
-  CapabilityStatement2Conection(_filter: String
+  CapabilityStatement2Connection(_filter: String
     context: [token]
     context_quantity: [quantity]
     context_type: [token]
