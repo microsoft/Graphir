@@ -27,6 +27,7 @@ public static class StartupServices
     {
         services.AddGraphQLServer()
             .AddDiagnosticEventListener<ConsoleQueryLogger>()
+            .AddDataLoaders()
             .AddAuthorization()
             .AddQueryType<Query>()
             .AddMutationType()
