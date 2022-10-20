@@ -1,4 +1,6 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.Schema;
+
+using Hl7.Fhir.Model;
 
 namespace Graphir.API.DataLoaders
 {
@@ -48,7 +50,7 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Contract> contractByIdDataLoader,
             ResourceByIdDataLoader<DeviceRequest> deviceRequestByIdDataLoader,
             ResourceByIdDataLoader<DeviceUseStatement> deviceUseStatementByIdDataLoader,
-            ResourceByIdDataLoader<EnrollmentRequest> enrollmentRequestByIdDataLoader, 
+            ResourceByIdDataLoader<EnrollmentRequest> enrollmentRequestByIdDataLoader,
             ResourceByIdDataLoader<EnrollmentResponse> enrollmentResponseByIdDataLoader,
             ResourceByIdDataLoader<EpisodeOfCare> episodeOfCareByIdDataLoader,
             ResourceByIdDataLoader<ExplanationOfBenefit> explanationOfBenefitByIdDataLoader,
@@ -61,7 +63,18 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Measure> measureByIdDataLoader,
             ResourceByIdDataLoader<MeasureReport> measureReportByIdDataLoader,
             ResourceByIdDataLoader<Media> mediaByIdDataLoader,
-            ResourceByIdDataLoader<MedicationKnowledge> medicationKnowledgeByIdDataLoader
+            ResourceByIdDataLoader<MedicationKnowledge> medicationKnowledgeByIdDataLoader,
+            ResourceByIdDataLoader<DiagnosticReport> diagnosticReportByIdDataLoader,
+            ResourceByIdDataLoader<TestReport> testReportByIdDataLoader,
+            ResourceByIdDataLoader<TestScript> testScriptByIdDataLoader,
+            ResourceByIdDataLoader<ImmunizationEvaluation> immunizationEvaluationByIdDataLoader,
+            ResourceByIdDataLoader<ImplementationGuide> implementationGuideByIdDataLoader,
+            ResourceByIdDataLoader<Linkage> linkageByIdDataLoader,
+            ResourceByIdDataLoader<NutritionOrder> nutritionOrderByIdDataLoader,
+            ResourceByIdDataLoader<PaymentNotice> paymentNoticeByIdDataLoader,
+            ResourceByIdDataLoader<PaymentReconciliation> paymentReconciliationByIdDataLoader,
+            ResourceByIdDataLoader<Person> personByIdDataLoader,
+            ResourceByIdDataLoader<PlanDefinition> planDefinitionByIdDataLoader
         )
         {
             AppointmentByIdDataLoader = appointmentByIdDataLoader;
@@ -121,7 +134,17 @@ namespace Graphir.API.DataLoaders
             MeasureReportByIdDataLoader = measureReportByIdDataLoader;
             MediaByIdDataLoader = mediaByIdDataLoader;
             MedicationKnowledgeByIdDataLoader = medicationKnowledgeByIdDataLoader;
-            
+            DiagnosticReportByIdDataLoader = diagnosticReportByIdDataLoader;
+            TestReportByIdDataLoader = testReportByIdDataLoader;
+            TestScriptByIdDataLoader = testScriptByIdDataLoader;
+            ImmunizationEvaluationByIdDataLoader = immunizationEvaluationByIdDataLoader;
+            ImplementationGuideByIdDataLoader = implementationGuideByIdDataLoader;
+            LinkageByIdDataLoader = linkageByIdDataLoader;
+            NutritionOrderByIdDataLoader = nutritionOrderByIdDataLoader;
+            PaymentNoticeByIdDataLoader = paymentNoticeByIdDataLoader;
+            PaymentReconciliationByIdDataLoader = paymentReconciliationByIdDataLoader;
+            PersonByIdDataLoader = personByIdDataLoader;
+            PlanDefinitionByIdDataLoader = planDefinitionByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader { get; }
@@ -181,5 +204,16 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<MeasureReport> MeasureReportByIdDataLoader { get; }
         public ResourceByIdDataLoader<Media> MediaByIdDataLoader { get; }
         public ResourceByIdDataLoader<MedicationKnowledge> MedicationKnowledgeByIdDataLoader { get; }
+        public ResourceByIdDataLoader<DiagnosticReport> DiagnosticReportByIdDataLoader { get; }
+        public ResourceByIdDataLoader<TestReport> TestReportByIdDataLoader { get; }
+        public ResourceByIdDataLoader<TestScript> TestScriptByIdDataLoader { get; }
+        public ResourceByIdDataLoader<ImmunizationEvaluation> ImmunizationEvaluationByIdDataLoader { get; }
+        public ResourceByIdDataLoader<ImplementationGuide> ImplementationGuideByIdDataLoader { get; }
+        public ResourceByIdDataLoader<Linkage> LinkageByIdDataLoader { get; }
+        public ResourceByIdDataLoader<NutritionOrder> NutritionOrderByIdDataLoader { get; }
+        public ResourceByIdDataLoader<PaymentNotice> PaymentNoticeByIdDataLoader { get; }
+        public ResourceByIdDataLoader<PaymentReconciliation> PaymentReconciliationByIdDataLoader { get; }
+        public ResourceByIdDataLoader<Person> PersonByIdDataLoader { get; }
+        public ResourceByIdDataLoader<PlanDefinition> PlanDefinitionByIdDataLoader { get; }
     }
 }
