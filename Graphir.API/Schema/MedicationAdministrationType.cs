@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -24,30 +25,21 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
             .Resolve(context =>
             {
                 var parent = context.Parent<MedicationAdministration>();
-                if (parent.Medication is null)
-                    return null;
-
-                if (parent.Medication.TypeName == "CodeableConcept")
-                {
-                    return new CodeableReference
+                return parent.Medication is null
+                    ? null
+                    : parent.Medication.TypeName switch
                     {
-                        Concept = (CodeableConcept)parent.Medication
+                        "CodeableConcept" => new CodeableReference { Concept = (CodeableConcept)parent.Medication },
+                        "Reference" => new CodeableReference { Reference = (ResourceReference)parent.Medication },
+                        _ => null
                     };
-                }
-                if (parent.Medication.TypeName == "Reference")
-                {
-                    return new CodeableReference
-                    {
-                        Reference = (ResourceReference)parent.Medication
-                    };
-                }
-                return null;
             });
 
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationAdministrationSubjectReferenceType>>();
         descriptor.Field(x => x.Request).Type<ResourceReferenceType<MedicationAdministrationRequestReferenceType>>();
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
-        descriptor.Field(x => x.EventHistory).Type<ListType<ResourceReferenceType<MedicationAdministrationEventHistoryReferenceType>>>();
+        descriptor.Field(x => x.EventHistory)
+            .Type<ListType<ResourceReferenceType<MedicationAdministrationEventHistoryReferenceType>>>();
 
         descriptor.Field("effectivePeriod").Type<PeriodType>().Resolve(context =>
         {
@@ -64,7 +56,6 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                 : null;
         });
     }
-    
 }
 
 public class MedicationAdministrationPerformerComponentType : ObjectType<MedicationAdministration.PerformerComponent>
@@ -97,16 +88,16 @@ public class MedicationAdministrationDosageType : ObjectType<MedicationAdministr
         {
             var parent = r.Parent<MedicationAdministration.DosageComponent>();
             return parent.Rate is not null && parent.Rate.TypeName == "Ratio"
-            ? (Ratio)parent.Rate
-            : null;
+                ? (Ratio)parent.Rate
+                : null;
         });
 
         descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationAdministration.DosageComponent>();
             return parent.Rate is not null && parent.Rate.TypeName == "Quantity"
-            ? (Quantity)parent.Rate
-            : null;
+                ? (Quantity)parent.Rate
+                : null;
         });
     }
 }
