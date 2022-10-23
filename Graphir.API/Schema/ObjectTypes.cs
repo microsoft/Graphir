@@ -76,7 +76,10 @@ public class FhirStringType : ObjectType<FhirString>
     protected override void Configure(IObjectTypeDescriptor<FhirString> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Value).Type<NonNullType<StringType>>();
+        
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.TypeName);
     }
 }
 

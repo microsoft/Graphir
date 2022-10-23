@@ -50,25 +50,15 @@ public class MedicationIngredientType : ObjectType<Medication.IngredientComponen
             .Resolve(context =>
             {
                 var parent = context.Parent<Medication.IngredientComponent>();
-                if (parent.Item is null)
-                    return null;
-
-                if (parent.Item.TypeName == "CodeableConcept")
-                {
-                    return new CodeableReference
+                return parent.Item is null
+                    ? null
+                    : parent.Item.TypeName switch
                     {
-                        Concept = (CodeableConcept)parent.Item
+                        "CodeableConcept" => new CodeableReference { Concept = (CodeableConcept)parent.Item },
+                        "Reference" => new CodeableReference { Reference = (ResourceReference)parent.Item },
+                        _ => null
                     };
-                }
-                if (parent.Item.TypeName == "Reference")
-                {
-                    return new CodeableReference
-                    {
-                        Reference = (ResourceReference)parent.Item
-                    };
-                }
-                return null;
-            }); ;
+            });
         descriptor.Field(x => x.IsActive);
         descriptor.Field(x => x.Strength);
     }
