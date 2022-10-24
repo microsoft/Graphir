@@ -104,7 +104,6 @@ public class GroupMemberReferenceType : UnionType
         descriptor.Type<MedicationType>();
         descriptor.Type<SubstanceType>();
         descriptor.Type<GroupType>();
-        /* TODO: implement missing reference types */
     }
 }
 
