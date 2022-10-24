@@ -1,5 +1,4 @@
-﻿using Hl7.Fhir.ElementModel.Types;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -9,7 +8,6 @@ namespace Graphir.API.Schema;
 
 public class ProvenanceType : ObjectType<Provenance>
 {
-    // TODO: finish Provenance
     protected override void Configure(IObjectTypeDescriptor<Provenance> descriptor)
     {
         descriptor.BindFieldsExplicitly();
@@ -17,14 +15,10 @@ public class ProvenanceType : ObjectType<Provenance>
         descriptor.Field(p => p.Id);
         descriptor.Field(p => p.Meta);
         descriptor.Field(p => p.Activity);
-         /*TODO: Resolve if this is a Period or a DateTime
-         descriptor.Field(p => p.Occurred);*/
-         
-
+        // descriptor.Field(p => p.Occurred); TODO: Resolve based on type Period or a DateTime
         descriptor.Field(p => p.Reason);
         descriptor.Field(p => p.Recorded);
         descriptor.Field(p => p.Signature).Type<ListType<SignatureType>>();
-
         descriptor.Field(p => p.Text);
         descriptor.Field(p => p.Policy);
         descriptor.Field(p => p.Language);
@@ -37,10 +31,9 @@ public class ProvenanceType : ObjectType<Provenance>
         descriptor.Field(p => p.PolicyElement);
         descriptor.Field(p => p.RecordedElement).Type<InstantType>();
         descriptor.Field(p => p.ResourceBase);
-
         descriptor.Field(p => p.Location).Type<ResourceReferenceType<ProvenanceLocationReferenceType>>();
         descriptor.Field(p => p.Entity).Type<ListType<ProvenanceEntityComponentType>>();
-        descriptor.Field(p => p.Agent).Type<ListType<ProvenanceAgentComponentType>>();
+        descriptor.Field(p => p.Agent).Type<ListType<AgentComponentType>>();
         descriptor.Field(p => p.Target).Type<ListType<ResourceReferenceType<ProvenanceTargetReferenceType>>>();
     }
 }
@@ -61,7 +54,11 @@ public class CodeType : ObjectType<Code>
     protected override void Configure(IObjectTypeDescriptor<Code> descriptor)
     {
         descriptor.BindFieldsExplicitly();
+        
         descriptor.Field(p => p.Value);
+        descriptor.Field(p => p.Display);
+        descriptor.Field(p => p.System);
+        descriptor.Field(p => p.Version);
     }
 }
 
@@ -102,28 +99,26 @@ public class ProvenanceEntityComponentType : ObjectType<Provenance.EntityCompone
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(p => p.Role);
-        descriptor.Field(p => p.Agent)
-            .Type<ListType<ProvenanceAgentComponentType>>();
+        descriptor.Field(p => p.Agent).Type<ListType<AgentComponentType>>();
         descriptor.Field(p => p.Extension);
         descriptor.Field(p => p.ModifierExtension);
-        // Same issue as parent field Target
-        descriptor.Field(p => p.What).Type<ResourceReferenceType<IdentityOfEntityReferenceType>>(); 
+        descriptor.Field(p => p.What).Type<ResourceReferenceType<WhatReferenceType>>();
         descriptor.Field(p => p.RoleElement).Type<StringType>(); //Must specify as StringType
         descriptor.Field(p => p.ElementId);
     }
 }
 
-public class IdentityOfEntityReferenceType : UnionType
+public class WhatReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("IdentityOfEntityReference");
-        
+
         descriptor.Type<ResourceType>();
     }
 }
 
-public class ProvenanceAgentComponentType : ObjectType<Provenance.AgentComponent>
+public class AgentComponentType : ObjectType<Provenance.AgentComponent>
 {
     protected override void Configure(IObjectTypeDescriptor<Provenance.AgentComponent> descriptor)
     {
@@ -145,7 +140,8 @@ public class OnBehalfOfReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("OnBehalfOfReference");
-        descriptor.Description("Who the agent is representing? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
+        descriptor.Description(@"Who the agent is representing? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
+
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
         descriptor.Type<RelatedPersonType>();
@@ -160,8 +156,8 @@ public class ProvenanceAgentWhoParticipatedReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("WhoParticipatedReference");
-        descriptor.Description(
-            "Who participated? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
+        descriptor.Description(@"Who participated? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
+
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
         descriptor.Type<RelatedPersonType>();
@@ -176,7 +172,7 @@ public class ProvenanceTargetReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("ProvenanceTargetReference");
-        descriptor.Description("Target Reference(s) (usually version specific) Reference(Any)");
+
         descriptor.Type<ResourceType>();
     }
 }
@@ -187,6 +183,7 @@ public class ProvenanceLocationReferenceType : UnionType
     {
         descriptor.Name("ProvenanceLocation");
         descriptor.Description("Where the activity occurred, if relevant");
+
         descriptor.Type<LocationType>();
     }
 }
