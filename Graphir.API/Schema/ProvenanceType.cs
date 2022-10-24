@@ -1,5 +1,4 @@
-﻿using Hl7.Fhir.ElementModel.Types;
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 

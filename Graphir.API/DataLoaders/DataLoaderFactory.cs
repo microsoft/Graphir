@@ -1,6 +1,4 @@
-﻿using Graphir.API.Schema;
-
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 
 namespace Graphir.API.DataLoaders
 {

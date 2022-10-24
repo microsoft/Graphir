@@ -55,6 +55,7 @@ public static class StartupServices
             .AddDetectedIssue()
             .AddServiceRequest()
             .AddSpecimen()
+            .AddClinicalImpressions()
             .ModifyOptions(opt => opt.StrictValidation = true)
             .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true) //Remove this line in Production
             ;
