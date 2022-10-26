@@ -17,8 +17,8 @@ public static class StartupServices
 
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
-        
-        services.AddScoped<DataLoaderFactory>();        
+
+        services.AddScoped<DataLoaderFactory>();
     }
 
 
@@ -55,6 +55,7 @@ public static class StartupServices
             .AddDetectedIssue()
             .AddServiceRequest()
             .AddSpecimen()
+            .ModifyOptions(opt => opt.StrictValidation = true)
             .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true) //Remove this line in Production
             ;
     }
