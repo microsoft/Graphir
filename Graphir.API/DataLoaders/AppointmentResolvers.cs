@@ -10,7 +10,8 @@ namespace Graphir.API.DataLoaders;
 
 public class AppointmentResolvers
 {
-    public async Task<List<Appointment>> GetAppointmentListResources([Service] FhirClient client,
+    public async Task<List<Appointment>> GetAppointmentListResources(
+        [Service] FhirClient client,
         [Argument("patient")] string? patientId,
         [Argument("practitioner")] string? practitionerId,
         [Argument("date")] DateTime? date)
