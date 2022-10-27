@@ -42,6 +42,7 @@ public class MedicationIngredientType : ObjectType<Medication.IngredientComponen
 {
     protected override void Configure(IObjectTypeDescriptor<Medication.IngredientComponent> descriptor)
     {
+        descriptor.Name("MedicationIngredientComponent");
         descriptor.BindFieldsExplicitly();
         descriptor.Field(x => x.Extension);
         descriptor.Field(x => x.ModifierExtension);

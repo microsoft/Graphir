@@ -102,9 +102,8 @@ public class GroupMemberReferenceType : UnionType
         descriptor.Type<PractitionerRoleType>();
         descriptor.Type<DeviceType>();
         descriptor.Type<MedicationType>();
-        //descriptor.Type<SubstanceType>();
+        descriptor.Type<SubstanceType>();
         descriptor.Type<GroupType>();
-        /* TODO: implement missing reference types */
     }
 }
 
@@ -113,6 +112,7 @@ public class GroupCharacteristicValueReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("GroupCharacteristicValueReference");
+        descriptor.Description("Reference(Resource)");
         descriptor.Type<ResourceType>();
     }
 }
