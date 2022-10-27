@@ -13,7 +13,7 @@ internal static class AppointmentStartup
     {
         return graphBuilder
             .AddDataLoader<ResourceByIdDataLoader<Appointment>>()
-            .AddTypeExtension<ResourceQuery<Appointment, AppointmentType>>()
+            .AddTypeExtension<AppointmentQuery>()
             .AddType<AppointmentType>();
     }
     

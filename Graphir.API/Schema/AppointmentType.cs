@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate;
 using HotChocolate.Types;
 using System.Threading;
@@ -78,5 +79,22 @@ public class AppointmentParticipantActorReferenceType : UnionType
         descriptor.Type<DeviceType>();
         descriptor.Type<HealthcareServiceType>();
         descriptor.Type<LocationType>();
+    }
+}
+
+public class AppointmentQuery : ObjectTypeExtension<Query>
+{
+    protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+    {
+        descriptor.Field("Appointment")
+                .Type<AppointmentType>()
+                .Argument("id", a => a.Type<NonNullType<StringType>>())
+                .ResolveWith<ResourceResolvers<Appointment>>(r => r.GetResource(default!, default!));
+
+        descriptor.Field("AppointmentList")
+            .Type<ListType<AppointmentType>>()
+            .Argument("patient", a => a.Type<StringType>())
+            .Argument("practitioner", a => a.Type<StringType>())
+            .ResolveWith<AppointmentResolvers>(r => r.GetAppointmentListResources(default!, default, default));
     }
 }
