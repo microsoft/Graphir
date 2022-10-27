@@ -16,7 +16,7 @@ namespace Graphir.API.Queries
                 .ResolveWith<ResourceResolvers<T>>(r => r.GetResource(default!, default!));
 
             descriptor.Field($"{typeof(T).Name}List")
-                .Type<ListType<E>>()
+                .Type<ListType<E>>()             
                 .ResolveWith<ResourceResolvers<T>>(r => r.GetResources(default!));
         }
     }
