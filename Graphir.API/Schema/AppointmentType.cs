@@ -95,6 +95,7 @@ public class AppointmentQuery : ObjectTypeExtension<Query>
             .Type<ListType<AppointmentType>>()
             .Argument("patient", a => a.Type<StringType>())
             .Argument("practitioner", a => a.Type<StringType>())
-            .ResolveWith<AppointmentResolvers>(r => r.GetAppointmentListResources(default!, default, default));
+            .Argument("date", a => a.Type<DateType>())
+            .ResolveWith<AppointmentResolvers>(r => r.GetAppointmentListResources(default!, default, default, default));
     }
 }
