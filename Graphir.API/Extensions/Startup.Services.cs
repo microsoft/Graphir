@@ -12,7 +12,6 @@ public static class StartupServices
     public static void AddScopedServices(this IServiceCollection services)
     {
         services.AddScoped<Query>();
-        services.AddScoped<PractitionerQuery>();
 
         services.AddScoped<PatientMutation>();
         services.AddScoped<PractitionerMutation>();
