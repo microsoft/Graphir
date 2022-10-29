@@ -2,7 +2,7 @@
 using System.Net.Http;
 
 using Hl7.Fhir.Rest;
-
+using Hl7.Fhir.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 
@@ -17,17 +17,24 @@ internal static class FhirServiceExtensions
         
         services.AddScoped(o =>
         {
+            var parserSettings = ParserSettings.CreateDefault();
+#pragma warning disable CS0618
+            parserSettings.TruncateDateTimeToDate = true;
+#pragma warning restore CS0618
+            parserSettings.PermissiveParsing = true;
             var settings = new FhirClientSettings
             {
                 PreferredFormat = ResourceFormat.Json,
-                PreferredReturn = Prefer.ReturnMinimal
+                PreferredReturn = Prefer.ReturnMinimal,
+                ParserSettings = parserSettings
             };
 
             var handler = new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData);
             handler.InnerHandler = new HttpClientHandler();
 
-            var client = new FhirClient(fhirData.BaseUrl, settings, handler);
-                        
+            //var client = new FhirClient(fhirData.BaseUrl, settings, handler);
+            var client = new FhirClient(fhirData.BaseUrl, settings);
+
             return client;
         });
 
