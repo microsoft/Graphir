@@ -16,8 +16,6 @@ public class FhirJsonClient
     {
         _httpClient = client;
         _parser = parser;
-
-        _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
     }
 
     public async Task<List<T>> SearchAsync<T>(string query) where T : Resource

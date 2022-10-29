@@ -32,11 +32,25 @@ internal static class FhirServiceExtensions
             var handler = new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData);
             handler.InnerHandler = new HttpClientHandler();
 
-            //var client = new FhirClient(fhirData.BaseUrl, settings, handler);
-            var client = new FhirClient(fhirData.BaseUrl, settings);
-
-            return client;
+            return fhirData.UseAuthentication ? new FhirClient(fhirData.BaseUrl, settings, handler) : new FhirClient(fhirData.BaseUrl, settings);
         });
+
+        if (fhirData.UseAuthentication)
+        {
+            services.AddHttpClient<FhirJsonClient>((provider, client) =>
+            {
+                client.BaseAddress = new Uri(fhirData.BaseUrl);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            }).AddHttpMessageHandler(o => new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData));
+        }
+        else
+        {
+            services.AddHttpClient<FhirJsonClient>((provider, client) =>
+            {
+                client.BaseAddress = new Uri(fhirData.BaseUrl);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+        }
 
         return services;
     }

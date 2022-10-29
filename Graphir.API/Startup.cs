@@ -21,10 +21,7 @@ public class Startup
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
-    {
-        var fhirConfig = new FhirDataConnection();
-        Configuration.Bind("FhirConnection", fhirConfig);
-        
+    {        
         services.AddCors(o =>
             o.AddDefaultPolicy(b =>
                 b.AllowAnyHeader()
@@ -48,15 +45,10 @@ public class Startup
         // Call extension method to configure a scoped instance of FhirService
         services.AddFhirService(() =>
         {
+            var fhirConfig = new FhirDataConnection();
+            Configuration.Bind("FhirConnection", fhirConfig);
             return fhirConfig;
-        });
-
-        services.AddHttpClient<FhirJsonClient>((provider, client) =>
-        {
-            client.BaseAddress = new Uri(fhirConfig.BaseUrl);
-        });
-            // add this to 'AddHttpClient' when OBO flow to AAD is desired
-            //.AddHttpMessageHandler(o => new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirConfig));
+        });        
 
         // Need to register query and mutation types here for constructor scoped-service DI
         services.AddScopedServices();
