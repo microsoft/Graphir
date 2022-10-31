@@ -42,6 +42,7 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
 
     protected override void Configure(IObjectTypeDescriptor<Appointment.ParticipantComponent> descriptor)
     {
+        descriptor.Name("AppointmentParticipantComponent");
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(x => x.Type).Type<CodeableConceptType>();
