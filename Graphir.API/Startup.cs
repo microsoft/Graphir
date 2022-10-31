@@ -1,12 +1,12 @@
 using Graphir.API.Extensions;
 using Graphir.API.Services;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using System;
 
 namespace Graphir.API;
 
@@ -21,7 +21,7 @@ public class Startup
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
-    {
+    {        
         services.AddCors(o =>
             o.AddDefaultPolicy(b =>
                 b.AllowAnyHeader()
@@ -45,10 +45,10 @@ public class Startup
         // Call extension method to configure a scoped instance of FhirService
         services.AddFhirService(() =>
         {
-            var fhir = new FhirDataConnection();
-            Configuration.Bind("FhirConnection", fhir);
-            return fhir;
-        });
+            var fhirConfig = new FhirDataConnection();
+            Configuration.Bind("FhirConnection", fhirConfig);
+            return fhirConfig;
+        });        
 
         // Need to register query and mutation types here for constructor scoped-service DI
         services.AddScopedServices();
