@@ -2,6 +2,8 @@ param serverfarm_name string = '${uniqueString(resourceGroup().id)}-appsvc'
 param appservice_name string = '${uniqueString(resourceGroup().id)}-api'
 param location string = resourceGroup().location
 param sku string = 'F1'
+param fhirBaseUrl string
+param useAADAuthentication bool
 @secure()
 param clientsecret string
 
@@ -26,6 +28,14 @@ resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
         {
           name: 'AzureAd:ClientSecret'
           value: clientsecret
+        }
+        {
+          name: 'FhirConnection:BaseUrl'
+          value: fhirBaseUrl
+        }
+        {
+          name: 'FhirConnection:UseAuthentication'
+          value: useAADAuthentication ? 'true' : 'false'
         }
       ]
     }
