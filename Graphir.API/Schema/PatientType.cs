@@ -106,7 +106,7 @@ public class PatientGeneralPractitionerReferenceType : UnionType
         descriptor.Name("PatientGeneralPractitionerReference");
         descriptor.Type<OrganizationType>();
         descriptor.Type<PractitionerType>();
-        //descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<PractitionerRoleType>();
     }
 }
 
