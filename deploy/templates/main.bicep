@@ -1,6 +1,8 @@
 param appServiceName string = '${uniqueString(resourceGroup().id)}-appsvc'
 param webappName string = '${uniqueString(resourceGroup().id)}-api'
 param location string = resourceGroup().location
+param fhirBaseUrl string = 'http://hapi.fhir.org/baseR4'
+param useAADAuthentication bool = false
 param sku string = 'F1'
 
 @secure()
@@ -13,6 +15,8 @@ module appService 'appservice.bicep' = {
     serverfarm_name: appServiceName
     location: location
     sku: sku
+    fhirBaseUrl: fhirBaseUrl
+    useAADAuthentication: useAADAuthentication
     clientsecret: graphirAPIClientSecret
   }
 }
