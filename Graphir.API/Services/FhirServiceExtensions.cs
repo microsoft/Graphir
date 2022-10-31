@@ -26,7 +26,8 @@ internal static class FhirServiceExtensions
             var handler = new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData);
             handler.InnerHandler = new HttpClientHandler();
 
-            var client = new FhirClient(fhirData.BaseUrl, settings, handler);
+            var client = new FhirClient(fhirData.BaseUrl, settings);
+           // var client = new FhirClient(fhirData.BaseUrl, settings, handler);
                         
             return client;
         });
