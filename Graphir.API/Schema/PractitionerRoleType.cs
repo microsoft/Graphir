@@ -1,163 +1,12 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
+using static Hl7.Fhir.Model.PractitionerRole;
+using Time = Hl7.Fhir.ElementModel.Types.Time;
 
 namespace Graphir.API.Schema;
 
 public class PractitionerRoleType : ObjectType<PractitionerRole>
 {
-  /*
-   TODO: finish PractitionerRole
-   type PractitionerRole {
-    id: ID
-    meta: Meta
-    implicitRules: uri  _implicitRules: ElementBase
-    language: code  _language: ElementBase
-    text: Narrative
-    contained: [Resource]
-    extension: [Extension]
-    modifierExtension: [Extension]
-    identifier: [Identifier]
-    active: Boolean  _active: ElementBase
-    period: Period
-    practitioner: Reference
-    organization: Reference
-    code: [CodeableConcept]
-    specialty: [CodeableConcept]
-    location: [Reference]
-    healthcareService: [Reference]
-    telecom: [ContactPoint]
-    availableTime: [PractitionerRoleAvailableTime]
-    notAvailable: [PractitionerRoleNotAvailable]
-    availabilityExceptions: String  _availabilityExceptions: ElementBase
-    endpoint: [Reference]
-    }
-
-    type PractitionerRoleAvailableTime {
-    id: ID
-    extension: [Extension]
-    modifierExtension: [Extension]
-    daysOfWeek: code  _daysOfWeek: [ElementBase]
-    allDay: Boolean  _allDay: ElementBase
-    availableStartTime: time  _availableStartTime: ElementBase
-    availableEndTime: time  _availableEndTime: ElementBase
-    }
-
-    type PractitionerRoleNotAvailable {
-    id: ID
-    extension: [Extension]
-    modifierExtension: [Extension]
-    description: String  _description: ElementBase
-    during: Period
-    }
-
-    input PractitionerRoleInput {
-    id: ID
-    meta: MetaInput
-    implicitRules: uri  _implicitRules: ElementBaseInput
-    language: code  _language: ElementBaseInput
-    text: NarrativeInput
-    contained: [ResourceInput]
-    extension: [ExtensionInput]
-    modifierExtension: [ExtensionInput]
-    identifier: [IdentifierInput]
-    active: Boolean  _active: ElementBaseInput
-    period: PeriodInput
-    practitioner: ReferenceInput
-    organization: ReferenceInput
-    code: [CodeableConceptInput]
-    specialty: [CodeableConceptInput]
-    location: [ReferenceInput]
-    healthcareService: [ReferenceInput]
-    telecom: [ContactPointInput]
-    availableTime: [PractitionerRoleAvailableTimeInput]
-    notAvailable: [PractitionerRoleNotAvailableInput]
-    availabilityExceptions: String  _availabilityExceptions: ElementBaseInput
-    endpoint: [ReferenceInput]
-    }
-
-    input PractitionerRoleAvailableTimeInput {
-    id: ID
-    extension: [ExtensionInput]
-    modifierExtension: [ExtensionInput]
-    daysOfWeek: code  _daysOfWeek: [ElementBaseInput]
-    allDay: Boolean  _allDay: ElementBaseInput
-    availableStartTime: time  _availableStartTime: ElementBaseInput
-    availableEndTime: time  _availableEndTime: ElementBaseInput
-    }
-
-    input PractitionerRoleNotAvailableInput {
-    id: ID
-    extension: [ExtensionInput]
-    modifierExtension: [ExtensionInput]
-    description: String  _description: ElementBaseInput
-    during: PeriodInput
-    }
-
-    type PractitionerRoleReadType {
-    PractitionerRole(id: ID!): PractitionerRole
-    }
-
-    type PractitionerRoleListType {
-    PractitionerRoleList(_filter: String
-      active: [token]
-      date: [date]
-      email: [token]
-      endpoint: [reference]
-      identifier: [token]
-      location: [reference]
-      organization: [reference]
-      phone: [token]
-      practitioner: [reference]
-      role: [token]
-      service: [reference]
-      specialty: [token]
-      telecom: [token]
-      _text: [special]
-      _content: [special]
-      _id: [token]
-      _lastUpdated: [date]
-      _list: [special]
-      _profile: [reference]
-      _query: [special]
-      _security: [token]
-      _source: [uri]
-      _tag: [token]
-      _sort: String
-      _count: Int
-      _cursor: String): [PractitionerRole]
-    }
-
-    type PractitionerRoleConnectionType {
-    PractitionerRoleConnection(_filter: String
-      active: [token]
-      date: [date]
-      email: [token]
-      endpoint: [reference]
-      identifier: [token]
-      location: [reference]
-      organization: [reference]
-      phone: [token]
-      practitioner: [reference]
-      role: [token]
-      service: [reference]
-      specialty: [token]
-      telecom: [token]
-      _text: [special]
-      _content: [special]
-      _id: [token]
-      _lastUpdated: [date]
-      _list: [special]
-      _profile: [reference]
-      _query: [special]
-      _security: [token]
-      _source: [uri]
-      _tag: [token]
-      _sort: String
-      _count: Int
-      _cursor: String): PractitionerRoleConnection
-    }
-   */
-  
     protected override void Configure(IObjectTypeDescriptor<PractitionerRole> descriptor)
     {
         descriptor.BindFieldsExplicitly();
@@ -165,14 +14,14 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
         descriptor.Field(p => p.Id);
         descriptor.Field(p => p.Meta);
         descriptor.Field(p => p.ImplicitRulesElement);
-        descriptor.Field(p => p.LanguageElement);
-        descriptor.Field(p => p.Text);
+        descriptor.Field(p => p.LanguageElement).Type<CodeType>();
+        descriptor.Field(p => p.Text).Type<NarrativeType>();
         descriptor.Field(p => p.Contained);
         descriptor.Field(p => p.Extension);
         descriptor.Field(p => p.ModifierExtension);
         descriptor.Field(p => p.Identifier);
-        descriptor.Field(p => p.ActiveElement);
-        descriptor.Field(p => p.Period);
+        descriptor.Field(p => p.ActiveElement).Type<BooleanType>(); //Should specify as boolean type
+        descriptor.Field(p => p.Period).Type<PeriodType>();
         descriptor.Field(p => p.Practitioner).Type<ResourceReferenceType<PractitionerReferenceType>>();
         descriptor.Field(p => p.Organization).Type<ResourceReferenceType<OrganizationReferenceType>>();
         descriptor.Field(p => p.Code);
@@ -180,10 +29,10 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
         descriptor.Field(p => p.Location).Type<ResourceReferenceType<LocationReferenceType>>();
         descriptor.Field(p => p.HealthcareService)
             .Type<ListType<ResourceReferenceType<HealthcareServiceReferenceType>>>();
-        descriptor.Field(p => p.Telecom);
+        descriptor.Field(p => p.Telecom).Type<ListType<ContactPointType>>();
         descriptor.Field(p => p.AvailableTime).Type<ListType<PractitionerRoleAvailableTimeComponentType>>();
-        descriptor.Field(p => p.NotAvailable).Type<ListType<PractitionerRoleNotAvailableComponentType>>();;
-        descriptor.Field(p => p.AvailabilityExceptionsElement);
+        descriptor.Field(p => p.NotAvailable).Type<ListType<PractitionerRoleNotAvailableComponentType>>();
+        descriptor.Field(p => p.AvailabilityExceptionsElement).Type<FhirStringType>();
         descriptor.Field(p => p.Endpoint).Type<ListType<ResourceReferenceType<EndpointReferenceType>>>();
         
     }
@@ -200,34 +49,53 @@ public class LocationReferenceType : UnionType
     }
 }
 
-public class PractitionerRoleNotAvailableComponentType : ObjectType<PractitionerRole.NotAvailableComponent>
+public class PractitionerRoleNotAvailableComponentType : ObjectType<NotAvailableComponent>
 {
-    protected override void Configure(IObjectTypeDescriptor<PractitionerRole.NotAvailableComponent> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<NotAvailableComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
+        descriptor.Name("PractitionerRoleNotAvailableComponent");
+        descriptor.Description("Not available during this time due to provided reason");
         
         descriptor.Field(p => p.ElementId);
         descriptor.Field(p => p.Extension);
         descriptor.Field(p => p.ModifierExtension);
         descriptor.Field(p => p.DescriptionElement);
-        descriptor.Field(p => p.During);
+        descriptor.Field(p => p.During).Type<PeriodType>();
         
     }
 }
 
-public class PractitionerRoleAvailableTimeComponentType : ObjectType<PractitionerRole.AvailableTimeComponent>
+public class PractitionerRoleAvailableTimeComponentType : ObjectType<AvailableTimeComponent>
 {
-    protected override void Configure(IObjectTypeDescriptor<PractitionerRole.AvailableTimeComponent> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<AvailableTimeComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
+        descriptor.Name("PractitionerRoleAvailableTimeComponent");
+        descriptor.Description("Times the Service Site is available");
         
         descriptor.Field(p => p.ElementId);
         descriptor.Field(p => p.Extension);
         descriptor.Field(p => p.ModifierExtension);
-        descriptor.Field(p => p.DaysOfWeekElement);
-        descriptor.Field(p => p.AllDayElement);
-        descriptor.Field(p => p.AvailableStartTimeElement);
-        descriptor.Field(p => p.AvailableEndTimeElement);
+        descriptor.Field(p => p.DaysOfWeekElement).Type<ListType<StringType>>();
+        descriptor.Field(p => p.AllDayElement).Type<BooleanType>();
+        descriptor.Field(p => p.AvailableStartTimeElement).Type<TimeType>();
+        descriptor.Field(p => p.AvailableEndTimeElement).Type<TimeType>();
+    }
+}
+
+public class TimeType : ObjectType<Time>
+{
+    protected override void Configure(IObjectTypeDescriptor<Time> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Name("Time");
+        descriptor.Description("Opening time of day (ignored if allDay = true)");
+
+        descriptor.Field(p => p.Hours);
+        descriptor.Field(p => p.Minutes);
+        descriptor.Field(p => p.Seconds);
+        
     }
 }
 
