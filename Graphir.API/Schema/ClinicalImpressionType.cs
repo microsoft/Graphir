@@ -163,14 +163,3 @@ public class EncounterReferenceType : UnionType
         descriptor.Type<EncounterType>();
     }
 }
-
-public class SubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("SubjectReference");
-        descriptor.Description("Patient or group assessed Reference(Patient|Group)");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
-    }
-}

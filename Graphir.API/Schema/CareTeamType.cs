@@ -19,7 +19,7 @@ public class CareTeamType : ObjectType<CareTeam>
         descriptor.Field(x => x.Status);
         descriptor.Field(x => x.Category);
         descriptor.Field(x => x.Name);
-        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<CareTeamSubjectReferenceType>>();
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Period);
         descriptor.Field(x => x.Participant).Type<ListType<CareTeamParticipantType>>();
         descriptor.Field(x => x.ReasonCode);
@@ -68,14 +68,5 @@ public class CareTeamType : ObjectType<CareTeam>
         }
     }    
 
-    private class CareTeamSubjectReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("CareTeamSubjectTypeReference");
-            descriptor.Description("Reference(Patient | Group)");
-            descriptor.Type<PatientType>();
-            descriptor.Type<GroupType>();
-        }
-    }
+    
 }

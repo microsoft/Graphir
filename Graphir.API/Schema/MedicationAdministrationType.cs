@@ -35,7 +35,7 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                     };
             });
 
-        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationAdministrationSubjectReferenceType>>();
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Request).Type<ResourceReferenceType<MedicationAdministrationRequestReferenceType>>();
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.EventHistory)
@@ -117,16 +117,6 @@ public class MedicationAdministrationMedicationReferenceType : UnionType
     {
         descriptor.Name("MedicationAdministrationMedicationReference");
         descriptor.Type<MedicationType>();
-    }
-}
-
-public class MedicationAdministrationSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationAdministrationSubjectReference");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
     }
 }
 

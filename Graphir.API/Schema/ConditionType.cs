@@ -22,7 +22,7 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field(c => c.Severity);
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.BodySite);
-        descriptor.Field(c => c.Subject).Type<ResourceReferenceType<ConditionSubjectReferenceType>>();
+        descriptor.Field(c => c.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(c => c.Encounter).Type<ResourceReferenceType<ConditionEncounterReferenceType>>();
         descriptor.Field(c => c.RecordedDate);
         descriptor.Field(c => c.Recorder).Type<ResourceReferenceType<ConditionRecorderReferenceType>>();
@@ -130,17 +130,6 @@ public class ConditionEvidenceType : ObjectType<Condition.EvidenceComponent>
         descriptor.Field(c => c.ModifierExtension);
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.Detail).Type<ListType<ResourceReferenceType<ConditionEvidenceDetailReferenceType>>>();
-    }
-}
-
-public class ConditionSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionSubjectReference");
-        descriptor.Description("Reference(Patient | Group)");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
     }
 }
 

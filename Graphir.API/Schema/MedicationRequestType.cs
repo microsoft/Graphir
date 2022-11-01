@@ -52,7 +52,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
             }
             return null;
         });
-        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationRequestSubjectReferenceType>>();
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
         descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<MedicationRequestSupportingInformationReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn);
@@ -152,17 +152,6 @@ public class MedicationRequestPriorPrescriptionReferenceType : UnionType
         descriptor.Name("MedicationRequestPriorPrescriptionReference");
         descriptor.Description("Reference(MedicationRequest)");
         descriptor.Type<MedicationRequestType>();
-    }
-}
-
-public class MedicationRequestSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationRequestSubjectReference");
-        descriptor.Description("Reference(Patient | Group)");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
     }
 }
 
