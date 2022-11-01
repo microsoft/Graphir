@@ -159,7 +159,7 @@ public class EncounterReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("EncounterReference");
-        descriptor.Description("Encounter created as part of ClinicalImpression Reference(Encounter)");
+        descriptor.Description("Encounter created as part of, Reference(Encounter)");
         descriptor.Type<EncounterType>();
     }
 }
