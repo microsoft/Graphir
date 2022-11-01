@@ -110,16 +110,6 @@ public class ProblemReferenceType : UnionType
     }
 }
 
-public class SupportingInfoReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("SupportingInfoReference");
-        descriptor.Description("Information supporting the clinical impression");
-        descriptor.Type<ResourceType>();
-    }
-}
-
 /*
   TODO: Need to add RiskAssessmentType
 public class PrognosisReferenceType : UnionType
@@ -151,15 +141,5 @@ public class AssessorReferenceType : UnionType
         descriptor.Description("The clinician performing the assessment. Reference(Practitioner | PractitionerRole)");
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
-    }
-}
-
-public class EncounterReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("EncounterReference");
-        descriptor.Description("Encounter created as part of ClinicalImpression Reference(Encounter)");
-        descriptor.Type<EncounterType>();
     }
 }

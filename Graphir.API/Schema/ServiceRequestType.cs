@@ -210,16 +210,6 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
         }
     }
 
-    private class SupportingInfoReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("ServiceRequestSupportingInfoReference");
-            descriptor.Description("Reference(Any)");
-            descriptor.Type<ResourceType>();
-        }
-    }
-
     private class SpecimenReferenceType : UnionType
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)

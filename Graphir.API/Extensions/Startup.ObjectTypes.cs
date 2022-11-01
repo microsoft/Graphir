@@ -36,6 +36,7 @@ internal static class FhirTypesStartup
             .AddType<MarkDownType>()
             .AddType<AgeType>()
             .AddType<MetaType>()
+            .AddType<SampledDataType>()
             ;
     }
 }

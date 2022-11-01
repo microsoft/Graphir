@@ -21,7 +21,7 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.Performer).Type<ListType<MedicationAdministrationPerformerComponentType>>();
 
         descriptor.Field(x => x.Medication)
-            .Type<CodeableReferenceType<MedicationAdministrationMedicationReferenceType>>()
+            .Type<CodeableReferenceType<MedicationReferenceType>>()
             .Resolve(context =>
             {
                 var parent = context.Parent<MedicationAdministration>();
@@ -108,15 +108,6 @@ public class MedicationAdministrationRequestReferenceType : UnionType
     {
         descriptor.Name("MedicationAdministrationRequestReference");
         descriptor.Type<MedicationRequestType>();
-    }
-}
-
-public class MedicationAdministrationMedicationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationAdministrationMedicationReference");
-        descriptor.Type<MedicationType>();
     }
 }
 

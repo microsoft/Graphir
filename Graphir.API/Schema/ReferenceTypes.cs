@@ -21,3 +21,71 @@ public class SubjectReferenceType : UnionType
         descriptor.Type<GroupType>();
     }
 }
+
+public class EncounterReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterReference");
+        descriptor.Description("Reference(Encounter)");
+        descriptor.Type<EncounterType>();
+    }
+}
+
+public class CareTeamReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("CareTeamReferenceType");
+        descriptor.Description("Reference(CareTeam)");
+        descriptor.Type<CareTeamType>();
+    }
+}
+
+public class SupportingInfoReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("CarePlanSupportingInfoReferenceType");
+        descriptor.Description("Reference(Any)");
+        descriptor.Type<ResourceType>();
+    }
+}
+
+public class ObservationReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("ObservationReferenceType");
+        descriptor.Description("Reference(Observation)");
+        descriptor.Type<ObservationType>();
+    }
+}
+
+public class MedicationReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("MedicationReference");
+        descriptor.Description("Reference(Medication)");
+        descriptor.Type<MedicationType>();
+    }
+}
+
+public class AnyReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Any)");
+        descriptor.Type<ResourceType>();
+    }
+}
+
+public class SpecimenReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Specimen)");
+        descriptor.Type<SpecimenType>();
+    }
+}

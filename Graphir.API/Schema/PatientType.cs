@@ -90,15 +90,6 @@ public class PatientLinkOtherReferenceType : UnionType
     }
 }
 
-//public class PatientManagingOrganizationReferenceType : UnionType
-//{
-//    protected override void Configure(IUnionTypeDescriptor descriptor)
-//    {
-//        descriptor.Name("PatientManagingOrganizationReference");
-//        descriptor.Type<OrganizationType>();
-//    }
-//}
-
 public class PatientGeneralPractitionerReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)

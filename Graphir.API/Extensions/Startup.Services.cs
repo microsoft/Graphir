@@ -1,7 +1,9 @@
 ﻿using Graphir.API.DataLoaders;
 using Graphir.API.Mutations;
 using Graphir.API.Queries;
+using Graphir.API.Schema;
 using Graphir.API.Services;
+using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -66,6 +68,10 @@ public static class StartupServices
             .AddClinicalImpressions()
             .AddSubstance()
             .AddCareTeam()
+            .AddGoal()
+            .AddResourceType<Observation, ObservationType>()
+            .AddResourceType<CarePlan, CarePlanType>()
+            .AddResourceType<DeviceRequest, DeviceRequestType>()
             ;
     }
 }
