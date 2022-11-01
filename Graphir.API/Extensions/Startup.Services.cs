@@ -26,8 +26,6 @@ public static class StartupServices
 #pragma warning restore CS0618
             return new FhirJsonParser(settings);
         });
-
-        //services.AddScoped<FhirJsonClient>();
     }
 
 
@@ -35,9 +33,10 @@ public static class StartupServices
         (this IServiceCollection services)
     {
         services.AddGraphQLServer()
+            .ModifyOptions(opt => opt.StrictValidation = true)
             .AddDiagnosticEventListener<ConsoleQueryLogger>()
-            .AddDataLoaders()
             .AddAuthorization()
+            .AddDataLoaders()
             .AddQueryType<Query>()
             .AddMutationType()
             .AddFhirTypes()
@@ -65,9 +64,8 @@ public static class StartupServices
             .AddServiceRequest()
             .AddSpecimen()
             .AddClinicalImpressions()
-            .ModifyOptions(opt => opt.StrictValidation = true)
             .AddSubstance()
-            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true) //Remove this line in Production
+            .AddCareTeam()
             ;
     }
 }
