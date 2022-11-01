@@ -25,7 +25,7 @@ public class PatientType : ObjectType<Patient>
         descriptor.Field(p => p.Communication);
         descriptor.Field(p => p.GeneralPractitioner)
             .Type<ListType<ResourceReferenceType<PatientGeneralPractitionerReferenceType>>>();
-        descriptor.Field(p => p.ManagingOrganization).Type<ResourceReferenceType<PatientManagingOrganizationReferenceType>>();
+        descriptor.Field(p => p.ManagingOrganization).Type<ResourceReferenceType<ManagingOrganizationReferenceType>>();
         descriptor.Field(p => p.Link);
 
         descriptor.Field("deceasedBoolean").Resolve(context =>
@@ -90,14 +90,14 @@ public class PatientLinkOtherReferenceType : UnionType
     }
 }
 
-public class PatientManagingOrganizationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("PatientManagingOrganizationReference");
-        descriptor.Type<OrganizationType>();
-    }
-}
+//public class PatientManagingOrganizationReferenceType : UnionType
+//{
+//    protected override void Configure(IUnionTypeDescriptor descriptor)
+//    {
+//        descriptor.Name("PatientManagingOrganizationReference");
+//        descriptor.Type<OrganizationType>();
+//    }
+//}
 
 public class PatientGeneralPractitionerReferenceType : UnionType
 {

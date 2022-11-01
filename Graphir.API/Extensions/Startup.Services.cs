@@ -65,6 +65,7 @@ public static class StartupServices
             .AddSpecimen()
             .AddClinicalImpressions()
             .AddSubstance()
+            .AddCareTeam()
             ;
     }
 }

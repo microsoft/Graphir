@@ -15,7 +15,9 @@ namespace Graphir.API.Services
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            request.RequestUri = new System.Uri($"{request.RequestUri?.AbsoluteUri}&_count={_settings.ResultsLimit}");
+            request.RequestUri = string.IsNullOrEmpty(request.RequestUri?.Query) ?
+                new System.Uri($"{request.RequestUri?.AbsoluteUri}?_count={_settings.ResultsLimit}") :
+                new System.Uri($"{request.RequestUri?.AbsoluteUri}&_count={_settings.ResultsLimit}");
             return await base.SendAsync(request, cancellationToken);
         }
     }

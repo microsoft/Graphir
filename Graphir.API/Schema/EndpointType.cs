@@ -18,22 +18,12 @@ public class EndpointType : ObjectType<Endpoint>
         descriptor.Field(e => e.Status);
         descriptor.Field(e => e.ConnectionType);
         descriptor.Field(e => e.Name);
-        descriptor.Field(e => e.ManagingOrganization).Type<ResourceReferenceType<EndpointManagingOrganizationReferenceType>>();
+        descriptor.Field(e => e.ManagingOrganization).Type<ResourceReferenceType<ManagingOrganizationReferenceType>>();
         descriptor.Field(e => e.Contact);
         descriptor.Field(e => e.Period);
         descriptor.Field(e => e.PayloadType);
         descriptor.Field(e => e.PayloadMimeType);
         descriptor.Field(e => e.Address);
         descriptor.Field(e => e.Header);
-    }
-}
-
-public class EndpointManagingOrganizationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("EndpointManagingOrganizationReference");
-        descriptor.Description("Reference(Organization)");
-        descriptor.Type<OrganizationType>();
     }
 }

@@ -25,7 +25,9 @@ public class FhirAuthenticatedHttpMessageHandler : DelegatingHandler
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         // Append max result size to querystring
-        request.RequestUri = new System.Uri($"{request.RequestUri?.AbsoluteUri}&_count={_fhirOptions.ResultsLimit}");
+        request.RequestUri = string.IsNullOrEmpty(request.RequestUri?.Query) ?
+                new System.Uri($"{request.RequestUri?.AbsoluteUri}?_count={_fhirOptions.ResultsLimit}") :
+                new System.Uri($"{request.RequestUri?.AbsoluteUri}&_count={_fhirOptions.ResultsLimit}");
         return await base.SendAsync(request, cancellationToken);
     }
 }
