@@ -139,6 +139,7 @@ public class PreviousReferenceType : UnionType
     {
         descriptor.Name("PreviousReference");
         descriptor.Description("Reference to last assessment");
+        
         descriptor.Type<ClinicalImpressionType>();
     }
 }
@@ -149,6 +150,7 @@ public class AssessorReferenceType : UnionType
     {
         descriptor.Name("AssessorReference");
         descriptor.Description("The clinician performing the assessment. Reference(Practitioner | PractitionerRole)");
+        
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
     }
@@ -160,6 +162,7 @@ public class EncounterReferenceType : UnionType
     {
         descriptor.Name("EncounterReference");
         descriptor.Description("Encounter created as part of, Reference(Encounter)");
+        
         descriptor.Type<EncounterType>();
     }
 }
@@ -168,9 +171,11 @@ public class SubjectReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
-        descriptor.Name("SubjectReference");
-        descriptor.Description("Patient or group assessed Reference(Patient|Group)");
+        descriptor.Name("SubjectReferenceType");
+        descriptor.Description("Patient or group assessed Reference(Patient|Group|Organization)");
+        
         descriptor.Type<PatientType>();
         descriptor.Type<GroupType>();
+        descriptor.Type<OrganizationType>();
     }
 }
