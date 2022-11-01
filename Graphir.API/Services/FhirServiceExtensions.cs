@@ -14,7 +14,9 @@ internal static class FhirServiceExtensions
         this IServiceCollection services, Func<FhirDataConnection> connection)
     {
         var fhirData = connection.Invoke();
-        
+        services.AddScoped<FhirHttpMessageHandler>();
+        services.AddScoped<FhirAuthenticatedHttpMessageHandler>();
+
         services.AddScoped(o =>
         {
             var parserSettings = ParserSettings.CreateDefault();
@@ -29,9 +31,8 @@ internal static class FhirServiceExtensions
                 ParserSettings = parserSettings
             };
 
-            var handler = new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData);
+            var handler = o.GetRequiredService<FhirAuthenticatedHttpMessageHandler>();
             handler.InnerHandler = new HttpClientHandler();
-
             return fhirData.UseAuthentication ? new FhirClient(fhirData.BaseUrl, settings, handler) : new FhirClient(fhirData.BaseUrl, settings);
         });
 
@@ -41,7 +42,7 @@ internal static class FhirServiceExtensions
             {
                 client.BaseAddress = new Uri(fhirData.BaseUrl);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-            }).AddHttpMessageHandler(o => new FhirAuthenticatedHttpMessageHandler(o.GetRequiredService<ITokenAcquisition>(), fhirData));
+            }).AddHttpMessageHandler<FhirAuthenticatedHttpMessageHandler>();
         }
         else
         {
@@ -49,7 +50,7 @@ internal static class FhirServiceExtensions
             {
                 client.BaseAddress = new Uri(fhirData.BaseUrl);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-            });
+            }).AddHttpMessageHandler<FhirHttpMessageHandler>();
         }
 
         return services;
