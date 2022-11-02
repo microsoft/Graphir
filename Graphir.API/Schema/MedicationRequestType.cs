@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -105,20 +106,8 @@ public class MedicationRequestSubstitutionType : ObjectType<MedicationRequest.Su
         descriptor.Field(m => m.Extension);
         descriptor.Field(m => m.ModifierExtension);
         descriptor.Field(m => m.Reason);
-        descriptor.Field("allowedBoolean").Type<BooleanType>().Resolve(r =>
-        {
-            var parent = r.Parent<MedicationRequest.SubstitutionComponent>();
-            return parent.Allowed is not null && parent.Allowed.TypeName == "boolean"
-                ? (FhirBoolean)parent.Allowed
-                : null;
-        });
-        descriptor.Field("allowedCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
-        {
-            var parent = r.Parent<MedicationRequest.SubstitutionComponent>();
-            return parent.Allowed is not null && parent.Allowed.TypeName == "CodeableConcept"
-                ? (CodeableConcept)parent.Allowed
-                : null;
-        });
+        descriptor.Field("allowedBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<MedicationRequest.SubstitutionComponent>().Allowed));
+        descriptor.Field("allowedCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<MedicationRequest.SubstitutionComponent>().Allowed));
     }
 }
 
@@ -128,10 +117,10 @@ public class MedicationRequestBasedOnReferenceType : UnionType
     {
         descriptor.Name("MedicationRequestBasedOnReference");
         descriptor.Description("Reference(CarePlan | MedicationRequest | ServiceRequest | ImmunizationRecommendation)");
-        //descriptor.Type<CarePlanType>();
+        descriptor.Type<CarePlanType>();
         descriptor.Type<MedicationRequestType>();
-        //descriptor.Type<ServiceRequestType>();
-        //descriptor.Type<ImmunizationRecommendationType>();
+        descriptor.Type<ServiceRequestType>();
+        descriptor.Type<ImmunizationRecommendationType>();
     }
 }
 
@@ -161,7 +150,7 @@ public class MedicationRequestInsuranceReferenceType : UnionType
     {
         descriptor.Name("InsuranceReference");
         descriptor.Type<CoverageType>();
-        //descriptor.Type<ClaimResponseType>();
+        descriptor.Type<ClaimResponseType>();
     }
 }
 
@@ -171,7 +160,7 @@ public class MedicationRequestReasonReferenceType : UnionType
     {
         descriptor.Name("ReasonReference");
         descriptor.Type<ConditionType>();
-        //descriptor.Type<ObservationType>();
+        descriptor.Type<ObservationType>();
     }
 }
 
@@ -186,7 +175,7 @@ public class MedicationRequestPerformerReferenceType : UnionType
         descriptor.Type<OrganizationType>();
         descriptor.Type<DeviceType>();
         descriptor.Type<RelatedPersonType>();
-        //descriptor.Type<CareTeamType>();
+        descriptor.Type<CareTeamType>();
     }
 }
 

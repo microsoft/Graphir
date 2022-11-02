@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -22,18 +23,8 @@ public class GoalType : ObjectType<Goal>
         descriptor.Field(x => x.Priority);
         descriptor.Field(x => x.Description);
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<GoalSubjectReferenceType>>();
-        descriptor.Field("startDate").Type<DateType>().Resolve(r =>
-        {
-            var parent = r.Parent<Goal>();
-            return parent.Start is not null && parent.Start.TypeName == "date" ?
-            (Date)parent.Start : null;
-        });
-        descriptor.Field("startCodeableConcept").Resolve(r =>
-        {
-            var parent = r.Parent<Goal>();
-            return parent.Start is not null && parent.Start.TypeName == "CodeableConcept" ?
-            (CodeableConcept)parent.Start : null;
-        });
+        descriptor.Field("startDate").Resolve(r => DataTypeResolvers.GetDateValue(r.Parent<Goal>().Start));
+        descriptor.Field("startCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Goal>().Start));
         descriptor.Field(x => x.Target).Type<ListType<GoalTargetType>>();
         descriptor.Field(x => x.StatusDate);
         descriptor.Field(x => x.StatusReason);
@@ -64,60 +55,15 @@ public class GoalType : ObjectType<Goal>
             descriptor.Field(x => x.Extension);
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Measure);
-            descriptor.Field("detailQuantity").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "Quantity" ?
-                (Quantity)parent.Detail : null;
-            });
-            descriptor.Field("detailRange").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "Range" ?
-                (Range)parent.Detail : null;
-            });
-            descriptor.Field("detailCodeableConcept").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "CodeableConcept" ?
-                (CodeableConcept)parent.Detail : null;
-            });
-            descriptor.Field("detailString").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "string" ?
-                (FhirString)parent.Detail : null;
-            });
-            descriptor.Field("detailBoolean").Type<BooleanType>().Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "boolean" ?
-                (FhirBoolean)parent.Detail : null;
-            });
-            descriptor.Field("detailInteger").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "integer" ?
-                ((Integer)parent.Detail).Value : null;
-            });
-            descriptor.Field("detailRatio").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Detail is not null && parent.Detail.TypeName == "Ratio" ?
-                (Ratio)parent.Detail : null;
-            });
-            descriptor.Field("dueDate").Type<DateType>().Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Due is not null && parent.Due.TypeName == "date" ?
-                (Date)parent.Due : null;
-            });
-            descriptor.Field("dueDuration").Resolve(r =>
-            {
-                var parent = r.Parent<Goal.TargetComponent>();
-                return parent.Due is not null && parent.Due.TypeName == "Duration" ?
-                (Duration)parent.Due : null;
-            });
+            descriptor.Field("detailQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("detailRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("detailCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("detailString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("detailBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("detailInteger").Resolve(r => DataTypeResolvers.GetIntegerValue(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("detailRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<Goal.TargetComponent>().Detail));
+            descriptor.Field("dueDate").Resolve(r => DataTypeResolvers.GetDateValue(r.Parent<Goal.TargetComponent>().Due));
+            descriptor.Field("dueDuration").Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<Goal.TargetComponent>().Due));
         }
     }
 

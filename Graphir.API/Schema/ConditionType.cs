@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -31,78 +32,17 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field(c => c.Evidence).Type<ListType<ConditionEvidenceType>>();
         descriptor.Field(c => c.Note);
 
-        descriptor.Field("onsetDateTime").Type<DateTimeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "dateTime"
-                ? (FhirDateTime)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetAge").Type<AgeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Age"
-                ? (Age)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetPeriod").Type<PeriodType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Period"
-                ? (Period)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Range"
-                ? (Range)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetString").Type<StringType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "string"
-                ? parent.Onset.ToString()
-                : null;
-        });
+        descriptor.Field("onsetDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetAge").Resolve(r => DataTypeResolvers.GetValue<Age>(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetPeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Onset));
 
-        descriptor.Field("abatementDateTime").Type<DateTimeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "dateTime"
-                ? (FhirDateTime)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementAge").Type<AgeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Age"
-                ? (Age)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementPeriod").Type<PeriodType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Period"
-                ? (Period)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Range"
-                ? (Range)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementString").Type<StringType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "string"
-                ? parent.Onset.ToString()
-                : null;
-        });
-
+        descriptor.Field("abatementDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementAge").Resolve(r => DataTypeResolvers.GetValue<Age>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementPeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Abatement));
     }
 }
 

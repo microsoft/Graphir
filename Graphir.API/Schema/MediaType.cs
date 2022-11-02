@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -16,18 +17,8 @@ public class MediaType : ObjectType<Media>
         descriptor.Field(x => x.BasedOn).Type<ListType<ResourceReferenceType<MediaBasedOnReferenceType>>>();
         descriptor.Field(x => x.BodySite);
         descriptor.Field(x => x.Content);
-        descriptor.Field("createdDateTime").Type<DateTimeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Media>();
-            return parent.Created is not null && parent.Created.TypeName == "dateTime" ?
-                (FhirDateTime)parent.Created : null;
-        });
-        descriptor.Field("createdPeriod").Resolve(r =>
-        {
-            var parent = r.Parent<Media>();
-            return parent.Created is not null && parent.Created.TypeName == "Period" ?
-                (Period)parent.Created : null;
-        });
+        descriptor.Field("createdDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Media>().Created));
+        descriptor.Field("createdPeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Media>().Created));
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.DeviceName);
         descriptor.Field(x => x.Duration);

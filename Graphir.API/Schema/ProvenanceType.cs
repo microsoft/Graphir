@@ -62,36 +62,6 @@ public class CodeType : ObjectType<Code>
     }
 }
 
-public class FhirUriType : ObjectType<FhirUri>
-{
-    protected override void Configure(IObjectTypeDescriptor<FhirUri> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(p => p.Value);
-        descriptor.Field(p => p.Extension);
-    }
-}
-
-public class SignatureType : ObjectType<Signature>
-{
-    protected override void Configure(IObjectTypeDescriptor<Signature> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(p => p.Type);
-        descriptor.Field(p => p.When);
-        descriptor.Field(p => p.Who);
-        descriptor.Field(p => p.OnBehalfOf);
-        descriptor.Field(p => p.TargetFormat);
-        descriptor.Field(p => p.SigFormat);
-        descriptor.Field(p => p.Data);
-        descriptor.Field(p => p.Extension);
-        descriptor.Field(p => p.TypeName);
-        descriptor.Field(p => p.ElementId);
-    }
-}
-
 public class ProvenanceEntityComponentType : ObjectType<Provenance.EntityComponent>
 {
     protected override void Configure(IObjectTypeDescriptor<Provenance.EntityComponent> descriptor)

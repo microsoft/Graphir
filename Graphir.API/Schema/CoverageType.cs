@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -47,22 +48,8 @@ public class CoverageCostToBeneficiaryType : ObjectType<Coverage.CostToBeneficia
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(c => c.Type);
-        descriptor.Field("valueQuantity").Type<QuantityType>()
-            .Resolve(r =>
-            {
-                var parent = r.Parent<Coverage.CostToBeneficiaryComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "SimpleQuantity"
-                    ? (Quantity)parent.Value
-                    : null;
-            });
-        descriptor.Field("valueMoney").Type<MoneyType>()
-            .Resolve(r =>
-            {
-                var parent = r.Parent<Coverage.CostToBeneficiaryComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "Money"
-                    ? (Money)parent.Value
-                    : null;
-            });
+        descriptor.Field("valueQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Coverage.CostToBeneficiaryComponent>().Value));
+        descriptor.Field("valueMoney").Resolve(r => DataTypeResolvers.GetValue<Money>(r.Parent<Coverage.CostToBeneficiaryComponent>().Value));
     }
 }
 

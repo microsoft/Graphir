@@ -1,6 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
 using Hl7.Fhir.Model;
 using HotChocolate.Types;
+using System.Text;
 
 namespace Graphir.API.Schema;
 
@@ -30,17 +31,6 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
             .ResolveWith<ResourceReferenceResolvers>(r => r.GetResourceAsync(default!, default!, default));
     }
 
-}
-
-public class ExtensionType : ObjectType<Extension>
-{
-    protected override void Configure(IObjectTypeDescriptor<Extension> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(x => x.Url);
-        //descriptor.Field(x => x.Value).Type<StringType>();
-    }
 }
 
 public class IdentifierType : ObjectType<Identifier>
@@ -237,7 +227,7 @@ public class AnnotationType : ObjectType<Annotation>
     {
         descriptor.BindFieldsExplicitly();
 
-        //descriptor.Field(x => x.Author).Type<PractitionerType>(); //TODO: resolver
+        descriptor.Field(x => x.Author).Type<PractitionerType>();
         descriptor.Field(x => x.Time);
         descriptor.Field(x => x.Text).Type<MarkDownType>();
 
@@ -307,20 +297,9 @@ public class DosageType : ObjectType<Dosage>
         descriptor.Field(x => x.MaxDosePerPeriod);
         descriptor.Field(x => x.MaxDosePerAdministration);
         descriptor.Field(x => x.MaxDosePerLifetime);
-        descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage>();
-            return parent.AsNeeded is not null && parent.AsNeeded.TypeName == "boolean"
-            ? (FhirBoolean)parent.AsNeeded
-            : null;
-        });
-        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage>();
-            return parent.AsNeeded is not null && parent.AsNeeded.TypeName == "CodeableConcept"
-            ? (CodeableConcept)parent.AsNeeded
-            : null;
-        });
+
+        descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Dosage>().AsNeeded));
+        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Dosage>().AsNeeded));
     }
 }
 
@@ -332,42 +311,11 @@ public class DoseAndRateType : ObjectType<Dosage.DoseAndRateComponent>
 
         descriptor.Field(x => x.Extension);
         descriptor.Field(x => x.Type);
-        descriptor.Field("doseRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Dose is not null && parent.Dose.TypeName == "Range"
-            ? (Range)parent.Dose
-            : null;
-        });
-        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Dose is not null && parent.Dose.TypeName == "SimpleQuantity"
-            ? (Quantity)parent.Dose
-            : null;
-        });
-        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Rate is not null && parent.Dose.TypeName == "Ratio"
-            ? (Ratio)parent.Rate
-            : null;
-        });
-        descriptor.Field("rateRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Rate is not null && parent.Dose.TypeName == "Range"
-            ? (Range)parent.Rate
-            : null;
-        });
-        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Rate is not null && parent.Dose.TypeName == "SimpleQuantity"
-            ? (Quantity)parent.Rate
-            : null;
-        });
-
+        descriptor.Field("doseRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Dose));
+        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r => DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Dose));
+        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("rateRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r => DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Rate));
     }
 }
 
@@ -419,27 +367,9 @@ public class TimingRepeatType : ObjectType<Timing.RepeatComponent>
         descriptor.Field(x => x.When);
         descriptor.Field(x => x.Offset);
 
-        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r =>
-        {
-            var parent = r.Parent<Timing.RepeatComponent>();
-            return parent.Bounds is not null && parent.Bounds.TypeName == "Duration"
-            ? (Duration)parent.Bounds
-            : null;
-        });
-        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Timing.RepeatComponent>();
-            return parent.Bounds is not null && parent.Bounds.TypeName == "Range"
-            ? (Range)parent.Bounds
-            : null;
-        });
-        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Timing.RepeatComponent>();
-            return parent.Bounds is not null && parent.Bounds.TypeName == "Period"
-            ? (Period)parent.Bounds
-            : null;
-        });
+        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Timing.RepeatComponent>().Bounds));
     }
 }
 
@@ -508,6 +438,283 @@ public class DeviceReferenceType : UnionType
     }
 }
 
+public class FhirUriType : ObjectType<FhirUri>
+{
+    protected override void Configure(IObjectTypeDescriptor<FhirUri> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(p => p.Value);
+        descriptor.Field(p => p.Extension);
+    }
+}
+
+public class FhirUrlType : ObjectType<FhirUrl>
+{
+    protected override void Configure(IObjectTypeDescriptor<FhirUrl> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+    }
+}
+
+public class Base64BinaryType : ObjectType<Base64Binary>
+{
+    protected override void Configure(IObjectTypeDescriptor<Base64Binary> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => Encoding.Default.GetString(x.Value)).Name("value");
+    }
+}
+
+public class CountType : ObjectType<Count>
+{
+    protected override void Configure(IObjectTypeDescriptor<Count> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class DistanceType : ObjectType<Distance>
+{
+    protected override void Configure(IObjectTypeDescriptor<Distance> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class SignatureType : ObjectType<Signature>
+{
+    protected override void Configure(IObjectTypeDescriptor<Signature> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(p => p.Extension);
+        descriptor.Field(p => p.Type);
+        descriptor.Field(p => p.When);
+        descriptor.Field(p => p.Who);
+        descriptor.Field(p => p.OnBehalfOf);
+        descriptor.Field(p => p.TargetFormat);
+        descriptor.Field(p => p.SigFormat);
+        descriptor.Field(p => p.Data);
+        descriptor.Field(p => p.TypeName);
+    }
+}
+
+public class ContactDetailType : ObjectType<ContactDetail>
+{
+    protected override void Configure(IObjectTypeDescriptor<ContactDetail> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Telecom);
+    }
+}
+
+public class ContributorType : ObjectType<Contributor>
+{
+    protected override void Configure(IObjectTypeDescriptor<Contributor> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Contact);
+    }
+}
+
+public class DataRequirementType : ObjectType<DataRequirement>
+{
+    protected override void Configure(IObjectTypeDescriptor<DataRequirement> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Profile);
+        descriptor.Field("subjectCodeableConcept")
+            .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<DataRequirement>().Subject));
+        descriptor.Field("subjectReference").Type<ResourceReferenceType<GroupReferenceType>>()
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<DataRequirement>().Subject));
+        descriptor.Field(x => x.MustSupport);
+        descriptor.Field(x => x.CodeFilter).Type<DataRequirementCodeFilterType>();
+        descriptor.Field(x => x.DateFilter).Type<DataRequirementDateFilterType>();
+        descriptor.Field(x => x.Limit);
+        descriptor.Field(x => x.Sort).Type<DataRequirementSortType>();
+    }
+
+    private class DataRequirementCodeFilterType : ObjectType<DataRequirement.CodeFilterComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<DataRequirement.CodeFilterComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.Path);
+            descriptor.Field(x => x.SearchParam);
+            descriptor.Field(x => x.ValueSet);
+            descriptor.Field(x => x.Code);
+        }
+    }
+
+    private class DataRequirementDateFilterType : ObjectType<DataRequirement.DateFilterComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<DataRequirement.DateFilterComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.Path);
+            descriptor.Field(x => x.SearchParam);
+            descriptor.Field("valueDateTime")
+                .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valuePeriod")
+                .Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valueDuration")
+                .Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<DataRequirement.DateFilterComponent>().Value));
+        }
+    }
+
+    private class DataRequirementSortType : ObjectType<DataRequirement.SortComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<DataRequirement.SortComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.Path);
+            descriptor.Field(x => x.Direction);
+        }
+    }
+}
+
+public class GroupReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Group)");
+        descriptor.Type<GroupType>();
+    }
+}
+
+public class ExpressionType : ObjectType<Expression>
+{
+    protected override void Configure(IObjectTypeDescriptor<Expression> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Description);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Language);
+        descriptor.Field(x => x.Expression_).Name("expression");
+        descriptor.Field(x => x.Reference);
+    }
+}
+
+public class ParameterDefinitionType : ObjectType<ParameterDefinition>
+{
+    protected override void Configure(IObjectTypeDescriptor<ParameterDefinition> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Use);
+        descriptor.Field(x => x.Min);
+        descriptor.Field(x => x.Max);
+        descriptor.Field(x => x.Documentation);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Profile);
+    }
+}
+
+public class RelatedArtifactType : ObjectType<RelatedArtifact>
+{
+    protected override void Configure(IObjectTypeDescriptor<RelatedArtifact> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Label);
+        descriptor.Field(x => x.Display);
+        descriptor.Field(x => x.Citation);
+        descriptor.Field(x => x.Document);
+        descriptor.Field(x => x.Resource);
+        descriptor.Field(x => x.Url);
+    }
+}
+
+public class TriggerDefinitionType : ObjectType<TriggerDefinition>
+{
+    protected override void Configure(IObjectTypeDescriptor<TriggerDefinition> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Name);
+        descriptor.Field("timingTiming")
+            .Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field("timingReference").Type<ResourceReferenceType<ScheduleReferenceType>>()
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field("timingDate")
+            .Resolve(r => DataTypeResolvers.GetDateValue(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field("timingDateTime")
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field(x => x.Data);
+        descriptor.Field(x => x.Condition);
+    }
+}
+
+public class ScheduleReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Schedule)");
+        descriptor.Type<ScheduleType>();
+    }
+}
+
+public class UsageContextType : ObjectType<UsageContext>
+{
+    protected override void Configure(IObjectTypeDescriptor<UsageContext> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Code);
+        descriptor.Field("valueCodeableConcept")
+            .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<UsageContext>().Value));
+        descriptor.Field("valueQuantity")
+            .Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<UsageContext>().Value));
+        descriptor.Field("valueRange")
+            .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<UsageContext>().Value));
+        descriptor.Field("valueReference").Type<ResourceReferenceType<UsageContextValueReferenceType>>()
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<UsageContext>().Value));
+    }
+
+    private class UsageContextValueReferenceType : UnionType
+    {
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Description("Reference(PlanDefinition | ResearchStudy | InsurancePlan | HealthcareService | Group | Location | Organization)");
+            descriptor.Type<PlanDefinitionType>();
+            descriptor.Type<ResearchStudyType>();
+            descriptor.Type<InsurancePlanType>();
+            descriptor.Type<HealthcareServiceType>();
+            descriptor.Type<GroupType>();
+            descriptor.Type<LocationType>();
+            descriptor.Type<OrganizationType>();
+        }
+    }
+}
 
 #region Interfaces
 
