@@ -37,6 +37,7 @@ internal static class FhirTypesStartup
             .AddType<AgeType>()
             .AddType<MetaType>()
             .AddType<SampledDataType>()
+            .AddType<MediaType>()
             ;
     }
 }

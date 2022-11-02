@@ -75,7 +75,7 @@ public class ObservationType : ObjectType<Observation>
         descriptor.Field(x => x.BodySite);
         descriptor.Field(x => x.Method);
         descriptor.Field(x => x.Specimen).Type<ResourceReferenceType<SpecimenReferenceType>>();
-        descriptor.Field(x => x.Device).Type<ResourceReferenceType<ObservationDeviceReferenceType>>();
+        descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.ReferenceRange).Type<ListType<ObservationReferenceRangeType>>();
         descriptor.Field(x => x.HasMember).Type<ListType<ResourceReferenceType<ObservationHasMemberReferenceType>>>();
         descriptor.Field(x => x.DerivedFrom).Type<ListType<ResourceReferenceType<ObservationDerivedFromReferenceType>>>();
@@ -142,11 +142,11 @@ public class ObservationType : ObjectType<Observation>
             descriptor.Name("ObservationPartOfReference");
             descriptor.Description("Reference(MedicationAdministration | MedicationDispense | MedicationStatement | Procedure | Immunization | ImagingStudy)");
             descriptor.Type<MedicationAdministrationType>();
-            //descriptor.Type<MedicationDispenseType>();
+            descriptor.Type<MedicationDispenseType>();
             descriptor.Type<MedicationStatementType>();
-            //descriptor.Type<ProcedureType>();
-            //descriptor.Type<ImmunizationType>();
-            //descriptor.Type<ImagingStudyType>();
+            descriptor.Type<ProcedureType>();
+            descriptor.Type<ImmunizationType>();
+            descriptor.Type<ImagingStudyType>();
         }
     }
 
@@ -161,7 +161,7 @@ public class ObservationType : ObjectType<Observation>
             descriptor.Type<DeviceType>();
             descriptor.Type<LocationType>();
             descriptor.Type<OrganizationType>();
-            //descriptor.Type<ProcedureType>();
+            descriptor.Type<ProcedureType>();
             descriptor.Type<PractitionerType>();
             descriptor.Type<MedicationType>();
             descriptor.Type<SubstanceType>();
@@ -180,16 +180,6 @@ public class ObservationType : ObjectType<Observation>
             descriptor.Type<CareTeamType>();
             descriptor.Type<PatientType>();
             descriptor.Type<RelatedPersonType>();
-        }
-    }
-
-    private class ObservationDeviceReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Description("Reference(Device | DeviceMetric)");
-            descriptor.Type<DeviceType>();
-            //descriptor.Type<DeviceMetricType>();
         }
     }
 
@@ -216,8 +206,8 @@ public class ObservationType : ObjectType<Observation>
             descriptor.Name("ObservationHasMemberReference");
             descriptor.Description("Reference(Observation | QuestionnaireResponse | MolecularSequence)");
             descriptor.Type<ObservationType>();
-            //descriptor.Type<QuestionnaireResponseType>();
-            //descriptor.Type<MolecularSequenceType>();
+            descriptor.Type<QuestionnaireResponseType>();
+            descriptor.Type<MolecularSequenceType>();
         }
     }
 
@@ -227,12 +217,12 @@ public class ObservationType : ObjectType<Observation>
         {
             descriptor.Name("ObservationDerivedFromReference");
             descriptor.Description("Reference(DocumentReference | ImagingStudy | Media | QuestionnaireResponse | Observation | MolecularSequence)");
-            //descriptor.Type<DocumentReferenceType>();
-            //descriptor.Type<ImagingStudyType>();
-            //descriptor.Type<MediaType>();
-            //descriptor.Type<QuestionnaireResponseType>();
+            descriptor.Type<DocumentReferenceType>();
+            descriptor.Type<ImagingStudyType>();
+            descriptor.Type<MediaType>();
+            descriptor.Type<QuestionnaireResponseType>();
             descriptor.Type<ObservationType>();
-            //descriptor.Type<MolecularSequenceType>();
+            descriptor.Type<MolecularSequenceType>();
         }
     }
 

@@ -113,12 +113,3 @@ public class UdiCarrierComponentType : ObjectType<Device.UdiCarrierComponent>
         descriptor.Field(x => x.EntryType);
     }
 }
-
-public class DeviceReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("DeviceReference");
-        descriptor.Type<DeviceType>();
-    }
-}
