@@ -9,7 +9,6 @@ namespace Graphir.API.Schema;
 
 public class ObservationType : ObjectType<Observation>
 {
-    // TODO: finish Observation
     protected override void Configure(IObjectTypeDescriptor<Observation> descriptor)
     {
         descriptor.BindFieldsExplicitly();
@@ -30,46 +29,27 @@ public class ObservationType : ObjectType<Observation>
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<ObservationSubjectReferenceType>>();
         descriptor.Field(x => x.Focus).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<EncounterReferenceType>>();
-        descriptor.Field("effectiveDateTime").Type<DateTimeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Observation>();
-            return parent.Effective is not null && parent.Effective.TypeName == "dateTime" ?
-            (FhirDateTime)parent.Effective : null;
-        });
-        descriptor.Field("effectivePeriod").Resolve(r =>
-        {
-            var parent = r.Parent<Observation>();
-            return parent.Effective is not null && parent.Effective.TypeName == "Period" ?
-            (Period)parent.Effective : null;
-        });
-        descriptor.Field("effectiveTiming").Resolve(r =>
-        {
-            var parent = r.Parent<Observation>();
-            return parent.Effective is not null && parent.Effective.TypeName == "Timing" ?
-            (Timing)parent.Effective : null;
-        });
-        descriptor.Field("effectiveInstant").Resolve(r =>
-        {
-            var parent = r.Parent<Observation>();
-            return parent.Effective is not null && parent.Effective.TypeName == "Instant" ?
-            (Instant)parent.Effective : null;
-        });
+        descriptor.Field("effectiveDateTime").Type<DateTimeType>()
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Observation>().Effective));
+        descriptor.Field("effectivePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Observation>().Effective));
+        descriptor.Field("effectiveTiming").Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<Observation>().Effective));
+        descriptor.Field("effectiveInstant").Resolve(r => DataTypeResolvers.GetInstantValue(r.Parent<Observation>().Effective));
         descriptor.Field(x => x.Issued);
         descriptor.Field(x => x.Performer).Type<ListType<ResourceReferenceType<ObservationPerformerReferenceType>>>();
-        descriptor.Field("valueQuantity").Resolve(r => ValueResolvers.GetValue<Quantity>(r.Parent<Observation>().Value));
-        descriptor.Field("valueCodeableConcept").Resolve(r => ValueResolvers.GetValue<CodeableConcept>(r.Parent<Observation>().Value));
-        descriptor.Field("valueString").Resolve(r => ValueResolvers.GetStringValue(r.Parent<Observation>().Value));
+        descriptor.Field("valueQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Observation>().Value));
+        descriptor.Field("valueCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Observation>().Value));
+        descriptor.Field("valueString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Observation>().Value));
         descriptor.Field("valueBoolean").Type<BooleanType>()
-            .Resolve(r => ValueResolvers.GetBooleanValue(r.Parent<Observation>().Value));
-        descriptor.Field("valueInteger").Resolve(r => ValueResolvers.GetIntegerValue(r.Parent<Observation>().Value));
-        descriptor.Field("valueRange").Resolve(r => ValueResolvers.GetValue<Range>(r.Parent<Observation>().Value));
-        descriptor.Field("valueRatio").Resolve(r => ValueResolvers.GetValue<Ratio>(r.Parent<Observation>().Value));
-        descriptor.Field("valueSampledData").Resolve(r => ValueResolvers.GetValue<SampledData>(r.Parent<Observation>().Value));
-        descriptor.Field("valueTime").Resolve(r => ValueResolvers.GetTimeValue(r.Parent<Observation>().Value));
+            .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Observation>().Value));
+        descriptor.Field("valueInteger").Resolve(r => DataTypeResolvers.GetIntegerValue(r.Parent<Observation>().Value));
+        descriptor.Field("valueRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Observation>().Value));
+        descriptor.Field("valueRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<Observation>().Value));
+        descriptor.Field("valueSampledData").Resolve(r => DataTypeResolvers.GetValue<SampledData>(r.Parent<Observation>().Value));
+        descriptor.Field("valueTime").Resolve(r => DataTypeResolvers.GetTimeValue(r.Parent<Observation>().Value));
         descriptor.Field("valueDateTime").Type<DateTimeType>()
-            .Resolve(r => ValueResolvers.GetDateTimeValue(r.Parent<Observation>().Value));
-        descriptor.Field("valuePeriod").Resolve(r => ValueResolvers.GetValue<Period>(r.Parent<Observation>().Value));
-        descriptor.Field("valueAttachment").Resolve(r => ValueResolvers.GetValue<Attachment>(r.Parent<Observation>().Value));
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Observation>().Value));
+        descriptor.Field("valuePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Observation>().Value));
+        descriptor.Field("valueAttachment").Resolve(r => DataTypeResolvers.GetValue<Attachment>(r.Parent<Observation>().Value));
         descriptor.Field(x => x.DataAbsentReason);
         descriptor.Field(x => x.Interpretation);
         descriptor.Field(x => x.Note);
@@ -198,20 +178,20 @@ public class ObservationType : ObjectType<Observation>
             descriptor.Field(x => x.Extension);
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Code);
-            descriptor.Field("valueQuantity").Resolve(r => ValueResolvers.GetValue<Quantity>(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueCodeableConcept").Resolve(r => ValueResolvers.GetValue<CodeableConcept>(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueString").Resolve(r => ValueResolvers.GetStringValue(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Observation.ComponentComponent>().Value));
             descriptor.Field("valueBoolean").Type<BooleanType>()
-                .Resolve(r => ValueResolvers.GetBooleanValue(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueInteger").Resolve(r => ValueResolvers.GetIntegerValue(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueRange").Resolve(r => ValueResolvers.GetValue<Range>(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueRatio").Resolve(r => ValueResolvers.GetValue<Ratio>(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueSampledData").Resolve(r => ValueResolvers.GetValue<SampledData>(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueTime").Resolve(r => ValueResolvers.GetTimeValue(r.Parent<Observation.ComponentComponent>().Value));
+                .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueInteger").Resolve(r => DataTypeResolvers.GetIntegerValue(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueSampledData").Resolve(r => DataTypeResolvers.GetValue<SampledData>(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueTime").Resolve(r => DataTypeResolvers.GetTimeValue(r.Parent<Observation.ComponentComponent>().Value));
             descriptor.Field("valueDateTime").Type<DateTimeType>()
-                .Resolve(r => ValueResolvers.GetDateTimeValue(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valuePeriod").Resolve(r => ValueResolvers.GetValue<Period>(r.Parent<Observation.ComponentComponent>().Value));
-            descriptor.Field("valueAttachment").Resolve(r => ValueResolvers.GetValue<Attachment>(r.Parent<Observation.ComponentComponent>().Value));
+                .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valuePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Observation.ComponentComponent>().Value));
+            descriptor.Field("valueAttachment").Resolve(r => DataTypeResolvers.GetValue<Attachment>(r.Parent<Observation.ComponentComponent>().Value));
             descriptor.Field(x => x.DataAbsentReason);
             descriptor.Field(x => x.Interpretation);
             descriptor.Field(x => x.ReferenceRange).Type<ListType<ObservationReferenceRangeType>>();

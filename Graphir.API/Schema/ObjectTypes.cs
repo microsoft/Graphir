@@ -226,7 +226,7 @@ public class AnnotationType : ObjectType<Annotation>
     {
         descriptor.BindFieldsExplicitly();
 
-        //descriptor.Field(x => x.Author).Type<PractitionerType>(); //TODO: resolver
+        descriptor.Field(x => x.Author).Type<PractitionerType>();
         descriptor.Field(x => x.Time);
         descriptor.Field(x => x.Text).Type<MarkDownType>();
 
@@ -296,20 +296,9 @@ public class DosageType : ObjectType<Dosage>
         descriptor.Field(x => x.MaxDosePerPeriod);
         descriptor.Field(x => x.MaxDosePerAdministration);
         descriptor.Field(x => x.MaxDosePerLifetime);
-        descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage>();
-            return parent.AsNeeded is not null && parent.AsNeeded.TypeName == "boolean"
-            ? (FhirBoolean)parent.AsNeeded
-            : null;
-        });
-        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage>();
-            return parent.AsNeeded is not null && parent.AsNeeded.TypeName == "CodeableConcept"
-            ? (CodeableConcept)parent.AsNeeded
-            : null;
-        });
+
+        descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Dosage>().AsNeeded));
+        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Dosage>().AsNeeded));
     }
 }
 
@@ -321,42 +310,11 @@ public class DoseAndRateType : ObjectType<Dosage.DoseAndRateComponent>
 
         descriptor.Field(x => x.Extension);
         descriptor.Field(x => x.Type);
-        descriptor.Field("doseRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Dose is not null && parent.Dose.TypeName == "Range"
-            ? (Range)parent.Dose
-            : null;
-        });
-        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Dose is not null && parent.Dose.TypeName == "SimpleQuantity"
-            ? (Quantity)parent.Dose
-            : null;
-        });
-        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Rate is not null && parent.Dose.TypeName == "Ratio"
-            ? (Ratio)parent.Rate
-            : null;
-        });
-        descriptor.Field("rateRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Rate is not null && parent.Dose.TypeName == "Range"
-            ? (Range)parent.Rate
-            : null;
-        });
-        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
-        {
-            var parent = r.Parent<Dosage.DoseAndRateComponent>();
-            return parent.Rate is not null && parent.Dose.TypeName == "SimpleQuantity"
-            ? (Quantity)parent.Rate
-            : null;
-        });
-
+        descriptor.Field("doseRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Dose));
+        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r => DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Dose));
+        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("rateRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r => DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Rate));
     }
 }
 
@@ -408,27 +366,9 @@ public class TimingRepeatType : ObjectType<Timing.RepeatComponent>
         descriptor.Field(x => x.When);
         descriptor.Field(x => x.Offset);
 
-        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r =>
-        {
-            var parent = r.Parent<Timing.RepeatComponent>();
-            return parent.Bounds is not null && parent.Bounds.TypeName == "Duration"
-            ? (Duration)parent.Bounds
-            : null;
-        });
-        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Timing.RepeatComponent>();
-            return parent.Bounds is not null && parent.Bounds.TypeName == "Range"
-            ? (Range)parent.Bounds
-            : null;
-        });
-        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Timing.RepeatComponent>();
-            return parent.Bounds is not null && parent.Bounds.TypeName == "Period"
-            ? (Period)parent.Bounds
-            : null;
-        });
+        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Timing.RepeatComponent>().Bounds));
     }
 }
 

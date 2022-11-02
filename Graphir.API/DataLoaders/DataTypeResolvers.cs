@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Graphir.API.DataLoaders;
 
-public class ValueResolvers
+public class DataTypeResolvers
 {
     public static T? GetValue<T>(DataType data) where T : DataType
     {
@@ -82,6 +82,12 @@ public class ValueResolvers
     {
         return data is not null && data.TypeName == "markdown" ?
             data as Markdown : null;
+    }
+
+    public static Quantity? GetSimpleQuantity(DataType data)
+    {
+        return data is not null && data.TypeName == "SimpleQuantity" ?
+            data as Quantity : null;
     }
 
     public static Oid? GetOidValue(DataType data)
