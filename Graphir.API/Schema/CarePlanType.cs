@@ -86,17 +86,7 @@ public class CarePlanType : ObjectType<CarePlan>
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Progress);
             descriptor.Field(x => x.OutcomeCodeableConcept);
-            descriptor.Field(x => x.OutcomeReference).Type<ListType<ResourceReferenceType<ActivityOutcomeReferenceType>>>();
-        }
-
-        private class ActivityOutcomeReferenceType : UnionType
-        {
-            protected override void Configure(IUnionTypeDescriptor descriptor)
-            {
-                descriptor.Name("ActivityOutcomeReferenceType");
-                descriptor.Description("Reference(Any)");
-                descriptor.Type<ResourceType>();
-            }
-        }
+            descriptor.Field(x => x.OutcomeReference).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
+        }        
     }
 }
