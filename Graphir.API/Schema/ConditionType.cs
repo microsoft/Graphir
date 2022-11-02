@@ -22,8 +22,8 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field(c => c.Severity);
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.BodySite);
-        descriptor.Field(c => c.Subject).Type<ResourceReferenceType<ConditionSubjectReferenceType>>();
-        descriptor.Field(c => c.Encounter).Type<ResourceReferenceType<ConditionEncounterReferenceType>>();
+        descriptor.Field(c => c.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
+        descriptor.Field(c => c.Encounter).Type<ResourceReferenceType<EncounterReferenceType>>();
         descriptor.Field(c => c.RecordedDate);
         descriptor.Field(c => c.Recorder).Type<ResourceReferenceType<ConditionRecorderReferenceType>>();
         descriptor.Field(c => c.Asserter).Type<ResourceReferenceType<ConditionAsserterReferenceType>>();
@@ -129,28 +129,7 @@ public class ConditionEvidenceType : ObjectType<Condition.EvidenceComponent>
         descriptor.Field(c => c.Extension);
         descriptor.Field(c => c.ModifierExtension);
         descriptor.Field(c => c.Code);
-        descriptor.Field(c => c.Detail).Type<ListType<ResourceReferenceType<ConditionEvidenceDetailReferenceType>>>();
-    }
-}
-
-public class ConditionSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionSubjectReference");
-        descriptor.Description("Reference(Patient | Group)");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
-    }
-}
-
-public class ConditionEncounterReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionEncounterReference");
-        descriptor.Description("Reference(Encounter)");
-        descriptor.Type<EncounterType>();
+        descriptor.Field(c => c.Detail).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
     }
 }
 
@@ -187,17 +166,7 @@ public class ConditionStageAssessmentReferenceType : UnionType
         descriptor.Name("ConditionStageAssessmentReference");
         descriptor.Description("Reference(ClinicalImpression | DiagnosticReport | Observation)");
         descriptor.Type<ClinicalImpressionType>();
-        //descriptor.Type<DiagnosticReportType>();
-        //descriptor.Type<ObservationType>();
-    }
-}
-
-public class ConditionEvidenceDetailReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionEvidenceDetailReference");
-        descriptor.Description("Reference(Any)");
-        descriptor.Type<ResourceType>();
+        descriptor.Type<DiagnosticReportType>();
+        descriptor.Type<ObservationType>();
     }
 }

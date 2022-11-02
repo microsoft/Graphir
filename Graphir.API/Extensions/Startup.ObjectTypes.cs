@@ -9,7 +9,7 @@ internal static class FhirTypesStartup
     public static IRequestExecutorBuilder AddFhirTypes(
         this IRequestExecutorBuilder graphBuilder)
     {
-       return  graphBuilder
+       return graphBuilder
             .AddType<ResourceType>()
             .AddType<AddressType>()
             .AddType<AttachmentType>()
@@ -36,6 +36,7 @@ internal static class FhirTypesStartup
             .AddType<MarkDownType>()
             .AddType<AgeType>()
             .AddType<MetaType>()
+            .AddType<SampledDataType>()
             ;
     }
 }

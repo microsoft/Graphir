@@ -114,12 +114,12 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
             return null;
         });
         descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<InsuranceReferenceType>>>();
-        descriptor.Field(x => x.SupportingInfo).Type<ListType<ResourceReferenceType<SupportingInfoReferenceType>>>();
+        descriptor.Field(x => x.SupportingInfo).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.Specimen).Type<ListType<ResourceReferenceType<SpecimenReferenceType>>>();
         descriptor.Field(x => x.BodySite);
         descriptor.Field(x => x.Note);
         descriptor.Field(x => x.PatientInstruction);
-        descriptor.Field(x => x.RelevantHistory).Type<ListType<ResourceReferenceType<RelevantHistoryReferenceType>>>();
+        descriptor.Field(x => x.RelevantHistory).Type<ListType<ResourceReferenceType<ProvenanceReferenceType>>>();
     }
 
     private class BasedOnReferenceType : UnionType
@@ -128,7 +128,7 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
         {
             descriptor.Name("ServiceRequestBasedOnReference");
             descriptor.Description("Reference(CarePlan | ServiceRequest | MedicationRequest)");
-            //descriptor.Type<CarePlanType>();
+            descriptor.Type<CarePlanType>();
             descriptor.Type<ServiceRequestType>();
             descriptor.Type<MedicationRequestType>();
         }
@@ -191,7 +191,7 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
             descriptor.Type<OrganizationType>();
-            //descriptor.Type<CareTeamType>();
+            descriptor.Type<CareTeamType>();
             descriptor.Type<HealthcareServiceType>();
             descriptor.Type<PatientType>();
             descriptor.Type<DeviceType>();
@@ -206,40 +206,8 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
             descriptor.Name("ServiceRequestInsuranceReference");
             descriptor.Description("Reference(Coverage | ClaimResponse)");
             descriptor.Type<CoverageType>();
-            //descriptor.Type<ClaimType>();
+            descriptor.Type<ClaimType>();
         }
     }
 
-    private class SupportingInfoReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("ServiceRequestSupportingInfoReference");
-            descriptor.Description("Reference(Any)");
-            descriptor.Type<ResourceType>();
-        }
-    }
-
-    private class SpecimenReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("ServiceRequestSpecimenReference");
-            descriptor.Description("Reference(Specimen)");
-            descriptor.Type<SpecimenType>();
-        }
-    }
-
-    private class RelevantHistoryReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("ServiceRequestRelevantHistoryReference");
-            descriptor.Description("Reference(Provenance)");
-            descriptor.Type<ProvenanceType>();
-        }
-    }
 }
-
-
-

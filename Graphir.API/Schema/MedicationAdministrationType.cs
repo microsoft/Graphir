@@ -21,7 +21,7 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.Performer).Type<ListType<MedicationAdministrationPerformerComponentType>>();
 
         descriptor.Field(x => x.Medication)
-            .Type<CodeableReferenceType<MedicationAdministrationMedicationReferenceType>>()
+            .Type<CodeableReferenceType<MedicationReferenceType>>()
             .Resolve(context =>
             {
                 var parent = context.Parent<MedicationAdministration>();
@@ -35,7 +35,7 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                     };
             });
 
-        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationAdministrationSubjectReferenceType>>();
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Request).Type<ResourceReferenceType<MedicationAdministrationRequestReferenceType>>();
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.EventHistory)
@@ -108,25 +108,6 @@ public class MedicationAdministrationRequestReferenceType : UnionType
     {
         descriptor.Name("MedicationAdministrationRequestReference");
         descriptor.Type<MedicationRequestType>();
-    }
-}
-
-public class MedicationAdministrationMedicationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationAdministrationMedicationReference");
-        descriptor.Type<MedicationType>();
-    }
-}
-
-public class MedicationAdministrationSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationAdministrationSubjectReference");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
     }
 }
 

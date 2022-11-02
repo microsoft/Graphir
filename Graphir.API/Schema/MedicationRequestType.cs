@@ -29,32 +29,22 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.Priority);
         descriptor.Field(x => x.DoNotPerform);
         descriptor.Field(x => x.Medication)
-        .Type<CodeableReferenceType<MedicationRequestMedicationReferenceType>>()
+        .Type<CodeableReferenceType<MedicationReferenceType>>()
         .Resolve(context =>
         {
             var parent = context.Parent<MedicationRequest>();
-            if (parent.Medication is null)
-                return null;
-
-            if (parent.Medication.TypeName == "CodeableConcept")
-            {
-                return new CodeableReference
+            return parent.Medication is null ?
+                null :
+                parent.Medication.TypeName switch
                 {
-                    Concept = (CodeableConcept)parent.Medication
-                };
-            }
-            if (parent.Medication.TypeName == "Reference")
-            {
-                return new CodeableReference
-                {
-                    Reference = (ResourceReference)parent.Medication
-                };
-            }
-            return null;
+                    "CodeableConcept" => new CodeableReference { Concept = parent.Medication as CodeableConcept },
+                    "Reference" => new CodeableReference { Reference = parent.Medication as ResourceReference },
+                    _ => null
+                };            
         });
-        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationRequestSubjectReferenceType>>();
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
-        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<MedicationRequestSupportingInformationReferenceType>>>();
+        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn);
         descriptor.Field(x => x.Requester).Type<ResourceReferenceType<MedicationRequestRequesterReferenceType>>();
         descriptor.Field(x => x.Reported).Type<BooleanType>().Resolve(r =>
@@ -155,17 +145,6 @@ public class MedicationRequestPriorPrescriptionReferenceType : UnionType
     }
 }
 
-public class MedicationRequestSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationRequestSubjectReference");
-        descriptor.Description("Reference(Patient | Group)");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
-    }
-}
-
 public class MedicationRequestEncounterReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
@@ -193,15 +172,6 @@ public class MedicationRequestReasonReferenceType : UnionType
         descriptor.Name("ReasonReference");
         descriptor.Type<ConditionType>();
         //descriptor.Type<ObservationType>();
-    }
-}
-
-public class MedicationRequestSupportingInformationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("SupportingInformationReference");
-        descriptor.Type<ResourceType>();
     }
 }
 
@@ -263,15 +233,5 @@ public class MedicationRequestRequesterReferenceType : UnionType
         descriptor.Type<PatientType>();
         descriptor.Type<RelatedPersonType>();
         descriptor.Type<DeviceType>();
-    }
-}
-
-public class MedicationRequestMedicationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationRequestMedicationReference");
-        descriptor.Description("Reference(Medication)");
-        descriptor.Type<MedicationType>();
     }
 }

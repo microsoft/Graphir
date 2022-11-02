@@ -482,6 +482,32 @@ public class AgeType : ObjectType<Age>
     }
 }
 
+public class SampledDataType : ObjectType<SampledData>
+{
+    protected override void Configure(IObjectTypeDescriptor<SampledData> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Origin);
+        descriptor.Field(x => x.Period);
+        descriptor.Field(x => x.Factor);
+        descriptor.Field(x => x.LowerLimit);
+        descriptor.Field(x => x.UpperLimit);
+        descriptor.Field(x => x.Dimensions);
+        descriptor.Field(x => x.Data);
+    }
+}
+
+public class DeviceReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Device | DeviceMetric)");
+        descriptor.Type<DeviceType>();
+        descriptor.Type<DeviceMetricType>();
+    }
+}
+
 
 #region Interfaces
 
