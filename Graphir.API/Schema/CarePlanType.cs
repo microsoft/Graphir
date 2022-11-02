@@ -2,6 +2,8 @@
 
 using HotChocolate.Types;
 
+using static System.StringComparison;
+
 using static Hl7.Fhir.Model.CarePlan;
 
 namespace Graphir.API.Schema;
@@ -82,19 +84,22 @@ public class CarePlanActivityDetailComponentType : ObjectType<DetailComponent>
         //descriptor.Field(x => x.Goal).Type<ListType<ResourceReferenceType<GoalReferenceType>>>();
         descriptor.Field(x => x.Status);
         descriptor.Field(x => x.StatusReason);
-        // descriptor.Field(x => x.Scheduled).Resolve(
-        //     s =>
-        //     {
-        //         var scheduled = s.Parent<DetailComponent>().Scheduled;
-        //         return scheduled.TypeName switch
-        //         {
-        //             nameof(Period) => (Period)scheduled,
-        //             nameof(FhirString) => (FhirString)scheduled,
-        //             nameof(Timing) => (Timing)scheduled,
-        //             _ => null
-        //         };
-        //     }
-        // );
+        
+        descriptor.Field("scheduledTiming").Type<TimingType>()
+            .Resolve(x=>x.Parent<DetailComponent>() is {Scheduled: Timing value} &&
+                        value.TypeName.Equals("Time", OrdinalIgnoreCase)
+                ? value : null);
+        
+        descriptor.Field("scheduledPeriod").Type<PeriodType>()
+            .Resolve(x=>x.Parent<DetailComponent>() is {Scheduled: Period value} &&
+                        value.TypeName.Equals("Period", OrdinalIgnoreCase)
+                ? value : null);
+        
+        descriptor.Field("scheduledString").Type<StringType>() 
+            .Resolve(x=>x.Parent<DetailComponent>() is {Scheduled: FhirString value} &&
+                        value.TypeName.Equals("String", OrdinalIgnoreCase)
+                ? value : null);
+
         descriptor.Field(x => x.Location).Type<ResourceReferenceType<LocationReferenceType>>();
         descriptor.Field(x => x.Performer).Type<ListType<ResourceReferenceType<PerformerReferenceType>>>();
         descriptor.Field(x => x.Kind);
@@ -111,13 +116,10 @@ public class CarePlanActivityDetailComponentType : ObjectType<DetailComponent>
 
 public class PerformerReferenceType : UnionType
 {
-     /*
-       [References(new string[] {"Practitioner", "PractitionerRole", "Organization", "RelatedPerson", "Patient", "CareTeam", "HealthcareService", "Device"})]
-     */
-     protected override void Configure(IUnionTypeDescriptor descriptor)
+    protected override void Configure(IUnionTypeDescriptor descriptor)
      {
             descriptor.Name("PerformerReferenceType");
-            descriptor.Description("Who will be responsible?");
+            descriptor.Description("Who will be responsible?. Reference(Practitioner,PractitionerRole,Organization,RelatedPerson,Patient,CareTeam,HealthcareService,Device)");
 
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
@@ -133,20 +135,17 @@ public class PerformerReferenceType : UnionType
 
 public class ReasonReferenceType : UnionType
 {
-    /*
-       [References(new string[] {"Condition", "Observation", "DiagnosticReport", "DocumentReference"})]
-     */
-
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("ReasonReferenceType");
-        descriptor.Description("Reason for current status");
+        descriptor.Description("Reason for current status. Reference(Condition,Observation,DiagnosticReport,DocumentReference)");
 
         descriptor.Type<ConditionType>();
         /* TODO: Add below types 
-         descriptor.Type<ObservationType>();
+        descriptor.Type<ObservationType>();
         descriptor.Type<DiagnosticReportType>();
-        descriptor.Type<DocumentReferenceType>();*/
+        descriptor.Type<DocumentReferenceType>();
+        */
     }
 }
 
@@ -167,6 +166,7 @@ public class GoalReferenceType : UnionType
     {
         descriptor.Name("GoalReferenceType");
         descriptor.Description("Desired outcome of plan");
+       
         //descriptor.Type<GoalType>(); TODO: Add GoalType
     }
 }
