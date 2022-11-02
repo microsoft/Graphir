@@ -62,17 +62,6 @@ public class CodeType : ObjectType<Code>
     }
 }
 
-public class FhirUriType : ObjectType<FhirUri>
-{
-    protected override void Configure(IObjectTypeDescriptor<FhirUri> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-
-        descriptor.Field(p => p.Value);
-        descriptor.Field(p => p.Extension);
-    }
-}
-
 public class SignatureType : ObjectType<Signature>
 {
     protected override void Configure(IObjectTypeDescriptor<Signature> descriptor)

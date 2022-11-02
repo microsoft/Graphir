@@ -32,8 +32,6 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
 
 }
 
-
-
 public class IdentifierType : ObjectType<Identifier>
 {
     protected override void Configure(IObjectTypeDescriptor<Identifier> descriptor)
@@ -496,6 +494,26 @@ public class DeviceReferenceType : UnionType
         descriptor.Description("Reference(Device | DeviceMetric)");
         descriptor.Type<DeviceType>();
         descriptor.Type<DeviceMetricType>();
+    }
+}
+
+public class FhirUriType : ObjectType<FhirUri>
+{
+    protected override void Configure(IObjectTypeDescriptor<FhirUri> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(p => p.Value);
+        descriptor.Field(p => p.Extension);
+    }
+}
+
+public class FhirUrlType : ObjectType<FhirUrl>
+{
+    protected override void Configure(IObjectTypeDescriptor<FhirUrl> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
     }
 }
 
