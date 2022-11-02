@@ -1,6 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
 using Hl7.Fhir.Model;
 using HotChocolate.Types;
+using System.Text;
 
 namespace Graphir.API.Schema;
 
@@ -457,6 +458,263 @@ public class FhirUrlType : ObjectType<FhirUrl>
     }
 }
 
+public class Base64BinaryType : ObjectType<Base64Binary>
+{
+    protected override void Configure(IObjectTypeDescriptor<Base64Binary> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => Encoding.Default.GetString(x.Value)).Name("value");
+    }
+}
+
+public class CountType : ObjectType<Count>
+{
+    protected override void Configure(IObjectTypeDescriptor<Count> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class DistanceType : ObjectType<Distance>
+{
+    protected override void Configure(IObjectTypeDescriptor<Distance> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Value);
+        descriptor.Field(x => x.Comparator);
+        descriptor.Field(x => x.Unit);
+        descriptor.Field(x => x.System);
+        descriptor.Field(x => x.Code);
+    }
+}
+
+public class SignatureType : ObjectType<Signature>
+{
+    protected override void Configure(IObjectTypeDescriptor<Signature> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(p => p.Extension);
+        descriptor.Field(p => p.Type);
+        descriptor.Field(p => p.When);
+        descriptor.Field(p => p.Who);
+        descriptor.Field(p => p.OnBehalfOf);
+        descriptor.Field(p => p.TargetFormat);
+        descriptor.Field(p => p.SigFormat);
+        descriptor.Field(p => p.Data);
+        descriptor.Field(p => p.TypeName);
+    }
+}
+
+public class ContactDetailType : ObjectType<ContactDetail>
+{
+    protected override void Configure(IObjectTypeDescriptor<ContactDetail> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Telecom);
+    }
+}
+
+public class ContributorType : ObjectType<Contributor>
+{
+    protected override void Configure(IObjectTypeDescriptor<Contributor> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Contact);
+    }
+}
+
+public class DataRequirementType : ObjectType<DataRequirement>
+{
+    protected override void Configure(IObjectTypeDescriptor<DataRequirement> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Profile);
+        descriptor.Field("subjectCodeableConcept")
+            .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<DataRequirement>().Subject));
+        descriptor.Field("subjectReference").Type<ResourceReferenceType<GroupReferenceType>>()
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<DataRequirement>().Subject));
+        descriptor.Field(x => x.MustSupport);
+        descriptor.Field(x => x.CodeFilter).Type<DataRequirementCodeFilterType>();
+        descriptor.Field(x => x.DateFilter).Type<DataRequirementDateFilterType>();
+        descriptor.Field(x => x.Limit);
+        descriptor.Field(x => x.Sort).Type<DataRequirementSortType>();
+    }
+
+    private class DataRequirementCodeFilterType : ObjectType<DataRequirement.CodeFilterComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<DataRequirement.CodeFilterComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.Path);
+            descriptor.Field(x => x.SearchParam);
+            descriptor.Field(x => x.ValueSet);
+            descriptor.Field(x => x.Code);
+        }
+    }
+
+    private class DataRequirementDateFilterType : ObjectType<DataRequirement.DateFilterComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<DataRequirement.DateFilterComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.Path);
+            descriptor.Field(x => x.SearchParam);
+            descriptor.Field("valueDateTime")
+                .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valuePeriod")
+                .Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valueDuration")
+                .Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<DataRequirement.DateFilterComponent>().Value));
+        }
+    }
+
+    private class DataRequirementSortType : ObjectType<DataRequirement.SortComponent>
+    {
+        protected override void Configure(IObjectTypeDescriptor<DataRequirement.SortComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.Path);
+            descriptor.Field(x => x.Direction);
+        }
+    }
+}
+
+public class GroupReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Group)");
+        descriptor.Type<GroupType>();
+    }
+}
+
+public class ExpressionType : ObjectType<Expression>
+{
+    protected override void Configure(IObjectTypeDescriptor<Expression> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Description);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Language);
+        descriptor.Field(x => x.Expression_).Name("expression");
+        descriptor.Field(x => x.Reference);
+    }
+}
+
+public class ParameterDefinitionType : ObjectType<ParameterDefinition>
+{
+    protected override void Configure(IObjectTypeDescriptor<ParameterDefinition> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Use);
+        descriptor.Field(x => x.Min);
+        descriptor.Field(x => x.Max);
+        descriptor.Field(x => x.Documentation);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Profile);
+    }
+}
+
+public class RelatedArtifactType : ObjectType<RelatedArtifact>
+{
+    protected override void Configure(IObjectTypeDescriptor<RelatedArtifact> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Label);
+        descriptor.Field(x => x.Display);
+        descriptor.Field(x => x.Citation);
+        descriptor.Field(x => x.Document);
+        descriptor.Field(x => x.Resource);
+        descriptor.Field(x => x.Url);
+    }
+}
+
+public class TriggerDefinitionType : ObjectType<TriggerDefinition>
+{
+    protected override void Configure(IObjectTypeDescriptor<TriggerDefinition> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field(x => x.Name);
+        descriptor.Field("timingTiming")
+            .Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field("timingReference").Type<ResourceReferenceType<ScheduleReferenceType>>()
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field("timingDate")
+            .Resolve(r => DataTypeResolvers.GetDateValue(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field("timingDateTime")
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<TriggerDefinition>().Timing));
+        descriptor.Field(x => x.Data);
+        descriptor.Field(x => x.Condition);
+    }
+}
+
+public class ScheduleReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Schedule)");
+        descriptor.Type<ScheduleType>();
+    }
+}
+
+public class UsageContextType : ObjectType<UsageContext>
+{
+    protected override void Configure(IObjectTypeDescriptor<UsageContext> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.Code);
+        descriptor.Field("valueCodeableConcept")
+            .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<UsageContext>().Value));
+        descriptor.Field("valueQuantity")
+            .Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<UsageContext>().Value));
+        descriptor.Field("valueRange")
+            .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<UsageContext>().Value));
+        descriptor.Field("valueReference").Type<ResourceReferenceType<UsageContextValueReferenceType>>()
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<UsageContext>().Value));
+    }
+
+    private class UsageContextValueReferenceType : UnionType
+    {
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Description("Reference(PlanDefinition | ResearchStudy | InsurancePlan | HealthcareService | Group | Location | Organization)");
+            descriptor.Type<PlanDefinitionType>();
+            descriptor.Type<ResearchStudyType>();
+            descriptor.Type<InsurancePlanType>();
+            descriptor.Type<HealthcareServiceType>();
+            descriptor.Type<GroupType>();
+            descriptor.Type<LocationType>();
+            descriptor.Type<OrganizationType>();
+        }
+    }
+}
 
 #region Interfaces
 

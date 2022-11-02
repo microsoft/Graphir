@@ -89,6 +89,9 @@ public static class StartupServices
             .AddResourceType<DiagnosticReport, DiagnosticReportType>()
             .AddResourceType<FamilyMemberHistory, FamilyMemberHistoryType>()
             .AddResourceType<Claim, ClaimType>()
+            .AddResourceType<PlanDefinition, PlanDefinitionType>()
+            .AddResourceType<ResearchStudy, ResearchStudyType>()
+            .AddResourceType<InsurancePlan, InsurancePlanType>()
             ;
     }
 }

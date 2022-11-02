@@ -12,6 +12,7 @@ public class ExtensionType : ObjectType<Extension>
         descriptor.Field(x => x.Url);
         descriptor.Field(x => x.Extension);
 
+        
         // primitive types
         descriptor.Field("valueBase64Binary").Resolve(r => DataTypeResolvers.GetBase64BinaryValue(r.Parent<Extension>().Value));
         descriptor.Field("valueBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Extension>().Value));
@@ -65,5 +66,6 @@ public class ExtensionType : ObjectType<Extension>
         descriptor.Field("valueUsageContext").Resolve(r => DataTypeResolvers.GetValue<UsageContext>(r.Parent<Extension>().Value));
         descriptor.Field("valueDosage").Resolve(r => DataTypeResolvers.GetValue<Dosage>(r.Parent<Extension>().Value));
         descriptor.Field("valueMeta").Resolve(r => DataTypeResolvers.GetValue<Meta>(r.Parent<Extension>().Value));
+        
     }
 }
