@@ -86,6 +86,7 @@ public static class StartupServices
             .AddResourceType<AllergyIntolerance, AllergyIntoleranceType>()
             .AddResourceType<Media, MediaType>()
             .AddResourceType<NutritionOrder, NutritionOrderType>()
+            .AddResourceType<DiagnosticReport, DiagnosticReportType>()
             ;
     }
 }
