@@ -32,16 +32,7 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
 
 }
 
-public class ExtensionType : ObjectType<Extension>
-{
-    protected override void Configure(IObjectTypeDescriptor<Extension> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(x => x.Url);
-        //descriptor.Field(x => x.Value).Type<StringType>();
-    }
-}
 
 public class IdentifierType : ObjectType<Identifier>
 {
