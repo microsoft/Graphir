@@ -92,6 +92,7 @@ public static class StartupServices
             .AddResourceType<PlanDefinition, PlanDefinitionType>()
             .AddResourceType<ResearchStudy, ResearchStudyType>()
             .AddResourceType<InsurancePlan, InsurancePlanType>()
+            .AddResourceType<ClaimResponse, ClaimResponseType>()
             ;
     }
 }

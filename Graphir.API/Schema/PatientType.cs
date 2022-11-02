@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -27,40 +28,10 @@ public class PatientType : ObjectType<Patient>
             .Type<ListType<ResourceReferenceType<PatientGeneralPractitionerReferenceType>>>();
         descriptor.Field(p => p.ManagingOrganization).Type<ResourceReferenceType<ManagingOrganizationReferenceType>>();
         descriptor.Field(p => p.Link);
-
-        descriptor.Field("deceasedBoolean").Resolve(context =>
-        {
-            var patient = context.Parent<Patient>();
-            return patient.Deceased is not null && patient.Deceased.TypeName == "boolean"
-                ? ((FhirBoolean)patient.Deceased).Value
-                : null;
-        });
-
-        descriptor.Field("deceasedDateTime").Resolve(context =>
-        {
-            var patient = context.Parent<Patient>();
-            if (patient.Deceased is not null && patient.Deceased.TypeName == "dateTime")
-            {
-                return ((FhirDateTime)patient.Deceased).Value;
-            }
-            return null;
-        });
-
-        descriptor.Field("multipleBirthBoolean").Resolve(context =>
-        {
-            var patient = context.Parent<Patient>();
-            return patient.MultipleBirth is not null && patient.MultipleBirth.TypeName == "boolean"
-                ? ((FhirBoolean)patient.MultipleBirth).Value
-                : null;
-        });
-
-        descriptor.Field("multipleBirthInteger").Resolve(context =>
-        {
-            var patient = context.Parent<Patient>();
-            return patient.MultipleBirth is not null && patient.MultipleBirth.TypeName == "integer"
-                ? ((Integer)patient.MultipleBirth).Value
-                : null;
-        });
+        descriptor.Field("deceasedBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Patient>().Deceased));
+        descriptor.Field("deceasedDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Patient>().Deceased));
+        descriptor.Field("multipleBirthBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Patient>().MultipleBirth));
+        descriptor.Field("multipleBirthInteger").Resolve(r => DataTypeResolvers.GetIntegerValue(r.Parent<Patient>().MultipleBirth));
 
         /*
         implicitRules: uri _implicitRules: ElementBase
@@ -86,7 +57,7 @@ public class PatientLinkOtherReferenceType : UnionType
     {
         descriptor.Name("PatientLinkOtherReference");
         descriptor.Type<PatientType>();
-        // TODO: descriptor.Type<RelatedPersonType>();
+        descriptor.Type<RelatedPersonType>();
     }
 }
 
@@ -97,7 +68,7 @@ public class PatientGeneralPractitionerReferenceType : UnionType
         descriptor.Name("PatientGeneralPractitionerReference");
         descriptor.Type<OrganizationType>();
         descriptor.Type<PractitionerType>();
-        //descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<PractitionerRoleType>();
     }
 }
 

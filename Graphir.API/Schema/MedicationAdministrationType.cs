@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -41,20 +42,8 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.EventHistory)
             .Type<ListType<ResourceReferenceType<MedicationAdministrationEventHistoryReferenceType>>>();
 
-        descriptor.Field("effectivePeriod").Type<PeriodType>().Resolve(context =>
-        {
-            var parent = context.Parent<MedicationAdministration>();
-            return parent.Effective is not null && parent.Effective.TypeName == "Period"
-                ? (Period)parent.Effective
-                : null;
-        });
-        descriptor.Field("effectiveDateTime").Type<DateTimeType>().Resolve(context =>
-        {
-            var parent = context.Parent<MedicationAdministration>();
-            return parent.Effective is not null && parent.Effective.TypeName == "dateTime"
-                ? ((FhirDateTime)parent.Effective).Value
-                : null;
-        });
+        descriptor.Field("effectivePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<MedicationAdministration>().Effective));
+        descriptor.Field("effectiveDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<MedicationAdministration>().Effective));
     }
 }
 
@@ -84,21 +73,8 @@ public class MedicationAdministrationDosageType : ObjectType<MedicationAdministr
         descriptor.Field(x => x.Route);
         descriptor.Field(x => x.Method);
         descriptor.Field(x => x.Dose);
-        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
-        {
-            var parent = r.Parent<MedicationAdministration.DosageComponent>();
-            return parent.Rate is not null && parent.Rate.TypeName == "Ratio"
-                ? (Ratio)parent.Rate
-                : null;
-        });
-
-        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
-        {
-            var parent = r.Parent<MedicationAdministration.DosageComponent>();
-            return parent.Rate is not null && parent.Rate.TypeName == "Quantity"
-                ? (Quantity)parent.Rate
-                : null;
-        });
+        descriptor.Field("rateRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
+        descriptor.Field("rateQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
     }
 }
 
