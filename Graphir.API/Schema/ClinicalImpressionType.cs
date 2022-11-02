@@ -28,14 +28,14 @@ public class ClinicalImpressionType : ObjectType<ClinicalImpression>
         descriptor.Field(c => c.Date);
         descriptor.Field(c => c.Assessor).Type<ResourceReferenceType<AssessorReferenceType>>();
         descriptor.Field(c => c.Previous).Type<ResourceReferenceType<PreviousReferenceType>>();
-        descriptor.Field(c => c.Problem).Type<ResourceReferenceType<ProblemReferenceType>>();
+        descriptor.Field(c => c.Problem).Type<ListType<ResourceReferenceType<ProblemReferenceType>>>();
         descriptor.Field(c => c.Investigation).Type<ListType<InvestigationComponentType>>();
         descriptor.Field(c => c.Protocol);
         descriptor.Field(c => c.Summary);
         descriptor.Field(c => c.Finding).Type<ListType<FindingComponentType>>();
         descriptor.Field(c => c.PrognosisCodeableConcept);
-        // descriptor.Field(c => c.PrognosisReference).Type<ResourceReferenceType<PrognosisReferenceType>>();
-        descriptor.Field(c => c.SupportingInfo).Type<ResourceReferenceType<SupportingInfoReferenceType>>();
+        descriptor.Field(c => c.PrognosisReference).Type<ListType<ResourceReferenceType<PrognosisReferenceType>>>();
+        descriptor.Field(c => c.SupportingInfo).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(c => c.Note);
     }
 }
@@ -58,11 +58,8 @@ public class ItemReferenceReferenceType : UnionType
     {
         descriptor.Name("ItemReferenceReference");
         descriptor.Type<ConditionType>();
-        /*
-        TODO: Add below types here 
         descriptor.Type<ObservationType>();
         descriptor.Type<MediaType>();
-        */
     }
 }
 
@@ -73,12 +70,10 @@ public class InvestigationComponentType : ObjectType<ClinicalImpression.Investig
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(c => c.Code);
-        // descriptor.Field(c => c.Item).Type<ResourceReferenceType<ItemReferenceType>>();
+        descriptor.Field(c => c.Item).Type<ResourceReferenceType<ItemReferenceType>>();
     }
 }
 
-/*
- TODO: Add all the types that are possible to be returned here
 public class ItemReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
@@ -97,7 +92,7 @@ public class ItemReferenceType : UnionType
         descriptor.Type<MediaType>();
     }
 }
-*/
+
 
 public class ProblemReferenceType : UnionType
 {
@@ -106,12 +101,10 @@ public class ProblemReferenceType : UnionType
         descriptor.Name("ProblemReference");
         descriptor.Description("Relevant impressions of patient state");
         descriptor.Type<ConditionType>();
-        //descriptor.Type<AllergyIntoleranceType>(); TODO: Add support for AllergyIntoleranceType
+        descriptor.Type<AllergyIntoleranceType>();
     }
 }
 
-/*
-  TODO: Need to add RiskAssessmentType
 public class PrognosisReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
@@ -121,7 +114,6 @@ public class PrognosisReferenceType : UnionType
         descriptor.Type<RiskAssessmentType>();
     }
 }
-*/
 
 public class PreviousReferenceType : UnionType
 {

@@ -42,16 +42,6 @@ public class CareTeamReferenceType : UnionType
     }
 }
 
-public class SupportingInfoReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("CarePlanSupportingInfoReferenceType");
-        descriptor.Description("Reference(Any)");
-        descriptor.Type<ResourceType>();
-    }
-}
-
 public class ObservationReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
@@ -87,5 +77,14 @@ public class SpecimenReferenceType : UnionType
     {
         descriptor.Description("Reference(Specimen)");
         descriptor.Type<SpecimenType>();
+    }
+}
+
+public class ProvenanceReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Provenance)");
+        descriptor.Type<ProvenanceType>();
     }
 }

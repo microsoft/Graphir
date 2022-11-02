@@ -14,7 +14,6 @@ internal static class DataLoadersStartup
         (this IRequestExecutorBuilder graphBuilder)
     {
         return graphBuilder
-            .AddDataLoader<ResourceByIdDataLoader<Claim>>()
             .AddDataLoader<ResourceByIdDataLoader<ClaimResponse>>()
             .AddDataLoader<ResourceByIdDataLoader<Communication>>()
             .AddDataLoader<ResourceByIdDataLoader<CommunicationRequest>>()
@@ -33,7 +32,6 @@ internal static class DataLoadersStartup
             .AddDataLoader<ResourceByIdDataLoader<Measure>>()
             .AddDataLoader<ResourceByIdDataLoader<MeasureReport>>()
             .AddDataLoader<ResourceByIdDataLoader<MedicationKnowledge>>()
-            .AddDataLoader<ResourceByIdDataLoader<DiagnosticReport>>()
             .AddDataLoader<ResourceByIdDataLoader<TestReport>>()
             .AddDataLoader<ResourceByIdDataLoader<TestScript>>()
             .AddDataLoader<ResourceByIdDataLoader<ImmunizationEvaluation>>()

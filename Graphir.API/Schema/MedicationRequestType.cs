@@ -44,7 +44,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         });
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
-        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<SupportingInfoReferenceType>>>();
+        descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn);
         descriptor.Field(x => x.Requester).Type<ResourceReferenceType<MedicationRequestRequesterReferenceType>>();
         descriptor.Field(x => x.Reported).Type<BooleanType>().Resolve(r =>

@@ -87,6 +87,8 @@ public static class StartupServices
             .AddResourceType<Media, MediaType>()
             .AddResourceType<NutritionOrder, NutritionOrderType>()
             .AddResourceType<DiagnosticReport, DiagnosticReportType>()
+            .AddResourceType<FamilyMemberHistory, FamilyMemberHistoryType>()
+            .AddResourceType<Claim, ClaimType>()
             ;
     }
 }

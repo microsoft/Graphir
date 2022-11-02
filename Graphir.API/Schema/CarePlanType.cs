@@ -34,7 +34,7 @@ public class CarePlanType : ObjectType<CarePlan>
         descriptor.Field(x => x.Contributor).Type<ListType<ResourceReferenceType<CarePlanAuthorReferenceType>>>();
         descriptor.Field(x => x.CareTeam).Type<ListType<ResourceReferenceType<CareTeamReferenceType>>>();
         descriptor.Field(x => x.Addresses);
-        descriptor.Field(x => x.SupportingInfo).Type<ListType<ResourceReferenceType<SupportingInfoReferenceType>>>();
+        descriptor.Field(x => x.SupportingInfo).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.Goal).Type<ListType<ResourceReferenceType<CarePlanGoalReferenceType>>>();
         descriptor.Field(x => x.Activity).Type<ListType<CarePlanActivityType>>();
         descriptor.Field(x => x.Note);
