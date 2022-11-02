@@ -67,6 +67,9 @@ public static class StartupServices
             .AddClinicalImpressions()
             .ModifyOptions(opt => opt.StrictValidation = true)
             .AddSubstance()
+            .AddCarePlan()
+            .AddGoal()
+            .AddObservation()
             .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true) //Remove this line in Production
             ;
     }
