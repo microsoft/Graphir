@@ -49,6 +49,8 @@ namespace Graphir.API.DataLoaders
                     return await factory.CoverageByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Device):
                     return await factory.DeviceByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
+                case nameof(DeviceDefinition):
+                    return await factory.DeviceDefinitionByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Provenance):
                     return await factory.ProvenanceByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Slot):

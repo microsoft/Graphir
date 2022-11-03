@@ -12,6 +12,7 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Condition> conditionByIdDataLoader,
             ResourceByIdDataLoader<Coverage> coverageByIdDataLoader,
             ResourceByIdDataLoader<Device> deviceByIdDataLoader,
+            ResourceByIdDataLoader<DeviceDefinition> deviceDefinitionByIdDataLoader,
             ResourceByIdDataLoader<Provenance> provenanceByIdDataLoader,
             ResourceByIdDataLoader<Slot> slotByIdDataLoader,
             ResourceByIdDataLoader<Medication> medicationByIdDataLoader,
@@ -84,6 +85,7 @@ namespace Graphir.API.DataLoaders
             ConditionByIdDataLoader = conditionByIdDataLoader;
             CoverageByIdDataLoader = coverageByIdDataLoader;
             DeviceByIdDataLoader = deviceByIdDataLoader;
+            DeviceDefinitionByIdDataLoader = deviceDefinitionByIdDataLoader;
             ProvenanceByIdDataLoader = provenanceByIdDataLoader;
             SlotByIdDataLoader = slotByIdDataLoader;
             MedicationByIdDataLoader = medicationByIdDataLoader;
@@ -156,6 +158,7 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Condition> ConditionByIdDataLoader { get; }
         public ResourceByIdDataLoader<Coverage> CoverageByIdDataLoader { get; }
         public ResourceByIdDataLoader<Device> DeviceByIdDataLoader { get; }
+        public ResourceByIdDataLoader<DeviceDefinition> DeviceDefinitionByIdDataLoader { get; }
         public ResourceByIdDataLoader<Provenance> ProvenanceByIdDataLoader { get; }
         public ResourceByIdDataLoader<Slot> SlotByIdDataLoader { get; }
         public ResourceByIdDataLoader<Medication> MedicationByIdDataLoader { get; }

@@ -12,6 +12,11 @@ public class ResourceType : ObjectType<Resource>
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(r => r.Id);
+        descriptor.Field(r => r.Meta);
+        descriptor.Field(r => r.ImplicitRules);
+        descriptor.Field(r => r.Language);
+        descriptor.Field(r => r.ResourceBase);
+        descriptor.Field(r => r.TypeName);
     }
 }
 
@@ -713,6 +718,24 @@ public class UsageContextType : ObjectType<UsageContext>
             descriptor.Type<LocationType>();
             descriptor.Type<OrganizationType>();
         }
+    }
+}
+
+public class ProductShelfLifeType : ObjectType<ProductShelfLife>
+{
+    protected override void Configure(IObjectTypeDescriptor<ProductShelfLife> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+
+        descriptor.Field(x => x.ElementId);
+        descriptor.Field(x => x.Extension);
+        descriptor.Field(x => x.ModifierExtension);
+        descriptor.Field(x => x.Type);
+        descriptor.Field("periodDuration")
+            .Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<ProductShelfLife>().Period));
+        descriptor.Field("periodString")
+            .Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<ProductShelfLife>().Period));
+        descriptor.Field(x => x.SpecialPrecautionsForStorage);
     }
 }
 

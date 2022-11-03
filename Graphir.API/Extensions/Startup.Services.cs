@@ -94,6 +94,7 @@ public static class StartupServices
             .AddResourceType<InsurancePlan, InsurancePlanType>()
             .AddResourceType<ClaimResponse, ClaimResponseType>()
             .AddResourceType<Task, TaskType>()
+            .AddResourceType<DeviceDefinition, DeviceDefinitionType>()
             ;
     }
 }
