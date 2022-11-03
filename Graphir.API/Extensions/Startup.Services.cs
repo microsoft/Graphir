@@ -1,6 +1,5 @@
 ﻿using Graphir.API.DataLoaders;
 using Graphir.API.Mutations;
-using Graphir.API.Queries;
 using Graphir.API.Schema;
 using Graphir.API.Services;
 using Hl7.Fhir.Model;
@@ -29,8 +28,7 @@ public static class StartupServices
             return new FhirJsonParser(settings);
         });
     }
-
-
+    
     public static void AddGraphQlServices
         (this IServiceCollection services)
     {
@@ -46,6 +44,7 @@ public static class StartupServices
             .AddPractitioner()
             .AddAppointment()
             .AddSchedule()
+            .AddRelatedPerson()
             .AddResourceType<Consent, ConsentType>()
             .AddResourceType<Organization, OrganizationType>()
             .AddResourceType<Medication, MedicationType>()
@@ -62,7 +61,6 @@ public static class StartupServices
             .AddResourceType<Endpoint, EndpointType>()
             .AddResourceType<Encounter, EncounterType>()
             .AddResourceType<PractitionerRole, PractitionerRoleType>()
-            .AddRelatedPerson()
             .AddResourceType<DetectedIssue, DetectedIssueType>()
             .AddResourceType<ServiceRequest, ServiceRequestType>()
             .AddResourceType<Specimen, SpecimenType>()

@@ -4,7 +4,6 @@ using System.Net.Http;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Identity.Web;
 
 namespace Graphir.API.Services;
 

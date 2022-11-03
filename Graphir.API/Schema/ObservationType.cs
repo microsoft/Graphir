@@ -1,9 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
 using Hl7.Fhir.Model;
-using HotChocolate;
+
 using HotChocolate.Types;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System.Net;
 
 namespace Graphir.API.Schema;
 
