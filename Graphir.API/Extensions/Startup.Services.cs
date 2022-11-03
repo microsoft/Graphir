@@ -46,6 +46,7 @@ public static class StartupServices
             .AddPractitioner()
             .AddAppointment()
             .AddSchedule()
+            .AddResourceType<Consent, ConsentType>()
             .AddResourceType<Organization, OrganizationType>()
             .AddResourceType<Medication, MedicationType>()
             .AddResourceType<Location, LocationType>()
