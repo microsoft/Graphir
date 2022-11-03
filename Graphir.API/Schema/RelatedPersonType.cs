@@ -5,15 +5,16 @@ namespace Graphir.API.Schema;
 
 public class RelatedPersonType : ObjectType<RelatedPerson>
 {
-    // TODO: finish RelatedPerson
     protected override void Configure(IObjectTypeDescriptor<RelatedPerson> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(r => r.Id);
         descriptor.Field(r => r.Meta);
+        descriptor.Field(r => r.ImplicitRules);
         descriptor.Field(r => r.Language);
         descriptor.Field(r => r.Text);
+        descriptor.Field(r => r.Contained);
         descriptor.Field(r => r.Extension);
         descriptor.Field(r => r.ModifierExtension);
         descriptor.Field(r => r.Identifier);
@@ -28,16 +29,6 @@ public class RelatedPersonType : ObjectType<RelatedPerson>
         descriptor.Field(r => r.Photo);
         descriptor.Field(r => r.Period);
         descriptor.Field(r => r.Communication).Type<ListType<RelatedPersonCommunicationType>>();
-    }
-
-    private class PatientReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("RelatedPersonPatientReference");
-            descriptor.Description("Reference(Patient)");
-            descriptor.Type<PatientType>();
-        }
     }
 
     private class RelatedPersonCommunicationType : ObjectType<RelatedPerson.CommunicationComponent>

@@ -108,3 +108,49 @@ public class InsuranceReferenceType : UnionType
         descriptor.Type<ClaimResponseType>();
     }
 }
+
+public class EpisodeOfCareReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterEpisodeOfCareType");
+        descriptor.Description("The list of resources that describe the parts of the episode of care that identify which resources are to be updated when the episode is to be managed.");
+        descriptor.Type<EpisodeOfCareType>();
+    }
+}
+
+public class ServiceRequestReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(ServiceRequest)");
+        descriptor.Type<ServiceRequestType>();
+    }
+}
+
+public class AccountReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Account)");
+        descriptor.Type<AccountType>();
+    }
+}
+
+public class AppointmentReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Appointment)");
+        descriptor.Type<AppointmentType>();
+    }
+}
+
+public class PatientReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Patient)");
+        descriptor.Type<PatientType>();
+    }
+}
