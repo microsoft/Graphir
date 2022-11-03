@@ -1,7 +1,9 @@
 ﻿using Graphir.API.DataLoaders;
 using Graphir.API.Mutations;
 using Graphir.API.Queries;
+using Graphir.API.Schema;
 using Graphir.API.Services;
+using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,8 +28,6 @@ public static class StartupServices
 #pragma warning restore CS0618
             return new FhirJsonParser(settings);
         });
-
-        //services.AddScoped<FhirJsonClient>();
     }
 
 
@@ -35,39 +35,64 @@ public static class StartupServices
         (this IServiceCollection services)
     {
         services.AddGraphQLServer()
+            .ModifyOptions(opt => opt.StrictValidation = true)
             .AddDiagnosticEventListener<ConsoleQueryLogger>()
-            .AddDataLoaders()
             .AddAuthorization()
+            .AddDataLoaders()
             .AddQueryType<Query>()
             .AddMutationType()
             .AddFhirTypes()
             .AddPatient()
             .AddPractitioner()
-            .AddOrganization()
             .AddAppointment()
-            .AddMedication()
-            .AddLocation()
-            .AddDevice()
             .AddSchedule()
-            .AddHealthcareService()
-            .AddSlots()
-            .AddMedicationRequest()
-            .AddMedicationAdministration()
-            .AddProvenance()
-            .AddCoverage()
-            .AddCondition()
-            .AddGroup()
-            .AddEndpoint()
-            .AddEncounter()
-            .AddPractitionerRole()
+            .AddResourceType<Organization, OrganizationType>()
+            .AddResourceType<Medication, MedicationType>()
+            .AddResourceType<Location, LocationType>()
+            .AddResourceType<Device, DeviceType>()
+            .AddResourceType<HealthcareService, HealthcareServiceType>()
+            .AddResourceType<Slot, SlotType>()
+            .AddResourceType<MedicationRequest, MedicationRequestType>()
+            .AddResourceType<MedicationAdministration, MedicationAdministrationType>()
+            .AddResourceType<Provenance, ProvenanceType>()
+            .AddResourceType<Coverage, CoverageType>()
+            .AddResourceType<Condition, ConditionType>()
+            .AddResourceType<Group, GroupType>()
+            .AddResourceType<Endpoint, EndpointType>()
+            .AddResourceType<Encounter, EncounterType>()
+            .AddResourceType<PractitionerRole, PractitionerRoleType>()
             .AddRelatedPerson()
-            .AddDetectedIssue()
-            .AddServiceRequest()
-            .AddSpecimen()
-            .AddClinicalImpressions()
-            .ModifyOptions(opt => opt.StrictValidation = true)
-            .AddSubstance()
-            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true) //Remove this line in Production
+            .AddResourceType<DetectedIssue, DetectedIssueType>()
+            .AddResourceType<ServiceRequest, ServiceRequestType>()
+            .AddResourceType<Specimen, SpecimenType>()
+            .AddResourceType<ClinicalImpression, ClinicalImpressionType>()
+            .AddResourceType<Substance, SubstanceType>()
+            .AddResourceType<CareTeam, CareTeamType>()
+            .AddResourceType<Goal, GoalType>()
+            .AddResourceType<Observation, ObservationType>()
+            .AddResourceType<CarePlan, CarePlanType>()
+            .AddResourceType<DeviceRequest, DeviceRequestType>()
+            .AddResourceType<MedicationDispense, MedicationDispenseType>()
+            .AddResourceType<MedicationStatement, MedicationStatementType>()
+            .AddResourceType<Procedure, ProcedureType>()
+            .AddResourceType<Immunization, ImmunizationType>()
+            .AddResourceType<ImmunizationRecommendation, ImmunizationRecommendationType>()
+            .AddResourceType<ImagingStudy, ImagingStudyType>()
+            .AddResourceType<DeviceMetric, DeviceMetricType>()
+            .AddResourceType<Questionnaire, QuestionnaireType>()
+            .AddResourceType<QuestionnaireResponse, QuestionnaireResponseType>()
+            .AddResourceType<MolecularSequence, MolecularSequenceType>()
+            .AddResourceType<DocumentReference, DocumentReferenceType>()
+            .AddResourceType<AllergyIntolerance, AllergyIntoleranceType>()
+            .AddResourceType<Media, MediaType>()
+            .AddResourceType<NutritionOrder, NutritionOrderType>()
+            .AddResourceType<DiagnosticReport, DiagnosticReportType>()
+            .AddResourceType<FamilyMemberHistory, FamilyMemberHistoryType>()
+            .AddResourceType<Claim, ClaimType>()
+            .AddResourceType<PlanDefinition, PlanDefinitionType>()
+            .AddResourceType<ResearchStudy, ResearchStudyType>()
+            .AddResourceType<InsurancePlan, InsurancePlanType>()
+            .AddResourceType<ClaimResponse, ClaimResponseType>()
             ;
     }
 }

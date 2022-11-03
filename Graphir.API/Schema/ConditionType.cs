@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -22,8 +23,8 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field(c => c.Severity);
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.BodySite);
-        descriptor.Field(c => c.Subject).Type<ResourceReferenceType<ConditionSubjectReferenceType>>();
-        descriptor.Field(c => c.Encounter).Type<ResourceReferenceType<ConditionEncounterReferenceType>>();
+        descriptor.Field(c => c.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
+        descriptor.Field(c => c.Encounter).Type<ResourceReferenceType<EncounterReferenceType>>();
         descriptor.Field(c => c.RecordedDate);
         descriptor.Field(c => c.Recorder).Type<ResourceReferenceType<ConditionRecorderReferenceType>>();
         descriptor.Field(c => c.Asserter).Type<ResourceReferenceType<ConditionAsserterReferenceType>>();
@@ -31,78 +32,17 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field(c => c.Evidence).Type<ListType<ConditionEvidenceType>>();
         descriptor.Field(c => c.Note);
 
-        descriptor.Field("onsetDateTime").Type<DateTimeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "dateTime"
-                ? (FhirDateTime)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetAge").Type<AgeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Age"
-                ? (Age)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetPeriod").Type<PeriodType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Period"
-                ? (Period)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Range"
-                ? (Range)parent.Onset
-                : null;
-        });
-        descriptor.Field("onsetString").Type<StringType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "string"
-                ? parent.Onset.ToString()
-                : null;
-        });
+        descriptor.Field("onsetDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetAge").Resolve(r => DataTypeResolvers.GetValue<Age>(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetPeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Onset));
+        descriptor.Field("onsetString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Onset));
 
-        descriptor.Field("abatementDateTime").Type<DateTimeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "dateTime"
-                ? (FhirDateTime)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementAge").Type<AgeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Age"
-                ? (Age)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementPeriod").Type<PeriodType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Period"
-                ? (Period)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementRange").Type<RangeType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "Range"
-                ? (Range)parent.Onset
-                : null;
-        });
-        descriptor.Field("abatementString").Type<StringType>().Resolve(r =>
-        {
-            var parent = r.Parent<Condition>();
-            return parent.Onset is not null && parent.Onset.TypeName == "string"
-                ? parent.Onset.ToString()
-                : null;
-        });
-
+        descriptor.Field("abatementDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementAge").Resolve(r => DataTypeResolvers.GetValue<Age>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementPeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Abatement));
     }
 }
 
@@ -129,28 +69,7 @@ public class ConditionEvidenceType : ObjectType<Condition.EvidenceComponent>
         descriptor.Field(c => c.Extension);
         descriptor.Field(c => c.ModifierExtension);
         descriptor.Field(c => c.Code);
-        descriptor.Field(c => c.Detail).Type<ListType<ResourceReferenceType<ConditionEvidenceDetailReferenceType>>>();
-    }
-}
-
-public class ConditionSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionSubjectReference");
-        descriptor.Description("Reference(Patient | Group)");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
-    }
-}
-
-public class ConditionEncounterReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionEncounterReference");
-        descriptor.Description("Reference(Encounter)");
-        descriptor.Type<EncounterType>();
+        descriptor.Field(c => c.Detail).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
     }
 }
 
@@ -187,17 +106,7 @@ public class ConditionStageAssessmentReferenceType : UnionType
         descriptor.Name("ConditionStageAssessmentReference");
         descriptor.Description("Reference(ClinicalImpression | DiagnosticReport | Observation)");
         descriptor.Type<ClinicalImpressionType>();
-        //descriptor.Type<DiagnosticReportType>();
-        //descriptor.Type<ObservationType>();
-    }
-}
-
-public class ConditionEvidenceDetailReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("ConditionEvidenceDetailReference");
-        descriptor.Description("Reference(Any)");
-        descriptor.Type<ResourceType>();
+        descriptor.Type<DiagnosticReportType>();
+        descriptor.Type<ObservationType>();
     }
 }

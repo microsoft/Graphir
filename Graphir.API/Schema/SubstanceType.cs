@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema
@@ -33,20 +34,9 @@ namespace Graphir.API.Schema
                 descriptor.Field(x => x.Extension);
                 descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field(x => x.Quantity);
-                descriptor.Field("substanceCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
-                {
-                    var parent = r.Parent<Substance.IngredientComponent>();
-                    return parent.Substance is not null && parent.Substance.TypeName == "CodeableConcept"
-                    ? (CodeableConcept)parent.Substance
-                    : null;
-                });
-                descriptor.Field("substanceReference").Type<ResourceReferenceType<SubstanceReferenceType>>().Resolve(r =>
-                {
-                    var parent = r.Parent<Substance.IngredientComponent>();
-                    return parent.Substance is not null && parent.Substance.TypeName == "Reference"
-                    ? (ResourceReference)parent.Substance
-                    : null;
-                });
+                descriptor.Field("substanceCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Substance.IngredientComponent>().Substance));
+                descriptor.Field("substanceReference").Type<ResourceReferenceType<SubstanceReferenceType>>()
+                    .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Substance.IngredientComponent>().Substance));
             }
         }
 

@@ -1,7 +1,5 @@
 ﻿using Hl7.Fhir.Model;
 using HotChocolate.Types;
-using static Hl7.Fhir.Model.PractitionerRole;
-using Time = Hl7.Fhir.ElementModel.Types.Time;
 
 namespace Graphir.API.Schema;
 
@@ -13,132 +11,101 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
 
         descriptor.Field(p => p.Id);
         descriptor.Field(p => p.Meta);
-        descriptor.Field(p => p.ImplicitRulesElement);
-        descriptor.Field(p => p.LanguageElement).Type<CodeType>();
-        descriptor.Field(p => p.Text).Type<NarrativeType>();
-        descriptor.Field(p => p.Contained);
+        descriptor.Field(p => p.Language);
+        descriptor.Field(p => p.Text);
         descriptor.Field(p => p.Extension);
         descriptor.Field(p => p.ModifierExtension);
         descriptor.Field(p => p.Identifier);
-        descriptor.Field(p => p.ActiveElement).Type<BooleanType>(); //Should specify as boolean type
-        descriptor.Field(p => p.Period).Type<PeriodType>();
+        descriptor.Field(p => p.Active);
+        descriptor.Field(p => p.Period);
         descriptor.Field(p => p.Practitioner).Type<ResourceReferenceType<PractitionerReferenceType>>();
         descriptor.Field(p => p.Organization).Type<ResourceReferenceType<OrganizationReferenceType>>();
         descriptor.Field(p => p.Code);
         descriptor.Field(p => p.Specialty);
-        descriptor.Field(p => p.Location).Type<ResourceReferenceType<LocationReferenceType>>();
-        descriptor.Field(p => p.HealthcareService)
-            .Type<ListType<ResourceReferenceType<HealthcareServiceReferenceType>>>();
-        descriptor.Field(p => p.Telecom).Type<ListType<ContactPointType>>();
-        descriptor.Field(p => p.AvailableTime).Type<ListType<PractitionerRoleAvailableTimeComponentType>>();
-        descriptor.Field(p => p.NotAvailable).Type<ListType<PractitionerRoleNotAvailableComponentType>>();
-        descriptor.Field(p => p.AvailabilityExceptionsElement).Type<FhirStringType>();
-        descriptor.Field(p => p.Endpoint).Type<ListType<ResourceReferenceType<EndpointReferenceType>>>();
-        
+        descriptor.Field(p => p.Location).Type<ListType<ResourceReferenceType<LocationReferenceType>>>();
+        descriptor.Field(p => p.HealthcareService).Type<ListType<ResourceReferenceType<HealthcareServiceReferenceType>>>();
+        descriptor.Field(p => p.Telecom);
+        descriptor.Field(p => p.AvailableTime).Type<PractitionerRoleAvailableTimeType>();
+        descriptor.Field(p => p.NotAvailable).Type<PractitionerRoleNotAvailableType>();
+        descriptor.Field(p => p.AvailabilityExceptions);
+        descriptor.Field(p => p.Endpoint).Type<ListType<ResourceReferenceType<PractitionerRoleEndpointReferenceType>>>();
     }
-}
 
-public class LocationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class PractitionerReferenceType : UnionType
     {
-        descriptor.Name("LocationReference");
-        descriptor.Description("The location(s) at which this practitioner provides care.");
-        
-        descriptor.Type<LocationType>();
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Name("PractitionerRolePractitionerReference");
+            descriptor.Description("Reference(Practitioner)");
+            descriptor.Type<PractitionerType>();
+        }
     }
-}
 
-public class PractitionerRoleNotAvailableComponentType : ObjectType<NotAvailableComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<NotAvailableComponent> descriptor)
+    private class OrganizationReferenceType : UnionType
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Name("PractitionerRoleNotAvailableComponent");
-        descriptor.Description("Not available during this time due to provided reason");
-        
-        descriptor.Field(p => p.ElementId);
-        descriptor.Field(p => p.Extension);
-        descriptor.Field(p => p.ModifierExtension);
-        descriptor.Field(p => p.DescriptionElement);
-        descriptor.Field(p => p.During).Type<PeriodType>();
-        
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Name("PractitionerRoleOrganizationReference");
+            descriptor.Description("Reference(Organization)");
+            descriptor.Type<OrganizationType>();
+        }
     }
-}
 
-public class PractitionerRoleAvailableTimeComponentType : ObjectType<AvailableTimeComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<AvailableTimeComponent> descriptor)
+    private class LocationReferenceType : UnionType
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Name("PractitionerRoleAvailableTimeComponent");
-        descriptor.Description("Times the Service Site is available");
-        
-        descriptor.Field(p => p.ElementId);
-        descriptor.Field(p => p.Extension);
-        descriptor.Field(p => p.ModifierExtension);
-        descriptor.Field(p => p.DaysOfWeekElement).Type<ListType<StringType>>();
-        descriptor.Field(p => p.AllDayElement).Type<BooleanType>();
-        descriptor.Field(p => p.AvailableStartTimeElement).Type<TimeType>();
-        descriptor.Field(p => p.AvailableEndTimeElement).Type<TimeType>();
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Name("PractitionerRoleLocationReference");
+            descriptor.Description("Reference(Location)");
+            descriptor.Type<LocationType>();
+        }
     }
-}
 
-public class TimeType : ObjectType<Time>
-{
-    protected override void Configure(IObjectTypeDescriptor<Time> descriptor)
+    private class HealthcareServiceReferenceType : UnionType
     {
-        descriptor.BindFieldsExplicitly();
-        descriptor.Name("Time");
-        descriptor.Description("Opening time of day (ignored if allDay = true)");
-
-        descriptor.Field(p => p.Hours);
-        descriptor.Field(p => p.Minutes);
-        descriptor.Field(p => p.Seconds);
-        
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Name("PractitionerRoleHealthcareServiceReference");
+            descriptor.Description("Reference(HealthcareService)");
+            descriptor.Type<HealthcareServiceType>();
+        }
     }
-}
 
-public class EndpointReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class PractitionerRoleAvailableTimeType : ObjectType<PractitionerRole.AvailableTimeComponent>
     {
-        descriptor.Name("EndpointReference");
-        descriptor.Description("Technical endpoints providing access to services operated for the practitioner with this role.");
-        
-        descriptor.Type<EndpointType>();
+        protected override void Configure(IObjectTypeDescriptor<PractitionerRole.AvailableTimeComponent> descriptor)
+        {
+            descriptor.Name("PractitionerRoleAvailableTime");
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.ModifierExtension);
+            descriptor.Field(x => x.DaysOfWeek);
+            descriptor.Field(x => x.AllDay);
+            descriptor.Field(x => x.AvailableStartTime);
+            descriptor.Field(x => x.AvailableEndTime);
+        }
     }
-}
 
-public class HealthcareServiceReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class PractitionerRoleNotAvailableType : ObjectType<PractitionerRole.NotAvailableComponent>
     {
-        descriptor.Name("HealthcareServiceReference");
-        descriptor.Description("The list of healthcare services that this worker provides for this role's Organization/Location(s).");
-        
-        descriptor.Type<HealthcareServiceType>();
+        protected override void Configure(IObjectTypeDescriptor<PractitionerRole.NotAvailableComponent> descriptor)
+        {
+            descriptor.Name("PractitionerRoleNotAvailable");
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.ModifierExtension);
+            descriptor.Field(x => x.Description);
+            descriptor.Field(x => x.During);
+        }
     }
-}
 
-public class OrganizationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class PractitionerRoleEndpointReferenceType : UnionType
     {
-        descriptor.Name("OrganizationReference");
-        descriptor.Description("Organization where the roles are available");
-        
-        descriptor.Type<OrganizationType>();
-    }
-}
-
-public class PractitionerReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("PractitionerReference");
-        descriptor.Description("Practitioner that is able to provide the defined services for the organization.");
-        
-        descriptor.Type<PractitionerType>();
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Name("PractitionerRoleEndpointReference");
+            descriptor.Description("Reference(Endpoint)");
+            descriptor.Type<EndpointType>();
+        }
     }
 }

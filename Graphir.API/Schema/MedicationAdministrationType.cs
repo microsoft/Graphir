@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
 
@@ -21,7 +22,7 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.Performer).Type<ListType<MedicationAdministrationPerformerComponentType>>();
 
         descriptor.Field(x => x.Medication)
-            .Type<CodeableReferenceType<MedicationAdministrationMedicationReferenceType>>()
+            .Type<CodeableReferenceType<MedicationReferenceType>>()
             .Resolve(context =>
             {
                 var parent = context.Parent<MedicationAdministration>();
@@ -35,26 +36,14 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
                     };
             });
 
-        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<MedicationAdministrationSubjectReferenceType>>();
+        descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Request).Type<ResourceReferenceType<MedicationAdministrationRequestReferenceType>>();
         descriptor.Field(x => x.Device).Type<ResourceReferenceType<DeviceReferenceType>>();
         descriptor.Field(x => x.EventHistory)
             .Type<ListType<ResourceReferenceType<MedicationAdministrationEventHistoryReferenceType>>>();
 
-        descriptor.Field("effectivePeriod").Type<PeriodType>().Resolve(context =>
-        {
-            var parent = context.Parent<MedicationAdministration>();
-            return parent.Effective is not null && parent.Effective.TypeName == "Period"
-                ? (Period)parent.Effective
-                : null;
-        });
-        descriptor.Field("effectiveDateTime").Type<DateTimeType>().Resolve(context =>
-        {
-            var parent = context.Parent<MedicationAdministration>();
-            return parent.Effective is not null && parent.Effective.TypeName == "dateTime"
-                ? ((FhirDateTime)parent.Effective).Value
-                : null;
-        });
+        descriptor.Field("effectivePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<MedicationAdministration>().Effective));
+        descriptor.Field("effectiveDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<MedicationAdministration>().Effective));
     }
 }
 
@@ -84,21 +73,8 @@ public class MedicationAdministrationDosageType : ObjectType<MedicationAdministr
         descriptor.Field(x => x.Route);
         descriptor.Field(x => x.Method);
         descriptor.Field(x => x.Dose);
-        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
-        {
-            var parent = r.Parent<MedicationAdministration.DosageComponent>();
-            return parent.Rate is not null && parent.Rate.TypeName == "Ratio"
-                ? (Ratio)parent.Rate
-                : null;
-        });
-
-        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
-        {
-            var parent = r.Parent<MedicationAdministration.DosageComponent>();
-            return parent.Rate is not null && parent.Rate.TypeName == "Quantity"
-                ? (Quantity)parent.Rate
-                : null;
-        });
+        descriptor.Field("rateRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
+        descriptor.Field("rateQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
     }
 }
 
@@ -108,25 +84,6 @@ public class MedicationAdministrationRequestReferenceType : UnionType
     {
         descriptor.Name("MedicationAdministrationRequestReference");
         descriptor.Type<MedicationRequestType>();
-    }
-}
-
-public class MedicationAdministrationMedicationReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationAdministrationMedicationReference");
-        descriptor.Type<MedicationType>();
-    }
-}
-
-public class MedicationAdministrationSubjectReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationAdministrationSubjectReference");
-        descriptor.Type<PatientType>();
-        descriptor.Type<GroupType>();
     }
 }
 

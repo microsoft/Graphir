@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -36,46 +37,12 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
         descriptor.Field(g => g.Exclude);
         descriptor.Field(g => g.Period);
 
-        descriptor.Field("valueCodeableConcept").Type<CodeableConceptType>()
-            .Resolve(context =>
-            {
-                var parent = context.Parent<Group.CharacteristicComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "CodeableConcept"
-                    ? (CodeableConcept)parent.Value
-                    : null;
-            });
-        descriptor.Field("valueBoolean").Type<BooleanType>()
-            .Resolve(context =>
-            {
-                var parent = context.Parent<Group.CharacteristicComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "boolean"
-                    ? (FhirBoolean)parent.Value
-                    : null;
-            });
-        descriptor.Field("valueQuantity").Type<QuantityType>()
-            .Resolve(context =>
-            {
-                var parent = context.Parent<Group.CharacteristicComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "Quantity"
-                    ? (Quantity)parent.Value
-                    : null;
-            });
-        descriptor.Field("valueRange").Type<RangeType>()
-            .Resolve(context =>
-            {
-                var parent = context.Parent<Group.CharacteristicComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "Range"
-                    ? (Range)parent.Value
-                    : null;
-            });
+        descriptor.Field("valueCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Group.CharacteristicComponent>().Value));
+        descriptor.Field("valueBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Group.CharacteristicComponent>().Value));
+        descriptor.Field("valueQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Group.CharacteristicComponent>().Value));
+        descriptor.Field("valueRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Group.CharacteristicComponent>().Value));
         descriptor.Field("valueReference").Type<ResourceReferenceType<GroupCharacteristicValueReferenceType>>()
-            .Resolve(context =>
-            {
-                var parent = context.Parent<Group.CharacteristicComponent>();
-                return parent.Value is not null && parent.Value.TypeName == "Reference"
-                    ? (ResourceReference)parent.Value
-                    : null;
-            });
+            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Group.CharacteristicComponent>().Value));
     }
 }
 
