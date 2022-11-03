@@ -5,6 +5,7 @@ namespace Graphir.API.DataLoaders
     public class DataLoaderFactory
     {
         public DataLoaderFactory(
+            ResourceByIdDataLoader<Account> accountByIdDataLoader,
             ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader,
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
             ResourceByIdDataLoader<Practitioner> practitionerByIdDataLoader,
@@ -78,6 +79,7 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Task> taskByIdDataLoader
         )
         {
+            AccountByIdDataLoader = accountByIdDataLoader;
             AppointmentByIdDataLoader = appointmentByIdDataLoader;
             PatientByIdDataLoader = patientByIdDataLoader;
             PractitionerByIdDataLoader = practitionerByIdDataLoader;
@@ -151,6 +153,7 @@ namespace Graphir.API.DataLoaders
             TaskByIdDataLoader = taskByIdDataLoader;
         }
 
+        public ResourceByIdDataLoader<Account> AccountByIdDataLoader { get; }
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader { get; }
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader { get; }
         public ResourceByIdDataLoader<Practitioner> PractitionerByIdDataLoader { get; }

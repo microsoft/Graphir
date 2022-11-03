@@ -95,6 +95,7 @@ public static class StartupServices
             .AddResourceType<ClaimResponse, ClaimResponseType>()
             .AddResourceType<Task, TaskType>()
             .AddResourceType<DeviceDefinition, DeviceDefinitionType>()
+            .AddResourceType<Account, AccountType>()
             ;
     }
 }

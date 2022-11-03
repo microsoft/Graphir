@@ -35,6 +35,8 @@ namespace Graphir.API.DataLoaders
             {
                 default:
                     return null;
+                case nameof(Account):
+                    return await factory.AccountByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Appointment):
                     return await factory.AppointmentByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Patient):

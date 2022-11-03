@@ -200,3 +200,12 @@ public class DeviceDefinitionReferenceType : UnionType
         descriptor.Type<DeviceDefinitionType>();
     }
 }
+
+public class CoverageReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Coverage)");
+        descriptor.Type<CoverageType>();
+    }
+}
