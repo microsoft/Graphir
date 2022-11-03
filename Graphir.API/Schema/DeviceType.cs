@@ -1,4 +1,5 @@
-﻿using Hl7.Fhir.Model;
+﻿using Graphir.API.DataLoaders;
+using Hl7.Fhir.Model;
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -11,105 +12,97 @@ public class DeviceType : ObjectType<Device>
 
         descriptor.Field(d => d.Id);
         descriptor.Field(x => x.Meta);
-        descriptor.Field(d => d.Identifier);
+        descriptor.Field(x => x.ImplicitRules);
         descriptor.Field(d => d.Language);
-        descriptor.Field(x => x.UdiCarrier).Type<ListType<UdiCarrierComponentType>>();
+        descriptor.Field(d => d.Text);
+        descriptor.Field(d => d.Contained);
+        descriptor.Field(d => d.Extension);
+        descriptor.Field(d => d.ModifierExtension);
+        descriptor.Field(d => d.Identifier);
+        descriptor.Field(d => d.Definition).Type<ResourceReferenceType<DeviceDefinitionReferenceType>>();
+        descriptor.Field(x => x.UdiCarrier).Type<ListType<DeviceUdiCarrierType>>();
         descriptor.Field(x => x.Status);
-        descriptor.Field(x => x.DistinctIdentifier);
+        descriptor.Field(x => x.StatusReason);
+        descriptor.Field(x => x.Manufacturer);
         descriptor.Field(x => x.ManufactureDate);
         descriptor.Field(x => x.ExpirationDate);
         descriptor.Field(x => x.LotNumber);
         descriptor.Field(x => x.SerialNumber); 
-        descriptor.Field(x => x.DeviceName).Type<ListType<DeviceNameComponentType>>();
+        descriptor.Field(x => x.DeviceName).Type<ListType<DeviceDeviceNameType>>();
+        descriptor.Field(x => x.ModelNumber);
+        descriptor.Field(x => x.PartNumber);
         descriptor.Field(x => x.Type);
-        descriptor.Field(x => x.Manufacturer);
-        
-        descriptor.Field(d => d.Version).Type<ListType<VersionComponentType>>();
-        descriptor.Field(d => d.Patient).Type<ResourceReferenceType<DevicePatientReferenceType>>();
-        descriptor.Field(d => d.Owner).Type<ResourceReferenceType<DeviceOwnerReferenceType>>();
+        descriptor.Field(d => d.Version).Type<ListType<DeviceVersionType>>();
+        descriptor.Field(d => d.Property).Type<ListType<DevicePropertyType>>();
+        descriptor.Field(d => d.Patient).Type<ResourceReferenceType<PatientReferenceType>>();
+        descriptor.Field(d => d.Owner).Type<ResourceReferenceType<OrganizationReferenceType>>();
         descriptor.Field(d => d.Contact);
-        descriptor.Field(d => d.Location).Type<ResourceReferenceType<DeviceLocationType>>();
+        descriptor.Field(d => d.Location).Type<ResourceReferenceType<LocationReferenceType>>();
         descriptor.Field(d => d.Url);
         descriptor.Field(d => d.Note);
         descriptor.Field(d => d.Safety);
-        descriptor.Field(d => d.Parent).Type<ResourceReferenceType<DeviceParentType>>();
+        descriptor.Field(d => d.Parent).Type<ResourceReferenceType<DeviceParentReferenceType>>();
     }
-}
 
-public class VersionComponentType : ObjectType<Device.VersionComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<Device.VersionComponent> descriptor)
+    private class DevicePropertyType : ObjectType<Device.PropertyComponent>
     {
-        descriptor.BindFieldsExplicitly();
-        
-        descriptor.Field(x => x.Type);
-        descriptor.Field(x => x.Component);
-        descriptor.Field(x => x.Value);
+        protected override void Configure(IObjectTypeDescriptor<Device.PropertyComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            
+            descriptor.Field(x => x.Extension);
+            descriptor.Field(x => x.ModifierExtension);
+            descriptor.Field(x => x.Type);
+            descriptor.Field(x => x.ValueQuantity);
+            descriptor.Field(x => x.ValueCode);
+        }
     }
-}
 
-public class DeviceParentType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class DeviceVersionType : ObjectType<Device.VersionComponent>
     {
-        descriptor.Name("DeviceParentReference");
-        descriptor.Description("The device that this device is attached to or is part of");
-        descriptor.Type<DeviceType>();
+        protected override void Configure(IObjectTypeDescriptor<Device.VersionComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(x => x.Type);
+            descriptor.Field(x => x.Component);
+            descriptor.Field(x => x.Value);
+        }
     }
-}
 
-public class DeviceLocationType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class DeviceParentReferenceType : UnionType
     {
-        descriptor.Name("DeviceLocationReference");
-        descriptor.Description("Where the device is found");
-        descriptor.Type<LocationType>();
+        protected override void Configure(IUnionTypeDescriptor descriptor)
+        {
+            descriptor.Name("DeviceParentReference");
+            descriptor.Description("The device that this device is attached to or is part of");
+            descriptor.Type<DeviceType>();
+        }
     }
-}
 
-public class DeviceOwnerReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class DeviceDeviceNameType : ObjectType<Device.DeviceNameComponent>
     {
-        descriptor.Name("DeviceOwnerReference");
-        descriptor.Description("Organization responsible for device");
-        descriptor.Type<OrganizationType>();
+        protected override void Configure(IObjectTypeDescriptor<Device.DeviceNameComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+
+            descriptor.Field(x => x.Name);
+            descriptor.Field(x => x.Type);
+        }
     }
-}
 
-public class DevicePatientReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
+    private class DeviceUdiCarrierType : ObjectType<Device.UdiCarrierComponent>
     {
-        descriptor.Name("DevicePatientReference");
-        descriptor.Description("Patient to whom Device is affixed");
-        descriptor.Type<PatientType>();
-    }
-}
+        protected override void Configure(IObjectTypeDescriptor<Device.UdiCarrierComponent> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
 
-public class DeviceNameComponentType : ObjectType<Device.DeviceNameComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<Device.DeviceNameComponent> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        
-        descriptor.Field(x => x.Name);
-        descriptor.Field(x => x.Type);
-    }
-}
-
-public class UdiCarrierComponentType : ObjectType<Device.UdiCarrierComponent>
-{
-    protected override void Configure(IObjectTypeDescriptor<Device.UdiCarrierComponent> descriptor)
-    {
-        descriptor.BindFieldsExplicitly();
-        
-        descriptor.Field(x => x.DeviceIdentifier);
-        descriptor.Field(x => x.Issuer);
-        descriptor.Field(x => x.Jurisdiction);
-        descriptor.Field(x => x.CarrierAIDC);
-        descriptor.Field(x => x.CarrierHRF);
-        descriptor.Field(x => x.EntryType);
+            descriptor.Field(x => x.DeviceIdentifier);
+            descriptor.Field(x => x.Issuer);
+            descriptor.Field(x => x.Jurisdiction);
+            descriptor.Field(x => x.CarrierAIDC);
+            descriptor.Field(x => x.CarrierHRF);
+            descriptor.Field(x => x.EntryType);
+        }
     }
 }

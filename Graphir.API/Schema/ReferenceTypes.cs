@@ -1,4 +1,5 @@
-﻿using HotChocolate.Types;
+﻿using Hl7.Fhir.Model;
+using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
 
@@ -152,5 +153,50 @@ public class PatientReferenceType : UnionType
     {
         descriptor.Description("Reference(Patient)");
         descriptor.Type<PatientType>();
+    }
+}
+
+public class EndpointReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Endpoint)");
+        descriptor.Type<EndpointType>();
+    }
+}
+
+public class PractitionerReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Practitioner)");
+        descriptor.Type<PractitionerType>();
+    }
+}
+
+public class OrganizationReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Organization)");
+        descriptor.Type<OrganizationType>();
+    }
+}
+
+public class HealthcareServiceReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(HealthcareService)");
+        descriptor.Type<HealthcareServiceType>();
+    }
+}
+
+public class DeviceDefinitionReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(DeviceDefinition)");
+        descriptor.Type<DeviceDefinitionType>();
     }
 }
