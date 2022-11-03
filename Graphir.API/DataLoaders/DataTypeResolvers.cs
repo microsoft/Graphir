@@ -1,8 +1,6 @@
-﻿using Graphir.API.Schema;
-using Hl7.Fhir.Model;
-using HotChocolate.Types;
+﻿using Hl7.Fhir.Model;
+
 using System;
-using System.Data;
 
 namespace Graphir.API.DataLoaders;
 
@@ -75,5 +73,5 @@ public class DataTypeResolvers
         => data is not null && data.TypeName == "uuid" ? (data as Uuid)!.Value : null;
 
     public static ResourceReference? GetReferenceValue(DataType? data)
-        => data is not null && data.TypeName == "Reference" ? (data as ResourceReference) : null;
+        => data is not null && data.TypeName == "Reference" ? data as ResourceReference : null;
 }
