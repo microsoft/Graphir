@@ -88,3 +88,23 @@ public class ProvenanceReferenceType : UnionType
         descriptor.Type<ProvenanceType>();
     }
 }
+
+public class LocationReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Location)");
+        descriptor.Type<LocationType>();
+
+    }
+}
+
+public class InsuranceReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("InsuranceReference");
+        descriptor.Type<CoverageType>();
+        descriptor.Type<ClaimResponseType>();
+    }
+}

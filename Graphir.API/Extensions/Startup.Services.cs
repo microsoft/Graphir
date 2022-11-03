@@ -93,6 +93,7 @@ public static class StartupServices
             .AddResourceType<ResearchStudy, ResearchStudyType>()
             .AddResourceType<InsurancePlan, InsurancePlanType>()
             .AddResourceType<ClaimResponse, ClaimResponseType>()
+            .AddResourceType<Task, TaskType>()
             ;
     }
 }

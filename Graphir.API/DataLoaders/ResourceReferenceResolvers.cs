@@ -165,6 +165,8 @@ namespace Graphir.API.DataLoaders
                     return await factory.PractitionerRoleByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(ServiceRequest):
                     return await factory.ServiceRequestByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
+                case nameof(Hl7.Fhir.Model.Task):
+                    return await factory.TaskByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
             }
         }
     }
