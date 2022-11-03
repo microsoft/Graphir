@@ -61,7 +61,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.ReasonCode);
         descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType<MedicationRequestReasonReferenceType>>>();
         descriptor.Field(x => x.CourseOfTherapyType);
-        descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<MedicationRequestInsuranceReferenceType>>>();
+        descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<InsuranceReferenceType>>>();
         descriptor.Field(x => x.Note);
         descriptor.Field(x => x.DosageInstruction);
         descriptor.Field(x => x.DispenseRequest).Type<MedicationRequestDispenseRequestType>();
@@ -141,16 +141,6 @@ public class MedicationRequestEncounterReferenceType : UnionType
         descriptor.Name("MedicationRequestEncounterReference");
         descriptor.Description("Reference(Encounter)");
         descriptor.Type<EncounterType>();
-    }
-}
-
-public class MedicationRequestInsuranceReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("InsuranceReference");
-        descriptor.Type<CoverageType>();
-        descriptor.Type<ClaimResponseType>();
     }
 }
 

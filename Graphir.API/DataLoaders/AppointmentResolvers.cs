@@ -1,9 +1,8 @@
-﻿using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
+﻿using Graphir.API.Services;
+using Hl7.Fhir.Model;
 using HotChocolate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Graphir.API.DataLoaders;
@@ -11,7 +10,7 @@ namespace Graphir.API.DataLoaders;
 public class AppointmentResolvers
 {
     public async Task<List<Appointment>> GetAppointmentListResources(
-        [Service] FhirClient client,
+        [Service] FhirJsonClient client,
         [Argument("patient")] string? patientId,
         [Argument("practitioner")] string? practitionerId,
         [Argument("date")] DateTime? date)
@@ -25,8 +24,6 @@ public class AppointmentResolvers
         if (date is not null)
             criteria.Add($"date={date:yyyy-MM-dd}");
 
-        var bundle = await client.SearchAsync(nameof(Appointment), criteria.ToArray());
-        var results = bundle.Entry.Select(x => (Appointment)x.Resource).ToList();
-        return results;
+        return await client.SearchAsync<Appointment>(criteria);
     }
 }

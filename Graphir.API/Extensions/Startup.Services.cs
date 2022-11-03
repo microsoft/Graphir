@@ -45,6 +45,7 @@ public static class StartupServices
             .AddPatient()
             .AddPractitioner()
             .AddAppointment()
+            .AddRelatedPerson()
             .AddSchedule()
             .AddResourceType<Organization, OrganizationType>()
             .AddResourceType<Medication, MedicationType>()
@@ -61,7 +62,6 @@ public static class StartupServices
             .AddResourceType<Endpoint, EndpointType>()
             .AddResourceType<Encounter, EncounterType>()
             .AddResourceType<PractitionerRole, PractitionerRoleType>()
-            .AddRelatedPerson()
             .AddResourceType<DetectedIssue, DetectedIssueType>()
             .AddResourceType<ServiceRequest, ServiceRequestType>()
             .AddResourceType<Specimen, SpecimenType>()
@@ -93,6 +93,7 @@ public static class StartupServices
             .AddResourceType<ResearchStudy, ResearchStudyType>()
             .AddResourceType<InsurancePlan, InsurancePlanType>()
             .AddResourceType<ClaimResponse, ClaimResponseType>()
+            .AddResourceType<Task, TaskType>()
             ;
     }
 }

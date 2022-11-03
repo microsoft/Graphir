@@ -1,8 +1,7 @@
-﻿using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
+﻿using Graphir.API.Services;
+using Hl7.Fhir.Model;
 using HotChocolate;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Graphir.API.DataLoaders
@@ -21,11 +20,6 @@ namespace Graphir.API.DataLoaders
         /// Get list of resources
         /// </summary>
         /// <returns></returns>
-        public async Task<List<T>> GetResources([Service] FhirClient client)
-        {
-            var bundle = await client.SearchAsync(typeof(T).Name);
-            var results = bundle.Entry.Select(x => (T)x.Resource).ToList();
-            return results;
-        }
+        public async Task<List<T>> GetResources([Service] FhirJsonClient client) => await client.SearchAsync<T>("");
     }
 }
