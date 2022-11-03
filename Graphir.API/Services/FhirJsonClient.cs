@@ -18,11 +18,10 @@ public class FhirJsonClient
         _parser = parser;
     }
 
-    public async Task<CapabilityStatement> CapabilityStatementAsync()
+    public async Task<string> CapabilityStatementAsync()
     {
         var reqStr = $"{_httpClient.BaseAddress}/metadata";
-        var json = await _httpClient.GetStringAsync(reqStr);
-        return await _parser.ParseAsync<CapabilityStatement>(json);
+        return await _httpClient.GetStringAsync(reqStr);
     }
 
     public async Task<List<T>> SearchAsync<T>(string query) where T : Resource
