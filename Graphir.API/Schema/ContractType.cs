@@ -36,10 +36,10 @@ public class ContractType : ObjectType<Contract>
             descriptor.Field(x => x.SubType);
             descriptor.Field(x => x.Text);
             descriptor.Field(x => x.SecurityLabel).Type<ListType<ContractTermSecurityLabelType>>();
-            //descriptor.Field(x => x.Offer).Type<ContractTermOfferType>();
-            //descriptor.Field(x => x.Asset).Type<ListType<ContractTermAssetType>>();
-            //descriptor.Field(x => x.Action).Type<ListType<ContractTermActionType>>();
-            //descriptor.Field(x => x.Group).Type<ListType<ContractTermType>>();
+            descriptor.Field(x => x.Offer).Type<ContractTermOfferType>();
+            descriptor.Field(x => x.Asset).Type<ListType<ContractTermAssetType>>();
+            descriptor.Field(x => x.Action).Type<ListType<ContractTermActionType>>();
+            descriptor.Field(x => x.Group).Type<ListType<ContractTermType>>();
         }
 
         private class ContractTermSecurityLabelType : ObjectType<Contract.SecurityLabelComponent>
@@ -48,7 +48,7 @@ public class ContractType : ObjectType<Contract>
             {
                 descriptor.Name("ContractTermSecurityLabel");
                 descriptor.BindFieldsExplicitly();
-                //descriptor.Implements<ComponentType>();
+                
                 descriptor.Field(x => x.ElementId);
                 descriptor.Field(x => x.Extension);
                 descriptor.Field(x => x.ModifierExtension);
@@ -64,8 +64,11 @@ public class ContractType : ObjectType<Contract>
             protected override void Configure(IObjectTypeDescriptor<Contract.ContractOfferComponent> descriptor)
             {
                 descriptor.Name("ContractTermOffer");
-                descriptor.Implements<ComponentType>();
                 descriptor.BindFieldsExplicitly();
+
+                descriptor.Field(x => x.ElementId);
+                descriptor.Field(x => x.Extension);
+                descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field(x => x.Identifier);
                 descriptor.Field(x => x.Party).Type<ListType<ContractTermOfferPartyType>>();
                 descriptor.Field(x => x.Topic).Type<ResourceReferenceType<AnyReferenceType>>();
@@ -83,7 +86,11 @@ public class ContractType : ObjectType<Contract>
                 protected override void Configure(IObjectTypeDescriptor<Contract.ContractPartyComponent> descriptor)
                 {
                     descriptor.Name("ContractTermOfferPartyType");
-                    descriptor.Implements<ComponentType>();
+                    descriptor.BindFieldsExplicitly();
+
+                    descriptor.Field(x => x.ElementId);
+                    descriptor.Field(x => x.Extension);
+                    descriptor.Field(x => x.ModifierExtension);
                     descriptor.Field(x => x.Reference).Type<ListType<ResourceReferenceType<ContractTermOfferPartyReferenceType>>>();
                     descriptor.Field(x => x.Role);
                 }
@@ -111,7 +118,11 @@ public class ContractType : ObjectType<Contract>
             protected override void Configure(IObjectTypeDescriptor<Contract.ContractAssetComponent> descriptor)
             {
                 descriptor.Name("ContractTermAsset");
-                descriptor.Implements<ComponentType>();
+                descriptor.BindFieldsExplicitly();
+
+                descriptor.Field(x => x.ElementId);
+                descriptor.Field(x => x.Extension);
+                descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field(x => x.Scope);
                 descriptor.Field(x => x.Type);
                 descriptor.Field(x => x.TypeReference).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
@@ -135,7 +146,11 @@ public class ContractType : ObjectType<Contract>
             protected override void Configure(IObjectTypeDescriptor<Contract.AnswerComponent> descriptor)
             {
                 descriptor.Name("ContractTermOfferAnswer");
-                descriptor.Implements<ComponentType>();
+                descriptor.BindFieldsExplicitly();
+
+                descriptor.Field(x => x.ElementId);
+                descriptor.Field(x => x.Extension);
+                descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field("valueBoolean")
                     .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Contract.AnswerComponent>().Value));
                 descriptor.Field("valueDecimal")
@@ -168,9 +183,15 @@ public class ContractType : ObjectType<Contract>
             protected override void Configure(IObjectTypeDescriptor<Contract.ValuedItemComponent> descriptor)
             {
                 descriptor.Name("ContractTermAssetValuedItemType");
-                descriptor.Implements<ComponentType>();
-                descriptor.Field("entityCodeableConcept");
-                descriptor.Field("entityReference");
+                descriptor.BindFieldsExplicitly();
+
+                descriptor.Field(x => x.ElementId);
+                descriptor.Field(x => x.Extension);
+                descriptor.Field(x => x.ModifierExtension);
+                descriptor.Field("entityCodeableConcept")
+                    .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Contract.ValuedItemComponent>().Entity));
+                descriptor.Field("entityReference")
+                    .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Contract.ValuedItemComponent>().Entity));
                 descriptor.Field(x => x.Identifier);
                 descriptor.Field(x => x.EffectiveTime);
                 descriptor.Field(x => x.Quantity);
@@ -192,24 +213,62 @@ public class ContractType : ObjectType<Contract>
             protected override void Configure(IObjectTypeDescriptor<Contract.ActionComponent> descriptor)
             {
                 descriptor.Name("ContractTermAction");
-                descriptor.Implements<ComponentType>();
+                descriptor.BindFieldsExplicitly();
+
+                descriptor.Field(x => x.ElementId);
+                descriptor.Field(x => x.Extension);
+                descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field(x => x.DoNotPerform);
                 descriptor.Field(x => x.Type);
                 descriptor.Field(x => x.Subject).Type<ListType<ContractTermActionSubjectType>>();
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
-                descriptor.Field(x => x.DoNotPerform);
+                descriptor.Field(x => x.Intent);
+                descriptor.Field(x => x.LinkId);
+                descriptor.Field(x => x.Status);
+                descriptor.Field(x => x.Context).Type<ResourceReferenceType<ContractTermActionContextReferenceType>>();
+                descriptor.Field(x => x.ContextLinkId);
+                descriptor.Field("occurrenceDateTime")
+                    .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Contract.ActionComponent>().Occurrence));
+                descriptor.Field("occurrencePeriod")
+                    .Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Contract.ActionComponent>().Occurrence));
+                descriptor.Field("occurrenceTiming")
+                    .Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<Contract.ActionComponent>().Occurrence));
+                descriptor.Field(x => x.Requester).Type<ListType<ResourceReferenceType<RequesterReferenceType>>>();
+                descriptor.Field(x => x.RequesterLinkId);
+                descriptor.Field(x => x.PerformerType);
+                descriptor.Field(x => x.PerformerRole);
+                descriptor.Field(x => x.Performer).Type<ResourceReferenceType<ContractTermActionPerformerReferenceType>>();
+                descriptor.Field(x => x.PerformerLinkId);
+                descriptor.Field(x => x.Reason);
+                descriptor.Field(x => x.ReasonLinkId);
+                descriptor.Field(x => x.Note);
+                descriptor.Field(x => x.SecurityLabelNumber);
+            }
+
+            private class ContractTermActionContextReferenceType : UnionType
+            {
+                protected override void Configure(IUnionTypeDescriptor descriptor)
+                {
+                    descriptor.Description("Reference(Encounter | EpisodeOfCare)");
+                    descriptor.Type<EncounterType>();
+                    descriptor.Type<EpisodeOfCareType>();
+                }
+            }
+
+            private class ContractTermActionPerformerReferenceType : UnionType
+            {
+                protected override void Configure(IUnionTypeDescriptor descriptor)
+                {
+                    descriptor.Description("Reference(RelatedPerson | Patient | Practitioner | PractitionerRole | CareTeam | Device | Substance | Organization | Location)");
+                    descriptor.Type<RelatedPersonType>();
+                    descriptor.Type<PatientType>();
+                    descriptor.Type<PractitionerType>();
+                    descriptor.Type<PractitionerRoleType>();
+                    descriptor.Type<CareTeamType>();
+                    descriptor.Type<DeviceType>();
+                    descriptor.Type<SubstanceType>();
+                    descriptor.Type<OrganizationType>();
+                    descriptor.Type<LocationType>();
+                }
             }
         }
 
@@ -218,7 +277,11 @@ public class ContractType : ObjectType<Contract>
             protected override void Configure(IObjectTypeDescriptor<Contract.ActionSubjectComponent> descriptor)
             {
                 descriptor.Name("ContractTermActionSubject");
-                descriptor.Implements<ComponentType>();
+                descriptor.BindFieldsExplicitly();
+
+                descriptor.Field(x => x.ElementId);
+                descriptor.Field(x => x.Extension);
+                descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field(x => x.Reference).Type<ListType<ResourceReferenceType<ContractActionSubjectReferenceType>>>();
                 descriptor.Field(x => x.Role);
             }
