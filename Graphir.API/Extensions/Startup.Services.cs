@@ -96,6 +96,7 @@ public static class StartupServices
             .AddResourceType<Task, TaskType>()
             .AddResourceType<DeviceDefinition, DeviceDefinitionType>()
             .AddResourceType<Account, AccountType>()
+            .AddResourceType<EpisodeOfCare, EpisodeOfCareType>()
             ;
     }
 }

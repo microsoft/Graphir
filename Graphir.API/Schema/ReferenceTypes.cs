@@ -209,3 +209,12 @@ public class CoverageReferenceType : UnionType
         descriptor.Type<CoverageType>();
     }
 }
+
+public class ConditionReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Description("Reference(Condition)");
+        descriptor.Type<ConditionType>();
+    }
+}
