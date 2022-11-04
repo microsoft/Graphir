@@ -218,3 +218,16 @@ public class ConditionReferenceType : UnionType
         descriptor.Type<ConditionType>();
     }
 }
+
+public class RecorderReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("RecorderReference");
+        descriptor.Description("Reference(Practitioner | PractitionerRole | Patient | RelatedPerson)");
+        descriptor.Type<PractitionerType>();
+        descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<PatientType>();
+        descriptor.Type<RelatedPersonType>();
+    }
+}
