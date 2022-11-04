@@ -1,7 +1,6 @@
 ﻿using Graphir.API.Services;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using static Newtonsoft.Json.JsonConvert;
 
 namespace Graphir.API;
 
