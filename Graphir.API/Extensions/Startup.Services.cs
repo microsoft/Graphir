@@ -45,6 +45,7 @@ public static class StartupServices
             .AddAppointment()
             .AddSchedule()
             .AddRelatedPerson()
+            .AddResourceType<Contract, ContractType>()
             .AddResourceType<Consent, ConsentType>()
             .AddResourceType<Organization, OrganizationType>()
             .AddResourceType<Medication, MedicationType>()

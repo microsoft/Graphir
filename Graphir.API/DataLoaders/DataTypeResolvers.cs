@@ -74,4 +74,10 @@ public class DataTypeResolvers
 
     public static ResourceReference? GetReferenceValue(DataType? data)
         => data is not null && data.TypeName == "Reference" ? data as ResourceReference : null;
+    
+    public static Attachment? GetAttachmentValue(DataType? data)
+        => data is not null && data.TypeName == "Attachment" ? data as Attachment : null;
+    
+    public static Period? GetPeriodValue(DataType? data)
+        => data is not null && data.TypeName == "Period" ? data as Period : null;
 }
