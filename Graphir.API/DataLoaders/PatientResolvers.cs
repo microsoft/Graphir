@@ -27,7 +27,6 @@ public class PatientResolvers
         if (!string.IsNullOrEmpty(generalPractitioner))
             criteria.Add($"general-practitioner={generalPractitioner}");
 
-        var result = await client.SearchAsync<Patient>(criteria);
-        return result;
+        return await client.SearchAsync<Patient>(criteria);
     }
 }

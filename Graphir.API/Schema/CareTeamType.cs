@@ -33,7 +33,7 @@ public class CareTeamType : ObjectType<CareTeam>
         protected override void Configure(IObjectTypeDescriptor<CareTeam.ParticipantComponent> descriptor)
         {
             descriptor.BindFieldsExplicitly();
-
+            descriptor.Name("CareTeamParticipant");
             descriptor.Field(x => x.Extension);
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Role);

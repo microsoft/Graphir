@@ -23,7 +23,6 @@ public class PractitionerResolvers
         if (!string.IsNullOrEmpty(email))
             criteria.Add($"email={email}");
 
-        var result = await client.SearchAsync<Practitioner>(criteria);
-        return result;
+        return await client.SearchAsync<Practitioner>(criteria);
     }
 }

@@ -43,6 +43,7 @@ public static class StartupServices
             .AddPatient()
             .AddPractitioner()
             .AddAppointment()
+            .AddRelatedPerson()
             .AddSchedule()
             .AddRelatedPerson()
             .AddResourceType<Contract, ContractType>()
@@ -93,6 +94,7 @@ public static class StartupServices
             .AddResourceType<ResearchStudy, ResearchStudyType>()
             .AddResourceType<InsurancePlan, InsurancePlanType>()
             .AddResourceType<ClaimResponse, ClaimResponseType>()
+            .AddResourceType<Task, TaskType>()
             ;
     }
 }

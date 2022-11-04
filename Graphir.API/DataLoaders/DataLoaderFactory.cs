@@ -73,7 +73,8 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<PaymentReconciliation> paymentReconciliationByIdDataLoader,
             ResourceByIdDataLoader<Person> personByIdDataLoader,
             ResourceByIdDataLoader<PlanDefinition> planDefinitionByIdDataLoader,
-            ResourceByIdDataLoader<ServiceRequest> serviceRequestByIdDataLoader
+            ResourceByIdDataLoader<ServiceRequest> serviceRequestByIdDataLoader,
+            ResourceByIdDataLoader<Task> taskByIdDataLoader
         )
         {
             AppointmentByIdDataLoader = appointmentByIdDataLoader;
@@ -145,6 +146,7 @@ namespace Graphir.API.DataLoaders
             PersonByIdDataLoader = personByIdDataLoader;
             PlanDefinitionByIdDataLoader = planDefinitionByIdDataLoader;
             ServiceRequestByIdDataLoader = serviceRequestByIdDataLoader;
+            TaskByIdDataLoader = taskByIdDataLoader;
         }
 
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader { get; }
@@ -216,5 +218,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Person> PersonByIdDataLoader { get; }
         public ResourceByIdDataLoader<PlanDefinition> PlanDefinitionByIdDataLoader { get; }
         public ResourceByIdDataLoader<ServiceRequest> ServiceRequestByIdDataLoader { get; }
+        public ResourceByIdDataLoader<Task> TaskByIdDataLoader { get; }
     }
 }
