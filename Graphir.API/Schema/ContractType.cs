@@ -216,7 +216,7 @@ public class ContractContextReferenceType : UnionType
         descriptor.Description("Reference(Encounter | EpisodeOfCare)");
 
         descriptor.Type<EncounterType>();
-        // descriptor.Type<EpisodeOfCareType>(); TODO: implement EpisodeOfCareType
+        descriptor.Type<EpisodeOfCareType>();
     }
 }
 
@@ -570,7 +570,7 @@ public class ContractFriendlyLanguageContentReferenceType : UnionType
         
         descriptor.Type<DocumentReferenceType>();
         descriptor.Type<QuestionnaireResponseType>();
-        // descriptor.Type<CompositionType>(); TODO: implement CompositionType
+        descriptor.Type<CompositionType>(); 
     }
 }
 
@@ -632,7 +632,7 @@ public class LegalLanguageContentReferenceType : UnionType
         
         descriptor.Type<DocumentReferenceType>();
         descriptor.Type<QuestionnaireResponseType>();
-        // descriptor.Type<CompositionType>(); TODO: implement CompositionType
+        descriptor.Type<CompositionType>(); 
     }
 }
 
