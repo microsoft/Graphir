@@ -231,3 +231,19 @@ public class RecorderReferenceType : UnionType
         descriptor.Type<RelatedPersonType>();
     }
 }
+
+public class RequesterReferenceType : UnionType
+{
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("MedicationRequestRequesterReference");
+        descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
+        descriptor.Type<PractitionerType>();
+        descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<OrganizationType>();
+        descriptor.Type<PatientType>();
+        descriptor.Type<RelatedPersonType>();
+        descriptor.Type<DeviceType>();
+        descriptor.Type<GroupType>();
+    }
+}
