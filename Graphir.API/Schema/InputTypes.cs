@@ -52,7 +52,7 @@ public record IdentifierInput(
     string? Value,
     PeriodInput? Period
 );
-    
+
 public record PeriodInput(
     string? Start,
     string? End

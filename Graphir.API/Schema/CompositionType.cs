@@ -13,7 +13,7 @@ public class CompositionType : ObjectType<Composition>
     protected override void Configure(IObjectTypeDescriptor<Composition> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Id);
         descriptor.Field(x => x.Meta);
         descriptor.Field(x => x.ImplicitRules);
@@ -45,7 +45,7 @@ public class SectionComponentType : ObjectType<SectionComponent>
     protected override void Configure(IObjectTypeDescriptor<SectionComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Title);
         descriptor.Field(x => x.Code);
         descriptor.Field(x => x.Author).Type<ResourceReferenceType<SectionComponentAuthorReferenceType>>();
@@ -56,7 +56,6 @@ public class SectionComponentType : ObjectType<SectionComponent>
         descriptor.Field(x => x.Entry).Type<ListType<ResourceReferenceType<SectionComponentEntryReferenceType>>>();
         descriptor.Field(x => x.EmptyReason);
         descriptor.Field(x => x.Section).Type<ListType<SectionComponentType>>();
-        
     }
 }
 
@@ -83,8 +82,9 @@ public class SectionComponentAuthorReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("SectionComponentAuthorReference");
-        descriptor.Description("Reference (Practitioner, PractitionerRole, Device, Patient, RelatedPerson, Organization)");
-        
+        descriptor.Description(
+            "Reference (Practitioner, PractitionerRole, Device, Patient, RelatedPerson, Organization)");
+
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
         descriptor.Type<DeviceType>();
@@ -99,7 +99,7 @@ public class EventComponentType : ObjectType<EventComponent>
     protected override void Configure(IObjectTypeDescriptor<EventComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Code);
         descriptor.Field(x => x.Period);
         descriptor.Field(x => x.Detail).Type<ResourceReferenceType<EventComponentDetailReferenceType>>();
@@ -120,7 +120,7 @@ public class CompositionRelatesToComponentType : ObjectType<RelatesToComponent>
     protected override void Configure(IObjectTypeDescriptor<RelatesToComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Code);
         descriptor.Field("targetIdentifier").Type<IdentifierType>()
             .Resolve(ctx => DataTypeResolvers.GetIdentifierValue(ctx.Parent<RelatesToComponent>().Target));
@@ -154,7 +154,7 @@ public class CompositionAttesterComponentType : ObjectType<AttesterComponent>
     protected override void Configure(IObjectTypeDescriptor<AttesterComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Party).Type<ResourceReferenceType<CompositionAttesterPartyReferenceType>>();
         descriptor.Field(x => x.Mode);
         descriptor.Field(x => x.Time);
@@ -167,7 +167,7 @@ public class CompositionAttesterPartyReferenceType : UnionType
     {
         descriptor.Name("CompositionAttesterPartyReference");
         descriptor.Description("Reference (Patient, RelatedPerson, Practitioner, PractitionerRole, Organization)");
-        
+
         descriptor.Type<PatientType>();
         descriptor.Type<RelatedPersonType>();
         descriptor.Type<PractitionerType>();

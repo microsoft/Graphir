@@ -1,6 +1,9 @@
 ﻿using Graphir.API.Services;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate;
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

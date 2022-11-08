@@ -1,8 +1,11 @@
 ﻿using Graphir.API.Schema;
 using Graphir.API.Utils;
+
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
+
 using HotChocolate.Types;
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,7 +70,6 @@ public class PatientMutation
                 Information = OperationOutcome.ForException(ex, OperationOutcome.IssueType.Exception)
             };
         }
-
     }
 
     /// <summary>
@@ -107,11 +109,14 @@ public class PatientMutation
                 // the resource was not found
                 throw new Exception("Item was not found.");
             }
+
             var existingPatient = find.Entry.Select(p => (Patient)p.Resource).First();
             var updatePatient = InputConvert.ToPatient(patient);
 
             // set only updated props
-            existingPatient.Identifier = updatePatient.Identifier.Count > 0 ? updatePatient.Identifier : existingPatient.Identifier;
+            existingPatient.Identifier = updatePatient.Identifier.Count > 0
+                ? updatePatient.Identifier
+                : existingPatient.Identifier;
             existingPatient.Language = updatePatient.Language ?? existingPatient.Language;
             existingPatient.Active = updatePatient.Active ?? existingPatient.Active;
             existingPatient.Name = updatePatient.Name.Count > 0 ? updatePatient.Name : existingPatient.Name;
@@ -120,8 +125,12 @@ public class PatientMutation
             existingPatient.BirthDate = updatePatient.BirthDate ?? existingPatient.BirthDate;
             existingPatient.Address = updatePatient.Address.Count > 0 ? updatePatient.Address : existingPatient.Address;
             existingPatient.MaritalStatus = updatePatient.MaritalStatus ?? existingPatient.MaritalStatus;
-            existingPatient.Communication = updatePatient.Communication.Count > 0 ? updatePatient.Communication : existingPatient.Communication;
-            existingPatient.GeneralPractitioner = updatePatient.GeneralPractitioner.Count > 0 ? updatePatient.GeneralPractitioner : existingPatient.GeneralPractitioner;
+            existingPatient.Communication = updatePatient.Communication.Count > 0
+                ? updatePatient.Communication
+                : existingPatient.Communication;
+            existingPatient.GeneralPractitioner = updatePatient.GeneralPractitioner.Count > 0
+                ? updatePatient.GeneralPractitioner
+                : existingPatient.GeneralPractitioner;
 
             var result = await _fhirClient.UpdateAsync(existingPatient);
             return new PatientUpdate
@@ -176,5 +185,4 @@ public class PatientMutation
             };
         }
     }
-
 }

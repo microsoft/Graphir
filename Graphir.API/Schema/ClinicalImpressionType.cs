@@ -93,7 +93,6 @@ public class ItemReferenceType : UnionType
     }
 }
 
-
 public class ProblemReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)

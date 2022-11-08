@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -10,7 +12,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
     protected override void Configure(IObjectTypeDescriptor<MedicationRequest> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Id);
         descriptor.Field(x => x.Meta);
         descriptor.Field(x => x.Language);
@@ -21,7 +23,8 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.InstantiatesCanonical);
         descriptor.Field(x => x.InstantiatesUri);
         descriptor.Field(x => x.BasedOn).Type<ListType<ResourceReferenceType<MedicationRequestBasedOnReferenceType>>>();
-        descriptor.Field(x => x.PriorPrescription).Type<ResourceReferenceType<MedicationRequestPriorPrescriptionReferenceType>>();
+        descriptor.Field(x => x.PriorPrescription)
+            .Type<ResourceReferenceType<MedicationRequestPriorPrescriptionReferenceType>>();
         descriptor.Field(x => x.GroupIdentifier);
         descriptor.Field(x => x.Status);
         descriptor.Field(x => x.StatusReason);
@@ -30,19 +33,19 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.Priority);
         descriptor.Field(x => x.DoNotPerform);
         descriptor.Field(x => x.Medication)
-        .Type<CodeableReferenceType<MedicationReferenceType>>()
-        .Resolve(context =>
-        {
-            var parent = context.Parent<MedicationRequest>();
-            return parent.Medication is null ?
-                null :
-                parent.Medication.TypeName switch
-                {
-                    "CodeableConcept" => new CodeableReference { Concept = parent.Medication as CodeableConcept },
-                    "Reference" => new CodeableReference { Reference = parent.Medication as ResourceReference },
-                    _ => null
-                };            
-        });
+            .Type<CodeableReferenceType<MedicationReferenceType>>()
+            .Resolve(context =>
+            {
+                var parent = context.Parent<MedicationRequest>();
+                return parent.Medication is null
+                    ? null
+                    : parent.Medication.TypeName switch
+                    {
+                        "CodeableConcept" => new CodeableReference { Concept = parent.Medication as CodeableConcept },
+                        "Reference" => new CodeableReference { Reference = parent.Medication as ResourceReference },
+                        _ => null
+                    };
+            });
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
         descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
@@ -59,15 +62,18 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.Performer).Type<ResourceReferenceType<MedicationRequestPerformerReferenceType>>();
         descriptor.Field(x => x.Recorder).Type<ResourceReferenceType<MedicationRequestRecorderReferenceType>>();
         descriptor.Field(x => x.ReasonCode);
-        descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType<MedicationRequestReasonReferenceType>>>();
+        descriptor.Field(x => x.ReasonReference)
+            .Type<ListType<ResourceReferenceType<MedicationRequestReasonReferenceType>>>();
         descriptor.Field(x => x.CourseOfTherapyType);
         descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<InsuranceReferenceType>>>();
         descriptor.Field(x => x.Note);
         descriptor.Field(x => x.DosageInstruction);
         descriptor.Field(x => x.DispenseRequest).Type<MedicationRequestDispenseRequestType>();
         descriptor.Field(x => x.Substitution).Type<MedicationRequestSubstitutionType>();
-        descriptor.Field(x => x.DetectedIssue).Type<ListType<ResourceReferenceType<MedicationRequestDetectedIssueReferenceType>>>();
-        descriptor.Field(x => x.EventHistory).Type<ListType<ResourceReferenceType<MedicationRequestEventHistoryReferenceType>>>();
+        descriptor.Field(x => x.DetectedIssue)
+            .Type<ListType<ResourceReferenceType<MedicationRequestDetectedIssueReferenceType>>>();
+        descriptor.Field(x => x.EventHistory)
+            .Type<ListType<ResourceReferenceType<MedicationRequestEventHistoryReferenceType>>>();
     }
 }
 
@@ -106,8 +112,10 @@ public class MedicationRequestSubstitutionType : ObjectType<MedicationRequest.Su
         descriptor.Field(m => m.Extension);
         descriptor.Field(m => m.ModifierExtension);
         descriptor.Field(m => m.Reason);
-        descriptor.Field("allowedBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<MedicationRequest.SubstitutionComponent>().Allowed));
-        descriptor.Field("allowedCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<MedicationRequest.SubstitutionComponent>().Allowed));
+        descriptor.Field("allowedBoolean").Resolve(r =>
+            DataTypeResolvers.GetBooleanValue(r.Parent<MedicationRequest.SubstitutionComponent>().Allowed));
+        descriptor.Field("allowedCodeableConcept").Resolve(r =>
+            DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<MedicationRequest.SubstitutionComponent>().Allowed));
     }
 }
 

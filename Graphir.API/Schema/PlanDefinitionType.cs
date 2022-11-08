@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -79,11 +81,13 @@ public class PlanDefinitionType : ObjectType<PlanDefinition>
                 descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field(x => x.Measure);
                 descriptor.Field("detailQuantity")
-                    .Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<PlanDefinition.TargetComponent>().Detail));
+                    .Resolve(r =>
+                        DataTypeResolvers.GetValue<Quantity>(r.Parent<PlanDefinition.TargetComponent>().Detail));
                 descriptor.Field("detailRange")
                     .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<PlanDefinition.TargetComponent>().Detail));
                 descriptor.Field("detailCodeableConcept")
-                    .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<PlanDefinition.TargetComponent>().Detail));
+                    .Resolve(r =>
+                        DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<PlanDefinition.TargetComponent>().Detail));
                 descriptor.Field("detailString")
                     .Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<PlanDefinition.TargetComponent>().Detail));
                 descriptor.Field("detailBoolean")
@@ -114,7 +118,8 @@ public class PlanDefinitionType : ObjectType<PlanDefinition>
             descriptor.Field(x => x.Documentation);
             descriptor.Field(x => x.GoalId);
             descriptor.Field("subjectCodeableConcept")
-                .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<PlanDefinition.ActionComponent>().Subject));
+                .Resolve(r =>
+                    DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<PlanDefinition.ActionComponent>().Subject));
             descriptor.Field("subjectReference").Type<GroupReferenceType>()
                 .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<PlanDefinition.ActionComponent>().Subject));
             descriptor.Field("subjectCanonical")
@@ -140,7 +145,8 @@ public class PlanDefinitionType : ObjectType<PlanDefinition>
             descriptor.Field(x => x.PrecheckBehavior);
             descriptor.Field(x => x.CardinalityBehavior);
             descriptor.Field("definitionCanonical")
-                .Resolve(r => DataTypeResolvers.GetCanonicalValue(r.Parent<PlanDefinition.ActionComponent>().Definition));
+                .Resolve(
+                    r => DataTypeResolvers.GetCanonicalValue(r.Parent<PlanDefinition.ActionComponent>().Definition));
             descriptor.Field("definitionUri")
                 .Resolve(r => DataTypeResolvers.GetUriValue(r.Parent<PlanDefinition.ActionComponent>().Definition));
             descriptor.Field(x => x.Transform);
@@ -158,10 +164,11 @@ public class PlanDefinitionType : ObjectType<PlanDefinition>
                 descriptor.Field(x => x.ActionId);
                 descriptor.Field(x => x.Relationship);
                 descriptor.Field("offsetDuration")
-                    .Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<PlanDefinition.RelatedActionComponent>().Offset));
+                    .Resolve(r =>
+                        DataTypeResolvers.GetValue<Duration>(r.Parent<PlanDefinition.RelatedActionComponent>().Offset));
                 descriptor.Field("offsetRange")
-                    .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<PlanDefinition.RelatedActionComponent>().Offset));
-
+                    .Resolve(r =>
+                        DataTypeResolvers.GetValue<Range>(r.Parent<PlanDefinition.RelatedActionComponent>().Offset));
             }
         }
 

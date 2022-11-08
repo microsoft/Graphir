@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
+
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -18,16 +19,17 @@ public class FhirAuthenticatedHttpMessageHandler : DelegatingHandler
         _fhirOptions = options.Value;
     }
 
-    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+        CancellationToken cancellationToken)
     {
         // Add auth token to request Headers
         var token = await _tokenService.GetAccessTokenForUserAsync(new[] { _fhirOptions.Scopes });
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         // Append max result size to querystring
-        request.RequestUri = string.IsNullOrEmpty(request.RequestUri?.Query) ?
-                new System.Uri($"{request.RequestUri?.AbsoluteUri}?_count={_fhirOptions.ResultsLimit}") :
-                new System.Uri($"{request.RequestUri?.AbsoluteUri}&_count={_fhirOptions.ResultsLimit}");
+        request.RequestUri = string.IsNullOrEmpty(request.RequestUri?.Query)
+            ? new System.Uri($"{request.RequestUri?.AbsoluteUri}?_count={_fhirOptions.ResultsLimit}")
+            : new System.Uri($"{request.RequestUri?.AbsoluteUri}&_count={_fhirOptions.ResultsLimit}");
         return await base.SendAsync(request, cancellationToken);
     }
 }

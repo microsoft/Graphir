@@ -54,7 +54,7 @@ public class CodeType : ObjectType<Code>
     protected override void Configure(IObjectTypeDescriptor<Code> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(p => p.Value);
         descriptor.Field(p => p.Display);
         descriptor.Field(p => p.System);
@@ -110,7 +110,8 @@ public class OnBehalfOfReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("OnBehalfOfReference");
-        descriptor.Description(@"Who the agent is representing? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
+        descriptor.Description(
+            @"Who the agent is representing? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
 
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
@@ -126,7 +127,8 @@ public class ProvenanceAgentWhoParticipatedReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("WhoParticipatedReference");
-        descriptor.Description(@"Who participated? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
+        descriptor.Description(
+            @"Who participated? Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization)");
 
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();

@@ -1,6 +1,9 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
+
 using System.Linq;
 
 namespace Graphir.API.Schema;
@@ -30,16 +33,24 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
         descriptor.Field(x => x.DoNotPerform);
         descriptor.Field(x => x.Code);
         descriptor.Field(x => x.OrderDetail);
-        descriptor.Field("quantityQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<ServiceRequest>().Quantity));
-        descriptor.Field("quantityRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<ServiceRequest>().Quantity));
-        descriptor.Field("quantityRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<ServiceRequest>().Quantity));
+        descriptor.Field("quantityQuantity")
+            .Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<ServiceRequest>().Quantity));
+        descriptor.Field("quantityRatio")
+            .Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<ServiceRequest>().Quantity));
+        descriptor.Field("quantityRange")
+            .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<ServiceRequest>().Quantity));
         descriptor.Field(x => x.Subject).Type<ResourceReferenceType<SubjectReferenceType>>();
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<EncounterReferenceType>>();
-        descriptor.Field("occurrenceDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<ServiceRequest>().Occurrence));
-        descriptor.Field("occurrencePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<ServiceRequest>().Occurrence));
-        descriptor.Field("occurrenceTiming").Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<ServiceRequest>().Occurrence));
-        descriptor.Field("asNeededBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<ServiceRequest>().AsNeeded));
-        descriptor.Field("asNeededCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<ServiceRequest>().AsNeeded));
+        descriptor.Field("occurrenceDateTime")
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<ServiceRequest>().Occurrence));
+        descriptor.Field("occurrencePeriod")
+            .Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<ServiceRequest>().Occurrence));
+        descriptor.Field("occurrenceTiming")
+            .Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<ServiceRequest>().Occurrence));
+        descriptor.Field("asNeededBoolean")
+            .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<ServiceRequest>().AsNeeded));
+        descriptor.Field("asNeededCodeableConcept").Resolve(r =>
+            DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<ServiceRequest>().AsNeeded));
         descriptor.Field(x => x.AuthoredOn);
         descriptor.Field(x => x.Requester).Type<ResourceReferenceType<RequesterReferenceType>>();
         descriptor.Field(x => x.PerformerType);
@@ -125,7 +136,8 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
             descriptor.Name("ServiceRequestRequesterReference");
-            descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
+            descriptor.Description(
+                "Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
             descriptor.Type<OrganizationType>();
@@ -140,7 +152,8 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
             descriptor.Name("ServiceRequestPerformerReference");
-            descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | CareTeam | HealthcareService | Patient | Device | RelatedPerson)");
+            descriptor.Description(
+                "Reference(Practitioner | PractitionerRole | Organization | CareTeam | HealthcareService | Patient | Device | RelatedPerson)");
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
             descriptor.Type<OrganizationType>();
@@ -162,5 +175,4 @@ public class ServiceRequestType : ObjectType<ServiceRequest>
             descriptor.Type<ClaimType>();
         }
     }
-
 }

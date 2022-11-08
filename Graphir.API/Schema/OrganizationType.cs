@@ -9,7 +9,7 @@ public class OrganizationType : ObjectType<Organization>
     protected override void Configure(IObjectTypeDescriptor<Organization> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Id);
         descriptor.Field(x => x.Meta);
         descriptor.Field(x => x.Language);
@@ -63,4 +63,3 @@ public class OrganizationEndpointReferenceType : UnionType
         descriptor.Type<EndpointType>();
     }
 }
-

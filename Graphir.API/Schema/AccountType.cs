@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -34,7 +35,8 @@ public class AccountType : ObjectType<Account>
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
-            descriptor.Description("Reference(Patient | Device | Practitioner | PractitionerRole | Location | HealthcareService | Organization)");
+            descriptor.Description(
+                "Reference(Patient | Device | Practitioner | PractitionerRole | Location | HealthcareService | Organization)");
             descriptor.Type<PatientType>();
             descriptor.Type<DeviceType>();
             descriptor.Type<PractitionerType>();
@@ -82,6 +84,4 @@ public class AccountType : ObjectType<Account>
             }
         }
     }
-
-    
 }

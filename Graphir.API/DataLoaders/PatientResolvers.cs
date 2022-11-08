@@ -1,7 +1,10 @@
 ﻿using Graphir.API.Services;
+
 using Hl7.Fhir.ElementModel.Types;
 using Hl7.Fhir.Model;
+
 using HotChocolate;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +15,7 @@ public class PatientResolvers
     public async Task<List<Patient>> GetPatientListResources(
         [Service] FhirJsonClient client,
         [Argument("family")] string? family,
-        [Argument("given")] string? given,        
+        [Argument("given")] string? given,
         [Argument("birthdate")] DateTime? birthDate,
         [Argument("general_practitioner")] string? generalPractitioner)
     {

@@ -1,6 +1,8 @@
 ﻿using Graphir.API.DataLoaders;
 using Graphir.API.Schema;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Queries;
@@ -19,6 +21,7 @@ public class PractitionerQuery : ObjectTypeExtension<Query>
             .Argument("family", a => a.Type<StringType>())
             .Argument("given", a => a.Type<StringType>())
             .Argument("email", a => a.Type<StringType>())
-            .ResolveWith<PractitionerResolvers>(r => r.GetPractitionerListResources(default!, default, default, default));
+            .ResolveWith<PractitionerResolvers>(
+                r => r.GetPractitionerListResources(default!, default, default, default));
     }
 }

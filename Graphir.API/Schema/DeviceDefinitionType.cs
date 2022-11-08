@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -40,7 +42,8 @@ public class DeviceDefinitionType : ObjectType<DeviceDefinition>
 
     private class DeviceDefinitionUdiDeviceIdentifierType : ObjectType<DeviceDefinition.UdiDeviceIdentifierComponent>
     {
-        protected override void Configure(IObjectTypeDescriptor<DeviceDefinition.UdiDeviceIdentifierComponent> descriptor)
+        protected override void Configure(
+            IObjectTypeDescriptor<DeviceDefinition.UdiDeviceIdentifierComponent> descriptor)
         {
             descriptor.Name("DeviceDefinitionUdiDeviceIdentifier");
             descriptor.BindFieldsExplicitly();

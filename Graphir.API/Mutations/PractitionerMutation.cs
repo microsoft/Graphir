@@ -1,9 +1,12 @@
 ﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
+
 using HotChocolate.Types;
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Graphir.API.Utils;
 using Graphir.API.Schema;
 
@@ -65,7 +68,6 @@ public class PractitionerMutation
                 Information = OperationOutcome.ForException(ex, OperationOutcome.IssueType.Exception)
             };
         }
-
     }
 
     /// <summary>
@@ -102,19 +104,29 @@ public class PractitionerMutation
                 // the resource was not found
                 throw new Exception("Item was not found.");
             }
+
             var existingPractitioner = find.Entry.Select(p => (Practitioner)p.Resource).First();
             var updatePractitioner = InputConvert.ToPractitioner(practitioner);
 
             // set only updated props
-            existingPractitioner.Identifier = updatePractitioner.Identifier.Count > 0 ? updatePractitioner.Identifier : existingPractitioner.Identifier;
+            existingPractitioner.Identifier = updatePractitioner.Identifier.Count > 0
+                ? updatePractitioner.Identifier
+                : existingPractitioner.Identifier;
             existingPractitioner.Language = updatePractitioner.Language ?? existingPractitioner.Language;
             existingPractitioner.Active = updatePractitioner.Active ?? existingPractitioner.Active;
-            existingPractitioner.Name = updatePractitioner.Name.Count > 0 ? updatePractitioner.Name : existingPractitioner.Name;
-            existingPractitioner.Telecom = updatePractitioner.Telecom.Count > 0 ? updatePractitioner.Telecom : existingPractitioner.Telecom;
+            existingPractitioner.Name =
+                updatePractitioner.Name.Count > 0 ? updatePractitioner.Name : existingPractitioner.Name;
+            existingPractitioner.Telecom = updatePractitioner.Telecom.Count > 0
+                ? updatePractitioner.Telecom
+                : existingPractitioner.Telecom;
             existingPractitioner.Gender = updatePractitioner.Gender ?? existingPractitioner.Gender;
             existingPractitioner.BirthDate = updatePractitioner.BirthDate ?? existingPractitioner.BirthDate;
-            existingPractitioner.Address = updatePractitioner.Address.Count > 0 ? updatePractitioner.Address : existingPractitioner.Address;
-            existingPractitioner.Communication = updatePractitioner.Communication.Count > 0 ? updatePractitioner.Communication : existingPractitioner.Communication;
+            existingPractitioner.Address = updatePractitioner.Address.Count > 0
+                ? updatePractitioner.Address
+                : existingPractitioner.Address;
+            existingPractitioner.Communication = updatePractitioner.Communication.Count > 0
+                ? updatePractitioner.Communication
+                : existingPractitioner.Communication;
 
             var result = await _fhirClient.UpdateAsync(existingPractitioner);
             return new PractitionerUpdate
@@ -169,5 +181,4 @@ public class PractitionerMutation
             };
         }
     }
-
 }

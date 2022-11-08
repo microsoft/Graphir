@@ -1,5 +1,7 @@
 ﻿using Graphir.API.Schema;
+
 using Hl7.Fhir.Model;
+
 using System;
 using System.Linq;
 

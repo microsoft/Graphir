@@ -1,10 +1,12 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Queries
 {
-    public class ResourceQuery<T,E> : ObjectTypeExtension<Query> 
+    public class ResourceQuery<T, E> : ObjectTypeExtension<Query>
         where T : Resource
         where E : ObjectType
     {
@@ -16,7 +18,7 @@ namespace Graphir.API.Queries
                 .ResolveWith<ResourceResolvers<T>>(r => r.GetResource(default!, default!));
 
             descriptor.Field($"{typeof(T).Name}List")
-                .Type<ListType<E>>()             
+                .Type<ListType<E>>()
                 .ResolveWith<ResourceResolvers<T>>(r => r.GetResources(default!));
         }
     }

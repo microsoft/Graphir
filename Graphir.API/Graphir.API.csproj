@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UserSecretsId>ec15c71b-620a-4186-aa44-53f511572277</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>ec15c71b-620a-4186-aa44-53f511572277</UserSecretsId>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Hl7.Fhir.R4B" Version="3.8.3" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="12.12.1" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.12.1" />
-    <PackageReference Include="HotChocolate.Data" Version="12.12.1" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Hl7.Fhir.R4B" Version="3.8.3"/>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="12.12.1"/>
+        <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.12.1"/>
+        <PackageReference Include="HotChocolate.Data" Version="12.12.1"/>
+        <PackageReference Include="Microsoft.Identity.Web" Version="1.25.1"/>
+    </ItemGroup>
 
 </Project>

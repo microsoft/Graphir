@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -55,7 +56,8 @@ public class CarePlanType : ObjectType<CarePlan>
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
             descriptor.Name("CarePlanAuthorReference");
-            descriptor.Description("Reference(Patient | Practitioner | PractitionerRole | Device | RelatedPerson | Organization | CareTeam)");
+            descriptor.Description(
+                "Reference(Patient | Practitioner | PractitionerRole | Device | RelatedPerson | Organization | CareTeam)");
             descriptor.Type<PatientType>();
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
@@ -87,6 +89,6 @@ public class CarePlanType : ObjectType<CarePlan>
             descriptor.Field(x => x.Progress);
             descriptor.Field(x => x.OutcomeCodeableConcept);
             descriptor.Field(x => x.OutcomeReference).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
-        }        
+        }
     }
 }

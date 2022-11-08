@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -57,7 +59,8 @@ public class MediaType : ObjectType<Media>
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
-            descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | CareTeam | Patient | Device | RelatedPerson)");
+            descriptor.Description(
+                "Reference(Practitioner | PractitionerRole | Organization | CareTeam | Patient | Device | RelatedPerson)");
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
             descriptor.Type<OrganizationType>();
@@ -72,7 +75,8 @@ public class MediaType : ObjectType<Media>
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
-            descriptor.Description("Reference(Patient | Practitioner | PractitionerRole | Group | Device | Specimen | Location)");
+            descriptor.Description(
+                "Reference(Patient | Practitioner | PractitionerRole | Group | Device | Specimen | Location)");
             descriptor.Type<PatientType>();
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();

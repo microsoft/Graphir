@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -23,7 +24,8 @@ public class CareTeamType : ObjectType<CareTeam>
         descriptor.Field(x => x.Period);
         descriptor.Field(x => x.Participant).Type<ListType<CareTeamParticipantType>>();
         descriptor.Field(x => x.ReasonCode);
-        descriptor.Field(x => x.ManagingOrganization).Type<ListType<ResourceReferenceType<ManagingOrganizationReferenceType>>>();
+        descriptor.Field(x => x.ManagingOrganization)
+            .Type<ListType<ResourceReferenceType<ManagingOrganizationReferenceType>>>();
         descriptor.Field(x => x.Telecom);
         descriptor.Field(x => x.Note);
     }
@@ -38,7 +40,8 @@ public class CareTeamType : ObjectType<CareTeam>
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Role);
             descriptor.Field(x => x.Member).Type<ResourceReferenceType<CareTeamParticipantMemberReferenceType>>();
-            descriptor.Field(x => x.OnBehalfOf).Type<ResourceReferenceType<CareTeamParticipantOnBehalfOfReferenceType>>();
+            descriptor.Field(x => x.OnBehalfOf)
+                .Type<ResourceReferenceType<CareTeamParticipantOnBehalfOfReferenceType>>();
             descriptor.Field(x => x.Period);
         }
 
@@ -57,7 +60,8 @@ public class CareTeamType : ObjectType<CareTeam>
             protected override void Configure(IUnionTypeDescriptor descriptor)
             {
                 descriptor.Name("CareTeamParticipantMemberReference");
-                descriptor.Description("Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Organization | CareTeam)");
+                descriptor.Description(
+                    "Reference(Practitioner | PractitionerRole | RelatedPerson | Patient | Organization | CareTeam)");
                 descriptor.Type<PractitionerType>();
                 descriptor.Type<PractitionerRoleType>();
                 descriptor.Type<RelatedPersonType>();
@@ -66,7 +70,5 @@ public class CareTeamType : ObjectType<CareTeam>
                 descriptor.Type<CareTeamType>();
             }
         }
-    }    
-
-    
+    }
 }

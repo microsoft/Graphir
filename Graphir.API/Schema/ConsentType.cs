@@ -18,7 +18,7 @@ public class ConsentType : ObjectType<Consent>
         descriptor.Field(x => x.Identifier);
         descriptor.Field(x => x.Status);
         descriptor.Field(x => x.Scope);
-        descriptor.Field(x => x.Category); 
+        descriptor.Field(x => x.Category);
         descriptor.Field(x => x.Patient).Type<ResourceReferenceType<ConsentPatientReferenceType>>();
         descriptor.Field(x => x.DateTime);
         descriptor.Field(x => x.Performer).Type<ResourceReferenceType<ConsentPerformerReferenceType>>();
@@ -37,7 +37,7 @@ public class ConsentSourceReferenceType : UnionType
     {
         descriptor.Name("ConsentSourceReference");
         descriptor.Description("Reference(Consent | DocumentReference | Contract | QuestionnaireResponse)");
-        
+
         descriptor.Type<ConsentType>();
         descriptor.Type<DocumentReferenceType>();
         descriptor.Type<QuestionnaireResponseType>();
@@ -50,7 +50,7 @@ public class ConsentProvisionComponentType : ObjectType<Consent.provisionCompone
     protected override void Configure(IObjectTypeDescriptor<Consent.provisionComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Type);
         descriptor.Field(x => x.Period);
         descriptor.Field(x => x.Actor).Type<ListType<ConsentProvisionActorComponentType>>();
@@ -71,7 +71,7 @@ public class ConsentProvisionDataComponentType : ObjectType<Consent.provisionDat
     protected override void Configure(IObjectTypeDescriptor<Consent.provisionDataComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Meaning);
         descriptor.Field(x => x.Reference).Type<ResourceReferenceType<ConsentProvisionDataReferenceType>>();
     }
@@ -92,7 +92,7 @@ public class ConsentProvisionActorComponentType : ObjectType<Consent.provisionAc
     protected override void Configure(IObjectTypeDescriptor<Consent.provisionActorComponent> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Role);
         descriptor.Field(x => x.Reference).Type<ResourceReferenceType<ConsentProvisionActorReferenceType>>();
     }
@@ -103,8 +103,9 @@ public class ConsentProvisionActorReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("ConsentProvisionActorReference");
-        descriptor.Description("Reference(Device|Group|CareTeam|Organization|Patient|Practitioner|RelatedPerson|PractitionerRole)");
-        
+        descriptor.Description(
+            "Reference(Device|Group|CareTeam|Organization|Patient|Practitioner|RelatedPerson|PractitionerRole)");
+
         descriptor.Type<DeviceType>();
         descriptor.Type<GroupType>();
         descriptor.Type<CareTeamType>();

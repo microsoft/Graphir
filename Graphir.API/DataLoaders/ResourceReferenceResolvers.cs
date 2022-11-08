@@ -1,5 +1,7 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate;
+
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace Graphir.API.DataLoaders
             CancellationToken cancellationToken)
         {
             var refString = parent.Reference;
-            
+
             var resourceType = refString?.Split('/').FirstOrDefault();
             var resourceId = refString?.Split('/').LastOrDefault();
 
@@ -60,7 +62,8 @@ namespace Graphir.API.DataLoaders
                 case nameof(Medication):
                     return await factory.MedicationByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(MedicationAdministration):
-                    return await factory.MedicationAdministrationByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
+                    return await factory.MedicationAdministrationByIdDataLoader.LoadAsync(resourceId!,
+                        cancellationToken);
                 case nameof(MedicationRequest):
                     return await factory.MedicationRequestByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Schedule):
@@ -131,7 +134,7 @@ namespace Graphir.API.DataLoaders
                     return await factory.ExplanationOfBenefitByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(FamilyMemberHistory):
                     return await factory.FamilyMemberHistoryByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
-               case nameof(Flag):
+                case nameof(Flag):
                     return await factory.FlagByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Goal):
                     return await factory.GoalByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
@@ -140,7 +143,8 @@ namespace Graphir.API.DataLoaders
                 case nameof(ImmunizationEvaluation):
                     return await factory.ImmunizationEvaluationByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(ImmunizationRecommendation):
-                    return await factory.ImmunizationRecommendationByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
+                    return await factory.ImmunizationRecommendationByIdDataLoader.LoadAsync(resourceId!,
+                        cancellationToken);
                 case nameof(ImplementationGuide):
                     return await factory.ImplementationGuideByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Library):

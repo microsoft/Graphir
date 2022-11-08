@@ -2,8 +2,10 @@
 using Graphir.API.Mutations;
 using Graphir.API.Schema;
 using Graphir.API.Services;
+
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Graphir.API.Extensions;
@@ -19,7 +21,8 @@ public static class StartupServices
 
         services.AddScoped<DataLoaderFactory>();
 
-        services.AddScoped(p => {
+        services.AddScoped(p =>
+        {
             var settings = ParserSettings.CreateDefault();
             settings.PermissiveParsing = true;
 #pragma warning disable CS0618
@@ -28,7 +31,7 @@ public static class StartupServices
             return new FhirJsonParser(settings);
         });
     }
-    
+
     public static void AddGraphQlServices
         (this IServiceCollection services)
     {

@@ -1,5 +1,6 @@
 using Graphir.API.Extensions;
 using Graphir.API.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,7 @@ public class Startup
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
-    {        
+    {
         services.AddCors(o =>
             o.AddDefaultPolicy(b =>
                 b.AllowAnyHeader()
@@ -47,11 +48,11 @@ public class Startup
             var fhirConfig = new FhirDataConnection();
             Configuration.Bind("FhirConnection", fhirConfig);
             return fhirConfig;
-        });        
+        });
 
         // Need to register query and mutation types here for constructor scoped-service DI
         services.AddScopedServices();
-        
+
         // Register all HotChocolate types with DI
         services.AddGraphQlServices();
     }

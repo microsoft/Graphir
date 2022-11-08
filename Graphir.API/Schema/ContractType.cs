@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -48,7 +50,7 @@ public class ContractType : ObjectType<Contract>
             {
                 descriptor.Name("ContractTermSecurityLabel");
                 descriptor.BindFieldsExplicitly();
-                
+
                 descriptor.Field(x => x.ElementId);
                 descriptor.Field(x => x.Extension);
                 descriptor.Field(x => x.ModifierExtension);
@@ -91,7 +93,8 @@ public class ContractType : ObjectType<Contract>
                     descriptor.Field(x => x.ElementId);
                     descriptor.Field(x => x.Extension);
                     descriptor.Field(x => x.ModifierExtension);
-                    descriptor.Field(x => x.Reference).Type<ListType<ResourceReferenceType<ContractTermOfferPartyReferenceType>>>();
+                    descriptor.Field(x => x.Reference)
+                        .Type<ListType<ResourceReferenceType<ContractTermOfferPartyReferenceType>>>();
                     descriptor.Field(x => x.Role);
                 }
 
@@ -99,7 +102,8 @@ public class ContractType : ObjectType<Contract>
                 {
                     protected override void Configure(IUnionTypeDescriptor descriptor)
                     {
-                        descriptor.Description("Reference(Patient | RelatedPerson | Practitioner | PractitionerRole | Device | Group | Organization)");
+                        descriptor.Description(
+                            "Reference(Patient | RelatedPerson | Practitioner | PractitionerRole | Device | Group | Organization)");
                         descriptor.Type<PatientType>();
                         descriptor.Type<RelatedPersonType>();
                         descriptor.Type<PractitionerType>();
@@ -110,7 +114,6 @@ public class ContractType : ObjectType<Contract>
                     }
                 }
             }
-            
         }
 
         private class ContractTermAssetType : ObjectType<Contract.ContractAssetComponent>
@@ -138,7 +141,6 @@ public class ContractType : ObjectType<Contract>
                 descriptor.Field(x => x.SecurityLabelNumber);
                 descriptor.Field(x => x.ValuedItem).Type<ListType<ContractTermAssetValuedItemType>>();
             }
-           
         }
 
         private class ContractTermOfferAnswerType : ObjectType<Contract.AnswerComponent>
@@ -189,7 +191,8 @@ public class ContractType : ObjectType<Contract>
                 descriptor.Field(x => x.Extension);
                 descriptor.Field(x => x.ModifierExtension);
                 descriptor.Field("entityCodeableConcept")
-                    .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Contract.ValuedItemComponent>().Entity));
+                    .Resolve(r =>
+                        DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Contract.ValuedItemComponent>().Entity));
                 descriptor.Field("entityReference")
                     .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Contract.ValuedItemComponent>().Entity));
                 descriptor.Field(x => x.Identifier);
@@ -236,7 +239,8 @@ public class ContractType : ObjectType<Contract>
                 descriptor.Field(x => x.RequesterLinkId);
                 descriptor.Field(x => x.PerformerType);
                 descriptor.Field(x => x.PerformerRole);
-                descriptor.Field(x => x.Performer).Type<ResourceReferenceType<ContractTermActionPerformerReferenceType>>();
+                descriptor.Field(x => x.Performer)
+                    .Type<ResourceReferenceType<ContractTermActionPerformerReferenceType>>();
                 descriptor.Field(x => x.PerformerLinkId);
                 descriptor.Field(x => x.Reason);
                 descriptor.Field(x => x.ReasonLinkId);
@@ -258,7 +262,8 @@ public class ContractType : ObjectType<Contract>
             {
                 protected override void Configure(IUnionTypeDescriptor descriptor)
                 {
-                    descriptor.Description("Reference(RelatedPerson | Patient | Practitioner | PractitionerRole | CareTeam | Device | Substance | Organization | Location)");
+                    descriptor.Description(
+                        "Reference(RelatedPerson | Patient | Practitioner | PractitionerRole | CareTeam | Device | Substance | Organization | Location)");
                     descriptor.Type<RelatedPersonType>();
                     descriptor.Type<PatientType>();
                     descriptor.Type<PractitionerType>();
@@ -282,7 +287,8 @@ public class ContractType : ObjectType<Contract>
                 descriptor.Field(x => x.ElementId);
                 descriptor.Field(x => x.Extension);
                 descriptor.Field(x => x.ModifierExtension);
-                descriptor.Field(x => x.Reference).Type<ListType<ResourceReferenceType<ContractActionSubjectReferenceType>>>();
+                descriptor.Field(x => x.Reference)
+                    .Type<ListType<ResourceReferenceType<ContractActionSubjectReferenceType>>>();
                 descriptor.Field(x => x.Role);
             }
 
@@ -290,7 +296,8 @@ public class ContractType : ObjectType<Contract>
             {
                 protected override void Configure(IUnionTypeDescriptor descriptor)
                 {
-                    descriptor.Description("Reference(Patient | RelatedPerson | Practitioner | PractitionerRole | Device | Group | Organization)");
+                    descriptor.Description(
+                        "Reference(Patient | RelatedPerson | Practitioner | PractitionerRole | Device | Group | Organization)");
                     descriptor.Type<PatientType>();
                     descriptor.Type<RelatedPersonType>();
                     descriptor.Type<PractitionerType>();
@@ -303,4 +310,3 @@ public class ContractType : ObjectType<Contract>
         }
     }
 }
-

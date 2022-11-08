@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -8,7 +9,7 @@ public class ScheduleType : ObjectType<Schedule>
     protected override void Configure(IObjectTypeDescriptor<Schedule> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Id);
         descriptor.Field(x => x.Meta);
         descriptor.Field(x => x.Text);
@@ -29,7 +30,8 @@ public class ScheduleActorReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("ScheduleActorReference");
-        descriptor.Description("Reference(Patient | Practitioner | PractitionerRole | RelatedPerson | Device | HealthcareService | Location)");
+        descriptor.Description(
+            "Reference(Patient | Practitioner | PractitionerRole | RelatedPerson | Device | HealthcareService | Location)");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();

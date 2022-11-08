@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -25,7 +26,7 @@ public class PractitionerType : ObjectType<Practitioner>
         descriptor.Field(p => p.Photo);
         descriptor.Field(p => p.Communication);
         descriptor.Field(p => p.Qualification);
-    }  
+    }
 }
 
 public class PractitionerQualificationType : ObjectType<Practitioner.QualificationComponent>
@@ -37,7 +38,7 @@ public class PractitionerQualificationType : ObjectType<Practitioner.Qualificati
         descriptor.Field(c => c.Code);
         descriptor.Field(c => c.Period);
         descriptor.Field(c => c.Issuer.Url) // TODO: add reference
-            .Name("issuer");            
+            .Name("issuer");
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -31,9 +32,9 @@ public class HealthcareServiceType : ObjectType<HealthcareService>
         descriptor.Field(x => x.AvailableTime).Type<ListType<HealthcareServiceAvailableTimeType>>();
 
         descriptor.Field(x => x.ProvidedBy).Type<ResourceReferenceType<HealthcareServiceProvidedByReferenceType>>();
-        descriptor.Field(x => x.Location).Type<ListType<ResourceReferenceType<HealthcareServiceLocationReferenceType>>>();
+        descriptor.Field(x => x.Location)
+            .Type<ListType<ResourceReferenceType<HealthcareServiceLocationReferenceType>>>();
     }
-    
 }
 
 public class HealthcareServiceNotAvailableType : ObjectType<HealthcareService.NotAvailableComponent>

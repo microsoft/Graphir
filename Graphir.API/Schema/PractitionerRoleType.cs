@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -23,7 +24,8 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
         descriptor.Field(p => p.Code);
         descriptor.Field(p => p.Specialty);
         descriptor.Field(p => p.Location).Type<ListType<ResourceReferenceType<LocationReferenceType>>>();
-        descriptor.Field(p => p.HealthcareService).Type<ListType<ResourceReferenceType<HealthcareServiceReferenceType>>>();
+        descriptor.Field(p => p.HealthcareService)
+            .Type<ListType<ResourceReferenceType<HealthcareServiceReferenceType>>>();
         descriptor.Field(p => p.Telecom);
         descriptor.Field(p => p.AvailableTime).Type<PractitionerRoleAvailableTimeType>();
         descriptor.Field(p => p.NotAvailable).Type<PractitionerRoleNotAvailableType>();
@@ -58,5 +60,4 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
             descriptor.Field(x => x.During);
         }
     }
-
 }

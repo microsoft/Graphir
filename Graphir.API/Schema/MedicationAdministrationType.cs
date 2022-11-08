@@ -1,4 +1,5 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
 
 using HotChocolate.Types;
@@ -42,8 +43,10 @@ public class MedicationAdministrationType : ObjectType<MedicationAdministration>
         descriptor.Field(x => x.EventHistory)
             .Type<ListType<ResourceReferenceType<MedicationAdministrationEventHistoryReferenceType>>>();
 
-        descriptor.Field("effectivePeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<MedicationAdministration>().Effective));
-        descriptor.Field("effectiveDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<MedicationAdministration>().Effective));
+        descriptor.Field("effectivePeriod").Resolve(r =>
+            DataTypeResolvers.GetValue<Period>(r.Parent<MedicationAdministration>().Effective));
+        descriptor.Field("effectiveDateTime").Resolve(r =>
+            DataTypeResolvers.GetDateTimeValue(r.Parent<MedicationAdministration>().Effective));
     }
 }
 
@@ -73,8 +76,10 @@ public class MedicationAdministrationDosageType : ObjectType<MedicationAdministr
         descriptor.Field(x => x.Route);
         descriptor.Field(x => x.Method);
         descriptor.Field(x => x.Dose);
-        descriptor.Field("rateRatio").Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
-        descriptor.Field("rateQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
+        descriptor.Field("rateRatio").Resolve(r =>
+            DataTypeResolvers.GetValue<Ratio>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
+        descriptor.Field("rateQuantity").Resolve(r =>
+            DataTypeResolvers.GetValue<Quantity>(r.Parent<MedicationAdministration.DosageComponent>().Rate));
     }
 }
 

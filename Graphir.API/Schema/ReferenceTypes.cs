@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -96,7 +97,6 @@ public class LocationReferenceType : UnionType
     {
         descriptor.Description("Reference(Location)");
         descriptor.Type<LocationType>();
-
     }
 }
 
@@ -115,7 +115,8 @@ public class EpisodeOfCareReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("EncounterEpisodeOfCareType");
-        descriptor.Description("The list of resources that describe the parts of the episode of care that identify which resources are to be updated when the episode is to be managed.");
+        descriptor.Description(
+            "The list of resources that describe the parts of the episode of care that identify which resources are to be updated when the episode is to be managed.");
         descriptor.Type<EpisodeOfCareType>();
     }
 }
@@ -237,7 +238,8 @@ public class RequesterReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("MedicationRequestRequesterReference");
-        descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
+        descriptor.Description(
+            "Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();
         descriptor.Type<OrganizationType>();

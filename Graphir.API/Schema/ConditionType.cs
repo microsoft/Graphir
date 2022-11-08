@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -38,11 +40,15 @@ public class ConditionType : ObjectType<Condition>
         descriptor.Field("onsetRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Onset));
         descriptor.Field("onsetString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Onset));
 
-        descriptor.Field("abatementDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementDateTime")
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Condition>().Abatement));
         descriptor.Field("abatementAge").Resolve(r => DataTypeResolvers.GetValue<Age>(r.Parent<Condition>().Abatement));
-        descriptor.Field("abatementPeriod").Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Condition>().Abatement));
-        descriptor.Field("abatementRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Abatement));
-        descriptor.Field("abatementString").Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementPeriod")
+            .Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementRange")
+            .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Condition>().Abatement));
+        descriptor.Field("abatementString")
+            .Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<Condition>().Abatement));
     }
 }
 

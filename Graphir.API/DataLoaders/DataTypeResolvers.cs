@@ -6,7 +6,7 @@ namespace Graphir.API.DataLoaders;
 
 public class DataTypeResolvers
 {
-    public static T? GetValue<T>(DataType? data) where T : DataType 
+    public static T? GetValue<T>(DataType? data) where T : DataType
         => data is not null && data.TypeName == typeof(T).Name ? data as T : null;
 
     public static Base64Binary? GetBase64BinaryValue(DataType? data)
@@ -54,22 +54,22 @@ public class DataTypeResolvers
     public static int? GetPositiveIntValue(DataType? data)
         => data is not null && data.TypeName == "positiveInt" ? (data as PositiveInt)!.Value : null;
 
-    public static string? GetStringValue(DataType? data) 
+    public static string? GetStringValue(DataType? data)
         => data is not null && data.TypeName == "string" ? (data as FhirString)!.Value : null;
 
-    public static string? GetTimeValue(DataType? data) 
+    public static string? GetTimeValue(DataType? data)
         => data is not null && data.TypeName == "string" ? (data as Time)!.Value : null;
 
-    public static int? GetUnsignedIntValue(DataType? data) 
+    public static int? GetUnsignedIntValue(DataType? data)
         => data is not null && data.TypeName == "unsignedInt" ? (data as UnsignedInt)!.Value : null;
 
-    public static string? GetUriValue(DataType? data) 
+    public static string? GetUriValue(DataType? data)
         => data is not null && data.TypeName == "uri" ? (data as FhirUri)!.Value : null;
 
-    public static string? GetUrlValue(DataType? data) 
+    public static string? GetUrlValue(DataType? data)
         => data is not null && data.TypeName == "url" ? (data as FhirUrl)!.Value : null;
 
-    public static string? GetUuidValue(DataType? data) 
+    public static string? GetUuidValue(DataType? data)
         => data is not null && data.TypeName == "uuid" ? (data as Uuid)!.Value : null;
 
     public static ResourceReference? GetReferenceValue(DataType? data)

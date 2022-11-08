@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -53,7 +55,8 @@ public class TaskType : ObjectType<Task>
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
-            descriptor.Description("Reference(Device | Organization | Patient | Practitioner | PractitionerRole | RelatedPerson)");
+            descriptor.Description(
+                "Reference(Device | Organization | Patient | Practitioner | PractitionerRole | RelatedPerson)");
             descriptor.Type<DeviceType>();
             descriptor.Type<OrganizationType>();
             descriptor.Type<PatientType>();
@@ -67,7 +70,8 @@ public class TaskType : ObjectType<Task>
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
-            descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | CareTeam | HealthcareService | Patient | Device | RelatedPerson)");
+            descriptor.Description(
+                "Reference(Practitioner | PractitionerRole | Organization | CareTeam | HealthcareService | Patient | Device | RelatedPerson)");
             descriptor.Type<PractitionerType>();
             descriptor.Type<PractitionerRoleType>();
             descriptor.Type<OrganizationType>();
@@ -88,14 +92,16 @@ public class TaskType : ObjectType<Task>
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Repetitions);
             descriptor.Field(x => x.Period);
-            descriptor.Field(x => x.Recipient).Type<ListType<ResourceReferenceType<TaskRestrictionRecipientReferenceType>>>();
+            descriptor.Field(x => x.Recipient)
+                .Type<ListType<ResourceReferenceType<TaskRestrictionRecipientReferenceType>>>();
         }
 
         private class TaskRestrictionRecipientReferenceType : UnionType
         {
             protected override void Configure(IUnionTypeDescriptor descriptor)
             {
-                descriptor.Description("Reference(Patient | Practitioner | PractitionerRole | RelatedPerson | Group | Organization)");
+                descriptor.Description(
+                    "Reference(Patient | Practitioner | PractitionerRole | RelatedPerson | Group | Organization)");
                 descriptor.Type<PatientType>();
                 descriptor.Type<PractitionerType>();
                 descriptor.Type<PractitionerRoleType>();
@@ -205,7 +211,8 @@ public class TaskType : ObjectType<Task>
             descriptor.Field("valueExpression")
                 .Resolve(r => DataTypeResolvers.GetValue<Expression>(r.Parent<Task.ParameterComponent>().Value));
             descriptor.Field("valueParameterDefinition")
-                .Resolve(r => DataTypeResolvers.GetValue<ParameterDefinition>(r.Parent<Task.ParameterComponent>().Value));
+                .Resolve(
+                    r => DataTypeResolvers.GetValue<ParameterDefinition>(r.Parent<Task.ParameterComponent>().Value));
             descriptor.Field("valueRelatedArtifact")
                 .Resolve(r => DataTypeResolvers.GetValue<RelatedArtifact>(r.Parent<Task.ParameterComponent>().Value));
             descriptor.Field("valueTriggerDefinition")

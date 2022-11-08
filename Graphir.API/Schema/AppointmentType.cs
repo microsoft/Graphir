@@ -1,6 +1,8 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate;
 using HotChocolate.Types;
+
 using System.Threading;
 
 namespace Graphir.API.Schema;
@@ -10,7 +12,7 @@ public class AppointmentType : ObjectType<Appointment>
     protected override void Configure(IObjectTypeDescriptor<Appointment> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Id);
         descriptor.Field(x => x.Meta);
         descriptor.Field(x => x.Identifier);
@@ -33,12 +35,10 @@ public class AppointmentType : ObjectType<Appointment>
 
         descriptor.Field(x => x.Participant).Type<ListType<AppointmentParticipantType>>();
     }
- 
 }
 
 public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComponent>
 {
-
     protected override void Configure(IObjectTypeDescriptor<Appointment.ParticipantComponent> descriptor)
     {
         descriptor.Name("AppointmentParticipantComponent");
@@ -62,16 +62,15 @@ public class AppointmentParticipantType : ObjectType<Appointment.ParticipantComp
             return participant.Status!.Value.ToString();
         }
     }
-    
 }
-
 
 public class AppointmentParticipantActorReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("AppointmentParticipantActorReference");
-        descriptor.Description("The type of actor Reference(Person | Location | HealthcareService | Device) that is participating in the appointment");
+        descriptor.Description(
+            "The type of actor Reference(Person | Location | HealthcareService | Device) that is participating in the appointment");
         descriptor.Type<PatientType>();
         descriptor.Type<PractitionerType>();
         descriptor.Type<PractitionerRoleType>();

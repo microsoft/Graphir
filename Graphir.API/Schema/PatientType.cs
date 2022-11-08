@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -9,7 +11,7 @@ public class PatientType : ObjectType<Patient>
     protected override void Configure(IObjectTypeDescriptor<Patient> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(p => p.Id);
         descriptor.Field(p => p.Meta);
         descriptor.Field(p => p.Identifier);
@@ -28,16 +30,19 @@ public class PatientType : ObjectType<Patient>
             .Type<ListType<ResourceReferenceType<PatientGeneralPractitionerReferenceType>>>();
         descriptor.Field(p => p.ManagingOrganization).Type<ResourceReferenceType<ManagingOrganizationReferenceType>>();
         descriptor.Field(p => p.Link);
-        descriptor.Field("deceasedBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Patient>().Deceased));
-        descriptor.Field("deceasedDateTime").Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Patient>().Deceased));
-        descriptor.Field("multipleBirthBoolean").Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Patient>().MultipleBirth));
-        descriptor.Field("multipleBirthInteger").Resolve(r => DataTypeResolvers.GetIntegerValue(r.Parent<Patient>().MultipleBirth));
+        descriptor.Field("deceasedBoolean")
+            .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Patient>().Deceased));
+        descriptor.Field("deceasedDateTime")
+            .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<Patient>().Deceased));
+        descriptor.Field("multipleBirthBoolean")
+            .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Patient>().MultipleBirth));
+        descriptor.Field("multipleBirthInteger")
+            .Resolve(r => DataTypeResolvers.GetIntegerValue(r.Parent<Patient>().MultipleBirth));
 
         /*
         implicitRules: uri _implicitRules: ElementBase
         */
-    }   
-    
+    }
 }
 
 public class PatientLinkType : ObjectType<Patient.LinkComponent>
@@ -124,7 +129,7 @@ public class PatientUpdate : IResourceUpdate<Patient>
 public class PatientDelete : IResourceDelete<Patient>
 {
     public OperationOutcome Information { get; set; }
-}    
+}
 
 public record PatientInput
 (

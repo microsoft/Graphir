@@ -3,6 +3,7 @@ using System.Net.Http;
 
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Graphir.API.Services;
@@ -30,7 +31,9 @@ internal static class FhirServiceExtensions
                 ParserSettings = parserSettings
             };
 
-            DelegatingHandler handler = fhirData.UseAuthentication ? o.GetRequiredService<FhirAuthenticatedHttpMessageHandler>() : o.GetRequiredService<FhirHttpMessageHandler>();
+            DelegatingHandler handler = fhirData.UseAuthentication
+                ? o.GetRequiredService<FhirAuthenticatedHttpMessageHandler>()
+                : o.GetRequiredService<FhirHttpMessageHandler>();
             handler.InnerHandler = new HttpClientHandler();
             return new FhirClient(fhirData.BaseUrl, settings, handler);
         });
@@ -54,5 +57,4 @@ internal static class FhirServiceExtensions
 
         return services;
     }
-   
 }

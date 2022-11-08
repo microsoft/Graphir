@@ -1,6 +1,9 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
+
 using System.Text;
 
 namespace Graphir.API.Schema;
@@ -28,14 +31,13 @@ public class ResourceReferenceType<T> : ObjectType<ResourceReference> where T : 
 
         descriptor.BindFieldsExplicitly();
 
-        descriptor.Field(r => r.Identifier);        
+        descriptor.Field(r => r.Identifier);
         descriptor.Field(r => r.Display);
         descriptor.Field(r => r.Type);
         descriptor.Field(r => r.Reference);
         descriptor.Field("resource").Type<T>()
             .ResolveWith<ResourceReferenceResolvers>(r => r.GetResourceAsync(default!, default!, default));
     }
-
 }
 
 public class IdentifierType : ObjectType<Identifier>
@@ -56,7 +58,7 @@ public class MetaType : ObjectType<Meta>
     protected override void Configure(IObjectTypeDescriptor<Meta> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(m => m.VersionId);
         descriptor.Field(m => m.LastUpdated);
         descriptor.Field(m => m.Source);
@@ -71,7 +73,7 @@ public class FhirStringType : ObjectType<FhirString>
     protected override void Configure(IObjectTypeDescriptor<FhirString> descriptor)
     {
         descriptor.BindFieldsExplicitly();
-        
+
         descriptor.Field(x => x.Value);
         descriptor.Field(x => x.Extension);
         descriptor.Field(x => x.TypeName);
@@ -235,7 +237,6 @@ public class AnnotationType : ObjectType<Annotation>
         descriptor.Field(x => x.Author).Type<PractitionerType>();
         descriptor.Field(x => x.Time);
         descriptor.Field(x => x.Text).Type<MarkDownType>();
-
     }
 }
 
@@ -303,8 +304,10 @@ public class DosageType : ObjectType<Dosage>
         descriptor.Field(x => x.MaxDosePerAdministration);
         descriptor.Field(x => x.MaxDosePerLifetime);
 
-        descriptor.Field("asNeededBoolean").Type<BooleanType>().Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Dosage>().AsNeeded));
-        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Dosage>().AsNeeded));
+        descriptor.Field("asNeededBoolean").Type<BooleanType>()
+            .Resolve(r => DataTypeResolvers.GetBooleanValue(r.Parent<Dosage>().AsNeeded));
+        descriptor.Field("asNeededCodeableConcept").Type<CodeableConceptType>().Resolve(r =>
+            DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Dosage>().AsNeeded));
     }
 }
 
@@ -316,11 +319,16 @@ public class DoseAndRateType : ObjectType<Dosage.DoseAndRateComponent>
 
         descriptor.Field(x => x.Extension);
         descriptor.Field(x => x.Type);
-        descriptor.Field("doseRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Dose));
-        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r => DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Dose));
-        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r => DataTypeResolvers.GetValue<Ratio>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
-        descriptor.Field("rateRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
-        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r => DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("doseRange").Type<RangeType>().Resolve(r =>
+            DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Dose));
+        descriptor.Field("doseQuantity").Type<QuantityType>().Resolve(r =>
+            DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Dose));
+        descriptor.Field("rateRatio").Type<RatioType>().Resolve(r =>
+            DataTypeResolvers.GetValue<Ratio>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("rateRange").Type<RangeType>().Resolve(r =>
+            DataTypeResolvers.GetValue<Range>(r.Parent<Dosage.DoseAndRateComponent>().Rate));
+        descriptor.Field("rateQuantity").Type<QuantityType>().Resolve(r =>
+            DataTypeResolvers.GetSimpleQuantity(r.Parent<Dosage.DoseAndRateComponent>().Rate));
     }
 }
 
@@ -372,9 +380,12 @@ public class TimingRepeatType : ObjectType<Timing.RepeatComponent>
         descriptor.Field(x => x.When);
         descriptor.Field(x => x.Offset);
 
-        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<Timing.RepeatComponent>().Bounds));
-        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Timing.RepeatComponent>().Bounds));
-        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsDuration").Type<DurationType>().Resolve(r =>
+            DataTypeResolvers.GetValue<Duration>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsRange").Type<RangeType>().Resolve(r =>
+            DataTypeResolvers.GetValue<Range>(r.Parent<Timing.RepeatComponent>().Bounds));
+        descriptor.Field("boundsPeriod").Type<RangeType>().Resolve(r =>
+            DataTypeResolvers.GetValue<Period>(r.Parent<Timing.RepeatComponent>().Bounds));
     }
 }
 
@@ -582,12 +593,12 @@ public class DataRequirementType : ObjectType<DataRequirement>
             descriptor.Field(x => x.Extension);
             descriptor.Field(x => x.Path);
             descriptor.Field(x => x.SearchParam);
-            descriptor.Field("valueDateTime")
-                .Resolve(r => DataTypeResolvers.GetDateTimeValue(r.Parent<DataRequirement.DateFilterComponent>().Value));
-            descriptor.Field("valuePeriod")
-                .Resolve(r => DataTypeResolvers.GetValue<Period>(r.Parent<DataRequirement.DateFilterComponent>().Value));
-            descriptor.Field("valueDuration")
-                .Resolve(r => DataTypeResolvers.GetValue<Duration>(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valueDateTime").Resolve(r =>
+                DataTypeResolvers.GetDateTimeValue(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valuePeriod").Resolve(r =>
+                DataTypeResolvers.GetValue<Period>(r.Parent<DataRequirement.DateFilterComponent>().Value));
+            descriptor.Field("valueDuration").Resolve(r =>
+                DataTypeResolvers.GetValue<Duration>(r.Parent<DataRequirement.DateFilterComponent>().Value));
         }
     }
 
@@ -709,7 +720,8 @@ public class UsageContextType : ObjectType<UsageContext>
     {
         protected override void Configure(IUnionTypeDescriptor descriptor)
         {
-            descriptor.Description("Reference(PlanDefinition | ResearchStudy | InsurancePlan | HealthcareService | Group | Location | Organization)");
+            descriptor.Description(
+                "Reference(PlanDefinition | ResearchStudy | InsurancePlan | HealthcareService | Group | Location | Organization)");
             descriptor.Type<PlanDefinitionType>();
             descriptor.Type<ResearchStudyType>();
             descriptor.Type<InsurancePlanType>();

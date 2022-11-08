@@ -1,5 +1,7 @@
 ﻿using Graphir.API.DataLoaders;
+
 using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -27,7 +29,7 @@ public class DeviceType : ObjectType<Device>
         descriptor.Field(x => x.ManufactureDate);
         descriptor.Field(x => x.ExpirationDate);
         descriptor.Field(x => x.LotNumber);
-        descriptor.Field(x => x.SerialNumber); 
+        descriptor.Field(x => x.SerialNumber);
         descriptor.Field(x => x.DeviceName).Type<ListType<DeviceDeviceNameType>>();
         descriptor.Field(x => x.ModelNumber);
         descriptor.Field(x => x.PartNumber);
@@ -49,7 +51,7 @@ public class DeviceType : ObjectType<Device>
         protected override void Configure(IObjectTypeDescriptor<Device.PropertyComponent> descriptor)
         {
             descriptor.BindFieldsExplicitly();
-            
+
             descriptor.Field(x => x.Extension);
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Type);

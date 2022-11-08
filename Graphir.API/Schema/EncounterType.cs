@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+
 using HotChocolate.Types;
 
 namespace Graphir.API.Schema;
@@ -45,41 +46,41 @@ public class EncounterType : ObjectType<Encounter>
 
 public class EncounterDiagnosisType : ObjectType<Encounter.DiagnosisComponent>
 {
-  protected override void Configure(IObjectTypeDescriptor<Encounter.DiagnosisComponent> descriptor)
-  {
-    descriptor.BindFieldsExplicitly();
-    descriptor.Field(e => e.ElementId);
-    descriptor.Field(e => e.Extension);
-    descriptor.Field(e => e.ModifierExtension);
-    descriptor.Field(e => e.Condition).Type<ResourceReferenceType<EncounterDiagnosisComponentConditionType>>();
-    descriptor.Field(e => e.Rank);
-    descriptor.Field(e => e.Use);
-    descriptor.Field(e => e.TypeName);
-  }
+    protected override void Configure(IObjectTypeDescriptor<Encounter.DiagnosisComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Field(e => e.ElementId);
+        descriptor.Field(e => e.Extension);
+        descriptor.Field(e => e.ModifierExtension);
+        descriptor.Field(e => e.Condition).Type<ResourceReferenceType<EncounterDiagnosisComponentConditionType>>();
+        descriptor.Field(e => e.Rank);
+        descriptor.Field(e => e.Use);
+        descriptor.Field(e => e.TypeName);
+    }
 }
 
 public class EncounterDiagnosisComponentConditionType : UnionType
 {
-  protected override void Configure(IUnionTypeDescriptor descriptor)
-  {
-    descriptor.Name("EncounterDiagnosisComponentCondition");
-    descriptor.Description("The condition that is the reason the encounter takes place");
-    descriptor.Type<ConditionType>();
-    descriptor.Type<ProcedureType>();
-  }
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterDiagnosisComponentCondition");
+        descriptor.Description("The condition that is the reason the encounter takes place");
+        descriptor.Type<ConditionType>();
+        descriptor.Type<ProcedureType>();
+    }
 }
 
 public class EncounterReasonReferenceType : UnionType
 {
-  protected override void Configure(IUnionTypeDescriptor descriptor)
-  {
-    descriptor.Name("EncounterReasonReference");
-    descriptor.Description("Reference(Condition | Procedure | Observation | ImmunizationRecommendation)");
-    descriptor.Type<ConditionType>();
-    descriptor.Type<ProcedureType>();
-    descriptor.Type<ObservationType>();
-    descriptor.Type<ImmunizationRecommendationType>();
-  }
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterReasonReference");
+        descriptor.Description("Reference(Condition | Procedure | Observation | ImmunizationRecommendation)");
+        descriptor.Type<ConditionType>();
+        descriptor.Type<ProcedureType>();
+        descriptor.Type<ObservationType>();
+        descriptor.Type<ImmunizationRecommendationType>();
+    }
 }
 
 public class EncounterStatusHistoryType : ObjectType<Encounter.StatusHistoryComponent>
@@ -94,22 +95,22 @@ public class EncounterStatusHistoryType : ObjectType<Encounter.StatusHistoryComp
 
 public class EncounterPartOfType : UnionType
 {
-  protected override void Configure(IUnionTypeDescriptor descriptor)
-  {
-    descriptor.Name("EncounterPartOfType");
-    descriptor.Description("Another Encounter this encounter is part of");
-    descriptor.Type<EncounterType>();
-  }
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterPartOfType");
+        descriptor.Description("Another Encounter this encounter is part of");
+        descriptor.Type<EncounterType>();
+    }
 }
 
 public class EncounterServiceProviderType : UnionType
 {
-  protected override void Configure(IUnionTypeDescriptor descriptor)
-  {
-    descriptor.Name("EncounterServiceProvider");
-    descriptor.Description("The organization (facility) responsible for this encounter.");
-    descriptor.Type<OrganizationType>();
-  }
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterServiceProvider");
+        descriptor.Description("The organization (facility) responsible for this encounter.");
+        descriptor.Type<OrganizationType>();
+    }
 }
 
 public class EncounterLocationComponentType : ObjectType<Encounter.LocationComponent>
@@ -129,37 +130,37 @@ public class EncounterLocationComponentType : ObjectType<Encounter.LocationCompo
 
 public class EncounterLocationComponentLocationType : UnionType
 {
-  protected override void Configure(IUnionTypeDescriptor descriptor)
-  {
-    descriptor.Name("EncounterLocationComponentLocation");
-    descriptor.Description("The location where the encounter takes place");
-    descriptor.Type<LocationType>();
-  }
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterLocationComponentLocation");
+        descriptor.Description("The location where the encounter takes place");
+        descriptor.Type<LocationType>();
+    }
 }
 
 public class EncounterParticipantType : ObjectType<Encounter.ParticipantComponent>
 {
-  protected override void Configure(IObjectTypeDescriptor<Encounter.ParticipantComponent> descriptor)
-  {
-    descriptor.BindFieldsExplicitly();
-    descriptor.Name("EncounterParticipantComponent");
-    descriptor.Description("List of participants involved in the encounter");
-    descriptor.Field(e => e.Type);
-    descriptor.Field(e => e.Period);
-    descriptor.Field(e => e.Individual).Type<ResourceReferenceType<EncounterParticipantIndividualReferenceType>>();
-  }
+    protected override void Configure(IObjectTypeDescriptor<Encounter.ParticipantComponent> descriptor)
+    {
+        descriptor.BindFieldsExplicitly();
+        descriptor.Name("EncounterParticipantComponent");
+        descriptor.Description("List of participants involved in the encounter");
+        descriptor.Field(e => e.Type);
+        descriptor.Field(e => e.Period);
+        descriptor.Field(e => e.Individual).Type<ResourceReferenceType<EncounterParticipantIndividualReferenceType>>();
+    }
 }
 
 public class EncounterParticipantIndividualReferenceType : UnionType
 {
-  protected override void Configure(IUnionTypeDescriptor descriptor)
-  {
-    descriptor.Name("EncounterParticipantIndividualReference");
-    descriptor.Description("The individual who is participating in the encounter.");
-    descriptor.Type<PractitionerType>();
-    descriptor.Type<PractitionerRoleType>();
-    descriptor.Type<RelatedPersonType>();
-  }
+    protected override void Configure(IUnionTypeDescriptor descriptor)
+    {
+        descriptor.Name("EncounterParticipantIndividualReference");
+        descriptor.Description("The individual who is participating in the encounter.");
+        descriptor.Type<PractitionerType>();
+        descriptor.Type<PractitionerRoleType>();
+        descriptor.Type<RelatedPersonType>();
+    }
 }
 
 public class EncounterClassHistoryType : ObjectType<Encounter.ClassHistoryComponent>
