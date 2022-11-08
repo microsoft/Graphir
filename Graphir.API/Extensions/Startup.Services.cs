@@ -98,6 +98,7 @@ public static class StartupServices
             .AddResourceType<Account, AccountType>()
             .AddResourceType<EpisodeOfCare, EpisodeOfCareType>()
             .AddResourceType<Contract, ContractType>()
+            .AddResourceType<Composition, CompositionType>()
             ;
     }
 }
