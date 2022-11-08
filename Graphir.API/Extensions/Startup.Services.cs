@@ -46,7 +46,6 @@ public static class StartupServices
             .AddRelatedPerson()
             .AddSchedule()
             .AddRelatedPerson()
-            .AddResourceType<Contract, ContractType>()
             .AddResourceType<Consent, ConsentType>()
             .AddResourceType<Organization, OrganizationType>()
             .AddResourceType<Medication, MedicationType>()
@@ -98,7 +97,7 @@ public static class StartupServices
             .AddResourceType<DeviceDefinition, DeviceDefinitionType>()
             .AddResourceType<Account, AccountType>()
             .AddResourceType<EpisodeOfCare, EpisodeOfCareType>()
-            .AddResourceType<Composition, CompositionType>()
+            .AddResourceType<Contract, ContractType>()
             ;
     }
 }

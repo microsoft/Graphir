@@ -47,7 +47,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
         descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn);
-        descriptor.Field(x => x.Requester).Type<ResourceReferenceType<MedicationRequestRequesterReferenceType>>();
+        descriptor.Field(x => x.Requester).Type<ResourceReferenceType<RequesterReferenceType>>();
         descriptor.Field(x => x.Reported).Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest>();
@@ -197,20 +197,5 @@ public class MedicationRequestEventHistoryReferenceType : UnionType
         descriptor.Name("MedicationRequestEventHistoryReference");
         descriptor.Description("Reference(Provenance)");
         descriptor.Type<ProvenanceType>();
-    }
-}
-
-public class MedicationRequestRequesterReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationRequestRequesterReference");
-        descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
-        descriptor.Type<PractitionerType>();
-        descriptor.Type<PractitionerRoleType>();
-        descriptor.Type<OrganizationType>();
-        descriptor.Type<PatientType>();
-        descriptor.Type<RelatedPersonType>();
-        descriptor.Type<DeviceType>();
     }
 }
