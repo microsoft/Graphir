@@ -1,6 +1,7 @@
 ﻿using Hl7.Fhir.Model;
 
 using System;
+using System.Threading.Tasks;
 
 namespace Graphir.API.DataLoaders;
 
@@ -77,4 +78,13 @@ public class DataTypeResolvers
 
     public static Identifier? GetIdentifierValue(DataType? data)
         => data is not null && data.TypeName == "Identifier" ? data as Identifier : null;
+    
+    public static CodeableConcept? GetCodeableConceptValue(DataType? data)
+        => data is not null && data.TypeName == nameof(CodeableConcept) ? data as CodeableConcept : null;
+    
+    public static Address? GetAddressValue(DataType? data)
+        => data is not null && data.TypeName == nameof(Address) ? data as Address : null;
+    
+    public static Period? GetPeriodValue(DataType? data)
+        => data is not null && data.TypeName == nameof(Period) ? data as Period : null;
 }

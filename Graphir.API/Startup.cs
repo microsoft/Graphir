@@ -1,5 +1,9 @@
+using System;
+
 using Graphir.API.Extensions;
 using Graphir.API.Services;
+
+using Hl7.Fhir.Model;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

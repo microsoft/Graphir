@@ -19,7 +19,7 @@ type ClaimResponse {
   patient: Reference!
   created: dateTime  _created: ElementBase
   insurer: Reference!
-  requestor: Reference
+  requester: Reference
   request: Reference
   outcome: code  _outcome: ElementBase
   disposition: String  _disposition: ElementBase
