@@ -80,4 +80,7 @@ public class DataTypeResolvers
     
     public static Period? GetPeriodValue(DataType? data)
         => data is not null && data.TypeName == "Period" ? data as Period : null;
+    
+    public static Identifier? GetIdentifierValue(DataType? data)
+        => data is not null && data.TypeName == "Identifier" ? data as Identifier : null;
 }
