@@ -28,47 +28,7 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
         descriptor.Field(p => p.AvailableTime).Type<PractitionerRoleAvailableTimeType>();
         descriptor.Field(p => p.NotAvailable).Type<PractitionerRoleNotAvailableType>();
         descriptor.Field(p => p.AvailabilityExceptions);
-        descriptor.Field(p => p.Endpoint).Type<ListType<ResourceReferenceType<PractitionerRoleEndpointReferenceType>>>();
-    }
-
-    private class PractitionerReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("PractitionerRolePractitionerReference");
-            descriptor.Description("Reference(Practitioner)");
-            descriptor.Type<PractitionerType>();
-        }
-    }
-
-    private class OrganizationReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("PractitionerRoleOrganizationReference");
-            descriptor.Description("Reference(Organization)");
-            descriptor.Type<OrganizationType>();
-        }
-    }
-
-    private class LocationReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("PractitionerRoleLocationReference");
-            descriptor.Description("Reference(Location)");
-            descriptor.Type<LocationType>();
-        }
-    }
-
-    private class HealthcareServiceReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("PractitionerRoleHealthcareServiceReference");
-            descriptor.Description("Reference(HealthcareService)");
-            descriptor.Type<HealthcareServiceType>();
-        }
+        descriptor.Field(p => p.Endpoint).Type<ListType<ResourceReferenceType<EndpointReferenceType>>>();
     }
 
     private class PractitionerRoleAvailableTimeType : ObjectType<PractitionerRole.AvailableTimeComponent>
@@ -99,13 +59,4 @@ public class PractitionerRoleType : ObjectType<PractitionerRole>
         }
     }
 
-    private class PractitionerRoleEndpointReferenceType : UnionType
-    {
-        protected override void Configure(IUnionTypeDescriptor descriptor)
-        {
-            descriptor.Name("PractitionerRoleEndpointReference");
-            descriptor.Description("Reference(Endpoint)");
-            descriptor.Type<EndpointType>();
-        }
-    }
 }

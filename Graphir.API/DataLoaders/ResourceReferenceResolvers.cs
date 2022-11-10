@@ -35,6 +35,8 @@ namespace Graphir.API.DataLoaders
             {
                 default:
                     return null;
+                case nameof(Account):
+                    return await factory.AccountByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Appointment):
                     return await factory.AppointmentByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Patient):
@@ -49,6 +51,8 @@ namespace Graphir.API.DataLoaders
                     return await factory.CoverageByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Device):
                     return await factory.DeviceByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
+                case nameof(DeviceDefinition):
+                    return await factory.DeviceDefinitionByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Provenance):
                     return await factory.ProvenanceByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(Slot):
@@ -165,6 +169,8 @@ namespace Graphir.API.DataLoaders
                     return await factory.PractitionerRoleByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
                 case nameof(ServiceRequest):
                     return await factory.ServiceRequestByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
+                case nameof(Hl7.Fhir.Model.Task):
+                    return await factory.TaskByIdDataLoader.LoadAsync(resourceId!, cancellationToken);
             }
         }
     }

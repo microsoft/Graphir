@@ -47,7 +47,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.Encounter).Type<ResourceReferenceType<MedicationRequestEncounterReferenceType>>();
         descriptor.Field(x => x.SupportingInformation).Type<ListType<ResourceReferenceType<AnyReferenceType>>>();
         descriptor.Field(x => x.AuthoredOn);
-        descriptor.Field(x => x.Requester).Type<ResourceReferenceType<MedicationRequestRequesterReferenceType>>();
+        descriptor.Field(x => x.Requester).Type<ResourceReferenceType<RequesterReferenceType>>();
         descriptor.Field(x => x.Reported).Type<BooleanType>().Resolve(r =>
         {
             var parent = r.Parent<MedicationRequest>();
@@ -61,7 +61,7 @@ public class MedicationRequestType : ObjectType<MedicationRequest>
         descriptor.Field(x => x.ReasonCode);
         descriptor.Field(x => x.ReasonReference).Type<ListType<ResourceReferenceType<MedicationRequestReasonReferenceType>>>();
         descriptor.Field(x => x.CourseOfTherapyType);
-        descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<MedicationRequestInsuranceReferenceType>>>();
+        descriptor.Field(x => x.Insurance).Type<ListType<ResourceReferenceType<InsuranceReferenceType>>>();
         descriptor.Field(x => x.Note);
         descriptor.Field(x => x.DosageInstruction);
         descriptor.Field(x => x.DispenseRequest).Type<MedicationRequestDispenseRequestType>();
@@ -144,16 +144,6 @@ public class MedicationRequestEncounterReferenceType : UnionType
     }
 }
 
-public class MedicationRequestInsuranceReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("InsuranceReference");
-        descriptor.Type<CoverageType>();
-        descriptor.Type<ClaimResponseType>();
-    }
-}
-
 public class MedicationRequestReasonReferenceType : UnionType
 {
     protected override void Configure(IUnionTypeDescriptor descriptor)
@@ -207,20 +197,5 @@ public class MedicationRequestEventHistoryReferenceType : UnionType
         descriptor.Name("MedicationRequestEventHistoryReference");
         descriptor.Description("Reference(Provenance)");
         descriptor.Type<ProvenanceType>();
-    }
-}
-
-public class MedicationRequestRequesterReferenceType : UnionType
-{
-    protected override void Configure(IUnionTypeDescriptor descriptor)
-    {
-        descriptor.Name("MedicationRequestRequesterReference");
-        descriptor.Description("Reference(Practitioner | PractitionerRole | Organization | Patient | RelatedPerson | Device)");
-        descriptor.Type<PractitionerType>();
-        descriptor.Type<PractitionerRoleType>();
-        descriptor.Type<OrganizationType>();
-        descriptor.Type<PatientType>();
-        descriptor.Type<RelatedPersonType>();
-        descriptor.Type<DeviceType>();
     }
 }

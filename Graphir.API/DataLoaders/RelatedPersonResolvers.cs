@@ -24,7 +24,6 @@ public class RelatedPersonResolvers
         if (birthDate is not null)
             criteria.Add($"birthdate={birthDate:yyyy-MM-dd}");
 
-        var result = await client.SearchAsync<RelatedPerson>(criteria);
-        return result;
+        return await client.SearchAsync<RelatedPerson>(criteria);
     }
 }

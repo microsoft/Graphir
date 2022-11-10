@@ -51,7 +51,7 @@ public class GoalType : ObjectType<Goal>
         protected override void Configure(IObjectTypeDescriptor<Goal.TargetComponent> descriptor)
         {
             descriptor.BindFieldsExplicitly();
-
+            descriptor.Name("GoalTarget");
             descriptor.Field(x => x.Extension);
             descriptor.Field(x => x.ModifierExtension);
             descriptor.Field(x => x.Measure);

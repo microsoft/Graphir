@@ -5,6 +5,7 @@ namespace Graphir.API.DataLoaders
     public class DataLoaderFactory
     {
         public DataLoaderFactory(
+            ResourceByIdDataLoader<Account> accountByIdDataLoader,
             ResourceByIdDataLoader<Appointment> appointmentByIdDataLoader,
             ResourceByIdDataLoader<Patient> patientByIdDataLoader,
             ResourceByIdDataLoader<Practitioner> practitionerByIdDataLoader,
@@ -12,6 +13,7 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<Condition> conditionByIdDataLoader,
             ResourceByIdDataLoader<Coverage> coverageByIdDataLoader,
             ResourceByIdDataLoader<Device> deviceByIdDataLoader,
+            ResourceByIdDataLoader<DeviceDefinition> deviceDefinitionByIdDataLoader,
             ResourceByIdDataLoader<Provenance> provenanceByIdDataLoader,
             ResourceByIdDataLoader<Slot> slotByIdDataLoader,
             ResourceByIdDataLoader<Medication> medicationByIdDataLoader,
@@ -73,9 +75,11 @@ namespace Graphir.API.DataLoaders
             ResourceByIdDataLoader<PaymentReconciliation> paymentReconciliationByIdDataLoader,
             ResourceByIdDataLoader<Person> personByIdDataLoader,
             ResourceByIdDataLoader<PlanDefinition> planDefinitionByIdDataLoader,
-            ResourceByIdDataLoader<ServiceRequest> serviceRequestByIdDataLoader
+            ResourceByIdDataLoader<ServiceRequest> serviceRequestByIdDataLoader,
+            ResourceByIdDataLoader<Task> taskByIdDataLoader
         )
         {
+            AccountByIdDataLoader = accountByIdDataLoader;
             AppointmentByIdDataLoader = appointmentByIdDataLoader;
             PatientByIdDataLoader = patientByIdDataLoader;
             PractitionerByIdDataLoader = practitionerByIdDataLoader;
@@ -83,6 +87,7 @@ namespace Graphir.API.DataLoaders
             ConditionByIdDataLoader = conditionByIdDataLoader;
             CoverageByIdDataLoader = coverageByIdDataLoader;
             DeviceByIdDataLoader = deviceByIdDataLoader;
+            DeviceDefinitionByIdDataLoader = deviceDefinitionByIdDataLoader;
             ProvenanceByIdDataLoader = provenanceByIdDataLoader;
             SlotByIdDataLoader = slotByIdDataLoader;
             MedicationByIdDataLoader = medicationByIdDataLoader;
@@ -145,8 +150,10 @@ namespace Graphir.API.DataLoaders
             PersonByIdDataLoader = personByIdDataLoader;
             PlanDefinitionByIdDataLoader = planDefinitionByIdDataLoader;
             ServiceRequestByIdDataLoader = serviceRequestByIdDataLoader;
+            TaskByIdDataLoader = taskByIdDataLoader;
         }
 
+        public ResourceByIdDataLoader<Account> AccountByIdDataLoader { get; }
         public ResourceByIdDataLoader<Appointment> AppointmentByIdDataLoader { get; }
         public ResourceByIdDataLoader<Patient> PatientByIdDataLoader { get; }
         public ResourceByIdDataLoader<Practitioner> PractitionerByIdDataLoader { get; }
@@ -154,6 +161,7 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Condition> ConditionByIdDataLoader { get; }
         public ResourceByIdDataLoader<Coverage> CoverageByIdDataLoader { get; }
         public ResourceByIdDataLoader<Device> DeviceByIdDataLoader { get; }
+        public ResourceByIdDataLoader<DeviceDefinition> DeviceDefinitionByIdDataLoader { get; }
         public ResourceByIdDataLoader<Provenance> ProvenanceByIdDataLoader { get; }
         public ResourceByIdDataLoader<Slot> SlotByIdDataLoader { get; }
         public ResourceByIdDataLoader<Medication> MedicationByIdDataLoader { get; }
@@ -216,5 +224,6 @@ namespace Graphir.API.DataLoaders
         public ResourceByIdDataLoader<Person> PersonByIdDataLoader { get; }
         public ResourceByIdDataLoader<PlanDefinition> PlanDefinitionByIdDataLoader { get; }
         public ResourceByIdDataLoader<ServiceRequest> ServiceRequestByIdDataLoader { get; }
+        public ResourceByIdDataLoader<Task> TaskByIdDataLoader { get; }
     }
 }
