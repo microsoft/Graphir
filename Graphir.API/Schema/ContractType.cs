@@ -122,6 +122,7 @@ public class ContractActionComponentType : ObjectType<ActionComponent>
 {
     protected override void Configure(IObjectTypeDescriptor<ActionComponent> descriptor)
     {
+        descriptor.Name("ContractActionComponent");
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(t => t.ElementId);
