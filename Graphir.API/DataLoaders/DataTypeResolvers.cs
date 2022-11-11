@@ -74,4 +74,13 @@ public class DataTypeResolvers
 
     public static ResourceReference? GetReferenceValue(DataType? data)
         => data is not null && data.TypeName == "Reference" ? data as ResourceReference : null;
+
+    public static CodeableConcept? GetCodeableConceptValue(DataType? data)
+        => data is not null && data.TypeName == "CodeableConcept" ? data as CodeableConcept : null;
+    
+    public static Address? GetAddressValue(DataType? data)
+        => data is not null && data.TypeName == "Address" ? data as Address : null;
+    
+    public static Period? GetPeriodValue(DataType? data)
+        => data is not null && data.TypeName == "Period" ? data as Period : null;
 }
