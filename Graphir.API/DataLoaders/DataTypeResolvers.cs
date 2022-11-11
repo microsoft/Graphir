@@ -74,7 +74,4 @@ public class DataTypeResolvers
 
     public static ResourceReference? GetReferenceValue(DataType? data)
         => data is not null && data.TypeName == "Reference" ? data as ResourceReference : null;
-    
-    public static Identifier? GetIdentifierValue(DataType? data)
-        => data is not null && data.TypeName == "Identifier" ? data as Identifier : null;
 }
