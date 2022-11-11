@@ -7,8 +7,7 @@ namespace Graphir.API.Schema;
 
 public class ClaimType : ObjectType<Claim>
 {
-    // TODO: finish ClaimType
-  protected override void Configure(IObjectTypeDescriptor<Claim> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<Claim> descriptor)
     {
         descriptor.BindFieldsExplicitly();
 
@@ -400,7 +399,6 @@ public class ClaimFacilityReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("ClaimFacilityReference");
-
         descriptor.Type<LocationType>();
     }
 }
@@ -410,7 +408,6 @@ public class ClaimReferralReferenceType : UnionType
     protected override void Configure(IUnionTypeDescriptor descriptor)
     {
         descriptor.Name("ClaimReferralReference");
-
         descriptor.Type<ServiceRequestType>();
     }
 }
