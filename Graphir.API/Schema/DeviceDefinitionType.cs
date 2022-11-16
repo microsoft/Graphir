@@ -23,7 +23,7 @@ public class DeviceDefinitionType : ObjectType<DeviceDefinition>
         descriptor.Field("manufacturerString")
             .Resolve(r => DataTypeResolvers.GetStringValue(r.Parent<DeviceDefinition>().Manufacturer));
         descriptor.Field("manufacturerReference").Type<ResourceReferenceType<OrganizationReferenceType>>()
-            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<DeviceDefinition>().Manufacturer));
+            .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<DeviceDefinition>().Manufacturer));
         descriptor.Field(x => x.DeviceName).Type<ListType<DeviceDefinitionDeviceNameType>>();
         descriptor.Field(x => x.ModelNumber);
         descriptor.Field(x => x.Version);

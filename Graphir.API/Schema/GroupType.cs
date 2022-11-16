@@ -42,7 +42,7 @@ public class GroupCharacteristicType : ObjectType<Group.CharacteristicComponent>
         descriptor.Field("valueQuantity").Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Group.CharacteristicComponent>().Value));
         descriptor.Field("valueRange").Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<Group.CharacteristicComponent>().Value));
         descriptor.Field("valueReference").Type<ResourceReferenceType<GroupCharacteristicValueReferenceType>>()
-            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Group.CharacteristicComponent>().Value));
+            .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<Group.CharacteristicComponent>().Value));
     }
 }
 

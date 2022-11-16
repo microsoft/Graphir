@@ -126,7 +126,7 @@ public class CompositionRelatesToComponentType : ObjectType<RelatesToComponent>
             .Resolve(ctx => DataTypeResolvers.GetValue<Identifier>(ctx.Parent<RelatesToComponent>().Target));
 
         descriptor.Field("targetReference")
-            .Resolve(ctx => DataTypeResolvers.GetReferenceValue(ctx.Parent<RelatesToComponent>().Target))
+            .Resolve(ctx => DataTypeResolvers.GetValue<ResourceReference>(ctx.Parent<RelatesToComponent>().Target))
             .Type<ResourceReferenceType<CompositionRelatesToTargetType>>();
     }
 }

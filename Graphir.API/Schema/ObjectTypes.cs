@@ -553,7 +553,7 @@ public class DataRequirementType : ObjectType<DataRequirement>
         descriptor.Field("subjectCodeableConcept")
             .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<DataRequirement>().Subject));
         descriptor.Field("subjectReference").Type<ResourceReferenceType<GroupReferenceType>>()
-            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<DataRequirement>().Subject));
+            .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<DataRequirement>().Subject));
         descriptor.Field(x => x.MustSupport);
         descriptor.Field(x => x.CodeFilter).Type<DataRequirementCodeFilterType>();
         descriptor.Field(x => x.DateFilter).Type<DataRequirementDateFilterType>();
@@ -669,7 +669,7 @@ public class TriggerDefinitionType : ObjectType<TriggerDefinition>
         descriptor.Field("timingTiming")
             .Resolve(r => DataTypeResolvers.GetValue<Timing>(r.Parent<TriggerDefinition>().Timing));
         descriptor.Field("timingReference").Type<ResourceReferenceType<ScheduleReferenceType>>()
-            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<TriggerDefinition>().Timing));
+            .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<TriggerDefinition>().Timing));
         descriptor.Field("timingDate")
             .Resolve(r => DataTypeResolvers.GetDateValue(r.Parent<TriggerDefinition>().Timing));
         descriptor.Field("timingDateTime")
@@ -702,7 +702,7 @@ public class UsageContextType : ObjectType<UsageContext>
         descriptor.Field("valueRange")
             .Resolve(r => DataTypeResolvers.GetValue<Range>(r.Parent<UsageContext>().Value));
         descriptor.Field("valueReference").Type<ResourceReferenceType<UsageContextValueReferenceType>>()
-            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<UsageContext>().Value));
+            .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<UsageContext>().Value));
     }
 
     private class UsageContextValueReferenceType : UnionType

@@ -31,7 +31,7 @@ public class ContractType : ObjectType<Contract>
             descriptor.Field("topicCodeableConcept")
                 .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Contract.TermComponent>().Topic));
             descriptor.Field("topicReference")
-                .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Contract.TermComponent>().Topic));
+                .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<Contract.TermComponent>().Topic));
             descriptor.Field(x => x.Type);
             descriptor.Field(x => x.SubType);
             descriptor.Field(x => x.Text);
@@ -174,7 +174,7 @@ public class ContractType : ObjectType<Contract>
                 descriptor.Field("valueQuantity")
                     .Resolve(r => DataTypeResolvers.GetValue<Quantity>(r.Parent<Contract.AnswerComponent>().Value));
                 descriptor.Field("valueReference")
-                    .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Contract.AnswerComponent>().Value));
+                    .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<Contract.AnswerComponent>().Value));
             }
         }
 
@@ -191,7 +191,7 @@ public class ContractType : ObjectType<Contract>
                 descriptor.Field("entityCodeableConcept")
                     .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Contract.ValuedItemComponent>().Entity));
                 descriptor.Field("entityReference")
-                    .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Contract.ValuedItemComponent>().Entity));
+                    .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<Contract.ValuedItemComponent>().Entity));
                 descriptor.Field(x => x.Identifier);
                 descriptor.Field(x => x.EffectiveTime);
                 descriptor.Field(x => x.Quantity);

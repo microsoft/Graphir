@@ -71,7 +71,4 @@ public class DataTypeResolvers
 
     public static string? GetUuidValue(DataType? data) 
         => data is not null && data.TypeName == "uuid" ? (data as Uuid)!.Value : null;
-
-    public static ResourceReference? GetReferenceValue(DataType? data)
-        => data is not null && data.TypeName == "Reference" ? data as ResourceReference : null;
 }

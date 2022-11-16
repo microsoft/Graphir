@@ -36,7 +36,7 @@ namespace Graphir.API.Schema
                 descriptor.Field(x => x.Quantity);
                 descriptor.Field("substanceCodeableConcept").Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<Substance.IngredientComponent>().Substance));
                 descriptor.Field("substanceReference").Type<ResourceReferenceType<SubstanceReferenceType>>()
-                    .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<Substance.IngredientComponent>().Substance));
+                    .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<Substance.IngredientComponent>().Substance));
             }
         }
 

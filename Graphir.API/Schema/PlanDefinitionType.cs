@@ -28,7 +28,7 @@ public class PlanDefinitionType : ObjectType<PlanDefinition>
         descriptor.Field("subjectCodeableConcept")
             .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<PlanDefinition>().Subject));
         descriptor.Field("subjectReference").Type<ResourceReferenceType<GroupReferenceType>>()
-            .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<PlanDefinition>().Subject));
+            .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<PlanDefinition>().Subject));
         descriptor.Field("subjectCanonical")
             .Resolve(r => DataTypeResolvers.GetCanonicalValue(r.Parent<PlanDefinition>().Subject));
         descriptor.Field(x => x.Date);
@@ -116,7 +116,7 @@ public class PlanDefinitionType : ObjectType<PlanDefinition>
             descriptor.Field("subjectCodeableConcept")
                 .Resolve(r => DataTypeResolvers.GetValue<CodeableConcept>(r.Parent<PlanDefinition.ActionComponent>().Subject));
             descriptor.Field("subjectReference").Type<GroupReferenceType>()
-                .Resolve(r => DataTypeResolvers.GetReferenceValue(r.Parent<PlanDefinition.ActionComponent>().Subject));
+                .Resolve(r => DataTypeResolvers.GetValue<ResourceReference>(r.Parent<PlanDefinition.ActionComponent>().Subject));
             descriptor.Field("subjectCanonical")
                 .Resolve(r => DataTypeResolvers.GetCanonicalValue(r.Parent<PlanDefinition.ActionComponent>().Subject));
             descriptor.Field(x => x.Trigger);
