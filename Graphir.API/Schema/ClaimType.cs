@@ -1,4 +1,6 @@
-﻿using Graphir.API.DataLoaders;
+﻿using System.Security.Cryptography.Xml;
+
+using Graphir.API.DataLoaders;
 
 using Hl7.Fhir.Model;
 using HotChocolate.Types;
@@ -92,13 +94,13 @@ public class ClaimItemComponentType : ObjectType<Claim.ItemComponent>
         descriptor.Field(x => x.InformationSequence);
 
         descriptor.Field("locationAddress")
-            .Resolve(x => DataTypeResolvers.GetAddressValue(x.Parent<Claim.ItemComponent>().Location));
+            .Resolve(x => DataTypeResolvers.GetValue<Address>(x.Parent<Claim.ItemComponent>().Location));
 
         descriptor.Field("locationCodeableConcept")
-            .Resolve(x => DataTypeResolvers.GetCodeableConceptValue(x.Parent<Claim.ItemComponent>().Location));
+            .Resolve(x => DataTypeResolvers.GetValue<CodeableConcept>(x.Parent<Claim.ItemComponent>().Location));
 
         descriptor.Field("locationResourceReference")
-            .Resolve(x => DataTypeResolvers.GetReferenceValue(x.Parent<Claim.ItemComponent>().Location))
+            .Resolve(x => DataTypeResolvers.GetValue<ResourceReference>(x.Parent<Claim.ItemComponent>().Location))
             .Type<ResourceReferenceType<ClaimItemLocationResourceReferenceType>>();
 
         descriptor.Field(x => x.Modifier);
@@ -114,7 +116,7 @@ public class ClaimItemComponentType : ObjectType<Claim.ItemComponent>
             .Resolve(x => DataTypeResolvers.GetDateValue(x.Parent<Claim.ItemComponent>().Serviced));
 
         descriptor.Field("servicedPeriod")
-            .Resolve(x => DataTypeResolvers.GetPeriodValue(x.Parent<Claim.ItemComponent>().Serviced));
+            .Resolve(x => DataTypeResolvers.GetValue<Period>(x.Parent<Claim.ItemComponent>().Serviced));
 
         descriptor.Field(x => x.SubSite);
         descriptor.Field(x => x.Udi).Type<ResourceReferenceType<ClaimItemUdiReferenceType>>();
@@ -219,9 +221,9 @@ public class ClaimAccidentComponentType : ObjectType<Claim.AccidentComponent>
 
         descriptor.Field(x => x.Date);
         descriptor.Field("locationAddress").Resolve(x =>
-            DataTypeResolvers.GetAddressValue(x.Parent<Claim.AccidentComponent>().Location));
+            DataTypeResolvers.GetValue<Address>(x.Parent<Claim.AccidentComponent>().Location));
         descriptor.Field("locationReference").Resolve(x =>
-                DataTypeResolvers.GetReferenceValue(x.Parent<Claim.AccidentComponent>().Location))
+                DataTypeResolvers.GetValue<ResourceReference>(x.Parent<Claim.AccidentComponent>().Location))
             .Type<ResourceReferenceType<ClaimAccidentComponentLocationReferenceType>>();
         descriptor.Field(x => x.Type);
     }
@@ -280,10 +282,10 @@ public class ClaimProcedureComponentType : ObjectType<Claim.ProcedureComponent>
 
         descriptor.Field(x => x.Date);
         descriptor.Field("procedureCodeableConcept")
-            .Resolve(x => DataTypeResolvers.GetCodeableConceptValue(x.Parent<Claim.ProcedureComponent>().Procedure));
+            .Resolve(x => DataTypeResolvers.GetValue<CodeableConcept>(x.Parent<Claim.ProcedureComponent>().Procedure));
 
         descriptor.Field("procedureResourceReference")
-            .Resolve(x => DataTypeResolvers.GetReferenceValue(x.Parent<Claim.ProcedureComponent>().Procedure))
+            .Resolve(x => DataTypeResolvers.GetValue<ResourceReference>(x.Parent<Claim.ProcedureComponent>().Procedure))
             .Type<ResourceReferenceType<ClaimProcedureComponentProcedureResourceReferenceType>>();
 
         descriptor.Field(x => x.Sequence);
@@ -318,12 +320,12 @@ public class ClaimDiagnosisComponentType : ObjectType<Claim.DiagnosisComponent>
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field("diagnosisReference")
-            .Resolve(x => DataTypeResolvers.GetReferenceValue(x.Parent<Claim.DiagnosisComponent>().Diagnosis))
+            .Resolve(x => DataTypeResolvers.GetValue<ResourceReference>(x.Parent<Claim.DiagnosisComponent>().Diagnosis))
             .Type<ResourceReferenceType<ClaimDiagnosisComponentDiagnosisReferenceType>>();
 
         descriptor.Field("diagnosisCodeableConcept")
             .Resolve(x => DataTypeResolvers
-                .GetCodeableConceptValue(x.Parent<Claim.DiagnosisComponent>().Diagnosis));
+                .GetValue<CodeableConcept>(x.Parent<Claim.DiagnosisComponent>().Diagnosis));
 
         descriptor.Field(x => x.OnAdmission);
         descriptor.Field(x => x.PackageCode);
