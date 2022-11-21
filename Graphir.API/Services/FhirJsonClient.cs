@@ -1,5 +1,6 @@
 ﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
+using HotChocolate.Execution;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,8 +41,8 @@ public class FhirJsonClient
         }
         catch (Exception ex)
         {
-            // do some stuffs here
-            return null;
+            // throw a QueryException message so GraphQL displays errors
+            throw new QueryException(ex.Message);
         }
     }
 
