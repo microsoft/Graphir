@@ -1,5 +1,6 @@
 ﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -26,11 +27,22 @@ public class FhirJsonClient
 
     public async Task<List<T>> SearchAsync<T>(string query) where T : Resource
     {
-        var reqStr = $"{_httpClient.BaseAddress}/{typeof(T).Name}?{query}";
-        var json = await _httpClient.GetStringAsync(reqStr);
-        var bundle = await _parser.ParseAsync<Bundle>(json);
-        var result = bundle.Entry.Select(p => (T)p.Resource).ToList();
-        return result;
+        try
+        {            
+            var reqStr = $"{_httpClient.BaseAddress}{typeof(T).Name}";
+            if (!string.IsNullOrEmpty(query))
+                reqStr += $"?{query}";
+
+            var json = await _httpClient.GetStringAsync(reqStr);
+            var bundle = await _parser.ParseAsync<Bundle>(json);
+            var result = bundle.Entry.Select(p => (T)p.Resource).ToList();
+            return result;
+        }
+        catch (Exception ex)
+        {
+            // do some stuffs here
+            return null;
+        }
     }
 
     public async Task<List<T>> SearchAsync<T>(IList<string> criteria) where T : Resource
