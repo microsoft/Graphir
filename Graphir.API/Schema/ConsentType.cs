@@ -41,7 +41,7 @@ public class ConsentSourceReferenceType : UnionType
         descriptor.Type<ConsentType>();
         descriptor.Type<DocumentReferenceType>();
         descriptor.Type<QuestionnaireResponseType>();
-        // descriptor.Type<ContractType>(); TODO: Implement ContractType
+        descriptor.Type<ContractType>(); 
     }
 }
 
