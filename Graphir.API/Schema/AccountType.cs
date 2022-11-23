@@ -26,8 +26,6 @@ public class AccountType : ObjectType<Account>
         descriptor.Field(x => x.Owner).Type<ResourceReferenceType<OrganizationReferenceType>>();
         descriptor.Field(x => x.Description);
         descriptor.Field(x => x.Guarantor).Type<ListType<AccountGuarantorType>>();
-        descriptor.Field(x => x.Id);
-        descriptor.Field(x => x.Id);
     }
 
     private class AccountSubjectReferenceType : UnionType

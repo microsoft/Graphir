@@ -45,8 +45,8 @@ public class TaskType : ObjectType<Task>
         descriptor.Field(x => x.Note);
         descriptor.Field(x => x.RelevantHistory).Type<ListType<ResourceReferenceType<ProvenanceReferenceType>>>();
         descriptor.Field(x => x.Restriction).Type<TaskRestrictionType>();
-        descriptor.Field(x => x.Input).Type<TaskParameterType>();
-        descriptor.Field(x => x.Output).Type<TaskOutputType>();
+        descriptor.Field(x => x.Input).Type<ListType<TaskParameterType>>();
+        descriptor.Field(x => x.Output).Type<ListType<TaskOutputType>>();
     }
 
     private class TaskRequesterReferenceType : UnionType
