@@ -11,6 +11,7 @@
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.15.2" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.15.2" />
     <PackageReference Include="HotChocolate.Data" Version="12.15.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.25.9" />
   </ItemGroup>
 
