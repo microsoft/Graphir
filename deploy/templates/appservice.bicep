@@ -65,8 +65,20 @@ resource graphirApi 'Microsoft.Web/sites@2021-01-15' = {
           value: useAADAuthentication ? 'true' : 'false'
         }
         {
-          name: 'ApplicationInsights:ConnectionString'
+          name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
+          value: '~2'
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
           value: appinsights.properties.ConnectionString
+        }
+        {
+          name: 'APPINSIGHTS_PROFILERFEATURE_VERSION'
+          value: '1.0.0'
+        }
+        {
+          name: 'APPINSIGHTS_SNAPSHOTFEATURE_VERSION'
+          value: '1.0.0'
         }
       ]
     }

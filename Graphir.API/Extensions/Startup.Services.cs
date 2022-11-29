@@ -1,7 +1,7 @@
-﻿using Graphir.API.DataLoaders;
+﻿using Graphir.API.AppInsights;
+using Graphir.API.DataLoaders;
 using Graphir.API.Mutations;
 using Graphir.API.Schema;
-using Graphir.API.Services;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +34,7 @@ public static class StartupServices
     {
         services.AddGraphQLServer()
             .ModifyOptions(opt => opt.StrictValidation = true)
-            .AddDiagnosticEventListener<ConsoleQueryLogger>()
+            .AddDiagnosticEventListener<ExecutionEventLogger>()
             .AddAuthorization()
             .AddDataLoaders()
             .AddQueryType<Query>()
