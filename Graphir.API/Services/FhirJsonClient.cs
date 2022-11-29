@@ -22,19 +22,21 @@ public class FhirJsonClient
 
     public async Task<string> CapabilityStatementAsync()
     {
-        var reqStr = $"{_httpClient.BaseAddress}/metadata";
-        return await _httpClient.GetStringAsync(reqStr);
+        var reqUri = new UriBuilder(_httpClient.BaseAddress!.ToString());
+        reqUri.Path = "metadata";
+        return await _httpClient.GetStringAsync(reqUri.Uri);
     }
 
     public async Task<List<T>> SearchAsync<T>(string query) where T : Resource
     {
         try
-        {            
-            var reqStr = $"{_httpClient.BaseAddress}{typeof(T).Name}";
+        {
+            var reqUri = new UriBuilder(_httpClient.BaseAddress!.ToString());
+            reqUri.Path += reqUri.Path.EndsWith('/') ? typeof(T).Name : $"/{typeof(T).Name}";
             if (!string.IsNullOrEmpty(query))
-                reqStr += $"?{query}";
+                reqUri.Query += $"{query}";
 
-            var json = await _httpClient.GetStringAsync(reqStr);
+            var json = await _httpClient.GetStringAsync(reqUri.Uri.ToString());
             var bundle = await _parser.ParseAsync<Bundle>(json);
             var result = bundle.Entry.Select(p => (T)p.Resource).ToList();
             return result;
