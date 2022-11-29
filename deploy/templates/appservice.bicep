@@ -4,7 +4,7 @@ param workspace_name string = '${uniqueString(resourceGroup().id)}-la'
 param appinsights_name string = '${uniqueString(resourceGroup().id)}-ai}'
 param location string = resourceGroup().location
 param sku string = 'F1'
-param skuName string = 'Free'
+param skuName string = 'pergb2018'
 param fhirBaseUrl string
 param useAADAuthentication bool
 @secure()
