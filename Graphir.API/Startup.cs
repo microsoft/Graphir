@@ -41,6 +41,8 @@ public class Startup
 
         services.AddAuthorization();
 
+        services.AddApplicationInsightsTelemetry();
+
         // Call extension method to configure a scoped instance of FhirService
         services.AddFhirService(() =>
         {
