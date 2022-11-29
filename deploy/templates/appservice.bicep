@@ -1,7 +1,7 @@
 param serverfarm_name string = '${uniqueString(resourceGroup().id)}-appsvc'
 param appservice_name string = '${uniqueString(resourceGroup().id)}-api'
 param workspace_name string = '${uniqueString(resourceGroup().id)}-la'
-param appinsights_name string = '${uniqueString(resourceGroup().id)}-ai}'
+param appinsights_name string = '${uniqueString(resourceGroup().id)}-ai'
 param location string = resourceGroup().location
 param sku string = 'F1'
 param skuName string = 'pergb2018'
