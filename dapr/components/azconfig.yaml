@@ -1,0 +1,7 @@
+componentType: configuration.azure.appconfig
+version: v1
+metadata:
+- name: host # host should be used when Azure Authentication mechanism is used.
+  value: https://graphir-config.azconfig.io
+scopes:
+- graphir-api  
